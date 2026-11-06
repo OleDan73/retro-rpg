@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Turnip Vale</title>
+  <meta name="description" content="A tiny retro RPG: help Turnip Vale by clearing the slimes from Whisper Woods.">
+  <meta name="theme-color" content="#140c1c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%23140c1c'/%3E%3Crect x='1' y='3' width='6' height='4' fill='%236daa2c'/%3E%3Crect x='2' y='2' width='4' height='1' fill='%236daa2c'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23140c1c'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%23140c1c'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="wrap">
+    <canvas id="game" width="240" height="160" aria-label="Turnip Vale game screen"></canvas>
+
+    <div id="controls" aria-label="Touch controls">
+      <div class="dpad">
+        <button type="button" data-btn="up" class="up" aria-label="Up">&#9650;</button>
+        <button type="button" data-btn="left" class="left" aria-label="Left">&#9664;</button>
+        <button type="button" data-btn="right" class="right" aria-label="Right">&#9654;</button>
+        <button type="button" data-btn="down" class="down" aria-label="Down">&#9660;</button>
+      </div>
+      <button type="button" data-btn="a" class="abtn" aria-label="Action">A</button>
+    </div>
+
+    <div id="bar">
+      <span class="hint">ARROWS/WASD: MOVE &middot; SPACE: TALK/OK</span>
+      <button type="button" id="mute">SOUND: ON</button>
+    </div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

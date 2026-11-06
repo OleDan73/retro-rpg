@@ -1,0 +1,103 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #140c1c;
+  color: #deeed6;
+  font-family: "Press Start 2P", monospace;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+#wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 8px;
+}
+
+#game {
+  display: block;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 4px #442434, 0 0 0 8px #140c1c, 0 0 0 10px #30346d;
+  background: #140c1c;
+}
+
+#bar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-size: 8px;
+  color: #8595a1;
+}
+
+#mute {
+  font: inherit;
+  color: #deeed6;
+  background: #30346d;
+  border: 2px solid #597dce;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+/* ---------- touch controls ---------- */
+#controls {
+  display: none;
+  width: 100%;
+  max-width: 420px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  touch-action: none;
+}
+
+#controls button {
+  font: inherit;
+  color: #deeed6;
+  background: #30346d;
+  border: 3px solid #597dce;
+  box-shadow: 0 4px 0 #140c1c;
+  touch-action: none;
+  padding: 0;
+}
+
+#controls button.pressed {
+  background: #597dce;
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #140c1c;
+}
+
+.dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  grid-template-rows: repeat(3, 56px);
+  gap: 2px;
+}
+.dpad button { font-size: 18px; }
+.dpad .up    { grid-column: 2; grid-row: 1; }
+.dpad .left  { grid-column: 1; grid-row: 2; }
+.dpad .right { grid-column: 3; grid-row: 2; }
+.dpad .down  { grid-column: 2; grid-row: 3; }
+
+.abtn {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  font-size: 22px;
+  background: #d04648 !important;
+  border-color: #deeed6 !important;
+}
+.abtn.pressed { background: #854c30 !important; }
+
+@media (hover: none) and (pointer: coarse), (max-width: 700px) {
+  #controls { display: flex; }
+  .hint { display: none; }
+}

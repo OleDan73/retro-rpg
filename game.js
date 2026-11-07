@@ -545,9 +545,16 @@
   const NPCS = [
     {
       id: 'elder', map: 'village', x: 8, y: 6, dir: 'down', home: 'down', spr: SPR.elder,
-      news: () => q.slimes.s === 0 || q.slimes.s === 2 || q.king.s === 2,
+      // (slimes done but king not started = a save made mid-conversation; offer the king quest again)
+      news: () => q.slimes.s === 0 || q.slimes.s === 2 || (q.slimes.s === 3 && q.king.s === 0) || q.king.s === 2,
       talk() {
         const N = 'ELDER MOSS';
+        const kingIntro = () => say(N, [
+          'But I fear more will come. The slimes pour out of Crystal Cave, past the east edge of the woods.',
+          'Their ruler, the GLOOP KING, sends them to raid us.',
+          'Take my old sickle. It can cut through the thorny vines that block the cave. (Got the OLD SICKLE!)',
+          'The king is strong. Grow stronger first, and visit Bram the smith for better gear.',
+        ], () => { player.sickle = true; accept('king'); });
         if (q.slimes.s === 0) {
           say(N, [
             'Ah, a traveler! Welcome to Turnip Vale. I am Elder Moss.',
@@ -564,13 +571,10 @@
           ], () => {
             player.gold += 30;
             complete('slimes');
-            say(N, [
-              'But I fear more will come. The slimes pour out of Crystal Cave, past the east edge of the woods.',
-              'Their ruler, the GLOOP KING, sends them to raid us.',
-              'Take my old sickle. It can cut through the thorny vines that block the cave. (Got the OLD SICKLE!)',
-              'The king is strong. Grow stronger first, and visit Bram the smith for better gear.',
-            ], () => { player.sickle = true; accept('king'); });
+            kingIntro();
           });
+        } else if (q.king.s === 0) {
+          kingIntro();
         } else if (q.king.s === 1) {
           say(N, ['The GLOOP KING lurks deep in Crystal Cave. Cut the vines at the east edge of the woods.', 'Be ready when he puffs up. That is when he hits hardest!']);
         } else if (q.king.s === 2) {
@@ -648,9 +652,11 @@
     },
     {
       id: 'bram', map: 'village', x: 7, y: 9, dir: 'left', home: 'left', spr: SPR.bram,
-      news: () => (q.shards.s === 0 && q.king.s >= 1) || q.shards.s === 2,
+      news: () => (q.shards.s === 0 && q.king.s >= 1) || q.shards.s === 2 || (q.shards.s === 1 && player.shards >= 2),
       talk() {
         const N = 'BRAM';
+        // A save made right after accepting can hold 2 shards with the quest still "active"; fix it up.
+        if (q.shards.s === 1 && player.shards >= 2) markReady('shards');
         const open = () => openShop();
         if (q.shards.s === 0 && q.king.s >= 1) {
           say(N, [

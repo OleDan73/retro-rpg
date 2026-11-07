@@ -17,6 +17,7 @@
   ctx.imageSmoothingEnabled = false;
 
   const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+  const pick = (arr) => arr[rand(0, arr.length - 1)];
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const until = (f) => new Promise((r) => { const c = () => (f() ? r() : setTimeout(c, 16)); c(); });
@@ -87,12 +88,22 @@
   }
   const TILE = {};
   TILE['.'] = mk(16, 16, (g) => grass(g));
-  TILE[','] = mk(16, 16, (g) => {
-    grass(g, 2);
-    [[3, 3, 15], [11, 6, 6], [5, 12, 15], [13, 13, 14]].forEach(([x, y, c]) => {
-      P(g, x, y - 1, c); P(g, x - 1, y, c); P(g, x + 1, y, c); P(g, x, y + 1, c); P(g, x, y, c === 14 ? 9 : 14);
+  // Flower tiles get a second frame where every other flower leans 1px (a gentle sway).
+  function flowerTile(seed, flowers, f) {
+    return mk(16, 16, (g) => {
+      grass(g, seed);
+      flowers.forEach(([x0, y, c], i) => {
+        const x = x0 + (f && i % 2 === 0 ? 1 : 0);
+        P(g, x, y - 1, c); P(g, x - 1, y, c); P(g, x + 1, y, c); P(g, x, y + 1, c); P(g, x, y, c === 14 ? 9 : 14);
+      });
     });
-  });
+  }
+  const FLOWERS = {
+    ',': [0, 1].map((f) => flowerTile(2, [[3, 3, 15], [11, 6, 6], [5, 12, 15], [13, 13, 14]], f)),
+    ';': [0, 1].map((f) => flowerTile(3, [[4, 4, 13], [12, 3, 12], [8, 11, 6], [3, 13, 13]], f)),
+  };
+  TILE[','] = FLOWERS[','][0];
+  TILE[';'] = FLOWERS[';'][0];
   const pathTile = mk(16, 16, (g) => {
     R(g, 0, 0, 16, 16, 12);
     for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
@@ -156,6 +167,69 @@
       R(g, 0, y, 16, 1, 9);
       for (let x = (r % 2) * 3; x < 16; x += 6) R(g, x, y + 1, 1, 2, 1);
     }
+  });
+  TILE['C'] = mk(16, 16, (g) => { // roof with a chimney
+    g.drawImage(TILE['R'], 0, 0);
+    R(g, 9, 0, 5, 10, 0);
+    R(g, 10, 2, 3, 7, 7);
+    R(g, 10, 4, 3, 1, 3); R(g, 10, 7, 3, 1, 3);
+    R(g, 10, 1, 3, 1, 3);
+  });
+  // Turnip patch: brown soil with four turnips; `bitten` takes a slimy bite out of the front-left one.
+  function turnipTile(bitten) {
+    return mk(16, 16, (g) => {
+      R(g, 0, 0, 16, 16, 4);
+      for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) if (hash(x + 61, y + 17) < 0.07) P(g, x, y, 1);
+      R(g, 0, 8, 16, 1, 1); R(g, 0, 15, 16, 1, 1);
+      [[2, 4], [10, 4], [5, 12], [12, 12]].forEach(([x, y], i) => {
+        P(g, x, y - 2, 11); P(g, x + 3, y - 2, 11); P(g, x + 1, y - 2, 5); P(g, x + 2, y - 3, 11);
+        P(g, x + 1, y - 1, 11); P(g, x + 2, y - 1, 11);
+        R(g, x, y, 4, 2, 15); R(g, x + 1, y + 2, 2, 1, 15);
+        R(g, x, y, 4, 1, 12); P(g, x + 3, y + 1, 10);
+        if (bitten && i === 2) {
+          P(g, x + 2, y, 4); P(g, x + 3, y, 4); P(g, x + 3, y + 1, 4);
+          P(g, x + 2, y + 1, 12);
+          P(g, x + 4, y + 1, 11); P(g, x + 4, y + 2, 11);
+        }
+      });
+    });
+  }
+  TILE['u'] = turnipTile(false);
+  TILE['U'] = turnipTile(true);
+  TILE['F'] = mk(16, 16, (g) => { // wooden fence
+    grass(g, 5);
+    for (const y of [5, 10]) { R(g, 0, y, 16, 1, 9); R(g, 0, y + 1, 16, 1, 4); R(g, 0, y + 2, 16, 1, 0); }
+    R(g, 6, 2, 4, 13, 0); R(g, 7, 3, 2, 11, 4); P(g, 7, 3, 9);
+    R(g, 5, 15, 6, 1, 5);
+  });
+  TILE['O'] = mk(16, 16, (g) => { // well
+    grass(g, 6);
+    R(g, 2, 1, 2, 10, 0); R(g, 12, 1, 2, 10, 0);
+    R(g, 3, 2, 1, 8, 4); R(g, 12, 2, 1, 8, 4);
+    R(g, 1, 0, 14, 3, 0); R(g, 2, 1, 12, 1, 9);
+    R(g, 8, 3, 1, 4, 12);
+    R(g, 6, 6, 5, 4, 0); R(g, 7, 7, 3, 2, 7); R(g, 7, 7, 3, 1, 10);
+    ellipse(g, 8, 12, 7, 3.6, 0);
+    ellipse(g, 8, 12, 6, 2.7, 10);
+    ellipse(g, 8, 11.4, 3.6, 1.3, 2);
+    [[3, 13], [6, 14], [10, 14], [13, 12], [4, 11]].forEach(([x, y]) => P(g, x, y, 3));
+  });
+  TILE['b'] = mk(16, 16, (g) => { // barrel
+    grass(g, 7);
+    R(g, 4, 15, 8, 1, 5);
+    ellipse(g, 8, 9, 5, 6.5, 0);
+    ellipse(g, 8, 9, 4, 5.5, 4);
+    R(g, 4, 5, 8, 1, 3); R(g, 4, 12, 8, 1, 3);
+    R(g, 6, 4, 1, 10, 9);
+    R(g, 5, 2, 6, 2, 0); R(g, 6, 3, 4, 1, 1);
+  });
+  TILE['x'] = mk(16, 16, (g) => { // crate
+    grass(g, 8);
+    R(g, 2, 15, 12, 1, 5);
+    R(g, 2, 4, 12, 11, 0);
+    R(g, 3, 5, 10, 9, 4);
+    R(g, 4, 6, 8, 7, 9);
+    for (let i = 0; i < 8; i++) P(g, 4 + i, 6 + Math.floor(i * 7 / 8), 4);
   });
   function houseWall(g) {
     R(g, 0, 0, 16, 16, 12);
@@ -229,7 +303,7 @@
     spike(2, 8, 3); spike(10, 6, 3); spike(6, 2, 3);
     R(g, 1, 15, 14, 1, 0);
   });
-  const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k']);
+  const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x']);
 
   // ---------------------------------------------------------------- characters
   function personSprite(o, dir, frame) {
@@ -386,23 +460,28 @@
       name: 'TURNIP VALE',
       rows: [
         '####################',
-        '#.T....,......T...T#',
-        '#..RRRR.....RRRR...#',
-        '#..HHDH.....HDHH...#',
-        '#....=.......=..~~.#',
+        '#.T....,FFF;..T...T#',
+        '#..RCRR.uuu.RRCR...#',
+        '#..HHDH.uUu.HDHH...#',
+        '#..;.=.......=..~~.#',
         '#....=========..~~.#',
-        '#.,.......=.....~~.#',
+        '#.,.......=.O...~~.#',
         '#.........=========E',
-        '#..RRRR...=....,..S#',
-        '#..HHDH...=..T.....#',
-        '#....======........#',
+        '#..RCRR.bx=...,FFFS#',
+        '#..HHDH...=..T.uuu.#',
+        '#....======....uuu.#',
         '#.T.......,..~~~...#',
-        '#...,.....T..~~~.T.#',
-        '#..T..,............#',
+        '#;..,.....T..~~~.T.#',
+        '#..T..,..;.........#',
         '####################',
       ],
       exits: { '19,7': { map: 'forest', x: 1, y: 7, dir: 'right' } },
-      signs: { '18,8': ['EAST: WHISPER WOODS.', 'Beware of slimes!'] },
+      signs: {
+        '18,8': ['EAST: WHISPER WOODS.', 'Beware of slimes!'],
+        '12,6': ['The village well. The water is cool and clear.', 'Somewhere far below, something goes *plip*.'],
+        '9,3': ['A turnip with a big bite taken out of it.', 'The bite marks are... wobbly. Slimes!'],
+      },
+      forge: '4,8', // this chimney gets darker smoke and the odd spark
       encounter: null,
     },
     forest: {
@@ -586,7 +665,11 @@
             fadeOut(() => { mode = 'victory'; victory = { t: 0 }; SFX.victory(); }, 40);
           });
         } else {
-          say(N, ['Thanks to you, the turnips grow in peace. Rest well, MICHAEL.']);
+          say(N, [pick([
+            'Thanks to you, the turnips grow in peace. Rest well, MICHAEL.',
+            'The stew was delicious. I may have had three bowls.',
+            "Pip has started calling you 'the slime hero'. I rather like it.",
+          ])]);
         }
       },
     },
@@ -617,7 +700,13 @@
             complete('glowcap');
           });
         } else {
-          say(N, [heal]);
+          say(N, [heal, pick(q.king.s === 3 ? [
+            'With the slimes gone, I can finally plant my herb garden.',
+            'Elder Moss ate three bowls of stew. I have a tummy tonic ready.',
+          ] : [
+            'Mind the cave bats. Their bites sting for days.',
+            'Pip keeps asking for a slime-proof bandage. I am working on it.',
+          ])]);
         }
       },
     },
@@ -642,11 +731,12 @@
             complete('biscuit');
           });
         } else {
-          say(N, [[
+          say(N, [pick([
             'Biscuit says thank you. Well, she said MEOW.',
             'Slimes are mostly jelly. If you poke one it goes SPLOOSH!',
             'When I grow up I want to fight slimes, just like you!',
-          ][rand(0, 2)]]);
+            ...(q.king.s === 3 ? ["You beat the DADDA BOSS?! I'm telling EVERYONE!"] : []),
+          ])]);
         }
       },
     },
@@ -677,7 +767,12 @@
             complete('shards');
           });
         } else {
-          say(N, [flags.metBram ? 'Back again? Take a look.' : 'I am Bram, the smith. Need gear? Take a look.'], () => { flags.metBram = true; open(); });
+          const chat = flags.metBram ? pick([
+            'Back again? Take a look.',
+            'Mind the barrels. That one is full of nails.',
+            ...(player.weapon === 'crystal' ? ['How is that crystal sword treating you? Keep it dry.'] : []),
+          ]) : 'I am Bram, the smith. Need gear? Take a look.';
+          say(N, [chat], () => { flags.metBram = true; open(); });
         }
       },
     },
@@ -699,7 +794,10 @@
     {
       id: 'cat2', map: 'village', x: 6, y: 11, dir: 'down', home: 'down', spr: SPR.cat,
       visible: () => q.biscuit.s >= 2,
-      talk() { SFX.meow(); say('', ['Biscuit purrs happily.']); },
+      talk() {
+        SFX.meow();
+        say('', [pick(['Biscuit purrs happily.', 'Biscuit is watching a butterfly very closely.', 'Biscuit rubs against your leg. Her bell jingles.'])]);
+      },
     },
     {
       id: 'king', map: 'cave', x: 10, y: 2, dir: 'down', home: 'down', spr: SPR.king, anim: true,
@@ -1079,9 +1177,87 @@
       }
     }
   }
+  // ---------------------------------------------------------------- living village (visual only, never saved)
+  const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram']);
+  const faceToward = (dx, dy) => (Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
+  // Villagers glance around now and then; they face Michael when he is right next to them,
+  // and a villager with a "!" notices him from two tiles away.
+  function updateLookAround() {
+    for (const n of NPCS) {
+      if (n.map !== player.map || !LOOKERS.has(n.id)) continue;
+      const dx = player.x - n.x, dy = player.y - n.y, dist = Math.abs(dx) + Math.abs(dy);
+      if (dist === 1 || (dist === 2 && n.news && n.news())) {
+        n.dir = faceToward(dx, dy); n.noticing = true; n.glance = 0;
+        continue;
+      }
+      if (n.noticing) { n.noticing = false; n.dir = n.home; n.idle = rand(120, 240); }
+      if (n.idle == null) n.idle = rand(240, 480);
+      if (n.glance > 0) {
+        if (--n.glance === 0) n.dir = n.home;
+      } else if (--n.idle <= 0) {
+        n.dir = pick(['down', 'left', 'right'].filter((d) => d !== n.home));
+        n.glance = rand(60, 90);
+        n.idle = rand(240, 480);
+      }
+    }
+  }
+  const amb = { ripple: null, nextRipple: 300 };
+  function updateAmbient() {
+    if (player.map !== 'village') { amb.ripple = null; return; }
+    if (amb.ripple && ++amb.ripple.t >= 36) amb.ripple = null;
+    if (--amb.nextRipple <= 0) {
+      amb.nextRipple = rand(240, 420);
+      const m = MAPS.village, ponds = [];
+      for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (m.rows[y][x] === '~') ponds.push([x, y]);
+      const [tx, ty] = pick(ponds);
+      amb.ripple = { x: tx * TS + rand(4, 11), y: ty * TS + rand(4, 11), t: 0 };
+    }
+  }
+  function drawRipple(camX, camY) {
+    const rp = amb.ripple;
+    if (!rp) return;
+    const r = 1 + Math.floor(rp.t / 12), x = rp.x - camX, y = rp.y - camY;
+    ctx.globalAlpha = 0.8 * (1 - rp.t / 36);
+    P(ctx, x - r, y, 13); P(ctx, x + r, y, 13);
+    R(ctx, x - r + 1, y - 1, 2 * r - 1, 1, 13); R(ctx, x - r + 1, y + 1, 2 * r - 1, 1, 13);
+    ctx.globalAlpha = 1;
+  }
+  function drawSmokeAndButterflies(m, camX, camY) {
+    let i = 0;
+    for (let ty = 0; ty < m.h; ty++) for (let tx = 0; tx < m.w; tx++) {
+      if (m.rows[ty][tx] !== 'C') continue;
+      const forge = m.forge === `${tx},${ty}`;
+      const cx = tx * TS + 11 - camX, top = ty * TS - camY;
+      for (let k = 0; k < 2; k++) {
+        const age = (tick + i * 37 + k * 75) % 150;
+        const x = Math.round(cx + Math.sin(age / 20 + i) * 1.5 + age / 40), y = Math.round(top - age / 10);
+        const s = age < 75 ? 2 : 1;
+        ctx.globalAlpha = 0.5 * (1 - age / 150);
+        R(ctx, x, y, s, s, forge ? 3 : 10);
+      }
+      ctx.globalAlpha = 1;
+      if (forge) {
+        const p = (tick + 90) % 260;
+        if (p < 24) P(ctx, Math.round(cx + 1 + p / 8), Math.round(top - 1 - p / 3), p < 12 ? 14 : 9);
+      }
+      i++;
+    }
+    [[152, 36, 15, 0], [72, 196, 14, 2.1]].forEach(([ax, ay, c, ph]) => {
+      const t = tick;
+      const x = Math.round(ax + Math.sin(t * 0.013 + ph) * 14 + Math.sin(t * 0.031 + ph) * 4) - camX;
+      const y = Math.round(ay + Math.sin(t * 0.021 + ph) * 6 + Math.cos(t * 0.047 + ph) * 2) - camY;
+      if (Math.floor(t / 8) % 2) { R(ctx, x - 1, y - 1, 1, 2, c); R(ctx, x + 1, y - 1, 1, 2, c); }
+      else R(ctx, x, y - 2, 1, 2, c);
+      P(ctx, x, y, 0);
+    });
+  }
+  const flowerFrame = (tx, ty) => (Math.floor((tick + Math.floor(hash(tx, ty) * 120)) / 40) % 3 === 0 ? 1 : 0);
+
   function updateWorld() {
     if (banner && --banner.t <= 0) banner = null;
     if (savedT > 0) savedT--;
+    updateAmbient();
+    updateLookAround();
     if (player.moving) {
       player.t += 1 / STEP_FRAMES;
       if (player.t >= 1) {
@@ -1116,7 +1292,7 @@
     for (let ty = Math.floor(camY / TS); ty <= Math.floor((camY + H) / TS); ty++) {
       for (let tx = Math.floor(camX / TS); tx <= Math.floor((camX + W) / TS); tx++) {
         const ch = tileAt(m, tx, ty);
-        const img = ch === '~' ? water[(wf + tx + ty) % 2] : TILE[ch] || TILE['.'];
+        const img = ch === '~' ? water[(wf + tx + ty) % 2] : FLOWERS[ch] ? FLOWERS[ch][flowerFrame(tx, ty)] : TILE[ch] || TILE['.'];
         ctx.drawImage(img, tx * TS - camX, ty * TS - camY);
       }
     }
@@ -1125,6 +1301,8 @@
       const bob = Math.floor(tick / 20) % 2;
       ctx.drawImage(SHARD_SPR[Math.floor(tick / 15) % 2], it.x * TS - camX, it.y * TS - camY - bob);
     }
+    const village = player.map === 'village';
+    if (village) drawRipple(camX, camY);
     const npcs = NPCS.filter((n) => n.map === player.map && npcVisible(n));
     const ents = npcs.map((n) => {
       const f = n.anim ? Math.floor(tick / 20) % 2 : (Math.floor((tick + n.x * 13) / 40) % 6 === 0 ? 1 : 0);
@@ -1134,6 +1312,7 @@
     ents.push({ x: px, y: py, img: SPR.hero[player.dir + frame] });
     ents.sort((a, b) => a.y - b.y);
     for (const e of ents) ctx.drawImage(e.img, Math.round(e.x - camX), Math.round(e.y - camY - 1));
+    if (village) drawSmokeAndButterflies(m, camX, camY);
     for (const e of ents) if (e.news) bubble(Math.round(e.x - camX) + 5, Math.round(e.y - camY) - 11 - (Math.floor(tick / 15) % 2));
     if (player.map === 'cave') { // dim the edges of the cave
       ctx.globalAlpha = 0.35;

@@ -1,5 +1,5 @@
 'use strict';
-/* Turnip Vale — a tiny retro RPG. Plain JS + canvas, all art drawn in code. */
+/* Michael's Quest — a tiny retro RPG. Plain JS + canvas, all art drawn in code. */
 (() => {
   // ---------------------------------------------------------------- setup
   const W = 240, H = 160, TS = 16;
@@ -375,7 +375,7 @@
     shroom: { name: 'SHROOMLET', hp: 16, atk: 5, def: 1, xp: 7, gold: [4, 6], intro: 'pops up!' },
     bat: { name: 'CAVE BAT', hp: 26, atk: 11, def: 2, xp: 12, gold: [6, 9], intro: 'swoops down!', cave: true },
     gloop: { name: 'GLOOP', hp: 36, atk: 13, def: 3, xp: 15, gold: [8, 11], intro: 'bubbles up!', cave: true },
-    king: { name: 'GLOOP KING', hp: 140, atk: 15, def: 5, xp: 80, gold: [100, 100], intro: 'blocks your way!', boss: true },
+    king: { name: 'DADDA BOSS', hp: 140, atk: 15, def: 5, xp: 80, gold: [100, 100], intro: 'blocks your way!', boss: true },
   };
   const WEAPONS = { none: { name: 'STICK', atk: 0 }, iron: { name: 'IRON SWORD', atk: 3 }, crystal: { name: 'CRYSTAL SWD', atk: 7 } };
   const ARMORS = { none: { name: 'TUNIC', def: 0 }, vest: { name: 'TOUGH VEST', def: 2 } };
@@ -428,7 +428,7 @@
         '0,7': { map: 'village', x: 18, y: 7, dir: 'left' },
         '19,3': { map: 'cave', x: 1, y: 7, dir: 'right' },
       },
-      signs: { '2,6': ['WEST: TURNIP VALE.'], '18,1': ['EAST: CRYSTAL CAVE.', 'Keep out! By order of the GLOOP KING.'] },
+      signs: { '2,6': ['WEST: TURNIP VALE.'], '18,1': ['EAST: CRYSTAL CAVE.', 'Keep out! By order of the DADDA BOSS.'] },
       encounter: { tile: 'g', table: [['slime', 0.6], ['shroom', 0.4]] },
     },
     cave: {
@@ -471,7 +471,7 @@
     slimes: { title: 'SLIME TROUBLE', turnIn: 'ELDER' },
     biscuit: { title: 'LOST BISCUIT', turnIn: 'PIP' },
     glowcap: { title: 'GLOWCAP BREW', turnIn: 'WREN' },
-    king: { title: 'THE GLOOP KING', turnIn: 'ELDER' },
+    king: { title: 'THE DADDA BOSS', turnIn: 'ELDER' },
     shards: { title: 'CRYSTAL EDGE', turnIn: 'BRAM' },
   };
   const QUEST_ORDER = ['slimes', 'biscuit', 'glowcap', 'king', 'shards'];
@@ -527,7 +527,7 @@
     return {
       text: {
         slimes: `SLIMES ${q.slimes.n}/3`, biscuit: 'FIND BISCUIT', glowcap: `GLOWCAPS ${player.glowcaps}/3`,
-        king: 'GLOOP KING', shards: `SHARDS ${player.shards}/2`,
+        king: 'DADDA BOSS', shards: `SHARDS ${player.shards}/2`,
       }[tracked],
     };
   }
@@ -551,9 +551,9 @@
         const N = 'ELDER MOSS';
         const kingIntro = () => say(N, [
           'But I fear more will come. The slimes pour out of Crystal Cave, past the east edge of the woods.',
-          'Their ruler, the GLOOP KING, sends them to raid us.',
+          'Their ruler, the DADDA BOSS, sends them to raid us.',
           'Take my old sickle. It can cut through the thorny vines that block the cave. (Got the OLD SICKLE!)',
-          'The king is strong. Grow stronger first, and visit Bram the smith for better gear.',
+          'The Dadda Boss is strong. Grow stronger first, and visit Bram the smith for better gear.',
         ], () => { player.sickle = true; accept('king'); });
         if (q.slimes.s === 0) {
           say(N, [
@@ -576,17 +576,17 @@
         } else if (q.king.s === 0) {
           kingIntro();
         } else if (q.king.s === 1) {
-          say(N, ['The GLOOP KING lurks deep in Crystal Cave. Cut the vines at the east edge of the woods.', 'Be ready when he puffs up. That is when he hits hardest!']);
+          say(N, ['The DADDA BOSS lurks deep in Crystal Cave. Cut the vines at the east edge of the woods.', 'Be ready when she puffs up. That is when she hits hardest!']);
         } else if (q.king.s === 2) {
           say(N, [
-            'You defeated the GLOOP KING?! The slimes will trouble us no more!',
+            'You defeated the DADDA BOSS?! The slimes will trouble us no more!',
             'Tonight we feast on turnip stew in your honor!',
           ], () => {
             complete('king');
             fadeOut(() => { mode = 'victory'; victory = { t: 0 }; SFX.victory(); }, 40);
           });
         } else {
-          say(N, ['Thanks to you, the turnips grow in peace. Rest well, hero.']);
+          say(N, ['Thanks to you, the turnips grow in peace. Rest well, MICHAEL.']);
         }
       },
     },
@@ -705,9 +705,9 @@
       id: 'king', map: 'cave', x: 10, y: 2, dir: 'down', home: 'down', spr: SPR.king, anim: true,
       visible: () => q.king.s <= 1,
       talk() {
-        say('GLOOP KING', [
+        say('DADDA BOSS', [
           'BLORP! Who dares enter my glittering hall?!',
-          'Those turnips are MINE, tiny hero! Prepare to be absorbed!',
+          'Those turnips are MINE, little MICHAEL! Prepare to be absorbed!',
         ], () => { encounter = { t: 0, type: 'king' }; SFX.encounter(); });
       },
     },
@@ -1009,7 +1009,7 @@
   function drawMenu() {
     R(ctx, 0, 0, W, H, 0);
     box(2, 2, 92, 156);
-    text('HERO', 10, 9, 14);
+    text('MICHAEL', 10, 9, 14);
     const lines = [
       [`LV ${player.lvl}`, 15], [`HP ${player.hp}/${player.maxhp}`, 15], [`ATK ${atk()}`, 15], [`DEF ${def()}`, 15],
       [`XP ${player.xp}/${player.next}`, 13], [`GOLD ${player.gold}`, 14], [`HERB ${player.herbs}/${player.maxHerbs}`, 11],
@@ -1232,7 +1232,7 @@
       await msg(`You eat an herb. +${amt} HP`, 600);
     } else {
       if (battle.boss) {
-        await msg("There's no escape from the king!", 500);
+        await msg("There's no escape from the Dadda Boss!", 500);
       } else if (Math.random() < 0.7) {
         SFX.run();
         await msg('You got away safely!', 500);
@@ -1262,13 +1262,13 @@
       } else if (b.turn % 3 === 0) {
         b.charged = true;
         SFX.charge();
-        await msg('The GLOOP KING puffs up huge! Brace yourself!', 900);
+        await msg('The DADDA BOSS puffs up huge! Brace yourself!', 900);
         return toMenu();
       } else {
         await msg(`${b.name} attacks!`, 100);
         await enemyHit(1);
       }
-      if (!b.wobbled && b.hp < b.max * 0.3) { b.wobbled = true; await msg('The GLOOP KING is wobbling!', 600); }
+      if (!b.wobbled && b.hp < b.max * 0.3) { b.wobbled = true; await msg('The DADDA BOSS is wobbling!', 600); }
     } else {
       await msg(`${b.name} attacks!`, 100);
       await enemyHit(1);
@@ -1283,7 +1283,7 @@
     await wait(700);
     b.gone = true;
     stats.won++;
-    await msg(b.boss ? 'The GLOOP KING melts into a puddle!' : `${b.name} is defeated!`, 600);
+    await msg(b.boss ? 'The DADDA BOSS melts into a puddle!' : `${b.name} is defeated!`, 600);
     player.xp += b.xp;
     player.gold += b.gold;
     SFX.coin();
@@ -1396,7 +1396,7 @@
     text(b.name, 10, 9, b.boss ? 14 : 15);
     bar(10, 21, 92, b.shownHp, b.max);
     box(132, 64, 104, 36);
-    text('HERO', 138, 69, 14);
+    text('MICHAEL', 138, 69, 14);
     text(`LV${player.lvl}`, 202, 69, 15);
     text(`HP${player.hp}/${player.maxhp}`, 138, 79);
     bar(138, 91, 92, b.playerShownHp, player.maxhp);
@@ -1428,11 +1428,12 @@
     for (let x = 0; x < W; x += 16) ctx.drawImage(TILE['T'], x, 120);
     for (let x = 0; x < W; x += 16) ctx.drawImage(TILE['.'], x, 136);
     for (let x = 0; x < W; x += 16) ctx.drawImage(TILE['.'], x, 152);
-    centered('TURNIP', 20, 14, BIG);
-    centered('VALE', 40, 11, BIG);
+    centered("MICHAEL'S", 20, 14, BIG);
+    centered('QUEST', 40, 11, BIG);
     centered('~ a tiny slime quest ~', 62, 10);
     const bob = Math.floor(tick / 15) % 2;
     ctx.drawImage(SPR.hero['right' + bob], 88, 112, 16, 16);
+    centered('For Michael', 144, 12);
     ctx.drawImage(ENEMY_SPR.slime[bob], 130, 112, 16, 16);
     if (title.hasSave) {
       ['CONTINUE', 'NEW GAME'].forEach((s, i) => {
@@ -1451,7 +1452,7 @@
       R(ctx, x, y, 2, 2, [14, 6, 13, 11, 9][i % 5]);
     }
     centered('VICTORY!', 12, 14, BIG);
-    centered('The Gloop King is no more.', 32, 13);
+    centered('The Dadda Boss is no more.', 32, 13);
     const bob = Math.floor(t / 12) % 2 ? -2 : 0;
     ctx.drawImage(SPR.hero.down0, 72, 44 + bob, 32, 32);
     ctx.drawImage(SPR.elder.down0, 104, 44, 32, 32);

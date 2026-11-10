@@ -3,7 +3,7 @@
  * Strategy: precache the app shell on install; then network-first for same-origin
  * requests (so a new deploy shows up as soon as you're online), falling back to the
  * cache when offline. Bump VERSION when the list of files changes. */
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = `turnip-vale-${VERSION}`;
 const SHELL = [
   './',

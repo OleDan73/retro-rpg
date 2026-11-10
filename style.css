@@ -138,3 +138,82 @@ html, body {
     padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
   }
 }
+
+/* Touch phones in landscape: D-pad | game | A/B side by side.
+   #controls and #bar use display: contents so their children become grid cells of #wrap.
+   That also gives them offsetHeight 0, so game.js no longer reserves height for controls
+   stacked below the canvas, and its touch prompts still apply (display is not "none").
+   The canvas is sized here from the width and height left after the safe areas and the
+   two control columns; this overrides the inline size game.js sets. */
+@media (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 540px) {
+  #wrap {
+    --safe-l: max(8px, env(safe-area-inset-left));
+    --safe-r: max(8px, env(safe-area-inset-right));
+    --safe-t: max(6px, env(safe-area-inset-top));
+    --safe-b: max(6px, env(safe-area-inset-bottom));
+    --k: clamp(34px, 11vh, 48px);              /* D-pad key size */
+    --side: calc(3 * var(--k) + 4px);          /* width of each control column */
+    --gap: 12px;
+    --frame: 24px;                             /* canvas border drawn with box-shadow */
+    display: grid;
+    grid-template-columns: minmax(var(--side), 1fr) auto minmax(var(--side), 1fr);
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: center;
+    gap: 0 var(--gap);
+    padding: var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l);
+  }
+  #controls, #bar { display: contents; }
+
+  #game {
+    grid-column: 2;
+    grid-row: 1;
+    aspect-ratio: 3 / 2;
+    height: auto !important;
+    width: min(
+      100vw - var(--safe-l) - var(--safe-r) - 2 * var(--side) - 2 * var(--gap) - var(--frame),
+      (100vh - var(--safe-t) - var(--safe-b) - var(--frame)) * 1.5
+    ) !important;
+  }
+  @supports (height: 100dvh) {
+    #game {
+      width: min(
+        100vw - var(--safe-l) - var(--safe-r) - 2 * var(--side) - 2 * var(--gap) - var(--frame),
+        (100dvh - var(--safe-t) - var(--safe-b) - var(--frame)) * 1.5
+      ) !important;
+    }
+  }
+
+  .dpad {
+    grid-column: 1;
+    grid-row: 1;
+    grid-template-columns: repeat(3, var(--k));
+    grid-template-rows: repeat(3, var(--k));
+  }
+  .dpad button { font-size: 14px; }
+
+  .ab {
+    grid-column: 3;
+    grid-row: 1;
+    gap: 8px;
+  }
+  .bbtn {
+    width: calc(var(--k) * 1.15);
+    height: calc(var(--k) * 1.15);
+    margin-top: calc(var(--k) * 0.8);
+    font-size: 13px;
+  }
+  .abtn {
+    width: calc(var(--k) * 1.45);
+    height: calc(var(--k) * 1.45);
+    font-size: 18px;
+  }
+
+  /* sound button tucked under the A/B buttons */
+  #mute {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: end;
+    padding: 5px 6px;
+  }
+}

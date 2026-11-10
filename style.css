@@ -1,3 +1,12 @@
+/* Press Start 2P (SIL Open Font License, see fonts/OFL.txt), hosted locally so it works offline */
+@font-face {
+  font-family: "Press Start 2P";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/press-start-2p-latin.woff2") format("woff2");
+}
+
 * { box-sizing: border-box; }
 
 html, body {
@@ -21,6 +30,8 @@ html, body {
   justify-content: center;
   gap: 14px;
   padding: 8px;
+  /* keep clear of notches and home bars when running as an installed app */
+  padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
 }
 
 #game {
@@ -31,6 +42,8 @@ html, body {
   background: #140c1c;
 }
 
+#install[hidden] { display: none; }
+
 #bar {
   display: flex;
   gap: 16px;
@@ -39,7 +52,7 @@ html, body {
   color: #8595a1;
 }
 
-#mute {
+#mute, #install {
   font: inherit;
   color: #deeed6;
   background: #30346d;

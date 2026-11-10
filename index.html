@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Michael's Quest</title>
   <meta name="description" content="A tiny retro RPG: help Michael clear the slimes from Whisper Woods.">
   <meta name="theme-color" content="#140c1c">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%23140c1c'/%3E%3Crect x='1' y='3' width='6' height='4' fill='%236daa2c'/%3E%3Crect x='2' y='2' width='4' height='1' fill='%236daa2c'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23140c1c'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%23140c1c'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Michael's Quest">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preload" href="fonts/press-start-2p-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,9 +35,11 @@
 
     <div id="bar">
       <span class="hint">ARROWS/WASD: MOVE &middot; SPACE: TALK/OK &middot; X: MENU</span>
+      <button type="button" id="install" hidden>INSTALL</button>
       <button type="button" id="mute">SOUND: ON</button>
     </div>
   </main>
   <script src="game.js"></script>
+  <script src="pwa.js"></script>
 </body>
 </html>

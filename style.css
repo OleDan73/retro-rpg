@@ -30,8 +30,6 @@ html, body {
   justify-content: center;
   gap: 14px;
   padding: 8px;
-  /* keep clear of notches and home bars when running as an installed app */
-  padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
 }
 
 #game {
@@ -46,7 +44,11 @@ html, body {
 
 #bar {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+  max-width: 100%;
+  text-align: center;
   align-items: center;
   font-size: 8px;
   color: #8595a1;
@@ -124,7 +126,15 @@ html, body {
 }
 .abtn.pressed { background: #854c30 !important; }
 
-@media (hover: none) and (pointer: coarse), (max-width: 700px) {
+/* Touch layout: phones/tablets (primary pointer is touch), or small screens that have touch.
+   Mouse/keyboard devices keep the desktop layout at any window size, so a narrow browser
+   window or the installed desktop PWA window never switches to the on-screen controls.
+   (game.js reads #controls' display to pick touch or keyboard prompts.) */
+@media (hover: none) and (pointer: coarse), (max-width: 700px) and (any-pointer: coarse) {
   #controls { display: flex; }
   .hint { display: none; }
+  /* keep clear of notches and home bars */
+  #wrap {
+    padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+  }
 }

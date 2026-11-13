@@ -28,7 +28,7 @@ Slimes keep raiding Turnip Vale's turnip fields. Help Michael aid the villagers,
 - 16×16 tiles, a 16-colour palette, crisp integer scaling and the Press Start 2P font
 - All sprites are drawn in code, so there are no image files
 - Three maps (village, forest and cave) with collision, signs and cuttable vines
-- Four playable heroes (Michael, Mohammed, Celine and Sandra), chosen when you start a new game; they all play the same
+- Four playable heroes (Michael, Mohammed, Celine and Alexandra), chosen when you start a new game; they all play the same
 - Tile-by-tile movement with a 2-frame walk cycle
 - Five villagers plus a lost cat, typewriter dialogue, and "!" markers on NPCs who have something for you
 - Random encounters with four enemy types, plus a boss with a charge-up attack

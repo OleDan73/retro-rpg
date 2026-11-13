@@ -89,7 +89,7 @@ const FIX = {
 };
 
 // ------------------------------------------------------------------ heroes
-const HEROES = [['michael', 'MICHAEL'], ['mohammed', 'MOHAMMED'], ['celine', 'CELINE'], ['sandra', 'SANDRA']];
+const HEROES = [['michael', 'MICHAEL'], ['mohammed', 'MOHAMMED'], ['celine', 'CELINE'], ['alexandra', 'ALEXANDRA']];
 const withHero = (fix, id) => ({ ...fix, player: { ...fix.player, hero: id } });
 
 // The boss fight, played the same way whoever the hero is.
@@ -182,9 +182,9 @@ const heroSelectScenarios = [
       T.shot('1-michael');
       await T.tap('ArrowRight', 6); T.shot('2-mohammed');
       await T.tap('ArrowRight', 6); T.shot('3-celine');
-      await T.tap('ArrowRight', 6); T.shot('4-sandra');
+      await T.tap('ArrowRight', 6); T.shot('4-alexandra');
       await T.tap('ArrowRight', 6); T.shot('wraps-to-michael');
-      await T.tap('ArrowLeft', 6); T.shot('wraps-to-sandra');
+      await T.tap('ArrowLeft', 6); T.shot('wraps-to-alexandra');
       await T.tap('KeyX', 6);
       T.check('B goes back to the title', g.mode === 'title', g.mode);
       T.check('still nothing saved', localStorage.getItem('turnip-vale-save-v1') === null);
@@ -247,6 +247,43 @@ const encounterScenarios = [
     name: 'encounters-cave', run: manyBattles(16),
     save: save({ at: ['cave', 10, 5, 'down'], lvl: 3, player: tough, q: { slimes: { s: 3, n: 3 }, king: { s: 1 } }, flags: { vines: true } }),
   },
+];
+
+// Sandra was replaced by Alexandra shortly after release. A save made as Sandra must carry on as
+// Alexandra with every other field intact, and be written back as Alexandra from then on.
+const sandraScenarios = [
+  {
+    name: 'hero-sandra-migrates', save: withHero(FIX.report, 'sandra'),
+    run: [
+      async (T, g) => {
+        const before = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        await T.continueGame();
+        T.check('a Sandra save loads as Alexandra', g.player.hero === 'alexandra', g.player.hero);
+        const strip = (p) => JSON.stringify(Object.keys(p).filter((k) => k !== 'hero').sort().map((k) => [k, p[k]]));
+        T.check('every other player field is exactly as saved', strip(g.player) === strip(before.player));
+        T.check('quests, flags and stats are exactly as saved', JSON.stringify([g.q, g.flags, g.stats]) === JSON.stringify([before.q, before.flags, before.stats]));
+        await T.menuShot('status');
+        T.shot('village');
+        await T.talk('elder');
+        await T.until(() => g.mode === 'victory', 'victory screen');
+        await T.frames(120);
+        T.shot('victory');
+        await T.tap('Space');
+        await T.until(() => g.mode === 'world', 'world after victory');
+        await T.frames(40);
+        T.check('the next save is written as alexandra', T.savedPlayer().hero === 'alexandra', T.savedPlayer().hero);
+        T.state('after-victory');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('still Alexandra after reopening', g.player.hero === 'alexandra' && T.savedPlayer().hero === 'alexandra');
+        T.check('progress kept after reopening', g.q.king.s === 3 && g.player.lvl === 8 && g.player.gold === 180);
+        T.shot('reopened');
+      },
+    ],
+    sameAs: { 'after-victory': 'victory__after-victory' },
+  },
+  { name: 'hero-sandra-boss', save: withHero(FIX.boss, 'sandra'), run: bossFight, sameAs: { 'battle-start': 'boss-win__battle-start', won: 'boss-win__won' } },
 ];
 
 // Saves whose hero value is unusable must fall back to Michael, keep everything else, and still play.
@@ -459,6 +496,7 @@ export const SCENARIOS = [
     },
   },
   ...badHeroScenarios,
+  ...sandraScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,
   ...heroScenarios,

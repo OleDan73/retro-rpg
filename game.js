@@ -4,12 +4,12 @@
   // ---------------------------------------------------------------- setup
   const W = 240, H = 160, TS = 16;
   // 16-colour palette, plus two pinks (16, 17) used for the Dadda Boss and Celine's bow,
-  // and four hero-only colours: near-black hair (18), light brown skin (19), light blonde (20), very light blonde (21)
+  // and three hero-only colours: near-black hair (18), light brown skin (19), light blonde (20)
   const PAL = [
     '#140c1c', '#442434', '#30346d', '#4e4a4e', '#854c30', '#346524', '#d04648', '#757161',
     '#597dce', '#d27d2c', '#8595a1', '#6daa2c', '#d2aa99', '#6dc2ca', '#dad45e', '#deeed6',
     '#f078b4', '#a03870',
-    '#2b2531', '#bf8a5e', '#ead583', '#f5efc6',
+    '#2b2531', '#bf8a5e', '#ead583',
   ];
   const FONT = '8px "Press Start 2P", monospace';
   const BIG = '16px "Press Start 2P", monospace';
@@ -441,9 +441,11 @@
     michael: { name: 'MICHAEL', spr: buildChar({ hair: 18, shirt: 8, shirt2: 2, pants: 2 }) },
     mohammed: { name: 'MOHAMMED', spr: buildChar({ hair: 1, skin: 19, shirt: 6, shirt2: 1, pants: 3 }) },
     celine: { name: 'CELINE', spr: buildChar({ hair: 20, shirt: 13, shirt2: 8, skirt: 13, hem: 8, longHair: true, bow: 16, bowKnot: 17 }) },
-    sandra: { name: 'SANDRA', spr: buildChar({ hair: 21, shirt: 14, shirt2: 9, skirt: 9, hem: 4, ponytail: 6, slim: true }) },
+    alexandra: { name: 'ALEXANDRA', spr: buildChar({ hair: 18, shirt: 14, shirt2: 9, skirt: 9, hem: 4, ponytail: 6, slim: true }) },
   };
-  const HERO_ORDER = ['michael', 'mohammed', 'celine', 'sandra']; // order on the hero-selection screen
+  const HERO_ORDER = ['michael', 'mohammed', 'celine', 'alexandra']; // order on the hero-selection screen
+  // Heroes that have been replaced: a save made with the old id carries on as the new hero.
+  const HERO_RENAMED = { sandra: 'alexandra' };
   const DEFAULT_HERO = 'michael';
   const isHero = (id) => typeof id === 'string' && Object.prototype.hasOwnProperty.call(HEROES, id);
   // The hero being played. Anything unknown (such as a save from before heroes existed) counts as Michael.
@@ -902,6 +904,7 @@
     const d = readSave();
     if (!d) return false;
     Object.assign(player, newPlayer(), d.player);
+    if (Object.prototype.hasOwnProperty.call(HERO_RENAMED, player.hero)) player.hero = HERO_RENAMED[player.hero];
     if (!isHero(player.hero)) player.hero = DEFAULT_HERO;
     q = Object.assign(newQuests(), d.q);
     flags = d.flags || {};

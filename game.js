@@ -3,7 +3,7 @@
 (() => {
   // ---------------------------------------------------------------- setup
   const W = 240, H = 160, TS = 16;
-  // 16-colour palette, plus two pinks (16, 17) used for the Dadda Boss and Celine's bow,
+  // 16-colour palette, plus two pinks (16, 17) used for the Dadda Boss, Celine's bow and Alexandra's top,
   // and three hero-only colours: near-black hair (18), light brown skin (19), light blonde (20)
   const PAL = [
     '#140c1c', '#442434', '#30346d', '#4e4a4e', '#854c30', '#346524', '#d04648', '#757161',
@@ -441,7 +441,7 @@
     michael: { name: 'MICHAEL', spr: buildChar({ hair: 18, shirt: 8, shirt2: 2, pants: 2 }) },
     mohammed: { name: 'MOHAMMED', spr: buildChar({ hair: 1, skin: 19, shirt: 6, shirt2: 1, pants: 3 }) },
     celine: { name: 'CELINE', spr: buildChar({ hair: 20, shirt: 13, shirt2: 8, skirt: 13, hem: 8, longHair: true, bow: 16, bowKnot: 17 }) },
-    alexandra: { name: 'ALEXANDRA', spr: buildChar({ hair: 18, shirt: 14, shirt2: 9, skirt: 9, hem: 4, ponytail: 6, slim: true }) },
+    alexandra: { name: 'ALEXANDRA', spr: buildChar({ hair: 18, shirt: 16, shirt2: 9, skirt: 9, hem: 4, ponytail: 6, slim: true }) },
   };
   const HERO_ORDER = ['michael', 'mohammed', 'celine', 'alexandra']; // order on the hero-selection screen
   // Heroes that have been replaced: a save made with the old id carries on as the new hero.

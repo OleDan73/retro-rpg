@@ -88,6 +88,24 @@ const FIX = {
   }),
 };
 
+// Saves whose hero value is unusable must fall back to Michael, keep everything else, and still play.
+const BAD_HEROES = { unknown: 'nobody', builtin: 'constructor', number: 42, nothing: null, empty: '', list: ['michael'] };
+const badHeroScenarios = Object.entries(BAD_HEROES).map(([label, value]) => ({
+  name: `hero-bad-${label}`,
+  save: { ...FIX.report, player: { ...FIX.report.player, hero: value } },
+  run: async (T, g) => {
+    await T.continueGame();
+    T.check('falls back to Michael', g.player.hero === 'michael', JSON.stringify(g.player.hero));
+    T.check('keeps the rest of the save', g.player.lvl === 8 && g.player.gold === 180 && g.q.king.s === 2 && g.flags.vines === true);
+    await T.menuShot('status');
+    await T.talk('elder');
+    await T.until(() => g.mode === 'victory', 'victory screen');
+    await T.frames(120);
+    T.shot('victory');
+    T.check('saves michael from then on', T.savedPlayer().hero === 'michael', JSON.stringify(T.savedPlayer().hero));
+  },
+}));
+
 export const SCENARIOS = [
   {
     name: 'title',
@@ -101,6 +119,7 @@ export const SCENARIOS = [
     name: 'newgame',
     run: async (T, g) => {
       await T.newGame();
+      T.check('a new save records the hero', T.savedPlayer().hero === 'michael', T.savedPlayer().hero);
       T.state('started');
       await T.dialog('tip');
       await T.step('down', 2); await T.step('right', 2);
@@ -113,11 +132,13 @@ export const SCENARIOS = [
     name: 'elder-first', save: FIX.fresh,
     run: async (T, g) => {
       await T.continueGame();
+      T.check('a save without a hero loads as Michael', g.player.hero === 'michael', g.player.hero);
       T.state('loaded');
       T.shot('village');
       await T.talk('elder');
       await T.frames(20);
       T.shot('quest-banner');
+      T.check('saving again writes hero michael', T.savedPlayer().hero === 'michael', T.savedPlayer().hero);
       T.state('accepted');
       await T.menuShot('status');
       await T.talk('elder-again');
@@ -276,4 +297,5 @@ export const SCENARIOS = [
       T.shot('woods');
     },
   },
+  ...badHeroScenarios,
 ];

@@ -414,8 +414,15 @@
       R(g, 6, 13, 1, 1, 15); R(g, 9, 13, 1, 1, 15);
     }));
   }
+  // Playable heroes. They all share the same stats and abilities; only the name and sprite differ.
+  const HEROES = {
+    michael: { name: 'MICHAEL', spr: buildChar({ hair: 4, shirt: 8, shirt2: 2, pants: 2 }) },
+  };
+  const DEFAULT_HERO = 'michael';
+  const isHero = (id) => typeof id === 'string' && Object.prototype.hasOwnProperty.call(HEROES, id);
+  // The hero being played. Anything unknown (such as a save from before heroes existed) counts as Michael.
+  const hero = () => HEROES[isHero(player.hero) ? player.hero : DEFAULT_HERO];
   const SPR = {
-    hero: buildChar({ hair: 4, shirt: 8, shirt2: 2, pants: 2 }),
     elder: buildChar({ hair: 10, shirt: 5, shirt2: 0, pants: 5, robe: true, beard: 15 }),
     wren: buildChar({ hair: 6, shirt: 15, shirt2: 10, pants: 13, longHair: true }),
     pip: buildChar({ hair: 14, shirt: 9, shirt2: 4, pants: 4 }),
@@ -561,6 +568,7 @@
     lvl: 1, hp: 30, maxhp: 30, atk: 6, def: 1, xp: 0, next: 12,
     herbs: 3, maxHerbs: 3, gold: 0, weapon: 'none', armor: 'none',
     shards: 0, glowcaps: 0, sickle: false, sinceBattle: 0,
+    hero: DEFAULT_HERO,
   });
   // quest state s: 0 not started, 1 active, 2 ready to turn in, 3 done
   const newQuests = () => ({ slimes: { s: 0, n: 0 }, biscuit: { s: 0 }, glowcap: { s: 0 }, king: { s: 0 }, shards: { s: 0 } });
@@ -667,7 +675,7 @@
           });
         } else {
           say(N, [pick([
-            'Thanks to you, the turnips grow in peace. Rest well, MICHAEL.',
+            `Thanks to you, the turnips grow in peace. Rest well, ${hero().name}.`,
             'The stew was delicious. I may have had three bowls.',
             "Pip has started calling you 'the slime hero'. I rather like it.",
           ])]);
@@ -806,7 +814,7 @@
       talk() {
         say('DADDA BOSS', [
           'BLORP! Who dares enter my glittering hall?!',
-          'Those turnips are MINE, little MICHAEL! Prepare to be absorbed!',
+          `Those turnips are MINE, little ${hero().name}! Prepare to be absorbed!`,
         ], () => { encounter = { t: 0, type: 'king' }; SFX.encounter(); });
       },
     },
@@ -836,6 +844,7 @@
     const d = readSave();
     if (!d) return false;
     Object.assign(player, newPlayer(), d.player);
+    if (!isHero(player.hero)) player.hero = DEFAULT_HERO;
     q = Object.assign(newQuests(), d.q);
     flags = d.flags || {};
     stats = Object.assign({ won: 0, slimes: 0, steps: 0 }, d.stats);
@@ -1108,7 +1117,7 @@
   function drawMenu() {
     R(ctx, 0, 0, W, H, 0);
     box(2, 2, 92, 156);
-    text('MICHAEL', 10, 9, 14);
+    text(hero().name, 10, 9, 14);
     const lines = [
       [`LV ${player.lvl}`, 15], [`HP ${player.hp}/${player.maxhp}`, 15], [`ATK ${atk()}`, 15], [`DEF ${def()}`, 15],
       [`XP ${player.xp}/${player.next}`, 13], [`GOLD ${player.gold}`, 14], [`HERB ${player.herbs}/${player.maxHerbs}`, 11],
@@ -1181,8 +1190,8 @@
   // ---------------------------------------------------------------- living village (visual only, never saved)
   const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram']);
   const faceToward = (dx, dy) => (Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
-  // Villagers glance around now and then; they face Michael when he is right next to them,
-  // and a villager with a "!" notices him from two tiles away.
+  // Villagers glance around now and then; they face the hero when the hero is right next to them,
+  // and a villager with a "!" notices the hero from two tiles away.
   function updateLookAround() {
     for (const n of NPCS) {
       if (n.map !== player.map || !LOOKERS.has(n.id)) continue;
@@ -1310,7 +1319,7 @@
       return { x: n.x * TS, y: n.y * TS, img: n.spr[n.dir + f], news: n.news && n.news() };
     });
     const frame = player.moving && player.t < 0.5 ? 1 : 0;
-    ents.push({ x: px, y: py, img: SPR.hero[player.dir + frame] });
+    ents.push({ x: px, y: py, img: hero().spr[player.dir + frame] });
     ents.sort((a, b) => a.y - b.y);
     for (const e of ents) ctx.drawImage(e.img, Math.round(e.x - camX), Math.round(e.y - camY - 1));
     if (village) drawSmokeAndButterflies(m, camX, camY);
@@ -1576,7 +1585,7 @@
     text(b.name, 10, 9, b.boss ? 14 : 15);
     bar(10, 21, 92, b.shownHp, b.max);
     box(132, 64, 104, 36);
-    text('MICHAEL', 138, 69, 14);
+    text(hero().name, 138, 69, 14);
     text(`LV${player.lvl}`, 202, 69, 15);
     text(`HP${player.hp}/${player.maxhp}`, 138, 79);
     bar(138, 91, 92, b.playerShownHp, player.maxhp);
@@ -1612,7 +1621,7 @@
     centered('QUEST', 40, 11, BIG);
     centered('~ a tiny slime quest ~', 62, 10);
     const bob = Math.floor(tick / 15) % 2;
-    ctx.drawImage(SPR.hero['right' + bob], 88, 112, 16, 16);
+    ctx.drawImage(HEROES.michael.spr['right' + bob], 88, 112, 16, 16); // the title art is always Michael
     centered('For Michael', 144, 12);
     ctx.drawImage(ENEMY_SPR.slime[bob], 130, 112, 16, 16);
     if (title.hasSave) {
@@ -1634,7 +1643,7 @@
     centered('VICTORY!', 12, 14, BIG);
     centered('The Dadda Boss is no more.', 32, 13);
     const bob = Math.floor(t / 12) % 2 ? -2 : 0;
-    ctx.drawImage(SPR.hero.down0, 72, 44 + bob, 32, 32);
+    ctx.drawImage(hero().spr.down0, 72, 44 + bob, 32, 32);
     ctx.drawImage(SPR.elder.down0, 104, 44, 32, 32);
     ctx.drawImage(SPR.pip.down0, 136, 44 - bob, 32, 32);
     const done = QUEST_ORDER.filter((id) => q[id].s === 3).length;

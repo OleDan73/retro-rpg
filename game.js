@@ -3,10 +3,11 @@
 (() => {
   // ---------------------------------------------------------------- setup
   const W = 240, H = 160, TS = 16;
-  // 16-colour palette
+  // 16-colour palette, plus two pinks (16, 17) used only for the Dadda Boss
   const PAL = [
     '#140c1c', '#442434', '#30346d', '#4e4a4e', '#854c30', '#346524', '#d04648', '#757161',
     '#597dce', '#d27d2c', '#8595a1', '#6daa2c', '#d2aa99', '#6dc2ca', '#dad45e', '#deeed6',
+    '#f078b4', '#a03870',
   ];
   const FONT = '8px "Press Start 2P", monospace';
   const BIG = '16px "Press Start 2P", monospace';
@@ -420,12 +421,12 @@
     pip: buildChar({ hair: 14, shirt: 9, shirt2: 4, pants: 4 }),
     bram: buildChar({ hair: 0, shirt: 6, shirt2: 1, pants: 3, beard: 4, apron: 4, belt: 0 }),
     cat: buildStatic(catSprite(0), catSprite(1)),
-    king: buildStatic(slimeSprite(0, 8, 2, true), slimeSprite(1, 8, 2, true)),
+    king: buildStatic(slimeSprite(0, 16, 17, true), slimeSprite(1, 16, 17, true)),
   };
   const ENEMY_SPR = {
     slime: [0, 1].map((f) => slimeSprite(f, 11, 5)),
     gloop: [0, 1].map((f) => slimeSprite(f, 13, 8)),
-    king: [0, 1].map((f) => slimeSprite(f, 8, 2, true)),
+    king: [0, 1].map((f) => slimeSprite(f, 16, 17, true)),
     bat: [0, 1].map(batSprite),
     shroom: [0, 1].map((f) => outlined(mk(16, 16, (g) => {
       const o = f ? 1 : 0;

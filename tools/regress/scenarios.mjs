@@ -286,6 +286,70 @@ const sandraScenarios = [
   { name: 'hero-sandra-boss', save: withHero(FIX.boss, 'sandra'), run: bossFight, sameAs: { 'battle-start': 'boss-win__battle-start', won: 'boss-win__won' } },
 ];
 
+// ------------------------------------------------------------------ the vines (the first gate)
+// Together with `vines-locked` and `vines` further down, these pin the vines' behaviour from every side:
+// blocking with and without the sickle, both ways in, and a save where they were cut long ago.
+const vinesCut = save({
+  at: ['forest', 18, 4, 'up'], lvl: 4, player: { sickle: true, gold: 60 },
+  q: { slimes: { s: 3, n: 3 }, king: { s: 1 } }, flags: { vines: true }, stats: { won: 9, slimes: 5, steps: 400 }, tracked: 'king',
+});
+const vineScenarios = [
+  {
+    name: 'vines-already-cut', save: vinesCut,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.check('the save still says the vines are cut', g.flags.vines === true);
+      T.shot('open');
+      await T.tap('Space', 8);
+      T.check('nothing to interact with any more', g.mode === 'world', g.mode);
+      await T.step('up');
+      T.check('the hero can walk where the vines were', g.player.x === 18 && g.player.y === 3, `${g.player.x},${g.player.y}`);
+      T.shot('standing-on-it');
+      await T.step('right');
+      await T.until(() => g.player.map === 'cave', 'cave');
+      await T.frames(40);
+      T.state('in-cave');
+    },
+  },
+  {
+    name: 'vines-block-without-sickle', save: FIX.vinesLocked,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('up');
+      T.check('blocked from below', g.player.x === 18 && g.player.y === 4, `${g.player.x},${g.player.y}`);
+      T.check('still uncut', !g.flags.vines);
+      T.shot('blocked');
+      T.state('blocked');
+    },
+  },
+  {
+    name: 'vines-from-above', save: save({ at: ['forest', 18, 2, 'down'], lvl: 2, q: { slimes: { s: 1, n: 1 } }, tracked: 'slimes' }),
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('down');
+      T.check('blocked from above', g.player.x === 18 && g.player.y === 2, `${g.player.x},${g.player.y}`);
+      await T.talk('locked');
+      T.check('still uncut', !g.flags.vines);
+      T.state('blocked');
+    },
+  },
+  {
+    name: 'vines-block-until-cut', save: FIX.vines,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('up');
+      T.check('having the sickle is not enough: they block until cut', g.player.x === 18 && g.player.y === 4, `${g.player.x},${g.player.y}`);
+      await T.talk('cut');
+      T.check('cutting sets the vines flag', g.flags.vines === true);
+      T.check('cutting saves the game', JSON.parse(localStorage.getItem('turnip-vale-save-v1')).flags.vines === true);
+      await T.step('up');
+      T.check('the way is open afterwards', g.player.x === 18 && g.player.y === 3, `${g.player.x},${g.player.y}`);
+      T.shot('through');
+      T.state('through');
+    },
+  },
+];
+
 // Saves whose hero value is unusable must fall back to Michael, keep everything else, and still play.
 const BAD_HEROES = { unknown: 'nobody', builtin: 'constructor', number: 42, nothing: null, empty: '', list: ['michael'] };
 const badHeroScenarios = Object.entries(BAD_HEROES).map(([label, value]) => ({
@@ -497,6 +561,7 @@ export const SCENARIOS = [
   },
   ...badHeroScenarios,
   ...sandraScenarios,
+  ...vineScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,
   ...heroScenarios,

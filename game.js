@@ -609,6 +609,29 @@
     { id: 'shard2', map: 'cave', x: 3, y: 12 },
   ];
 
+  // ---------------------------------------------------------------- gates
+  // A gate is an obstacle that blocks the way until the hero meets a requirement, and then stays open
+  // for good. Each one sets:
+  //   map, x, y   where it stands (the map row shows the closed tile there too, for readability)
+  //   closed      the tile drawn and collided with while it is shut
+  //   open        the tile it becomes once opened
+  //   flag        the saved flag that records it has been opened
+  //   needs()     true when the hero can open it: an item, a flag, a quest state...
+  //   locked      lines shown when the hero tries it without meeting the requirement
+  //   opened      lines shown when it opens
+  //   sfx         name of the sound played when it opens (optional)
+  const GATES = [
+    {
+      map: 'forest', x: 18, y: 3, closed: 'V', open: 'g', flag: 'vines',
+      needs: () => player.sickle,
+      locked: ['Thick, thorny vines block the way east.'],
+      opened: ['You hack through the thorny vines with the old sickle. The way east is open!'],
+      sfx: 'cut',
+    },
+  ];
+  for (const gate of GATES) (MAPS[gate.map].gates ||= {})[`${gate.x},${gate.y}`] = gate;
+  const gateAt = (m, x, y) => m.gates?.[`${x},${y}`];
+
   // ---------------------------------------------------------------- state
   const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
   const OPP = { up: 'down', down: 'up', left: 'right', right: 'left' };
@@ -884,8 +907,9 @@
   const itemAt = (map, x, y) => ITEMS.find((i) => i.map === map && i.x === x && i.y === y && !flags[i.id]);
   function tileAt(m, x, y) {
     if (x < 0 || y < 0 || x >= m.w || y >= m.h) return '#';
-    const ch = m.rows[y][x];
-    return ch === 'V' && flags.vines ? 'g' : ch;
+    const gate = gateAt(m, x, y);
+    if (gate) return flags[gate.flag] ? gate.open : gate.closed;
+    return m.rows[y][x];
   }
   const canWalk = (x, y) => !SOLID.has(tileAt(MAPS[player.map], x, y)) && !npcAt(player.map, x, y);
 
@@ -1209,12 +1233,13 @@
     const m = MAPS[player.map];
     const sign = m.signs?.[`${x},${y}`];
     if (sign) { SFX.move(); say('', sign); return; }
-    if (tileAt(m, x, y) === 'V') {
-      if (player.sickle) {
-        SFX.cut();
-        flags.vines = true;
-        say('', ['You hack through the thorny vines with the old sickle. The way east is open!'], saveGame);
-      } else say('', ['Thick, thorny vines block the way east.']);
+    const gate = gateAt(m, x, y);
+    if (gate && !flags[gate.flag]) {
+      if (gate.needs()) {
+        SFX[gate.sfx]?.();
+        flags[gate.flag] = true;
+        say('', gate.opened, saveGame);
+      } else say('', gate.locked);
     }
   }
   function enterMap(name, x, y, dir) {

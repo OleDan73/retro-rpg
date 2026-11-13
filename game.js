@@ -3,11 +3,13 @@
 (() => {
   // ---------------------------------------------------------------- setup
   const W = 240, H = 160, TS = 16;
-  // 16-colour palette, plus two pinks (16, 17) used for the Dadda Boss and Celine's bow
+  // 16-colour palette, plus two pinks (16, 17) used for the Dadda Boss and Celine's bow,
+  // and four hero-only colours: near-black hair (18), light brown skin (19), light blonde (20), very light blonde (21)
   const PAL = [
     '#140c1c', '#442434', '#30346d', '#4e4a4e', '#854c30', '#346524', '#d04648', '#757161',
     '#597dce', '#d27d2c', '#8595a1', '#6daa2c', '#d2aa99', '#6dc2ca', '#dad45e', '#deeed6',
     '#f078b4', '#a03870',
+    '#2b2531', '#bf8a5e', '#ead583', '#f5efc6',
   ];
   const FONT = '8px "Press Start 2P", monospace';
   const BIG = '16px "Press Start 2P", monospace';
@@ -310,6 +312,7 @@
   function personSprite(o, dir, frame) {
     const { hair, shirt, shirt2, pants, skin = 12, robe, beard, longHair } = o;
     const skirt = o.skirt != null;
+    const n = o.slim ? 1 : 0; // a slim build is one pixel narrower on each side of the body
     return outlined(mk(16, 16, (g) => {
       if (robe) {
         R(g, 4, 10, 8, 3, shirt);
@@ -317,7 +320,7 @@
         if (frame) { R(g, 4, 13, 3, 1, 1); R(g, 10, 13, 2, 1, 1); } else { R(g, 5, 13, 2, 1, 1); R(g, 9, 13, 2, 1, 1); }
       } else if (skirt) { // bare legs and shoes; the skirt itself is drawn over the torso below
         if (dir === 'left') {
-          if (frame) { R(g, 4, 12, 2, 1, skin); R(g, 9, 12, 2, 1, skin); R(g, 3, 13, 3, 1, 1); R(g, 9, 13, 3, 1, 1); }
+          if (frame) { R(g, 4 + n, 12, 2, 1, skin); R(g, 9 - n, 12, 2, 1, skin); R(g, 3 + n, 13, 3, 1, 1); R(g, 9 - n, 13, 3, 1, 1); }
           else { R(g, 7, 12, 2, 1, skin); R(g, 6, 13, 4, 1, 1); }
         } else if (frame) {
           R(g, 5, 12, 2, 1, 1);
@@ -336,17 +339,17 @@
         R(g, 5, 11, 2, 2, pants); R(g, 9, 11, 2, 2, pants);
         R(g, 5, 13, 2, 1, 1); R(g, 9, 13, 2, 1, 1);
       }
-      R(g, 4, 7, 8, 4, shirt);
-      if (skirt) { R(g, 4, 10, 8, 1, o.skirt); R(g, 3, 11, 10, 1, o.hem ?? o.skirt); }
-      else if (!robe) R(g, 4, 10, 8, 1, o.belt ?? 4);
+      R(g, 4 + n, 7, 8 - 2 * n, 4, shirt);
+      if (skirt) { R(g, 4 + n, 10, 8 - 2 * n, 1, o.skirt); R(g, 3 + n, 11, 10 - 2 * n, 1, o.hem ?? o.skirt); }
+      else if (!robe) R(g, 4 + n, 10, 8 - 2 * n, 1, o.belt ?? 4);
       if (o.apron && dir !== 'up') R(g, dir === 'left' ? 4 : 5, 8, dir === 'left' ? 4 : 6, 5, o.apron);
       if (dir === 'left') {
         const ay = frame ? 8 : 7;
         R(g, 6, ay, 3, 3, shirt2); R(g, 6, ay + 3, 2, 1, skin);
       } else {
         const l = frame ? 0 : 1, r = frame ? 1 : 0;
-        R(g, 3, 7, 1, 2 + l, shirt2); P(g, 3, 9 + l, skin);
-        R(g, 12, 7, 1, 2 + r, shirt2); P(g, 12, 9 + r, skin);
+        R(g, 3 + n, 7, 1, 2 + l, shirt2); P(g, 3 + n, 9 + l, skin);
+        R(g, 12 - n, 7, 1, 2 + r, shirt2); P(g, 12 - n, 9 + r, skin);
       }
       R(g, 5, 2, 6, 5, skin);
       if (dir === 'up') {
@@ -435,10 +438,10 @@
   }
   // Playable heroes. They all share the same stats and abilities; only the name and sprite differ.
   const HEROES = {
-    michael: { name: 'MICHAEL', spr: buildChar({ hair: 4, shirt: 8, shirt2: 2, pants: 2 }) },
-    mohammed: { name: 'MOHAMMED', spr: buildChar({ hair: 1, shirt: 6, shirt2: 1, pants: 3 }) },
-    celine: { name: 'CELINE', spr: buildChar({ hair: 4, shirt: 13, shirt2: 8, skirt: 13, hem: 8, longHair: true, bow: 16, bowKnot: 17 }) },
-    sandra: { name: 'SANDRA', spr: buildChar({ hair: 1, shirt: 14, shirt2: 9, skirt: 9, hem: 4, ponytail: 6 }) },
+    michael: { name: 'MICHAEL', spr: buildChar({ hair: 18, shirt: 8, shirt2: 2, pants: 2 }) },
+    mohammed: { name: 'MOHAMMED', spr: buildChar({ hair: 1, skin: 19, shirt: 6, shirt2: 1, pants: 3 }) },
+    celine: { name: 'CELINE', spr: buildChar({ hair: 20, shirt: 13, shirt2: 8, skirt: 13, hem: 8, longHair: true, bow: 16, bowKnot: 17 }) },
+    sandra: { name: 'SANDRA', spr: buildChar({ hair: 21, shirt: 14, shirt2: 9, skirt: 9, hem: 4, ponytail: 6, slim: true }) },
   };
   const HERO_ORDER = ['michael', 'mohammed', 'celine', 'sandra']; // order on the hero-selection screen
   const DEFAULT_HERO = 'michael';

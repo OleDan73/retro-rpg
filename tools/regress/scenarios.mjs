@@ -218,6 +218,37 @@ const heroSelectScenarios = [
   },
 ];
 
+// ------------------------------------------------------------------ encounters and enemy scaling
+// Long runs of random battles. Every battle's enemy and scaled stats are recorded, so any change to
+// which enemy appears, how often, or how enemies grow with the hero's level shows up as a difference.
+// The hero is given plenty of HP so the run never ends early; levels rise along the way, which takes
+// the cave run across the level where cave enemies start to scale.
+const manyBattles = (count) => `async (T, g) => {
+  await T.continueGame();
+  for (let i = 1; i <= ${count}; i++) {
+    await T.wander();
+    if (i === 1) T.shot('first-battle');
+    T.state('battle-' + String(i).padStart(2, '0'));
+    await T.fight();
+  }
+  T.state('end');
+}`;
+const tough = { maxhp: 400, hp: 400, weapon: 'crystal', armor: 'vest', sickle: true };
+const encounterScenarios = [
+  { // slime quest finished: normal woods odds
+    name: 'encounters-woods', run: manyBattles(14),
+    save: save({ at: ['forest', 3, 5, 'right'], lvl: 9, player: tough, q: { slimes: { s: 3, n: 3 }, glowcap: { s: 1 } } }),
+  },
+  { // slime quest active: slimes are more common
+    name: 'encounters-woods-quest', run: manyBattles(10),
+    save: save({ at: ['forest', 3, 5, 'right'], lvl: 1, player: tough, q: { slimes: { s: 1, n: 0 } }, tracked: 'slimes' }),
+  },
+  { // starts below the level where cave enemies begin to scale, and levels up past it
+    name: 'encounters-cave', run: manyBattles(16),
+    save: save({ at: ['cave', 10, 5, 'down'], lvl: 3, player: tough, q: { slimes: { s: 3, n: 3 }, king: { s: 1 } }, flags: { vines: true } }),
+  },
+];
+
 // Saves whose hero value is unusable must fall back to Michael, keep everything else, and still play.
 const BAD_HEROES = { unknown: 'nobody', builtin: 'constructor', number: 42, nothing: null, empty: '', list: ['michael'] };
 const badHeroScenarios = Object.entries(BAD_HEROES).map(([label, value]) => ({
@@ -428,6 +459,7 @@ export const SCENARIOS = [
     },
   },
   ...badHeroScenarios,
+  ...encounterScenarios,
   ...heroSelectScenarios,
   ...heroScenarios,
 ];

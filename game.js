@@ -481,14 +481,29 @@
   const ENEMIES = {
     slime: { name: 'SLIME', hp: 12, atk: 4, def: 0, xp: 5, gold: [3, 5], intro: 'oozes out!' },
     shroom: { name: 'SHROOMLET', hp: 16, atk: 5, def: 1, xp: 7, gold: [4, 6], intro: 'pops up!' },
-    bat: { name: 'CAVE BAT', hp: 26, atk: 11, def: 2, xp: 12, gold: [6, 9], intro: 'swoops down!', cave: true },
-    gloop: { name: 'GLOOP', hp: 36, atk: 13, def: 3, xp: 15, gold: [8, 11], intro: 'bubbles up!', cave: true },
+    bat: { name: 'CAVE BAT', hp: 26, atk: 11, def: 2, xp: 12, gold: [6, 9], intro: 'swoops down!' },
+    gloop: { name: 'GLOOP', hp: 36, atk: 13, def: 3, xp: 15, gold: [8, 11], intro: 'bubbles up!' },
     king: { name: 'DADDA BOSS', hp: 140, atk: 15, def: 5, xp: 80, gold: [100, 100], intro: 'blocks your way!', boss: true },
   };
   const WEAPONS = { none: { name: 'STICK', atk: 0 }, iron: { name: 'IRON SWORD', atk: 3 }, crystal: { name: 'CRYSTAL SWD', atk: 7 } };
   const ARMORS = { none: { name: 'TUNIC', def: 0 }, vest: { name: 'TOUGH VEST', def: 2 } };
 
   // ---------------------------------------------------------------- maps
+  // Everything that makes an area behave or look different lives in its entry here, so a new area
+  // needs no code of its own. Besides name, rows, exits and signs, a map may set:
+  //   encounter  random battles, or null for none:
+  //                tile       the tile that can trigger a battle
+  //                table      [enemy, probability] pairs
+  //                pick()     optional: chooses the enemy itself when the area has special rules
+  //                scaleFrom  enemies gain one level for each hero level above this (default 1)
+  //                minSteps, chance   optional overrides of ENCOUNTER_DEFAULTS
+  //   backdrop   which BACKDROPS entry is drawn behind battles here (default 'woods')
+  //   ambient    decorative life, never saved:
+  //                ripples       true: rings appear on water tiles
+  //                chimneySmoke  {}: smoke rises from chimney tiles; forge: 'x,y' marks the smithy's chimney
+  //                butterflies   list of [x, y, colour, phase] anchor points in pixels
+  //   lighting   dimEdges: 0..1 darkens the edges of the screen by that much
+  const ENCOUNTER_DEFAULTS = { minSteps: 3, chance: 0.13, scaleFrom: 1 };
   const MAPS = {
     village: {
       name: 'TURNIP VALE',
@@ -515,8 +530,12 @@
         '12,6': ['The village well. The water is cool and clear.', 'Somewhere far below, something goes *plip*.'],
         '9,3': ['A turnip with a big bite taken out of it.', 'The bite marks are... wobbly. Slimes!'],
       },
-      forge: '4,8', // this chimney gets darker smoke and the odd spark
       encounter: null,
+      ambient: {
+        ripples: true,
+        chimneySmoke: { forge: '4,8' }, // the forge chimney gets darker smoke and the odd spark
+        butterflies: [[152, 36, 15, 0], [72, 196, 14, 2.1]],
+      },
     },
     forest: {
       name: 'WHISPER WOODS',
@@ -542,7 +561,18 @@
         '19,3': { map: 'cave', x: 1, y: 7, dir: 'right' },
       },
       signs: { '2,6': ['WEST: TURNIP VALE.'], '18,1': ['EAST: CRYSTAL CAVE.', 'Keep out! By order of the DADDA BOSS.'] },
-      encounter: { tile: 'g', table: [['slime', 0.6], ['shroom', 0.4]] },
+      encounter: {
+        tile: 'g',
+        table: [['slime', 0.6], ['shroom', 0.4]],
+        // Slimes are more common during the slime quest; never more than 2 shroomlets in a row.
+        pick() {
+          const slimeOdds = q.slimes.s === 1 ? 0.75 : 0.6;
+          const type = (Math.random() < slimeOdds || shroomStreak >= 2) ? 'slime' : 'shroom';
+          shroomStreak = type === 'shroom' ? shroomStreak + 1 : 0;
+          return type;
+        },
+      },
+      backdrop: 'woods',
     },
     cave: {
       name: 'CRYSTAL CAVE',
@@ -565,7 +595,9 @@
       ],
       exits: { '0,7': { map: 'forest', x: 18, y: 3, dir: 'left' } },
       signs: {},
-      encounter: { tile: 'c', table: [['bat', 0.5], ['gloop', 0.5]] },
+      encounter: { tile: 'c', table: [['bat', 0.5], ['gloop', 0.5]], scaleFrom: 5 },
+      backdrop: 'cave',
+      lighting: { dimEdges: 0.35 },
     },
   };
   for (const m of Object.values(MAPS)) { m.h = m.rows.length; m.w = m.rows[0].length; }
@@ -1204,8 +1236,9 @@
       return;
     }
     if (m.encounter && tileAt(m, player.x, player.y) === m.encounter.tile) {
+      const enc = { ...ENCOUNTER_DEFAULTS, ...m.encounter };
       player.sinceBattle++;
-      if (player.sinceBattle > 3 && Math.random() < 0.13) {
+      if (player.sinceBattle > enc.minSteps && Math.random() < enc.chance) {
         player.sinceBattle = 0;
         held.length = 0;
         encounter = { t: 0 };
@@ -1213,7 +1246,7 @@
       }
     }
   }
-  // ---------------------------------------------------------------- living village (visual only, never saved)
+  // ---------------------------------------------------------------- living world (visual only, never saved)
   const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram']);
   const faceToward = (dx, dy) => (Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
   // Villagers glance around now and then; they face the hero when the hero is right next to them,
@@ -1239,11 +1272,12 @@
   }
   const amb = { ripple: null, nextRipple: 300 };
   function updateAmbient() {
-    if (player.map !== 'village') { amb.ripple = null; return; }
+    const m = MAPS[player.map];
+    if (!m.ambient?.ripples) { amb.ripple = null; return; }
     if (amb.ripple && ++amb.ripple.t >= 36) amb.ripple = null;
     if (--amb.nextRipple <= 0) {
       amb.nextRipple = rand(240, 420);
-      const m = MAPS.village, ponds = [];
+      const ponds = [];
       for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (m.rows[y][x] === '~') ponds.push([x, y]);
       const [tx, ty] = pick(ponds);
       amb.ripple = { x: tx * TS + rand(4, 11), y: ty * TS + rand(4, 11), t: 0 };
@@ -1258,11 +1292,11 @@
     R(ctx, x - r + 1, y - 1, 2 * r - 1, 1, 13); R(ctx, x - r + 1, y + 1, 2 * r - 1, 1, 13);
     ctx.globalAlpha = 1;
   }
-  function drawSmokeAndButterflies(m, camX, camY) {
+  function drawChimneySmoke(m, smoke, camX, camY) {
     let i = 0;
     for (let ty = 0; ty < m.h; ty++) for (let tx = 0; tx < m.w; tx++) {
       if (m.rows[ty][tx] !== 'C') continue;
-      const forge = m.forge === `${tx},${ty}`;
+      const forge = smoke.forge === `${tx},${ty}`;
       const cx = tx * TS + 11 - camX, top = ty * TS - camY;
       for (let k = 0; k < 2; k++) {
         const age = (tick + i * 37 + k * 75) % 150;
@@ -1278,7 +1312,10 @@
       }
       i++;
     }
-    [[152, 36, 15, 0], [72, 196, 14, 2.1]].forEach(([ax, ay, c, ph]) => {
+  }
+  // Each butterfly flutters around its anchor point: [x, y, colour, phase].
+  function drawButterflies(list, camX, camY) {
+    list.forEach(([ax, ay, c, ph]) => {
       const t = tick;
       const x = Math.round(ax + Math.sin(t * 0.013 + ph) * 14 + Math.sin(t * 0.031 + ph) * 4) - camX;
       const y = Math.round(ay + Math.sin(t * 0.021 + ph) * 6 + Math.cos(t * 0.047 + ph) * 2) - camY;
@@ -1337,8 +1374,8 @@
       const bob = Math.floor(tick / 20) % 2;
       ctx.drawImage(SHARD_SPR[Math.floor(tick / 15) % 2], it.x * TS - camX, it.y * TS - camY - bob);
     }
-    const village = player.map === 'village';
-    if (village) drawRipple(camX, camY);
+    const ambient = m.ambient || {};
+    if (ambient.ripples) drawRipple(camX, camY);
     const npcs = NPCS.filter((n) => n.map === player.map && npcVisible(n));
     const ents = npcs.map((n) => {
       const f = n.anim ? Math.floor(tick / 20) % 2 : (Math.floor((tick + n.x * 13) / 40) % 6 === 0 ? 1 : 0);
@@ -1348,10 +1385,11 @@
     ents.push({ x: px, y: py, img: hero().spr[player.dir + frame] });
     ents.sort((a, b) => a.y - b.y);
     for (const e of ents) ctx.drawImage(e.img, Math.round(e.x - camX), Math.round(e.y - camY - 1));
-    if (village) drawSmokeAndButterflies(m, camX, camY);
+    if (ambient.chimneySmoke) drawChimneySmoke(m, ambient.chimneySmoke, camX, camY);
+    if (ambient.butterflies) drawButterflies(ambient.butterflies, camX, camY);
     for (const e of ents) if (e.news) bubble(Math.round(e.x - camX) + 5, Math.round(e.y - camY) - 11 - (Math.floor(tick / 15) % 2));
-    if (player.map === 'cave') { // dim the edges of the cave
-      ctx.globalAlpha = 0.35;
+    if (m.lighting?.dimEdges) {
+      ctx.globalAlpha = m.lighting.dimEdges;
       R(ctx, 0, 0, W, 8, 0); R(ctx, 0, H - 8, W, 8, 0); R(ctx, 0, 0, 8, H, 0); R(ctx, W - 8, 0, 8, H, 0);
       ctx.globalAlpha = 1;
     }
@@ -1382,13 +1420,7 @@
   // ---------------------------------------------------------------- battle
   function pickEnemy() {
     const enc = MAPS[player.map].encounter;
-    if (player.map === 'forest') {
-      // Slimes are more common during the slime quest; never more than 2 shroomlets in a row.
-      const slimeOdds = q.slimes.s === 1 ? 0.75 : 0.6;
-      const type = (Math.random() < slimeOdds || shroomStreak >= 2) ? 'slime' : 'shroom';
-      shroomStreak = type === 'shroom' ? shroomStreak + 1 : 0;
-      return type;
-    }
+    if (enc.pick) return enc.pick();
     let r = Math.random();
     for (const [type, p] of enc.table) { if ((r -= p) < 0) return type; }
     return enc.table[0][0];
@@ -1396,12 +1428,14 @@
   function startBattle(type) {
     type = type || pickEnemy();
     const e = ENEMIES[type];
-    const L = e.boss ? 0 : e.cave ? Math.max(0, player.lvl - 5) : player.lvl - 1;
+    const m = MAPS[player.map];
+    const scaleFrom = m.encounter?.scaleFrom ?? ENCOUNTER_DEFAULTS.scaleFrom;
+    const L = e.boss ? 0 : Math.max(0, player.lvl - scaleFrom);
     const hp = e.hp + L * 3;
     battle = {
       type, name: e.name, boss: !!e.boss, hp, max: hp, shownHp: hp,
       atk: e.atk + L, def: e.def + Math.floor(L / 2), xp: e.xp + L * 2, gold: rand(...e.gold),
-      cave: player.map === 'cave', turn: 0, charged: false, wobbled: false,
+      backdrop: m.backdrop || 'woods', turn: 0, charged: false, wobbled: false,
       menu: 0, phase: 'busy', msg: '', shown: 0, floats: [], shake: 0, flash: 0, lunge: 0, dying: 0, gone: false,
       playerShownHp: player.hp,
     };
@@ -1568,8 +1602,9 @@
       if (aPressed) act(b.menu);
     } else if (aPressed && b.shown < b.msg.length) b.shown = b.msg.length;
   }
-  function drawBackdrop(cave) {
-    if (cave) {
+  // Battle backgrounds, chosen by a map's `backdrop`.
+  const BACKDROPS = {
+    cave() {
       R(ctx, 0, 0, W, 60, 1);
       for (let x = 0; x < W; x += 12) { // stalactites
         const h = 6 + Math.floor(hash(x, 3) * 14);
@@ -1579,19 +1614,20 @@
       R(ctx, 0, 60, W, 44, 3);
       for (let y = 62; y < 104; y += 2) for (let x = 0; x < W; x += 2) if (hash(x, y) < 0.04) P(ctx, x, y, 7);
       for (const x of [10, 200, 226]) ctx.drawImage(TILE['k'], x, 52);
-    } else {
+    },
+    woods() {
       R(ctx, 0, 0, W, 60, 2);
       for (let i = 0; i < 12; i++) { const x = (i * 37 + 11) % W, y = (i * 23) % 40; P(ctx, x, y, Math.floor((tick + i * 9) / 30) % 4 ? 13 : 15); }
       for (let x = -8; x < W + 16; x += 16) ctx.drawImage(TILE['P'], x + ((x / 16) % 2 ? 0 : 8), 44 + ((x / 16) % 3) * 2);
       R(ctx, 0, 60, W, 44, 5);
       for (let y = 62; y < 104; y += 3) for (let x = 0; x < W; x += 2) if (hash(x, y) < 0.04) { P(ctx, x, y, 11); P(ctx, x, y - 1, 11); }
-    }
-  }
+    },
+  };
   function drawBattle() {
     const b = battle;
     ctx.save();
     if (b.shake > 0) { const s = b.shake > 14 ? 4 : 2; ctx.translate(rand(-s, s), rand(-s, s)); }
-    drawBackdrop(b.cave);
+    (BACKDROPS[b.backdrop] || BACKDROPS.woods)();
     // enemy
     const size = b.boss ? 64 : 48, ex = 64 - size / 2, ey = 88 - size;
     const sw = b.boss ? 22 : 14;

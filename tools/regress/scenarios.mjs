@@ -88,6 +88,136 @@ const FIX = {
   }),
 };
 
+// ------------------------------------------------------------------ heroes
+const HEROES = [['michael', 'MICHAEL'], ['mohammed', 'MOHAMMED'], ['celine', 'CELINE'], ['sandra', 'SANDRA']];
+const withHero = (fix, id) => ({ ...fix, player: { ...fix.player, hero: id } });
+
+// The boss fight, played the same way whoever the hero is.
+const bossFight = async (T, g) => {
+  await T.continueGame();
+  T.shot('before');
+  await T.talk('boss');
+  await T.untilBattle();
+  T.shot('battle');
+  T.state('battle-start');
+  let shotCharge = false, shotRun = false;
+  await T.fight((g) => {
+    if (g.battle.charged && !shotCharge) { shotCharge = true; T.shot('puffed-up'); }
+    if (!shotRun) { shotRun = true; return 2; } // try to run once: must be refused
+    return g.player.hp < 35 && g.player.herbs > 0 ? 1 : 0;
+  });
+  T.check('saw the boss puff up', shotCharge);
+  T.state('won');
+  T.shot('after');
+  await T.menuShot('status');
+};
+const woodsFights = async (T, g) => {
+  await T.continueGame();
+  await T.wander();
+  T.shot('battle');
+  await T.fight();
+  for (let i = 0; i < 5; i++) { await T.wander(); await T.fight(); }
+  T.state('after-battles');
+};
+const reportVictory = async (T, g) => {
+  await T.continueGame();
+  await T.talk('elder');
+  await T.until(() => g.mode === 'victory', 'victory screen');
+  await T.frames(120);
+  T.shot('victory');
+  await T.tap('Space');
+  await T.until(() => g.mode === 'world', 'world after victory');
+  await T.frames(40);
+  T.state('after-victory');
+  for (let i = 1; i <= 6; i++) await T.talk(`elder-after-${i}`);
+};
+
+const heroScenarios = HEROES.flatMap(([id, name], index) => [
+  {
+    // New game as this hero, play a little, close the game, reopen it and continue.
+    name: `hero-${id}-newgame`,
+    run: [
+      `async (T, g) => {
+        await T.newGame(${index});
+        T.check('new game is this hero', g.player.hero === '${id}', g.player.hero);
+        T.check('the save records this hero', T.savedPlayer().hero === '${id}', T.savedPlayer().hero);
+        const p = g.player;
+        T.check('starting stats are the standard ones', p.lvl === 1 && p.hp === 30 && p.maxhp === 30 && p.atk === 6 && p.def === 1
+          && p.xp === 0 && p.next === 12 && p.herbs === 3 && p.maxHerbs === 3 && p.gold === 0 && p.weapon === 'none' && p.armor === 'none');
+        T.state('started');
+        await T.dialog();
+        await T.step('down', 3); T.shot('facing-down');
+        await T.step('right', 3); T.shot('facing-right');
+        await T.step('up'); T.shot('facing-up');
+        await T.talk();
+        await T.step('left'); T.shot('facing-left');
+        await T.menuShot('status');
+        T.check('still this hero after saving', T.savedPlayer().hero === '${id}' && g.q.slimes.s === 1);
+        T.state('played');
+      }`,
+      `async (T, g) => {
+        await T.continueGame();
+        T.check('hero persists after reopening', g.player.hero === '${id}', g.player.hero);
+        T.check('progress persists after reopening', g.q.slimes.s === 1 && g.player.map === 'village');
+        T.shot('reopened');
+        await T.menuShot('status-reopened');
+        T.state('reopened');
+      }`,
+    ],
+    sameAs: { started: 'hero-michael-newgame__started', played: 'hero-michael-newgame__played', reopened: 'hero-michael-newgame__reopened' },
+  },
+  { name: `hero-${id}-woods`, save: withHero(FIX.woods, id), run: woodsFights, sameAs: { 'after-battles': 'hero-michael-woods__after-battles' } },
+  { name: `hero-${id}-boss`, save: withHero(FIX.boss, id), run: bossFight, sameAs: { 'battle-start': 'boss-win__battle-start', won: 'boss-win__won' } },
+  { name: `hero-${id}-victory`, save: withHero(FIX.report, id), run: reportVictory, sameAs: { 'after-victory': 'victory__after-victory' } },
+]);
+
+const heroSelectScenarios = [
+  {
+    name: 'hero-select',
+    run: async (T, g) => {
+      await T.frames(30);
+      await T.tap('Space', 6);
+      T.check('NEW GAME opens hero selection', g.mode === 'heroSelect', g.mode);
+      T.check('nothing is saved yet', localStorage.getItem('turnip-vale-save-v1') === null);
+      T.shot('1-michael');
+      await T.tap('ArrowRight', 6); T.shot('2-mohammed');
+      await T.tap('ArrowRight', 6); T.shot('3-celine');
+      await T.tap('ArrowRight', 6); T.shot('4-sandra');
+      await T.tap('ArrowRight', 6); T.shot('wraps-to-michael');
+      await T.tap('ArrowLeft', 6); T.shot('wraps-to-sandra');
+      await T.tap('KeyX', 6);
+      T.check('B goes back to the title', g.mode === 'title', g.mode);
+      T.check('still nothing saved', localStorage.getItem('turnip-vale-save-v1') === null);
+      T.shot('back-on-title');
+      await T.tap('Space', 6);
+      T.shot('reopened-on-michael');
+    },
+  },
+  {
+    // Choosing NEW GAME and backing out must leave an existing save exactly as it was.
+    name: 'hero-select-keeps-save', save: FIX.boss,
+    run: async (T, g) => {
+      const before = localStorage.getItem('turnip-vale-save-v1');
+      await T.frames(30);
+      await T.tap('ArrowDown');
+      await T.tap('Space', 6);
+      T.check('hero selection is open', g.mode === 'heroSelect', g.mode);
+      await T.tap('ArrowRight', 6); await T.tap('ArrowRight', 6);
+      T.shot('choosing');
+      await T.tap('Escape', 6);
+      T.check('back on the title', g.mode === 'title', g.mode);
+      T.check('the save is byte-for-byte unchanged', localStorage.getItem('turnip-vale-save-v1') === before);
+      T.shot('title');
+      await T.tap('ArrowUp');
+      await T.tap('Space');
+      await T.until(() => g.mode === 'world', 'world after CONTINUE');
+      await T.frames(40);
+      T.check('CONTINUE still loads the old game', g.player.map === 'cave' && g.player.lvl === 7 && g.player.weapon === 'iron' && g.player.hero === 'michael');
+      T.state('continued');
+    },
+  },
+];
+
 // Saves whose hero value is unusable must fall back to Michael, keep everything else, and still play.
 const BAD_HEROES = { unknown: 'nobody', builtin: 'constructor', number: 42, nothing: null, empty: '', list: ['michael'] };
 const badHeroScenarios = Object.entries(BAD_HEROES).map(([label, value]) => ({
@@ -298,4 +428,6 @@ export const SCENARIOS = [
     },
   },
   ...badHeroScenarios,
+  ...heroSelectScenarios,
+  ...heroScenarios,
 ];

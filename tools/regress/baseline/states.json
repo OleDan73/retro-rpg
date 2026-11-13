@@ -27,7 +27,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -84,7 +85,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -143,7 +145,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -271,7 +274,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -329,7 +333,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -389,7 +394,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -448,7 +454,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -509,7 +516,8 @@
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -568,7 +576,8 @@
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -629,7 +638,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -684,7 +694,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -741,7 +752,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -799,7 +811,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -859,7 +872,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -987,7 +1001,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -1042,7 +1057,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -1099,7 +1115,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -1211,7 +1228,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -1333,7 +1351,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -1393,7 +1412,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -1427,7 +1447,485 @@
    "tracked": null
   }
  },
- "newgame__started": {
+ "hero-celine-boss__battle-start": {
+  "mode": "battle",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 7,
+   "hp": 76,
+   "maxhp": 76,
+   "atk": 18,
+   "def": 7,
+   "xp": 0,
+   "next": 135,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 40,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "celine"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 1
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 30,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": {
+   "type": "king",
+   "name": "DADDA BOSS",
+   "hp": 140,
+   "max": 140,
+   "atk": 15,
+   "def": 5,
+   "xp": 80,
+   "gold": 100,
+   "turn": 0
+  },
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 7,
+    "maxhp": 76,
+    "hp": 76,
+    "atk": 18,
+    "def": 7,
+    "xp": 0,
+    "next": 135,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 40,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "celine"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 1
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 30,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "hero-celine-boss__won": {
+  "mode": "world",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 7,
+   "hp": 63,
+   "maxhp": 76,
+   "atk": 18,
+   "def": 7,
+   "xp": 80,
+   "next": 135,
+   "herbs": 2,
+   "maxHerbs": 5,
+   "gold": 140,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "celine"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 2
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 31,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 7,
+    "hp": 63,
+    "maxhp": 76,
+    "atk": 18,
+    "def": 7,
+    "xp": 80,
+    "next": 135,
+    "herbs": 2,
+    "maxHerbs": 5,
+    "gold": 140,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "celine"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 2
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 31,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "hero-celine-newgame__played": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 7,
+   "y": 7,
+   "dir": "left",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 7,
+   "ty": 7,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "celine"
+  },
+  "q": {
+   "slimes": {
+    "s": 1,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 7
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "celine"
+   },
+   "q": {
+    "slimes": {
+     "s": 1,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 6
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-celine-newgame__reopened": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 8,
+   "ty": 7,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "celine"
+  },
+  "q": {
+   "slimes": {
+    "s": 1,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 6
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "celine"
+   },
+   "q": {
+    "slimes": {
+     "s": 1,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 6
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-celine-newgame__started": {
   "mode": "dialog",
   "player": {
    "map": "village",
@@ -1455,7 +1953,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "celine"
   },
   "q": {
    "slimes": {
@@ -1510,7 +2009,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "celine"
    },
    "q": {
     "slimes": {
@@ -1539,231 +2039,7 @@
    "tracked": null
   }
  },
- "newgame__walked": {
-  "mode": "world",
-  "player": {
-   "map": "village",
-   "x": 7,
-   "y": 6,
-   "dir": "right",
-   "moving": false,
-   "fx": 6,
-   "fy": 6,
-   "tx": 7,
-   "ty": 6,
-   "t": 0,
-   "lvl": 1,
-   "hp": 30,
-   "maxhp": 30,
-   "atk": 6,
-   "def": 1,
-   "xp": 0,
-   "next": 12,
-   "herbs": 3,
-   "maxHerbs": 3,
-   "gold": 0,
-   "weapon": "none",
-   "armor": "none",
-   "shards": 0,
-   "glowcaps": 0,
-   "sickle": false,
-   "sinceBattle": 0
-  },
-  "q": {
-   "slimes": {
-    "s": 0,
-    "n": 0
-   },
-   "biscuit": {
-    "s": 0
-   },
-   "glowcap": {
-    "s": 0
-   },
-   "king": {
-    "s": 0
-   },
-   "shards": {
-    "s": 0
-   }
-  },
-  "flags": {},
-  "stats": {
-   "won": 0,
-   "slimes": 0,
-   "steps": 4
-  },
-  "battle": null,
-  "save": {
-   "v": 1,
-   "player": {
-    "map": "village",
-    "x": 5,
-    "y": 4,
-    "dir": "down",
-    "moving": false,
-    "fx": 5,
-    "fy": 4,
-    "tx": 5,
-    "ty": 4,
-    "t": 0,
-    "lvl": 1,
-    "hp": 30,
-    "maxhp": 30,
-    "atk": 6,
-    "def": 1,
-    "xp": 0,
-    "next": 12,
-    "herbs": 3,
-    "maxHerbs": 3,
-    "gold": 0,
-    "weapon": "none",
-    "armor": "none",
-    "shards": 0,
-    "glowcaps": 0,
-    "sickle": false,
-    "sinceBattle": 0
-   },
-   "q": {
-    "slimes": {
-     "s": 0,
-     "n": 0
-    },
-    "biscuit": {
-     "s": 0
-    },
-    "glowcap": {
-     "s": 0
-    },
-    "king": {
-     "s": 0
-    },
-    "shards": {
-     "s": 0
-    }
-   },
-   "flags": {},
-   "stats": {
-    "won": 0,
-    "slimes": 0,
-    "steps": 0
-   },
-   "tracked": null
-  }
- },
- "pip__pouch": {
-  "mode": "world",
-  "player": {
-   "map": "village",
-   "x": 8,
-   "y": 11,
-   "dir": "left",
-   "moving": false,
-   "fx": 8,
-   "fy": 11,
-   "tx": 8,
-   "ty": 11,
-   "t": 0,
-   "lvl": 2,
-   "hp": 36,
-   "maxhp": 36,
-   "atk": 8,
-   "def": 2,
-   "xp": 0,
-   "next": 18,
-   "herbs": 5,
-   "maxHerbs": 5,
-   "gold": 0,
-   "weapon": "none",
-   "armor": "none",
-   "shards": 0,
-   "glowcaps": 0,
-   "sickle": false,
-   "sinceBattle": 0
-  },
-  "q": {
-   "slimes": {
-    "s": 1,
-    "n": 0
-   },
-   "biscuit": {
-    "s": 3
-   },
-   "glowcap": {
-    "s": 0
-   },
-   "king": {
-    "s": 0
-   },
-   "shards": {
-    "s": 0
-   }
-  },
-  "flags": {},
-  "stats": {
-   "won": 0,
-   "slimes": 0,
-   "steps": 0
-  },
-  "battle": null,
-  "save": {
-   "v": 1,
-   "player": {
-    "map": "village",
-    "x": 8,
-    "y": 11,
-    "dir": "left",
-    "moving": false,
-    "fx": 8,
-    "fy": 11,
-    "tx": 8,
-    "ty": 11,
-    "t": 0,
-    "lvl": 2,
-    "hp": 36,
-    "maxhp": 36,
-    "atk": 8,
-    "def": 2,
-    "xp": 0,
-    "next": 18,
-    "herbs": 5,
-    "maxHerbs": 5,
-    "gold": 0,
-    "weapon": "none",
-    "armor": "none",
-    "shards": 0,
-    "glowcaps": 0,
-    "sickle": false,
-    "sinceBattle": 0
-   },
-   "q": {
-    "slimes": {
-     "s": 1,
-     "n": 0
-    },
-    "biscuit": {
-     "s": 3
-    },
-    "glowcap": {
-     "s": 0
-    },
-    "king": {
-     "s": 0
-    },
-    "shards": {
-     "s": 0
-    }
-   },
-   "flags": {},
-   "stats": {
-    "won": 0,
-    "slimes": 0,
-    "steps": 0
-   },
-   "tracked": "slimes"
-  }
- },
- "victory__after-victory": {
+ "hero-celine-victory__after-victory": {
   "mode": "world",
   "player": {
    "map": "village",
@@ -1791,7 +2067,8 @@
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "celine"
   },
   "q": {
    "slimes": {
@@ -1851,7 +2128,3197 @@
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
+    "sinceBattle": 0,
+    "hero": "celine"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 41,
+    "slimes": 14,
+    "steps": 2100
+   },
+   "tracked": "shards"
+  }
+ },
+ "hero-celine-woods__after-battles": {
+  "mode": "world",
+  "player": {
+   "map": "forest",
+   "x": 7,
+   "y": 5,
+   "dir": "right",
+   "moving": false,
+   "fx": 6,
+   "fy": 5,
+   "tx": 7,
+   "ty": 5,
+   "t": 0,
+   "lvl": 4,
+   "hp": 48,
+   "maxhp": 48,
+   "atk": 12,
+   "def": 4,
+   "xp": 5,
+   "next": 40,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 37,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 2,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "celine"
+  },
+  "q": {
+   "slimes": {
+    "s": 2,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 1
+   },
+   "glowcap": {
+    "s": 1
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 9,
+   "slimes": 7,
+   "steps": 198
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "forest",
+    "x": 7,
+    "y": 5,
+    "dir": "right",
+    "moving": false,
+    "fx": 7,
+    "fy": 5,
+    "tx": 7,
+    "ty": 5,
+    "t": 0,
+    "lvl": 4,
+    "hp": 48,
+    "maxhp": 48,
+    "atk": 12,
+    "def": 4,
+    "xp": 5,
+    "next": 40,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 37,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 2,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "celine"
+   },
+   "q": {
+    "slimes": {
+     "s": 2,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 1
+    },
+    "glowcap": {
+     "s": 1
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 9,
+    "slimes": 7,
+    "steps": 198
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-michael-boss__battle-start": {
+  "mode": "battle",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 7,
+   "hp": 76,
+   "maxhp": 76,
+   "atk": 18,
+   "def": 7,
+   "xp": 0,
+   "next": 135,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 40,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 1
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 30,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": {
+   "type": "king",
+   "name": "DADDA BOSS",
+   "hp": 140,
+   "max": 140,
+   "atk": 15,
+   "def": 5,
+   "xp": 80,
+   "gold": 100,
+   "turn": 0
+  },
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 7,
+    "maxhp": 76,
+    "hp": 76,
+    "atk": 18,
+    "def": 7,
+    "xp": 0,
+    "next": 135,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 40,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 1
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 30,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "hero-michael-boss__won": {
+  "mode": "world",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 7,
+   "hp": 63,
+   "maxhp": 76,
+   "atk": 18,
+   "def": 7,
+   "xp": 80,
+   "next": 135,
+   "herbs": 2,
+   "maxHerbs": 5,
+   "gold": 140,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 2
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 31,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 7,
+    "hp": 63,
+    "maxhp": 76,
+    "atk": 18,
+    "def": 7,
+    "xp": 80,
+    "next": 135,
+    "herbs": 2,
+    "maxHerbs": 5,
+    "gold": 140,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 2
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 31,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "hero-michael-newgame__played": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 7,
+   "y": 7,
+   "dir": "left",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 7,
+   "ty": 7,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 1,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 7
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 1,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 6
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-michael-newgame__reopened": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 8,
+   "ty": 7,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 1,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 6
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 1,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 6
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-michael-newgame__started": {
+  "mode": "dialog",
+  "player": {
+   "map": "village",
+   "x": 5,
+   "y": 4,
+   "dir": "down",
+   "moving": false,
+   "fx": 5,
+   "fy": 4,
+   "tx": 5,
+   "ty": 4,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 0,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 0
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 5,
+    "y": 4,
+    "dir": "down",
+    "moving": false,
+    "fx": 5,
+    "fy": 4,
+    "tx": 5,
+    "ty": 4,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 0,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": null
+  }
+ },
+ "hero-michael-victory__after-victory": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 8,
+   "ty": 7,
+   "t": 0,
+   "lvl": 8,
+   "hp": 50,
+   "maxhp": 82,
+   "atk": 20,
+   "def": 8,
+   "xp": 0,
+   "next": 202,
+   "herbs": 2,
+   "maxHerbs": 5,
+   "gold": 180,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 2,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 41,
+   "slimes": 14,
+   "steps": 2100
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 8,
+    "hp": 50,
+    "maxhp": 82,
+    "atk": 20,
+    "def": 8,
+    "xp": 0,
+    "next": 202,
+    "herbs": 2,
+    "maxHerbs": 5,
+    "gold": 180,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 2,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 41,
+    "slimes": 14,
+    "steps": 2100
+   },
+   "tracked": "shards"
+  }
+ },
+ "hero-michael-woods__after-battles": {
+  "mode": "world",
+  "player": {
+   "map": "forest",
+   "x": 7,
+   "y": 5,
+   "dir": "right",
+   "moving": false,
+   "fx": 6,
+   "fy": 5,
+   "tx": 7,
+   "ty": 5,
+   "t": 0,
+   "lvl": 4,
+   "hp": 48,
+   "maxhp": 48,
+   "atk": 12,
+   "def": 4,
+   "xp": 5,
+   "next": 40,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 37,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 2,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 2,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 1
+   },
+   "glowcap": {
+    "s": 1
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 9,
+   "slimes": 7,
+   "steps": 198
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "forest",
+    "x": 7,
+    "y": 5,
+    "dir": "right",
+    "moving": false,
+    "fx": 7,
+    "fy": 5,
+    "tx": 7,
+    "ty": 5,
+    "t": 0,
+    "lvl": 4,
+    "hp": 48,
+    "maxhp": 48,
+    "atk": 12,
+    "def": 4,
+    "xp": 5,
+    "next": 40,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 37,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 2,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 2,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 1
+    },
+    "glowcap": {
+     "s": 1
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 9,
+    "slimes": 7,
+    "steps": 198
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-mohammed-boss__battle-start": {
+  "mode": "battle",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 7,
+   "hp": 76,
+   "maxhp": 76,
+   "atk": 18,
+   "def": 7,
+   "xp": 0,
+   "next": 135,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 40,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "mohammed"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 1
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 30,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": {
+   "type": "king",
+   "name": "DADDA BOSS",
+   "hp": 140,
+   "max": 140,
+   "atk": 15,
+   "def": 5,
+   "xp": 80,
+   "gold": 100,
+   "turn": 0
+  },
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 7,
+    "maxhp": 76,
+    "hp": 76,
+    "atk": 18,
+    "def": 7,
+    "xp": 0,
+    "next": 135,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 40,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "mohammed"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 1
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 30,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "hero-mohammed-boss__won": {
+  "mode": "world",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 7,
+   "hp": 63,
+   "maxhp": 76,
+   "atk": 18,
+   "def": 7,
+   "xp": 80,
+   "next": 135,
+   "herbs": 2,
+   "maxHerbs": 5,
+   "gold": 140,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "mohammed"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 2
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 31,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 7,
+    "hp": 63,
+    "maxhp": 76,
+    "atk": 18,
+    "def": 7,
+    "xp": 80,
+    "next": 135,
+    "herbs": 2,
+    "maxHerbs": 5,
+    "gold": 140,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "mohammed"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 2
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 31,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "hero-mohammed-newgame__played": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 7,
+   "y": 7,
+   "dir": "left",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 7,
+   "ty": 7,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "mohammed"
+  },
+  "q": {
+   "slimes": {
+    "s": 1,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 7
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "mohammed"
+   },
+   "q": {
+    "slimes": {
+     "s": 1,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 6
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-mohammed-newgame__reopened": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 8,
+   "ty": 7,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "mohammed"
+  },
+  "q": {
+   "slimes": {
+    "s": 1,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 6
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "mohammed"
+   },
+   "q": {
+    "slimes": {
+     "s": 1,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 6
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-mohammed-newgame__started": {
+  "mode": "dialog",
+  "player": {
+   "map": "village",
+   "x": 5,
+   "y": 4,
+   "dir": "down",
+   "moving": false,
+   "fx": 5,
+   "fy": 4,
+   "tx": 5,
+   "ty": 4,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "mohammed"
+  },
+  "q": {
+   "slimes": {
+    "s": 0,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 0
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 5,
+    "y": 4,
+    "dir": "down",
+    "moving": false,
+    "fx": 5,
+    "fy": 4,
+    "tx": 5,
+    "ty": 4,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "mohammed"
+   },
+   "q": {
+    "slimes": {
+     "s": 0,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": null
+  }
+ },
+ "hero-mohammed-victory__after-victory": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 8,
+   "ty": 7,
+   "t": 0,
+   "lvl": 8,
+   "hp": 50,
+   "maxhp": 82,
+   "atk": 20,
+   "def": 8,
+   "xp": 0,
+   "next": 202,
+   "herbs": 2,
+   "maxHerbs": 5,
+   "gold": 180,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 2,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "mohammed"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 41,
+   "slimes": 14,
+   "steps": 2100
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 8,
+    "hp": 50,
+    "maxhp": 82,
+    "atk": 20,
+    "def": 8,
+    "xp": 0,
+    "next": 202,
+    "herbs": 2,
+    "maxHerbs": 5,
+    "gold": 180,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 2,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "mohammed"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 41,
+    "slimes": 14,
+    "steps": 2100
+   },
+   "tracked": "shards"
+  }
+ },
+ "hero-mohammed-woods__after-battles": {
+  "mode": "world",
+  "player": {
+   "map": "forest",
+   "x": 7,
+   "y": 5,
+   "dir": "right",
+   "moving": false,
+   "fx": 6,
+   "fy": 5,
+   "tx": 7,
+   "ty": 5,
+   "t": 0,
+   "lvl": 4,
+   "hp": 48,
+   "maxhp": 48,
+   "atk": 12,
+   "def": 4,
+   "xp": 5,
+   "next": 40,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 37,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 2,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "mohammed"
+  },
+  "q": {
+   "slimes": {
+    "s": 2,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 1
+   },
+   "glowcap": {
+    "s": 1
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 9,
+   "slimes": 7,
+   "steps": 198
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "forest",
+    "x": 7,
+    "y": 5,
+    "dir": "right",
+    "moving": false,
+    "fx": 7,
+    "fy": 5,
+    "tx": 7,
+    "ty": 5,
+    "t": 0,
+    "lvl": 4,
+    "hp": 48,
+    "maxhp": 48,
+    "atk": 12,
+    "def": 4,
+    "xp": 5,
+    "next": 40,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 37,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 2,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "mohammed"
+   },
+   "q": {
+    "slimes": {
+     "s": 2,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 1
+    },
+    "glowcap": {
+     "s": 1
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 9,
+    "slimes": 7,
+    "steps": 198
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-sandra-boss__battle-start": {
+  "mode": "battle",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 7,
+   "hp": 76,
+   "maxhp": 76,
+   "atk": 18,
+   "def": 7,
+   "xp": 0,
+   "next": 135,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 40,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "sandra"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 1
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 30,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": {
+   "type": "king",
+   "name": "DADDA BOSS",
+   "hp": 140,
+   "max": 140,
+   "atk": 15,
+   "def": 5,
+   "xp": 80,
+   "gold": 100,
+   "turn": 0
+  },
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 7,
+    "maxhp": 76,
+    "hp": 76,
+    "atk": 18,
+    "def": 7,
+    "xp": 0,
+    "next": 135,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 40,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "sandra"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 1
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 30,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "hero-sandra-boss__won": {
+  "mode": "world",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 7,
+   "hp": 63,
+   "maxhp": 76,
+   "atk": 18,
+   "def": 7,
+   "xp": 80,
+   "next": 135,
+   "herbs": 2,
+   "maxHerbs": 5,
+   "gold": 140,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "sandra"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 2
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 31,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 7,
+    "hp": 63,
+    "maxhp": 76,
+    "atk": 18,
+    "def": 7,
+    "xp": 80,
+    "next": 135,
+    "herbs": 2,
+    "maxHerbs": 5,
+    "gold": 140,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "sandra"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 2
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 31,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "hero-sandra-newgame__played": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 7,
+   "y": 7,
+   "dir": "left",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 7,
+   "ty": 7,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "sandra"
+  },
+  "q": {
+   "slimes": {
+    "s": 1,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 7
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "sandra"
+   },
+   "q": {
+    "slimes": {
+     "s": 1,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 6
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-sandra-newgame__reopened": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 8,
+   "ty": 7,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "sandra"
+  },
+  "q": {
+   "slimes": {
+    "s": 1,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 6
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "sandra"
+   },
+   "q": {
+    "slimes": {
+     "s": 1,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 6
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-sandra-newgame__started": {
+  "mode": "dialog",
+  "player": {
+   "map": "village",
+   "x": 5,
+   "y": 4,
+   "dir": "down",
+   "moving": false,
+   "fx": 5,
+   "fy": 4,
+   "tx": 5,
+   "ty": 4,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "sandra"
+  },
+  "q": {
+   "slimes": {
+    "s": 0,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 0
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 5,
+    "y": 4,
+    "dir": "down",
+    "moving": false,
+    "fx": 5,
+    "fy": 4,
+    "tx": 5,
+    "ty": 4,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "sandra"
+   },
+   "q": {
+    "slimes": {
+     "s": 0,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": null
+  }
+ },
+ "hero-sandra-victory__after-victory": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 8,
+   "ty": 7,
+   "t": 0,
+   "lvl": 8,
+   "hp": 50,
+   "maxhp": 82,
+   "atk": 20,
+   "def": 8,
+   "xp": 0,
+   "next": 202,
+   "herbs": 2,
+   "maxHerbs": 5,
+   "gold": 180,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 2,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "sandra"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 41,
+   "slimes": 14,
+   "steps": 2100
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 8,
+    "hp": 50,
+    "maxhp": 82,
+    "atk": 20,
+    "def": 8,
+    "xp": 0,
+    "next": 202,
+    "herbs": 2,
+    "maxHerbs": 5,
+    "gold": 180,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 2,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "sandra"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 41,
+    "slimes": 14,
+    "steps": 2100
+   },
+   "tracked": "shards"
+  }
+ },
+ "hero-sandra-woods__after-battles": {
+  "mode": "world",
+  "player": {
+   "map": "forest",
+   "x": 7,
+   "y": 5,
+   "dir": "right",
+   "moving": false,
+   "fx": 6,
+   "fy": 5,
+   "tx": 7,
+   "ty": 5,
+   "t": 0,
+   "lvl": 4,
+   "hp": 48,
+   "maxhp": 48,
+   "atk": 12,
+   "def": 4,
+   "xp": 5,
+   "next": 40,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 37,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 2,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "sandra"
+  },
+  "q": {
+   "slimes": {
+    "s": 2,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 1
+   },
+   "glowcap": {
+    "s": 1
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 9,
+   "slimes": 7,
+   "steps": 198
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "forest",
+    "x": 7,
+    "y": 5,
+    "dir": "right",
+    "moving": false,
+    "fx": 7,
+    "fy": 5,
+    "tx": 7,
+    "ty": 5,
+    "t": 0,
+    "lvl": 4,
+    "hp": 48,
+    "maxhp": 48,
+    "atk": 12,
+    "def": 4,
+    "xp": 5,
+    "next": 40,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 37,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 2,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "sandra"
+   },
+   "q": {
+    "slimes": {
+     "s": 2,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 1
+    },
+    "glowcap": {
+     "s": 1
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 9,
+    "slimes": 7,
+    "steps": 198
+   },
+   "tracked": "slimes"
+  }
+ },
+ "hero-select-keeps-save__continued": {
+  "mode": "world",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 7,
+   "hp": 76,
+   "maxhp": 76,
+   "atk": 18,
+   "def": 7,
+   "xp": 0,
+   "next": 135,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 40,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 1
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 30,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 7,
+    "maxhp": 76,
+    "hp": 76,
+    "atk": 18,
+    "def": 7,
+    "xp": 0,
+    "next": 135,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 40,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
     "sinceBattle": 0
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 1
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 30,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "newgame__started": {
+  "mode": "dialog",
+  "player": {
+   "map": "village",
+   "x": 5,
+   "y": 4,
+   "dir": "down",
+   "moving": false,
+   "fx": 5,
+   "fy": 4,
+   "tx": 5,
+   "ty": 4,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 0,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 0
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 5,
+    "y": 4,
+    "dir": "down",
+    "moving": false,
+    "fx": 5,
+    "fy": 4,
+    "tx": 5,
+    "ty": 4,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 0,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": null
+  }
+ },
+ "newgame__walked": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 7,
+   "y": 6,
+   "dir": "right",
+   "moving": false,
+   "fx": 6,
+   "fy": 6,
+   "tx": 7,
+   "ty": 6,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 0,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 4
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 5,
+    "y": 4,
+    "dir": "down",
+    "moving": false,
+    "fx": 5,
+    "fy": 4,
+    "tx": 5,
+    "ty": 4,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 0,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": null
+  }
+ },
+ "pip__pouch": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 11,
+   "dir": "left",
+   "moving": false,
+   "fx": 8,
+   "fy": 11,
+   "tx": 8,
+   "ty": 11,
+   "t": 0,
+   "lvl": 2,
+   "hp": 36,
+   "maxhp": 36,
+   "atk": 8,
+   "def": 2,
+   "xp": 0,
+   "next": 18,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 0,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 1,
+    "n": 0
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 0
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 11,
+    "dir": "left",
+    "moving": false,
+    "fx": 8,
+    "fy": 11,
+    "tx": 8,
+    "ty": 11,
+    "t": 0,
+    "lvl": 2,
+    "hp": 36,
+    "maxhp": 36,
+    "atk": 8,
+    "def": 2,
+    "xp": 0,
+    "next": 18,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 0,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 1,
+     "n": 0
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": "slimes"
+  }
+ },
+ "victory__after-victory": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 8,
+   "fy": 7,
+   "tx": 8,
+   "ty": 7,
+   "t": 0,
+   "lvl": 8,
+   "hp": 50,
+   "maxhp": 82,
+   "atk": 20,
+   "def": 8,
+   "xp": 0,
+   "next": 202,
+   "herbs": 2,
+   "maxHerbs": 5,
+   "gold": 180,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 2,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 41,
+   "slimes": 14,
+   "steps": 2100
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 8,
+    "fy": 7,
+    "tx": 8,
+    "ty": 7,
+    "t": 0,
+    "lvl": 8,
+    "hp": 50,
+    "maxhp": 82,
+    "atk": 20,
+    "def": 8,
+    "xp": 0,
+    "next": 202,
+    "herbs": 2,
+    "maxHerbs": 5,
+    "gold": 180,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 2,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -1913,7 +5380,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -2025,7 +5493,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -2082,7 +5551,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -2141,7 +5611,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
-   "sinceBattle": 1
+   "sinceBattle": 1,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -2198,7 +5669,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
-    "sinceBattle": 1
+    "sinceBattle": 1,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -2257,7 +5729,8 @@
    "shards": 0,
    "glowcaps": 1,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -2312,7 +5785,8 @@
     "shards": 0,
     "glowcaps": 1,
     "sickle": false,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -2369,7 +5843,8 @@
    "shards": 0,
    "glowcaps": 1,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -2424,7 +5899,8 @@
     "shards": 0,
     "glowcaps": 1,
     "sickle": false,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -2481,7 +5957,8 @@
    "shards": 0,
    "glowcaps": 2,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -2536,7 +6013,8 @@
     "shards": 0,
     "glowcaps": 2,
     "sickle": false,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -2593,7 +6071,8 @@
    "shards": 0,
    "glowcaps": 1,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -2648,7 +6127,8 @@
     "shards": 0,
     "glowcaps": 1,
     "sickle": false,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {
@@ -2705,7 +6185,8 @@
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
-   "sinceBattle": 0
+   "sinceBattle": 0,
+   "hero": "michael"
   },
   "q": {
    "slimes": {
@@ -2760,7 +6241,8 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
-    "sinceBattle": 0
+    "sinceBattle": 0,
+    "hero": "michael"
    },
    "q": {
     "slimes": {

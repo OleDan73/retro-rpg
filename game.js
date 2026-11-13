@@ -3,7 +3,7 @@
 (() => {
   // ---------------------------------------------------------------- setup
   const W = 240, H = 160, TS = 16;
-  // 16-colour palette, plus two pinks (16, 17) used only for the Dadda Boss
+  // 16-colour palette, plus two pinks (16, 17) used for the Dadda Boss and Celine's bow
   const PAL = [
     '#140c1c', '#442434', '#30346d', '#4e4a4e', '#854c30', '#346524', '#d04648', '#757161',
     '#597dce', '#d27d2c', '#8595a1', '#6daa2c', '#d2aa99', '#6dc2ca', '#dad45e', '#deeed6',
@@ -309,11 +309,23 @@
   // ---------------------------------------------------------------- characters
   function personSprite(o, dir, frame) {
     const { hair, shirt, shirt2, pants, skin = 12, robe, beard, longHair } = o;
+    const skirt = o.skirt != null;
     return outlined(mk(16, 16, (g) => {
       if (robe) {
         R(g, 4, 10, 8, 3, shirt);
         R(g, 4, 12, 8, 1, shirt2);
         if (frame) { R(g, 4, 13, 3, 1, 1); R(g, 10, 13, 2, 1, 1); } else { R(g, 5, 13, 2, 1, 1); R(g, 9, 13, 2, 1, 1); }
+      } else if (skirt) { // bare legs and shoes; the skirt itself is drawn over the torso below
+        if (dir === 'left') {
+          if (frame) { R(g, 4, 12, 2, 1, skin); R(g, 9, 12, 2, 1, skin); R(g, 3, 13, 3, 1, 1); R(g, 9, 13, 3, 1, 1); }
+          else { R(g, 7, 12, 2, 1, skin); R(g, 6, 13, 4, 1, 1); }
+        } else if (frame) {
+          R(g, 5, 12, 2, 1, 1);
+          R(g, 9, 12, 2, 1, skin); R(g, 9, 13, 2, 1, 1);
+        } else {
+          R(g, 5, 12, 2, 1, skin); R(g, 9, 12, 2, 1, skin);
+          R(g, 5, 13, 2, 1, 1); R(g, 9, 13, 2, 1, 1);
+        }
       } else if (dir === 'left') {
         if (frame) { R(g, 4, 11, 2, 2, pants); R(g, 9, 11, 2, 2, pants); R(g, 3, 13, 3, 1, 1); R(g, 9, 13, 3, 1, 1); }
         else { R(g, 6, 11, 4, 2, pants); R(g, 5, 13, 5, 1, 1); }
@@ -325,7 +337,8 @@
         R(g, 5, 13, 2, 1, 1); R(g, 9, 13, 2, 1, 1);
       }
       R(g, 4, 7, 8, 4, shirt);
-      if (!robe) R(g, 4, 10, 8, 1, o.belt ?? 4);
+      if (skirt) { R(g, 4, 10, 8, 1, o.skirt); R(g, 3, 11, 10, 1, o.hem ?? o.skirt); }
+      else if (!robe) R(g, 4, 10, 8, 1, o.belt ?? 4);
       if (o.apron && dir !== 'up') R(g, dir === 'left' ? 4 : 5, 8, dir === 'left' ? 4 : 6, 5, o.apron);
       if (dir === 'left') {
         const ay = frame ? 8 : 7;
@@ -339,14 +352,20 @@
       if (dir === 'up') {
         R(g, 4, 1, 8, 6, hair);
         if (longHair) R(g, 4, 7, 8, 2, hair);
+        if (o.ponytail != null) { R(g, 7, 7, 2, 3, hair); R(g, 7, 6, 2, 1, o.ponytail); }
+        if (o.bow != null) { R(g, 4, 1, 3, 2, o.bow); R(g, 5, 1, 1, 2, o.bowKnot ?? o.bow); }
       } else if (dir === 'left') {
         R(g, 4, 1, 8, 2, hair); R(g, 8, 3, 4, 3, hair); R(g, 4, 3, 1, 1, hair);
         if (longHair) R(g, 9, 6, 3, 3, hair);
+        if (o.ponytail != null) { P(g, 12, 3, o.ponytail); R(g, 12, 4, 2, 3, hair); P(g, 13, 7, hair); }
+        if (o.bow != null) { R(g, 8, 1, 3, 2, o.bow); R(g, 9, 1, 1, 2, o.bowKnot ?? o.bow); }
         P(g, 6, 4, 0);
         if (beard) R(g, 5, 5, 4, 3, beard);
       } else {
         R(g, 4, 1, 8, 2, hair); R(g, 4, 3, 1, 3, hair); R(g, 11, 3, 1, 3, hair); P(g, 5, 3, hair); P(g, 10, 3, hair);
         if (longHair) { R(g, 4, 6, 1, 3, hair); R(g, 11, 6, 1, 3, hair); }
+        if (o.ponytail != null) { P(g, 12, 2, o.ponytail); R(g, 12, 3, 2, 3, hair); P(g, 13, 6, hair); }
+        if (o.bow != null) { R(g, 9, 1, 3, 2, o.bow); R(g, 10, 1, 1, 2, o.bowKnot ?? o.bow); }
         P(g, 6, 4, 0); P(g, 9, 4, 0);
         if (beard) { R(g, 6, 5, 4, 3, beard); P(g, 7, 8, beard); P(g, 8, 8, beard); }
         else { P(g, 7, 6, 6); P(g, 8, 6, 6); }
@@ -417,7 +436,11 @@
   // Playable heroes. They all share the same stats and abilities; only the name and sprite differ.
   const HEROES = {
     michael: { name: 'MICHAEL', spr: buildChar({ hair: 4, shirt: 8, shirt2: 2, pants: 2 }) },
+    mohammed: { name: 'MOHAMMED', spr: buildChar({ hair: 1, shirt: 6, shirt2: 1, pants: 3 }) },
+    celine: { name: 'CELINE', spr: buildChar({ hair: 4, shirt: 13, shirt2: 8, skirt: 13, hem: 8, longHair: true, bow: 16, bowKnot: 17 }) },
+    sandra: { name: 'SANDRA', spr: buildChar({ hair: 1, shirt: 14, shirt2: 9, skirt: 9, hem: 4, ponytail: 6 }) },
   };
+  const HERO_ORDER = ['michael', 'mohammed', 'celine', 'sandra']; // order on the hero-selection screen
   const DEFAULT_HERO = 'michael';
   const isHero = (id) => typeof id === 'string' && Object.prototype.hasOwnProperty.call(HEROES, id);
   // The hero being played. Anything unknown (such as a save from before heroes existed) counts as Michael.
@@ -851,8 +874,8 @@
     tracked = d.tracked || null;
     return true;
   }
-  function newGame() {
-    Object.assign(player, newPlayer());
+  function newGame(heroId) {
+    Object.assign(player, newPlayer(), { hero: isHero(heroId) ? heroId : DEFAULT_HERO });
     q = newQuests(); flags = {}; stats = { won: 0, slimes: 0, steps: 0 }; tracked = null;
   }
 
@@ -1584,11 +1607,12 @@
     box(4, 4, 104, 28);
     text(b.name, 10, 9, b.boss ? 14 : 15);
     bar(10, 21, 92, b.shownHp, b.max);
-    box(132, 64, 104, 36);
-    text(hero().name, 138, 69, 14);
+    const wide = Math.max(0, hero().name.length - 7) * 8; // longer names widen the panel to the left
+    box(132 - wide, 64, 104 + wide, 36);
+    text(hero().name, 138 - wide, 69, 14);
     text(`LV${player.lvl}`, 202, 69, 15);
-    text(`HP${player.hp}/${player.maxhp}`, 138, 79);
-    bar(138, 91, 92, b.playerShownHp, player.maxhp);
+    text(`HP${player.hp}/${player.maxhp}`, 138 - wide, 79);
+    bar(138 - wide, 91, 92 + wide, b.playerShownHp, player.maxhp);
     ctx.restore();
     box(0, 104, 80, 56);
     const opts = ['ATTACK', `HEAL ${player.herbs}`, 'RUN'];
@@ -1630,6 +1654,30 @@
         if (title.sel === i && Math.floor(tick / 16) % 3) cursor(76, 80 + i * 13);
       });
     } else if (Math.floor(tick / 30) % 2) centered(isTouch ? 'TAP A TO START' : 'PRESS SPACE', 88, 15);
+  }
+  // Shown after choosing NEW GAME. Nothing is saved or changed until a hero is confirmed.
+  let heroSel = 0;
+  function updateHeroSelect() {
+    const n = HERO_ORDER.length;
+    if (navPressed === 'left' || navPressed === 'up') { heroSel = (heroSel + n - 1) % n; SFX.move(); }
+    if (navPressed === 'right' || navPressed === 'down') { heroSel = (heroSel + 1) % n; SFX.move(); }
+    if (aPressed) { newGame(HERO_ORDER[heroSel]); startPlaying(true); }
+    else if (bPressed) { mode = 'title'; SFX.move(); }
+  }
+  function drawHeroSelect() {
+    R(ctx, 0, 0, W, H, 0);
+    drawStars();
+    centered('CHOOSE YOUR HERO', 16, 14);
+    HERO_ORDER.forEach((id, i) => {
+      const x = 29 + i * 50, y = 50, on = i === heroSel;
+      if (on) box(x - 6, y - 6, 44, 46);
+      ctx.globalAlpha = on ? 1 : 0.45;
+      ctx.drawImage(HEROES[id].spr['down' + (on ? Math.floor(tick / 15) % 2 : 0)], x, y, 32, 32);
+      ctx.globalAlpha = 1;
+    });
+    centered(HEROES[HERO_ORDER[heroSel]].name, 106, 15);
+    if (Math.floor(tick / 20) % 2) { text('<', 68, 106, 10); text('>', 164, 106, 10); }
+    centered(isTouch ? 'A: START   B: BACK' : 'SPACE: START   X: BACK', 138, 7);
   }
   function drawVictory() {
     R(ctx, 0, 0, W, H, 0);
@@ -1681,9 +1729,10 @@
       if (title.hasSave && (navPressed === 'up' || navPressed === 'down')) { title.sel ^= 1; SFX.move(); }
       if (aPressed) {
         if (title.hasSave && title.sel === 0) { loadGame(); startPlaying(false); }
-        else { newGame(); startPlaying(true); }
+        else { heroSel = 0; mode = 'heroSelect'; SFX.select(); }
       }
-    } else if (mode === 'world') updateWorld();
+    } else if (mode === 'heroSelect') updateHeroSelect();
+    else if (mode === 'world') updateWorld();
     else if (mode === 'dialog') { queuedDir = null; updateDialog(); }
     else if (mode === 'battle') updateBattle();
     else if (mode === 'shop') updateShop();
@@ -1698,6 +1747,7 @@
   function render() {
     ctx.imageSmoothingEnabled = false;
     if (mode === 'title') drawTitle();
+    else if (mode === 'heroSelect') drawHeroSelect();
     else if (mode === 'battle') drawBattle();
     else if (mode === 'victory') drawVictory();
     else if (mode === 'menu') drawMenu();

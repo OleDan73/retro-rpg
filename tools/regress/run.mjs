@@ -118,6 +118,12 @@ async function navigate() {
   await loaded;
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+async function ready() {
+  for (let i = 0; !(await evaluate('window.__T.ready()')); i++) {
+    if (i > 200) throw new Error('game loop never started');
+    await sleep(50);
+  }
+}
 
 // ------------------------------------------------------------------ run scenarios
 const hashes = {}, states = {}, checks = [], errors = [];
@@ -129,11 +135,16 @@ for (const sc of list) {
     await navigate(); // get onto the origin so localStorage can be prepared
     await evaluate(`localStorage.clear(); ${sc.save ? `localStorage.setItem(${JSON.stringify(SAVE_KEY)}, ${JSON.stringify(JSON.stringify(sc.save))});` : ''} 0`);
     await navigate();
-    for (let i = 0; !(await evaluate('window.__T.ready()')); i++) {
-      if (i > 200) throw new Error('game loop never started');
-      await sleep(50);
+    await ready();
+    // A scenario with several phases reloads the page between them and keeps localStorage, like closing
+    // and reopening the game.
+    const phases = Array.isArray(sc.run) ? sc.run : [sc.run];
+    const out = { shots: [], states: {}, checks: [], fontOk: true };
+    for (let i = 0; i < phases.length; i++) {
+      if (i > 0) { await navigate(); await ready(); }
+      const o = await evaluate(`(async () => { const T = window.__T; T.zoom = ${flag('--zoom') ? 4 : 0}; await (${phases[i]})(T, T.g); return { ...T.out }; })()`);
+      out.shots.push(...o.shots); Object.assign(out.states, o.states); out.checks.push(...o.checks); out.fontOk &&= o.fontOk;
     }
-    const out = await evaluate(`(async () => { const T = window.__T; T.zoom = ${flag('--zoom') ? 4 : 0}; await (${sc.run})(T, T.g); return { ...T.out }; })()`);
     for (const s of out.shots) {
       const key = `${sc.name}__${s.name}`;
       hashes[key] = s.hash;
@@ -191,6 +202,18 @@ for (const [k, s] of Object.entries(states)) {
   if (d.length) changed.push(`state ${k}\n      ${d.slice(0, 8).join('\n      ')}`); else same.push(k);
 }
 const missing = only ? [] : [...Object.keys(baseHashes).filter((k) => !(k in hashes)), ...Object.keys(baseStates).filter((k) => !(k in states))];
+// Scenarios can demand that one of their states equals another scenario's state apart from the hero:
+// this is how "every hero plays identically" is proven.
+const noHero = (v) => (Array.isArray(v) ? v.map(noHero) : v && typeof v === 'object'
+  ? Object.fromEntries(Object.keys(v).sort().filter((k) => k !== 'hero').map((k) => [k, noHero(v[k])])) : v);
+for (const sc of list) {
+  for (const [mine, other] of Object.entries(sc.sameAs || {})) {
+    const a = states[`${sc.name}__${mine}`], b = states[other] ?? baseStates[other];
+    if (only && (!a || !b)) continue; // the other scenario was filtered out of this run
+    const d = a && b ? diffPaths(noHero(b), noHero(a)) : ['state missing'];
+    checks.push({ name: `${sc.name}: ${mine} matches ${other} apart from the hero`, ok: !d.length, detail: d.slice(0, 5).join('; ') });
+  }
+}
 const failedChecks = checks.filter((c) => !c.ok);
 
 if (flag('--update') || flag('--update-new')) {

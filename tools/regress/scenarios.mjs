@@ -350,6 +350,119 @@ const vineScenarios = [
   },
 ];
 
+// ------------------------------------------------------------------ the Dadda Boss fight in detail
+// These record a frame-by-frame log of whole fights (see startLog in shim.js) plus screenshots at every
+// turn, every hit and during the special moments, so the boss's exact behaviour is pinned down:
+// turn order, the puff-up turn, the Belly Flop and its damage, the wobble, no running, rewards, aftermath.
+const daddaWin = async (T, g) => {
+  await T.continueGame();
+  T.startLog();
+  await T.talk('boss');
+  T.shot('flash-1'); await T.frames(5); T.shot('flash-2'); await T.frames(5); T.shot('flash-3');
+  await T.untilBattle();
+  let turn = 0, hits = 0, ranCharged = false;
+  T.onLog = (e) => {
+    if (e[1] === 'heroHp') T.shot(`hit-${String(++hits).padStart(2, '0')}`);
+    if (e[1] === 'enemyHp' && e[2] === 0) { T.shotAfter(8, 'melting-1'); T.shotAfter(30, 'melting-2'); }
+    if (e[1] === 'charged' && e[2] === true) T.shotAfter(20, 'puffing');
+  };
+  await T.fight((g) => {
+    T.shot(`turn-${String(++turn).padStart(2, '0')}`);
+    if (turn === 1) return 2; // running must be refused
+    if (g.battle.charged && !ranCharged) { ranCharged = true; return 2; } // also while she is puffed up
+    return g.player.hp < 35 && g.player.herbs > 0 ? 1 : 0;
+  });
+  const msgs = T.log.filter((e) => e[1] === 'msg').map((e) => e[2]);
+  const has = (t) => msgs.includes(t);
+  T.check('running was refused', msgs.filter((m) => m === "There's no escape from the Dadda Boss!").length === 2);
+  T.check('she puffed up', has('The DADDA BOSS puffs up huge! Brace yourself!'));
+  T.check('she belly-flopped', has('BELLY FLOP!!'));
+  T.check('she wobbled', has('The DADDA BOSS is wobbling!'));
+  T.check('defeat and aftermath messages', has('The DADDA BOSS melts into a puddle!') && has('The cave falls quiet. Return to Elder Moss!'));
+  T.check('reward message', has('You gain 80 XP and 100 gold.'));
+  T.check('boss quest is ready to turn in', g.q.king.s === 2, g.q.king.s);
+  T.check('back in the cave', g.mode === 'world' && g.player.map === 'cave');
+  T.state('won');
+  T.endLog('log');
+  T.shot('after');
+  await T.menuShot('status');
+};
+const daddaScenarios = [
+  { // a prepared hero wins, and the 80 XP is enough for a level-up
+    name: 'dadda-win', run: daddaWin,
+    save: { ...FIX.boss, player: { ...FIX.boss.player, xp: 100 } },
+  },
+  { // a hero who is not ready loses to the Belly Flop
+    name: 'dadda-lose',
+    save: save({
+      at: ['cave', 10, 3, 'up'], lvl: 3, player: { herbs: 0, sickle: true, gold: 25 },
+      q: { slimes: { s: 3, n: 3 }, king: { s: 1 } }, flags: { vines: true }, tracked: 'king',
+    }),
+    run: async (T, g) => {
+      await T.continueGame();
+      T.startLog();
+      await T.talk();
+      await T.untilBattle();
+      let hits = 0;
+      T.onLog = (e) => { if (e[1] === 'heroHp') T.shot(`hit-${++hits}`); };
+      await T.fight();
+      const msgs = T.log.filter((e) => e[1] === 'msg').map((e) => e[2]);
+      T.check('lost to the Belly Flop', msgs.indexOf('You collapse...') > msgs.indexOf('BELLY FLOP!!') && msgs.includes('BELLY FLOP!!'));
+      T.check('carried back to the village', g.player.map === 'village' && g.player.hp === g.player.maxhp);
+      T.check('the boss quest is still open', g.q.king.s === 1, g.q.king.s);
+      T.check('gold and XP are kept', g.player.gold === 25);
+      await T.dialog('wren');
+      T.state('lost');
+      T.endLog('log');
+    },
+  },
+  { // a very long fight: dozens of turns of the three-turn pattern, with only weak hits from the hero
+    name: 'dadda-long',
+    save: save({
+      at: ['cave', 10, 3, 'up'], lvl: 1, player: { maxhp: 3000, hp: 3000, herbs: 5, maxHerbs: 5, sickle: true },
+      q: { slimes: { s: 3, n: 3 }, king: { s: 1 } }, flags: { vines: true }, tracked: 'king',
+    }),
+    run: async (T, g) => {
+      await T.continueGame();
+      T.startLog();
+      await T.talk();
+      await T.untilBattle();
+      await T.fight();
+      const flops = T.log.filter((e) => e[1] === 'msg' && e[2] === 'BELLY FLOP!!').length;
+      T.check('many belly flops happened', flops >= 10, flops);
+      T.check('won in the end', g.q.king.s === 2);
+      T.state('won');
+      T.endLog('log');
+    },
+  },
+  { // ordinary battles, logged the same way: attacking, running away, healing, and the white encounter flash
+    name: 'battle-detail-woods', save: FIX.woods,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.startLog();
+      walking: for (;;) {
+        for (const d of ['right', 'left']) {
+          for (let k = 0; k < 6; k++) {
+            const before = g.player.sinceBattle;
+            await T.step(d);
+            if (before > 0 && g.player.sinceBattle === 0) break walking;
+          }
+        }
+      }
+      T.shot('flash-1'); await T.frames(5); T.shot('flash-2'); await T.frames(5); T.shot('flash-3');
+      await T.untilBattle();
+      let turn = 0;
+      await T.fight((g) => { T.shot(`first-turn-${++turn}`); return 0; });
+      for (let i = 0; i < 4; i++) { await T.wander(); await T.fight(() => 2); } // keep trying to run
+      await T.wander(); await T.fight((g) => (g.battle.turn === 0 ? 1 : 0)); // try to heal at full HP first
+      await T.wander(); await T.fight((g) => (g.player.hp < g.player.maxhp && g.player.herbs > 0 ? 1 : 0));
+      await T.wander(); await T.fight();
+      T.state('end');
+      T.endLog('log');
+    },
+  },
+];
+
 // Saves whose hero value is unusable must fall back to Michael, keep everything else, and still play.
 const BAD_HEROES = { unknown: 'nobody', builtin: 'constructor', number: 42, nothing: null, empty: '', list: ['michael'] };
 const badHeroScenarios = Object.entries(BAD_HEROES).map(([label, value]) => ({
@@ -562,6 +675,7 @@ export const SCENARIOS = [
   ...badHeroScenarios,
   ...sandraScenarios,
   ...vineScenarios,
+  ...daddaScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,
   ...heroScenarios,

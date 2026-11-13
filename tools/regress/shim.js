@@ -54,6 +54,36 @@
         const cb = raf;
         if (cb) { raf = null; cb(now); }
         await macro();
+        if (T.log) T.observe();
+      }
+    },
+
+    // ---- frame-by-frame log: records the frame on which anything a player would notice changes
+    // (battle messages, both HP values, the boss's charged state, rewards, quest state...), so the exact
+    // order and timing of a fight can be compared between versions.
+    log: null,
+    startLog() { T.log = []; T.logFrame = 0; T.seen = {}; T.timedShots = []; T.onLog = null; },
+    endLog(name) { T.out.states[name] = T.log; T.log = null; T.onLog = null; },
+    shotAfter(frames, name) { T.timedShots.push([T.logFrame + frames, name]); },
+    observe() {
+      const g = window.__rpg, b = g.battle, f = T.logFrame++;
+      const note = (k, v) => {
+        if (T.seen[k] === v) return;
+        T.seen[k] = v;
+        const e = [f, k, v];
+        T.log.push(e);
+        if (T.onLog) T.onLog(e);
+      };
+      note('mode', g.mode);
+      if (b) {
+        note('enemy', b.type); note('msg', b.msg); note('phase', b.phase); note('turn', b.turn);
+        note('enemyHp', b.hp); note('charged', b.charged); note('gone', b.gone);
+      }
+      const p = g.player;
+      note('heroHp', p.hp); note('herbs', p.herbs); note('xp', p.xp); note('lvl', p.lvl); note('gold', p.gold);
+      note('map', p.map); note('kingQuest', g.q.king.s); note('slimeCount', g.q.slimes.n); note('glowcaps', p.glowcaps);
+      for (let i = T.timedShots.length - 1; i >= 0; i--) {
+        if (T.timedShots[i][0] <= f) T.shot(T.timedShots.splice(i, 1)[0][1]);
       }
     },
     async until(pred, what = 'condition', max = 30000) {

@@ -480,12 +480,48 @@
   })));
 
   // name, base stats, gold range, battle intro
+  // A boss also has a `boss` block. The battle engine asks it how the fight works, so the engine
+  // itself never needs to know which boss it is:
+  //   flash      colour of the screen flash when the fight begins
+  //   noEscape   line shown when the hero tries to run (leave it out and running works as usual)
+  //   turn(b)    the boss's whole turn, in place of a plain attack. It uses the battle helpers
+  //              (msg, enemyHit, SFX) and may keep its own state on the battle object `b`;
+  //              b.charged also makes the sprite swell on screen.
+  //   defeated   line shown when the boss is beaten
+  //   quest      quest that becomes ready to turn in when the boss is beaten
+  //   aftermath  closing line of the battle
   const ENEMIES = {
     slime: { name: 'SLIME', hp: 12, atk: 4, def: 0, xp: 5, gold: [3, 5], intro: 'oozes out!' },
     shroom: { name: 'SHROOMLET', hp: 16, atk: 5, def: 1, xp: 7, gold: [4, 6], intro: 'pops up!' },
     bat: { name: 'CAVE BAT', hp: 26, atk: 11, def: 2, xp: 12, gold: [6, 9], intro: 'swoops down!' },
     gloop: { name: 'GLOOP', hp: 36, atk: 13, def: 3, xp: 15, gold: [8, 11], intro: 'bubbles up!' },
-    king: { name: 'DADDA BOSS', hp: 140, atk: 15, def: 5, xp: 80, gold: [100, 100], intro: 'blocks your way!', boss: true },
+    king: {
+      name: 'DADDA BOSS', hp: 140, atk: 15, def: 5, xp: 80, gold: [100, 100], intro: 'blocks your way!',
+      boss: {
+        flash: 6,
+        noEscape: "There's no escape from the Dadda Boss!",
+        // Every third turn she puffs up instead of attacking, then belly-flops on her next turn.
+        async turn(b) {
+          if (b.charged) {
+            b.charged = false;
+            await msg('BELLY FLOP!!', 100);
+            await enemyHit(2.2);
+          } else if (b.turn % 3 === 0) {
+            b.charged = true;
+            SFX.charge();
+            await msg('The DADDA BOSS puffs up huge! Brace yourself!', 900);
+            return;
+          } else {
+            await msg(`${b.name} attacks!`, 100);
+            await enemyHit(1);
+          }
+          if (!b.wobbled && b.hp < b.max * 0.3) { b.wobbled = true; await msg('The DADDA BOSS is wobbling!', 600); }
+        },
+        defeated: 'The DADDA BOSS melts into a puddle!',
+        quest: 'king',
+        aftermath: 'The cave falls quiet. Return to Elder Moss!',
+      },
+    },
   };
   const WEAPONS = { none: { name: 'STICK', atk: 0 }, iron: { name: 'IRON SWORD', atk: 3 }, crystal: { name: 'CRYSTAL SWD', atk: 7 } };
   const ARMORS = { none: { name: 'TUNIC', def: 0 }, vest: { name: 'TOUGH VEST', def: 2 } };
@@ -1508,8 +1544,9 @@
       float(196, 58, `+${amt}`, 11);
       await msg(`You eat an herb. +${amt} HP`, 600);
     } else {
-      if (battle.boss) {
-        await msg("There's no escape from the Dadda Boss!", 500);
+      const boss = ENEMIES[battle.type].boss;
+      if (boss && boss.noEscape) {
+        await msg(boss.noEscape, 500);
       } else if (Math.random() < 0.7) {
         SFX.run();
         await msg('You got away safely!', 500);
@@ -1531,22 +1568,9 @@
   async function enemyTurn() {
     const b = battle;
     b.turn++;
-    if (b.boss) {
-      if (b.charged) {
-        b.charged = false;
-        await msg('BELLY FLOP!!', 100);
-        await enemyHit(2.2);
-      } else if (b.turn % 3 === 0) {
-        b.charged = true;
-        SFX.charge();
-        await msg('The DADDA BOSS puffs up huge! Brace yourself!', 900);
-        return toMenu();
-      } else {
-        await msg(`${b.name} attacks!`, 100);
-        await enemyHit(1);
-      }
-      if (!b.wobbled && b.hp < b.max * 0.3) { b.wobbled = true; await msg('The DADDA BOSS is wobbling!', 600); }
-    } else {
+    const boss = ENEMIES[b.type].boss;
+    if (boss && boss.turn) await boss.turn(b);
+    else {
       await msg(`${b.name} attacks!`, 100);
       await enemyHit(1);
     }
@@ -1555,12 +1579,13 @@
   }
   async function winBattle() {
     const b = battle;
+    const boss = ENEMIES[b.type].boss;
     b.dying = 40;
     SFX.defeat();
     await wait(700);
     b.gone = true;
     stats.won++;
-    await msg(b.boss ? 'The DADDA BOSS melts into a puddle!' : `${b.name} is defeated!`, 600);
+    await msg(boss && boss.defeated ? boss.defeated : `${b.name} is defeated!`, 600);
     player.xp += b.xp;
     player.gold += b.gold;
     SFX.coin();
@@ -1592,9 +1617,9 @@
       await msg(`It dropped a GLOWCAP! (${player.glowcaps}/3)`, 900);
       if (player.glowcaps >= 3) { markReady('glowcap'); await msg('That is enough glowcaps for Wren!', 900); }
     }
-    if (b.boss) {
-      markReady('king');
-      await msg('The cave falls quiet. Return to Elder Moss!', 1000);
+    if (boss) {
+      if (boss.quest) markReady(boss.quest);
+      if (boss.aftermath) await msg(boss.aftermath, 1000);
     }
     endBattle();
   }
@@ -1825,7 +1850,7 @@
       if (mode === 'shop') drawShop();
     }
     if (encounter && Math.floor(encounter.t / 5) % 2 === 0) {
-      ctx.globalAlpha = 0.7; R(ctx, 0, 0, W, H, encounter.type === 'king' ? 6 : 15); ctx.globalAlpha = 1;
+      ctx.globalAlpha = 0.7; R(ctx, 0, 0, W, H, ENEMIES[encounter.type]?.boss?.flash ?? 15); ctx.globalAlpha = 1;
     }
     if (fade) {
       const a = 1 - Math.abs(fade.t / (fade.dur / 2) - 1);

@@ -1,4 +1,1195 @@
 {
+ "battle-detail-woods__end": {
+  "mode": "world",
+  "player": {
+   "map": "forest",
+   "x": 7,
+   "y": 5,
+   "dir": "left",
+   "moving": false,
+   "fx": 8,
+   "fy": 5,
+   "tx": 7,
+   "ty": 5,
+   "t": 0,
+   "lvl": 3,
+   "hp": 37,
+   "maxhp": 42,
+   "atk": 10,
+   "def": 3,
+   "xp": 16,
+   "next": 27,
+   "herbs": 0,
+   "maxHerbs": 3,
+   "gold": 28,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 2,
+   "sickle": false,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 2,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 1
+   },
+   "glowcap": {
+    "s": 1
+   },
+   "king": {
+    "s": 0
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {},
+  "stats": {
+   "won": 7,
+   "slimes": 4,
+   "steps": 216
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "forest",
+    "x": 7,
+    "y": 5,
+    "dir": "left",
+    "moving": false,
+    "fx": 7,
+    "fy": 5,
+    "tx": 7,
+    "ty": 5,
+    "t": 0,
+    "lvl": 3,
+    "hp": 37,
+    "maxhp": 42,
+    "atk": 10,
+    "def": 3,
+    "xp": 16,
+    "next": 27,
+    "herbs": 0,
+    "maxHerbs": 3,
+    "gold": 28,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 2,
+    "sickle": false,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 2,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 1
+    },
+    "glowcap": {
+     "s": 1
+    },
+    "king": {
+     "s": 0
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {},
+   "stats": {
+    "won": 7,
+    "slimes": 4,
+    "steps": 216
+   },
+   "tracked": "slimes"
+  }
+ },
+ "battle-detail-woods__log": [
+  [
+   0,
+   "mode",
+   "world"
+  ],
+  [
+   0,
+   "heroHp",
+   36
+  ],
+  [
+   0,
+   "herbs",
+   3
+  ],
+  [
+   0,
+   "xp",
+   0
+  ],
+  [
+   0,
+   "lvl",
+   2
+  ],
+  [
+   0,
+   "gold",
+   12
+  ],
+  [
+   0,
+   "map",
+   "forest"
+  ],
+  [
+   0,
+   "kingQuest",
+   0
+  ],
+  [
+   0,
+   "slimeCount",
+   2
+  ],
+  [
+   0,
+   "glowcaps",
+   1
+  ],
+  [
+   106,
+   "mode",
+   "battle"
+  ],
+  [
+   106,
+   "enemy",
+   "slime"
+  ],
+  [
+   106,
+   "msg",
+   ""
+  ],
+  [
+   106,
+   "phase",
+   "busy"
+  ],
+  [
+   106,
+   "turn",
+   0
+  ],
+  [
+   106,
+   "enemyHp",
+   15
+  ],
+  [
+   106,
+   "charged",
+   false
+  ],
+  [
+   106,
+   "gone",
+   false
+  ],
+  [
+   128,
+   "msg",
+   "A SLIME oozes out!"
+  ],
+  [
+   189,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   189,
+   "phase",
+   "menu"
+  ],
+  [
+   210,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   210,
+   "phase",
+   "busy"
+  ],
+  [
+   241,
+   "enemyHp",
+   5
+  ],
+  [
+   271,
+   "msg",
+   "SLIME attacks!"
+  ],
+  [
+   271,
+   "turn",
+   1
+  ],
+  [
+   301,
+   "heroHp",
+   33
+  ],
+  [
+   340,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   340,
+   "phase",
+   "menu"
+  ],
+  [
+   341,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   341,
+   "phase",
+   "busy"
+  ],
+  [
+   372,
+   "enemyHp",
+   0
+  ],
+  [
+   445,
+   "msg",
+   "SLIME is defeated!"
+  ],
+  [
+   445,
+   "gone",
+   true
+  ],
+  [
+   501,
+   "msg",
+   "You gain 7 XP and 5 gold."
+  ],
+  [
+   501,
+   "xp",
+   7
+  ],
+  [
+   501,
+   "gold",
+   17
+  ],
+  [
+   570,
+   "msg",
+   "That makes 3 slimes! Tell Elder Moss!"
+  ],
+  [
+   570,
+   "slimeCount",
+   3
+  ],
+  [
+   687,
+   "mode",
+   "world"
+  ],
+  [
+   986,
+   "mode",
+   "battle"
+  ],
+  [
+   986,
+   "msg",
+   ""
+  ],
+  [
+   986,
+   "turn",
+   0
+  ],
+  [
+   986,
+   "enemyHp",
+   15
+  ],
+  [
+   986,
+   "gone",
+   false
+  ],
+  [
+   1007,
+   "msg",
+   "A SLIME oozes out!"
+  ],
+  [
+   1068,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1068,
+   "phase",
+   "menu"
+  ],
+  [
+   1095,
+   "msg",
+   "You got away safely!"
+  ],
+  [
+   1095,
+   "phase",
+   "busy"
+  ],
+  [
+   1164,
+   "mode",
+   "world"
+  ],
+  [
+   1885,
+   "mode",
+   "battle"
+  ],
+  [
+   1885,
+   "enemy",
+   "shroom"
+  ],
+  [
+   1885,
+   "msg",
+   ""
+  ],
+  [
+   1885,
+   "enemyHp",
+   19
+  ],
+  [
+   1907,
+   "msg",
+   "A SHROOMLET pops up!"
+  ],
+  [
+   1971,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1971,
+   "phase",
+   "menu"
+  ],
+  [
+   1998,
+   "msg",
+   "You got away safely!"
+  ],
+  [
+   1998,
+   "phase",
+   "busy"
+  ],
+  [
+   2068,
+   "mode",
+   "world"
+  ],
+  [
+   2714,
+   "mode",
+   "battle"
+  ],
+  [
+   2714,
+   "msg",
+   ""
+  ],
+  [
+   2736,
+   "msg",
+   "A SHROOMLET pops up!"
+  ],
+  [
+   2800,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2800,
+   "phase",
+   "menu"
+  ],
+  [
+   2827,
+   "msg",
+   "Couldn't get away!"
+  ],
+  [
+   2827,
+   "phase",
+   "busy"
+  ],
+  [
+   2871,
+   "msg",
+   "SHROOMLET attacks!"
+  ],
+  [
+   2871,
+   "turn",
+   1
+  ],
+  [
+   2907,
+   "heroHp",
+   28
+  ],
+  [
+   2947,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2947,
+   "phase",
+   "menu"
+  ],
+  [
+   2948,
+   "msg",
+   "You got away safely!"
+  ],
+  [
+   2948,
+   "phase",
+   "busy"
+  ],
+  [
+   3018,
+   "mode",
+   "world"
+  ],
+  [
+   3194,
+   "mode",
+   "battle"
+  ],
+  [
+   3194,
+   "enemy",
+   "slime"
+  ],
+  [
+   3194,
+   "msg",
+   ""
+  ],
+  [
+   3194,
+   "turn",
+   0
+  ],
+  [
+   3194,
+   "enemyHp",
+   15
+  ],
+  [
+   3216,
+   "msg",
+   "A SLIME oozes out!"
+  ],
+  [
+   3278,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   3278,
+   "phase",
+   "menu"
+  ],
+  [
+   3305,
+   "msg",
+   "Couldn't get away!"
+  ],
+  [
+   3305,
+   "phase",
+   "busy"
+  ],
+  [
+   3349,
+   "msg",
+   "SLIME attacks!"
+  ],
+  [
+   3349,
+   "turn",
+   1
+  ],
+  [
+   3381,
+   "heroHp",
+   25
+  ],
+  [
+   3421,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   3421,
+   "phase",
+   "menu"
+  ],
+  [
+   3422,
+   "msg",
+   "You got away safely!"
+  ],
+  [
+   3422,
+   "phase",
+   "busy"
+  ],
+  [
+   3492,
+   "mode",
+   "world"
+  ],
+  [
+   4280,
+   "mode",
+   "battle"
+  ],
+  [
+   4280,
+   "enemy",
+   "shroom"
+  ],
+  [
+   4280,
+   "msg",
+   ""
+  ],
+  [
+   4280,
+   "turn",
+   0
+  ],
+  [
+   4280,
+   "enemyHp",
+   19
+  ],
+  [
+   4301,
+   "msg",
+   "A SHROOMLET pops up!"
+  ],
+  [
+   4364,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4364,
+   "phase",
+   "menu"
+  ],
+  [
+   4388,
+   "msg",
+   "You eat an herb. +11 HP"
+  ],
+  [
+   4388,
+   "phase",
+   "busy"
+  ],
+  [
+   4388,
+   "heroHp",
+   36
+  ],
+  [
+   4388,
+   "herbs",
+   2
+  ],
+  [
+   4448,
+   "msg",
+   "SHROOMLET attacks!"
+  ],
+  [
+   4448,
+   "turn",
+   1
+  ],
+  [
+   4482,
+   "heroHp",
+   30
+  ],
+  [
+   4521,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4521,
+   "phase",
+   "menu"
+  ],
+  [
+   4528,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4528,
+   "phase",
+   "busy"
+  ],
+  [
+   4559,
+   "enemyHp",
+   12
+  ],
+  [
+   4589,
+   "msg",
+   "SHROOMLET attacks!"
+  ],
+  [
+   4589,
+   "turn",
+   2
+  ],
+  [
+   4623,
+   "heroHp",
+   25
+  ],
+  [
+   4662,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4662,
+   "phase",
+   "menu"
+  ],
+  [
+   4663,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4663,
+   "phase",
+   "busy"
+  ],
+  [
+   4694,
+   "enemyHp",
+   3
+  ],
+  [
+   4724,
+   "msg",
+   "SHROOMLET attacks!"
+  ],
+  [
+   4724,
+   "turn",
+   3
+  ],
+  [
+   4758,
+   "heroHp",
+   21
+  ],
+  [
+   4797,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4797,
+   "phase",
+   "menu"
+  ],
+  [
+   4798,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4798,
+   "phase",
+   "busy"
+  ],
+  [
+   4829,
+   "enemyHp",
+   0
+  ],
+  [
+   4901,
+   "msg",
+   "SHROOMLET is defeated!"
+  ],
+  [
+   4901,
+   "gone",
+   true
+  ],
+  [
+   4960,
+   "msg",
+   "You gain 9 XP and 4 gold."
+  ],
+  [
+   4960,
+   "xp",
+   16
+  ],
+  [
+   4960,
+   "gold",
+   21
+  ],
+  [
+   5046,
+   "mode",
+   "world"
+  ],
+  [
+   5429,
+   "mode",
+   "battle"
+  ],
+  [
+   5429,
+   "enemy",
+   "slime"
+  ],
+  [
+   5429,
+   "msg",
+   ""
+  ],
+  [
+   5429,
+   "turn",
+   0
+  ],
+  [
+   5429,
+   "enemyHp",
+   15
+  ],
+  [
+   5429,
+   "gone",
+   false
+  ],
+  [
+   5450,
+   "msg",
+   "A SLIME oozes out!"
+  ],
+  [
+   5511,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5511,
+   "phase",
+   "menu"
+  ],
+  [
+   5535,
+   "msg",
+   "You eat an herb. +15 HP"
+  ],
+  [
+   5535,
+   "phase",
+   "busy"
+  ],
+  [
+   5535,
+   "heroHp",
+   36
+  ],
+  [
+   5535,
+   "herbs",
+   1
+  ],
+  [
+   5595,
+   "msg",
+   "SLIME attacks!"
+  ],
+  [
+   5595,
+   "turn",
+   1
+  ],
+  [
+   5625,
+   "heroHp",
+   33
+  ],
+  [
+   5664,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5664,
+   "phase",
+   "menu"
+  ],
+  [
+   5665,
+   "msg",
+   "You eat an herb. +3 HP"
+  ],
+  [
+   5665,
+   "phase",
+   "busy"
+  ],
+  [
+   5665,
+   "heroHp",
+   36
+  ],
+  [
+   5665,
+   "herbs",
+   0
+  ],
+  [
+   5724,
+   "msg",
+   "SLIME attacks!"
+  ],
+  [
+   5724,
+   "turn",
+   2
+  ],
+  [
+   5754,
+   "heroHp",
+   32
+  ],
+  [
+   5793,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5793,
+   "phase",
+   "menu"
+  ],
+  [
+   5800,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   5800,
+   "phase",
+   "busy"
+  ],
+  [
+   5831,
+   "enemyHp",
+   6
+  ],
+  [
+   5861,
+   "msg",
+   "SLIME attacks!"
+  ],
+  [
+   5861,
+   "turn",
+   3
+  ],
+  [
+   5891,
+   "heroHp",
+   27
+  ],
+  [
+   5930,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5930,
+   "phase",
+   "menu"
+  ],
+  [
+   5931,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   5931,
+   "phase",
+   "busy"
+  ],
+  [
+   5962,
+   "enemyHp",
+   0
+  ],
+  [
+   6034,
+   "msg",
+   "SLIME is defeated!"
+  ],
+  [
+   6034,
+   "gone",
+   true
+  ],
+  [
+   6089,
+   "msg",
+   "You gain 7 XP and 3 gold."
+  ],
+  [
+   6089,
+   "xp",
+   23
+  ],
+  [
+   6089,
+   "gold",
+   24
+  ],
+  [
+   6157,
+   "msg",
+   "LEVEL UP! You are now LV3!"
+  ],
+  [
+   6157,
+   "heroHp",
+   42
+  ],
+  [
+   6157,
+   "xp",
+   5
+  ],
+  [
+   6157,
+   "lvl",
+   3
+  ],
+  [
+   6238,
+   "msg",
+   "HP+6 ATK+2 DEF+1. HP refilled!"
+  ],
+  [
+   6341,
+   "mode",
+   "world"
+  ],
+  [
+   6696,
+   "mode",
+   "battle"
+  ],
+  [
+   6696,
+   "enemy",
+   "shroom"
+  ],
+  [
+   6696,
+   "msg",
+   ""
+  ],
+  [
+   6696,
+   "turn",
+   0
+  ],
+  [
+   6696,
+   "enemyHp",
+   22
+  ],
+  [
+   6696,
+   "gone",
+   false
+  ],
+  [
+   6717,
+   "msg",
+   "A SHROOMLET pops up!"
+  ],
+  [
+   6780,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   6780,
+   "phase",
+   "menu"
+  ],
+  [
+   6801,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   6801,
+   "phase",
+   "busy"
+  ],
+  [
+   6832,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   6832,
+   "enemyHp",
+   4
+  ],
+  [
+   6872,
+   "msg",
+   "SHROOMLET attacks!"
+  ],
+  [
+   6872,
+   "turn",
+   1
+  ],
+  [
+   6906,
+   "heroHp",
+   37
+  ],
+  [
+   6945,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   6945,
+   "phase",
+   "menu"
+  ],
+  [
+   6946,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   6946,
+   "phase",
+   "busy"
+  ],
+  [
+   6977,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   6977,
+   "enemyHp",
+   0
+  ],
+  [
+   7059,
+   "msg",
+   "SHROOMLET is defeated!"
+  ],
+  [
+   7059,
+   "gone",
+   true
+  ],
+  [
+   7118,
+   "msg",
+   "You gain 11 XP and 4 gold."
+  ],
+  [
+   7118,
+   "xp",
+   16
+  ],
+  [
+   7118,
+   "gold",
+   28
+  ],
+  [
+   7187,
+   "msg",
+   "It dropped a GLOWCAP! (2/3)"
+  ],
+  [
+   7187,
+   "glowcaps",
+   2
+  ],
+  [
+   7287,
+   "mode",
+   "world"
+  ]
+ ],
  "boss-lose__carried-home": {
   "mode": "world",
   "player": {
@@ -967,6 +2158,4443 @@
    },
    "stats": {
     "won": 30,
+    "slimes": 12,
+    "steps": 1500
+   },
+   "tracked": "king"
+  }
+ },
+ "dadda-long__log": [
+  [
+   0,
+   "mode",
+   "dialog"
+  ],
+  [
+   0,
+   "heroHp",
+   3000
+  ],
+  [
+   0,
+   "herbs",
+   5
+  ],
+  [
+   0,
+   "xp",
+   0
+  ],
+  [
+   0,
+   "lvl",
+   1
+  ],
+  [
+   0,
+   "gold",
+   0
+  ],
+  [
+   0,
+   "map",
+   "cave"
+  ],
+  [
+   0,
+   "kingQuest",
+   1
+  ],
+  [
+   0,
+   "slimeCount",
+   3
+  ],
+  [
+   0,
+   "glowcaps",
+   0
+  ],
+  [
+   310,
+   "mode",
+   "world"
+  ],
+  [
+   362,
+   "mode",
+   "battle"
+  ],
+  [
+   362,
+   "enemy",
+   "king"
+  ],
+  [
+   362,
+   "msg",
+   ""
+  ],
+  [
+   362,
+   "phase",
+   "busy"
+  ],
+  [
+   362,
+   "turn",
+   0
+  ],
+  [
+   362,
+   "enemyHp",
+   140
+  ],
+  [
+   362,
+   "charged",
+   false
+  ],
+  [
+   362,
+   "gone",
+   false
+  ],
+  [
+   383,
+   "msg",
+   "The DADDA BOSS blocks your way!"
+  ],
+  [
+   458,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   458,
+   "phase",
+   "menu"
+  ],
+  [
+   479,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   479,
+   "phase",
+   "busy"
+  ],
+  [
+   512,
+   "enemyHp",
+   137
+  ],
+  [
+   543,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   543,
+   "turn",
+   1
+  ],
+  [
+   580,
+   "heroHp",
+   2986
+  ],
+  [
+   620,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   620,
+   "phase",
+   "menu"
+  ],
+  [
+   621,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   621,
+   "phase",
+   "busy"
+  ],
+  [
+   653,
+   "enemyHp",
+   135
+  ],
+  [
+   684,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   684,
+   "turn",
+   2
+  ],
+  [
+   721,
+   "heroHp",
+   2970
+  ],
+  [
+   761,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   761,
+   "phase",
+   "menu"
+  ],
+  [
+   762,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   762,
+   "phase",
+   "busy"
+  ],
+  [
+   794,
+   "enemyHp",
+   133
+  ],
+  [
+   825,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   825,
+   "turn",
+   3
+  ],
+  [
+   825,
+   "charged",
+   true
+  ],
+  [
+   925,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   925,
+   "phase",
+   "menu"
+  ],
+  [
+   926,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   926,
+   "phase",
+   "busy"
+  ],
+  [
+   957,
+   "enemyHp",
+   131
+  ],
+  [
+   987,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   987,
+   "turn",
+   4
+  ],
+  [
+   987,
+   "charged",
+   false
+  ],
+  [
+   1015,
+   "heroHp",
+   2936
+  ],
+  [
+   1054,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1054,
+   "phase",
+   "menu"
+  ],
+  [
+   1055,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1055,
+   "phase",
+   "busy"
+  ],
+  [
+   1086,
+   "enemyHp",
+   129
+  ],
+  [
+   1116,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   1116,
+   "turn",
+   5
+  ],
+  [
+   1151,
+   "heroHp",
+   2922
+  ],
+  [
+   1190,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1190,
+   "phase",
+   "menu"
+  ],
+  [
+   1191,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1191,
+   "phase",
+   "busy"
+  ],
+  [
+   1222,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   1222,
+   "enemyHp",
+   124
+  ],
+  [
+   1262,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   1262,
+   "turn",
+   6
+  ],
+  [
+   1262,
+   "charged",
+   true
+  ],
+  [
+   1362,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1362,
+   "phase",
+   "menu"
+  ],
+  [
+   1363,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1363,
+   "phase",
+   "busy"
+  ],
+  [
+   1394,
+   "enemyHp",
+   121
+  ],
+  [
+   1424,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   1424,
+   "turn",
+   7
+  ],
+  [
+   1424,
+   "charged",
+   false
+  ],
+  [
+   1452,
+   "heroHp",
+   2890
+  ],
+  [
+   1491,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1491,
+   "phase",
+   "menu"
+  ],
+  [
+   1492,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1492,
+   "phase",
+   "busy"
+  ],
+  [
+   1523,
+   "enemyHp",
+   118
+  ],
+  [
+   1553,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   1553,
+   "turn",
+   8
+  ],
+  [
+   1588,
+   "heroHp",
+   2874
+  ],
+  [
+   1627,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1627,
+   "phase",
+   "menu"
+  ],
+  [
+   1628,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1628,
+   "phase",
+   "busy"
+  ],
+  [
+   1659,
+   "enemyHp",
+   115
+  ],
+  [
+   1689,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   1689,
+   "turn",
+   9
+  ],
+  [
+   1689,
+   "charged",
+   true
+  ],
+  [
+   1789,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1789,
+   "phase",
+   "menu"
+  ],
+  [
+   1790,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1790,
+   "phase",
+   "busy"
+  ],
+  [
+   1821,
+   "enemyHp",
+   112
+  ],
+  [
+   1851,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   1851,
+   "turn",
+   10
+  ],
+  [
+   1851,
+   "charged",
+   false
+  ],
+  [
+   1880,
+   "heroHp",
+   2840
+  ],
+  [
+   1920,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1920,
+   "phase",
+   "menu"
+  ],
+  [
+   1921,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1921,
+   "phase",
+   "busy"
+  ],
+  [
+   1953,
+   "enemyHp",
+   111
+  ],
+  [
+   1984,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   1984,
+   "turn",
+   11
+  ],
+  [
+   2021,
+   "heroHp",
+   2824
+  ],
+  [
+   2061,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2061,
+   "phase",
+   "menu"
+  ],
+  [
+   2062,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   2062,
+   "phase",
+   "busy"
+  ],
+  [
+   2094,
+   "enemyHp",
+   110
+  ],
+  [
+   2125,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   2125,
+   "turn",
+   12
+  ],
+  [
+   2125,
+   "charged",
+   true
+  ],
+  [
+   2226,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2226,
+   "phase",
+   "menu"
+  ],
+  [
+   2227,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   2227,
+   "phase",
+   "busy"
+  ],
+  [
+   2259,
+   "enemyHp",
+   109
+  ],
+  [
+   2290,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   2290,
+   "turn",
+   13
+  ],
+  [
+   2290,
+   "charged",
+   false
+  ],
+  [
+   2320,
+   "heroHp",
+   2788
+  ],
+  [
+   2360,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2360,
+   "phase",
+   "menu"
+  ],
+  [
+   2361,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   2361,
+   "phase",
+   "busy"
+  ],
+  [
+   2393,
+   "enemyHp",
+   108
+  ],
+  [
+   2424,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   2424,
+   "turn",
+   14
+  ],
+  [
+   2461,
+   "heroHp",
+   2774
+  ],
+  [
+   2501,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2501,
+   "phase",
+   "menu"
+  ],
+  [
+   2502,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   2502,
+   "phase",
+   "busy"
+  ],
+  [
+   2534,
+   "enemyHp",
+   107
+  ],
+  [
+   2565,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   2565,
+   "turn",
+   15
+  ],
+  [
+   2565,
+   "charged",
+   true
+  ],
+  [
+   2666,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2666,
+   "phase",
+   "menu"
+  ],
+  [
+   2667,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   2667,
+   "phase",
+   "busy"
+  ],
+  [
+   2699,
+   "enemyHp",
+   106
+  ],
+  [
+   2730,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   2730,
+   "turn",
+   16
+  ],
+  [
+   2730,
+   "charged",
+   false
+  ],
+  [
+   2760,
+   "heroHp",
+   2738
+  ],
+  [
+   2800,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2800,
+   "phase",
+   "menu"
+  ],
+  [
+   2801,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   2801,
+   "phase",
+   "busy"
+  ],
+  [
+   2833,
+   "enemyHp",
+   104
+  ],
+  [
+   2864,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   2864,
+   "turn",
+   17
+  ],
+  [
+   2901,
+   "heroHp",
+   2724
+  ],
+  [
+   2941,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2941,
+   "phase",
+   "menu"
+  ],
+  [
+   2942,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   2942,
+   "phase",
+   "busy"
+  ],
+  [
+   2974,
+   "enemyHp",
+   102
+  ],
+  [
+   3005,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   3005,
+   "turn",
+   18
+  ],
+  [
+   3005,
+   "charged",
+   true
+  ],
+  [
+   3106,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   3106,
+   "phase",
+   "menu"
+  ],
+  [
+   3107,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   3107,
+   "phase",
+   "busy"
+  ],
+  [
+   3139,
+   "enemyHp",
+   99
+  ],
+  [
+   3170,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   3170,
+   "turn",
+   19
+  ],
+  [
+   3170,
+   "charged",
+   false
+  ],
+  [
+   3200,
+   "heroHp",
+   2688
+  ],
+  [
+   3240,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   3240,
+   "phase",
+   "menu"
+  ],
+  [
+   3241,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   3241,
+   "phase",
+   "busy"
+  ],
+  [
+   3273,
+   "enemyHp",
+   97
+  ],
+  [
+   3304,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   3304,
+   "turn",
+   20
+  ],
+  [
+   3341,
+   "heroHp",
+   2673
+  ],
+  [
+   3381,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   3381,
+   "phase",
+   "menu"
+  ],
+  [
+   3382,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   3382,
+   "phase",
+   "busy"
+  ],
+  [
+   3414,
+   "enemyHp",
+   96
+  ],
+  [
+   3445,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   3445,
+   "turn",
+   21
+  ],
+  [
+   3445,
+   "charged",
+   true
+  ],
+  [
+   3546,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   3546,
+   "phase",
+   "menu"
+  ],
+  [
+   3547,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   3547,
+   "phase",
+   "busy"
+  ],
+  [
+   3579,
+   "enemyHp",
+   93
+  ],
+  [
+   3610,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   3610,
+   "turn",
+   22
+  ],
+  [
+   3610,
+   "charged",
+   false
+  ],
+  [
+   3640,
+   "heroHp",
+   2641
+  ],
+  [
+   3680,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   3680,
+   "phase",
+   "menu"
+  ],
+  [
+   3681,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   3681,
+   "phase",
+   "busy"
+  ],
+  [
+   3713,
+   "enemyHp",
+   90
+  ],
+  [
+   3744,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   3744,
+   "turn",
+   23
+  ],
+  [
+   3781,
+   "heroHp",
+   2626
+  ],
+  [
+   3821,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   3821,
+   "phase",
+   "menu"
+  ],
+  [
+   3822,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   3822,
+   "phase",
+   "busy"
+  ],
+  [
+   3853,
+   "enemyHp",
+   88
+  ],
+  [
+   3883,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   3883,
+   "turn",
+   24
+  ],
+  [
+   3883,
+   "charged",
+   true
+  ],
+  [
+   3983,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   3983,
+   "phase",
+   "menu"
+  ],
+  [
+   3984,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   3984,
+   "phase",
+   "busy"
+  ],
+  [
+   4015,
+   "enemyHp",
+   87
+  ],
+  [
+   4045,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   4045,
+   "turn",
+   25
+  ],
+  [
+   4045,
+   "charged",
+   false
+  ],
+  [
+   4073,
+   "heroHp",
+   2590
+  ],
+  [
+   4112,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4112,
+   "phase",
+   "menu"
+  ],
+  [
+   4113,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4113,
+   "phase",
+   "busy"
+  ],
+  [
+   4144,
+   "enemyHp",
+   86
+  ],
+  [
+   4174,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   4174,
+   "turn",
+   26
+  ],
+  [
+   4209,
+   "heroHp",
+   2576
+  ],
+  [
+   4248,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4248,
+   "phase",
+   "menu"
+  ],
+  [
+   4249,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4249,
+   "phase",
+   "busy"
+  ],
+  [
+   4280,
+   "enemyHp",
+   85
+  ],
+  [
+   4310,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   4310,
+   "turn",
+   27
+  ],
+  [
+   4310,
+   "charged",
+   true
+  ],
+  [
+   4410,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4410,
+   "phase",
+   "menu"
+  ],
+  [
+   4411,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4411,
+   "phase",
+   "busy"
+  ],
+  [
+   4442,
+   "enemyHp",
+   84
+  ],
+  [
+   4472,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   4472,
+   "turn",
+   28
+  ],
+  [
+   4472,
+   "charged",
+   false
+  ],
+  [
+   4500,
+   "heroHp",
+   2540
+  ],
+  [
+   4539,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4539,
+   "phase",
+   "menu"
+  ],
+  [
+   4540,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4540,
+   "phase",
+   "busy"
+  ],
+  [
+   4571,
+   "enemyHp",
+   82
+  ],
+  [
+   4601,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   4601,
+   "turn",
+   29
+  ],
+  [
+   4636,
+   "heroHp",
+   2524
+  ],
+  [
+   4675,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4675,
+   "phase",
+   "menu"
+  ],
+  [
+   4676,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4676,
+   "phase",
+   "busy"
+  ],
+  [
+   4707,
+   "enemyHp",
+   79
+  ],
+  [
+   4737,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   4737,
+   "turn",
+   30
+  ],
+  [
+   4737,
+   "charged",
+   true
+  ],
+  [
+   4837,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4837,
+   "phase",
+   "menu"
+  ],
+  [
+   4838,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4838,
+   "phase",
+   "busy"
+  ],
+  [
+   4869,
+   "enemyHp",
+   78
+  ],
+  [
+   4899,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   4899,
+   "turn",
+   31
+  ],
+  [
+   4899,
+   "charged",
+   false
+  ],
+  [
+   4927,
+   "heroHp",
+   2488
+  ],
+  [
+   4966,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   4966,
+   "phase",
+   "menu"
+  ],
+  [
+   4967,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   4967,
+   "phase",
+   "busy"
+  ],
+  [
+   4998,
+   "enemyHp",
+   76
+  ],
+  [
+   5028,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   5028,
+   "turn",
+   32
+  ],
+  [
+   5063,
+   "heroHp",
+   2472
+  ],
+  [
+   5102,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5102,
+   "phase",
+   "menu"
+  ],
+  [
+   5103,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   5103,
+   "phase",
+   "busy"
+  ],
+  [
+   5134,
+   "enemyHp",
+   75
+  ],
+  [
+   5164,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   5164,
+   "turn",
+   33
+  ],
+  [
+   5164,
+   "charged",
+   true
+  ],
+  [
+   5264,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5264,
+   "phase",
+   "menu"
+  ],
+  [
+   5265,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   5265,
+   "phase",
+   "busy"
+  ],
+  [
+   5296,
+   "enemyHp",
+   73
+  ],
+  [
+   5326,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   5326,
+   "turn",
+   34
+  ],
+  [
+   5326,
+   "charged",
+   false
+  ],
+  [
+   5354,
+   "heroHp",
+   2440
+  ],
+  [
+   5393,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5393,
+   "phase",
+   "menu"
+  ],
+  [
+   5394,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   5394,
+   "phase",
+   "busy"
+  ],
+  [
+   5425,
+   "enemyHp",
+   71
+  ],
+  [
+   5455,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   5455,
+   "turn",
+   35
+  ],
+  [
+   5490,
+   "heroHp",
+   2424
+  ],
+  [
+   5529,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5529,
+   "phase",
+   "menu"
+  ],
+  [
+   5530,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   5530,
+   "phase",
+   "busy"
+  ],
+  [
+   5561,
+   "enemyHp",
+   70
+  ],
+  [
+   5591,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   5591,
+   "turn",
+   36
+  ],
+  [
+   5591,
+   "charged",
+   true
+  ],
+  [
+   5691,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5691,
+   "phase",
+   "menu"
+  ],
+  [
+   5692,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   5692,
+   "phase",
+   "busy"
+  ],
+  [
+   5723,
+   "enemyHp",
+   68
+  ],
+  [
+   5753,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   5753,
+   "turn",
+   37
+  ],
+  [
+   5753,
+   "charged",
+   false
+  ],
+  [
+   5781,
+   "heroHp",
+   2388
+  ],
+  [
+   5820,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5820,
+   "phase",
+   "menu"
+  ],
+  [
+   5821,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   5821,
+   "phase",
+   "busy"
+  ],
+  [
+   5852,
+   "enemyHp",
+   67
+  ],
+  [
+   5882,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   5882,
+   "turn",
+   38
+  ],
+  [
+   5917,
+   "heroHp",
+   2373
+  ],
+  [
+   5956,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   5956,
+   "phase",
+   "menu"
+  ],
+  [
+   5957,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   5957,
+   "phase",
+   "busy"
+  ],
+  [
+   5988,
+   "enemyHp",
+   65
+  ],
+  [
+   6018,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   6018,
+   "turn",
+   39
+  ],
+  [
+   6018,
+   "charged",
+   true
+  ],
+  [
+   6118,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   6118,
+   "phase",
+   "menu"
+  ],
+  [
+   6119,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   6119,
+   "phase",
+   "busy"
+  ],
+  [
+   6150,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   6150,
+   "enemyHp",
+   62
+  ],
+  [
+   6190,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   6190,
+   "turn",
+   40
+  ],
+  [
+   6190,
+   "charged",
+   false
+  ],
+  [
+   6218,
+   "heroHp",
+   2341
+  ],
+  [
+   6257,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   6257,
+   "phase",
+   "menu"
+  ],
+  [
+   6258,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   6258,
+   "phase",
+   "busy"
+  ],
+  [
+   6289,
+   "enemyHp",
+   59
+  ],
+  [
+   6319,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   6319,
+   "turn",
+   41
+  ],
+  [
+   6354,
+   "heroHp",
+   2327
+  ],
+  [
+   6393,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   6393,
+   "phase",
+   "menu"
+  ],
+  [
+   6394,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   6394,
+   "phase",
+   "busy"
+  ],
+  [
+   6425,
+   "enemyHp",
+   57
+  ],
+  [
+   6455,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   6455,
+   "turn",
+   42
+  ],
+  [
+   6455,
+   "charged",
+   true
+  ],
+  [
+   6555,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   6555,
+   "phase",
+   "menu"
+  ],
+  [
+   6556,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   6556,
+   "phase",
+   "busy"
+  ],
+  [
+   6587,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   6587,
+   "enemyHp",
+   56
+  ],
+  [
+   6627,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   6627,
+   "turn",
+   43
+  ],
+  [
+   6627,
+   "charged",
+   false
+  ],
+  [
+   6655,
+   "heroHp",
+   2295
+  ],
+  [
+   6694,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   6694,
+   "phase",
+   "menu"
+  ],
+  [
+   6695,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   6695,
+   "phase",
+   "busy"
+  ],
+  [
+   6726,
+   "enemyHp",
+   53
+  ],
+  [
+   6756,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   6756,
+   "turn",
+   44
+  ],
+  [
+   6791,
+   "heroHp",
+   2280
+  ],
+  [
+   6830,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   6830,
+   "phase",
+   "menu"
+  ],
+  [
+   6831,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   6831,
+   "phase",
+   "busy"
+  ],
+  [
+   6862,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   6862,
+   "enemyHp",
+   50
+  ],
+  [
+   6902,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   6902,
+   "turn",
+   45
+  ],
+  [
+   6902,
+   "charged",
+   true
+  ],
+  [
+   7002,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   7002,
+   "phase",
+   "menu"
+  ],
+  [
+   7003,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   7003,
+   "phase",
+   "busy"
+  ],
+  [
+   7034,
+   "enemyHp",
+   47
+  ],
+  [
+   7064,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   7064,
+   "turn",
+   46
+  ],
+  [
+   7064,
+   "charged",
+   false
+  ],
+  [
+   7092,
+   "heroHp",
+   2248
+  ],
+  [
+   7131,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   7131,
+   "phase",
+   "menu"
+  ],
+  [
+   7132,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   7132,
+   "phase",
+   "busy"
+  ],
+  [
+   7163,
+   "enemyHp",
+   46
+  ],
+  [
+   7193,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   7193,
+   "turn",
+   47
+  ],
+  [
+   7228,
+   "heroHp",
+   2232
+  ],
+  [
+   7267,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   7267,
+   "phase",
+   "menu"
+  ],
+  [
+   7268,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   7268,
+   "phase",
+   "busy"
+  ],
+  [
+   7299,
+   "enemyHp",
+   44
+  ],
+  [
+   7329,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   7329,
+   "turn",
+   48
+  ],
+  [
+   7329,
+   "charged",
+   true
+  ],
+  [
+   7429,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   7429,
+   "phase",
+   "menu"
+  ],
+  [
+   7430,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   7430,
+   "phase",
+   "busy"
+  ],
+  [
+   7461,
+   "enemyHp",
+   41
+  ],
+  [
+   7491,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   7491,
+   "turn",
+   49
+  ],
+  [
+   7491,
+   "charged",
+   false
+  ],
+  [
+   7519,
+   "heroHp",
+   2198
+  ],
+  [
+   7558,
+   "msg",
+   "The DADDA BOSS is wobbling!"
+  ],
+  [
+   7622,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   7622,
+   "phase",
+   "menu"
+  ],
+  [
+   7623,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   7623,
+   "phase",
+   "busy"
+  ],
+  [
+   7654,
+   "enemyHp",
+   38
+  ],
+  [
+   7684,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   7684,
+   "turn",
+   50
+  ],
+  [
+   7719,
+   "heroHp",
+   2182
+  ],
+  [
+   7758,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   7758,
+   "phase",
+   "menu"
+  ],
+  [
+   7759,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   7759,
+   "phase",
+   "busy"
+  ],
+  [
+   7791,
+   "enemyHp",
+   36
+  ],
+  [
+   7822,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   7822,
+   "turn",
+   51
+  ],
+  [
+   7822,
+   "charged",
+   true
+  ],
+  [
+   7923,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   7923,
+   "phase",
+   "menu"
+  ],
+  [
+   7924,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   7924,
+   "phase",
+   "busy"
+  ],
+  [
+   7956,
+   "enemyHp",
+   34
+  ],
+  [
+   7987,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   7987,
+   "turn",
+   52
+  ],
+  [
+   7987,
+   "charged",
+   false
+  ],
+  [
+   8017,
+   "heroHp",
+   2146
+  ],
+  [
+   8057,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   8057,
+   "phase",
+   "menu"
+  ],
+  [
+   8058,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   8058,
+   "phase",
+   "busy"
+  ],
+  [
+   8090,
+   "enemyHp",
+   33
+  ],
+  [
+   8121,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   8121,
+   "turn",
+   53
+  ],
+  [
+   8158,
+   "heroHp",
+   2131
+  ],
+  [
+   8198,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   8198,
+   "phase",
+   "menu"
+  ],
+  [
+   8199,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   8199,
+   "phase",
+   "busy"
+  ],
+  [
+   8231,
+   "enemyHp",
+   31
+  ],
+  [
+   8262,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   8262,
+   "turn",
+   54
+  ],
+  [
+   8262,
+   "charged",
+   true
+  ],
+  [
+   8363,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   8363,
+   "phase",
+   "menu"
+  ],
+  [
+   8364,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   8364,
+   "phase",
+   "busy"
+  ],
+  [
+   8396,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   8396,
+   "enemyHp",
+   28
+  ],
+  [
+   8437,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   8437,
+   "turn",
+   55
+  ],
+  [
+   8437,
+   "charged",
+   false
+  ],
+  [
+   8467,
+   "heroHp",
+   2099
+  ],
+  [
+   8507,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   8507,
+   "phase",
+   "menu"
+  ],
+  [
+   8508,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   8508,
+   "phase",
+   "busy"
+  ],
+  [
+   8540,
+   "enemyHp",
+   26
+  ],
+  [
+   8571,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   8571,
+   "turn",
+   56
+  ],
+  [
+   8608,
+   "heroHp",
+   2085
+  ],
+  [
+   8648,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   8648,
+   "phase",
+   "menu"
+  ],
+  [
+   8649,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   8649,
+   "phase",
+   "busy"
+  ],
+  [
+   8681,
+   "enemyHp",
+   23
+  ],
+  [
+   8712,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   8712,
+   "turn",
+   57
+  ],
+  [
+   8712,
+   "charged",
+   true
+  ],
+  [
+   8813,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   8813,
+   "phase",
+   "menu"
+  ],
+  [
+   8814,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   8814,
+   "phase",
+   "busy"
+  ],
+  [
+   8846,
+   "enemyHp",
+   22
+  ],
+  [
+   8877,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   8877,
+   "turn",
+   58
+  ],
+  [
+   8877,
+   "charged",
+   false
+  ],
+  [
+   8907,
+   "heroHp",
+   2051
+  ],
+  [
+   8947,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   8947,
+   "phase",
+   "menu"
+  ],
+  [
+   8948,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   8948,
+   "phase",
+   "busy"
+  ],
+  [
+   8980,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   8980,
+   "enemyHp",
+   19
+  ],
+  [
+   9021,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   9021,
+   "turn",
+   59
+  ],
+  [
+   9058,
+   "heroHp",
+   2037
+  ],
+  [
+   9098,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   9098,
+   "phase",
+   "menu"
+  ],
+  [
+   9099,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   9099,
+   "phase",
+   "busy"
+  ],
+  [
+   9131,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   9131,
+   "enemyHp",
+   18
+  ],
+  [
+   9172,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   9172,
+   "turn",
+   60
+  ],
+  [
+   9172,
+   "charged",
+   true
+  ],
+  [
+   9273,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   9273,
+   "phase",
+   "menu"
+  ],
+  [
+   9274,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   9274,
+   "phase",
+   "busy"
+  ],
+  [
+   9306,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   9306,
+   "enemyHp",
+   13
+  ],
+  [
+   9347,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   9347,
+   "turn",
+   61
+  ],
+  [
+   9347,
+   "charged",
+   false
+  ],
+  [
+   9377,
+   "heroHp",
+   2005
+  ],
+  [
+   9417,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   9417,
+   "phase",
+   "menu"
+  ],
+  [
+   9418,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   9418,
+   "phase",
+   "busy"
+  ],
+  [
+   9450,
+   "enemyHp",
+   12
+  ],
+  [
+   9481,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   9481,
+   "turn",
+   62
+  ],
+  [
+   9518,
+   "heroHp",
+   1990
+  ],
+  [
+   9558,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   9558,
+   "phase",
+   "menu"
+  ],
+  [
+   9559,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   9559,
+   "phase",
+   "busy"
+  ],
+  [
+   9591,
+   "enemyHp",
+   11
+  ],
+  [
+   9622,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   9622,
+   "turn",
+   63
+  ],
+  [
+   9622,
+   "charged",
+   true
+  ],
+  [
+   9723,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   9723,
+   "phase",
+   "menu"
+  ],
+  [
+   9724,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   9724,
+   "phase",
+   "busy"
+  ],
+  [
+   9756,
+   "enemyHp",
+   9
+  ],
+  [
+   9787,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   9787,
+   "turn",
+   64
+  ],
+  [
+   9787,
+   "charged",
+   false
+  ],
+  [
+   9817,
+   "heroHp",
+   1958
+  ],
+  [
+   9857,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   9857,
+   "phase",
+   "menu"
+  ],
+  [
+   9858,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   9858,
+   "phase",
+   "busy"
+  ],
+  [
+   9890,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   9890,
+   "enemyHp",
+   8
+  ],
+  [
+   9931,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   9931,
+   "turn",
+   65
+  ],
+  [
+   9968,
+   "heroHp",
+   1942
+  ],
+  [
+   10008,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   10008,
+   "phase",
+   "menu"
+  ],
+  [
+   10009,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   10009,
+   "phase",
+   "busy"
+  ],
+  [
+   10041,
+   "enemyHp",
+   6
+  ],
+  [
+   10072,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   10072,
+   "turn",
+   66
+  ],
+  [
+   10072,
+   "charged",
+   true
+  ],
+  [
+   10173,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   10173,
+   "phase",
+   "menu"
+  ],
+  [
+   10174,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   10174,
+   "phase",
+   "busy"
+  ],
+  [
+   10206,
+   "enemyHp",
+   5
+  ],
+  [
+   10237,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   10237,
+   "turn",
+   67
+  ],
+  [
+   10237,
+   "charged",
+   false
+  ],
+  [
+   10267,
+   "heroHp",
+   1908
+  ],
+  [
+   10307,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   10307,
+   "phase",
+   "menu"
+  ],
+  [
+   10308,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   10308,
+   "phase",
+   "busy"
+  ],
+  [
+   10340,
+   "enemyHp",
+   4
+  ],
+  [
+   10371,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   10371,
+   "turn",
+   68
+  ],
+  [
+   10408,
+   "heroHp",
+   1892
+  ],
+  [
+   10448,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   10448,
+   "phase",
+   "menu"
+  ],
+  [
+   10449,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   10449,
+   "phase",
+   "busy"
+  ],
+  [
+   10481,
+   "enemyHp",
+   2
+  ],
+  [
+   10512,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   10512,
+   "turn",
+   69
+  ],
+  [
+   10512,
+   "charged",
+   true
+  ],
+  [
+   10613,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   10613,
+   "phase",
+   "menu"
+  ],
+  [
+   10614,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   10614,
+   "phase",
+   "busy"
+  ],
+  [
+   10646,
+   "enemyHp",
+   0
+  ],
+  [
+   10720,
+   "msg",
+   "The DADDA BOSS melts into a puddle!"
+  ],
+  [
+   10720,
+   "gone",
+   true
+  ],
+  [
+   10793,
+   "msg",
+   "You gain 80 XP and 100 gold."
+  ],
+  [
+   10793,
+   "xp",
+   80
+  ],
+  [
+   10793,
+   "gold",
+   100
+  ],
+  [
+   10865,
+   "msg",
+   "LEVEL UP! You are now LV2!"
+  ],
+  [
+   10865,
+   "heroHp",
+   3006
+  ],
+  [
+   10865,
+   "xp",
+   68
+  ],
+  [
+   10865,
+   "lvl",
+   2
+  ],
+  [
+   10947,
+   "msg",
+   "HP+6 ATK+2 DEF+1. HP refilled!"
+  ],
+  [
+   11033,
+   "msg",
+   "LEVEL UP! You are now LV3!"
+  ],
+  [
+   11033,
+   "heroHp",
+   3012
+  ],
+  [
+   11033,
+   "xp",
+   50
+  ],
+  [
+   11033,
+   "lvl",
+   3
+  ],
+  [
+   11115,
+   "msg",
+   "HP+6 ATK+2 DEF+1. HP refilled!"
+  ],
+  [
+   11201,
+   "msg",
+   "LEVEL UP! You are now LV4!"
+  ],
+  [
+   11201,
+   "heroHp",
+   3018
+  ],
+  [
+   11201,
+   "xp",
+   23
+  ],
+  [
+   11201,
+   "lvl",
+   4
+  ],
+  [
+   11283,
+   "msg",
+   "HP+6 ATK+2 DEF+1. HP refilled!"
+  ],
+  [
+   11369,
+   "msg",
+   "The cave falls quiet. Return to Elder Moss!"
+  ],
+  [
+   11369,
+   "kingQuest",
+   2
+  ],
+  [
+   11492,
+   "mode",
+   "world"
+  ]
+ ],
+ "dadda-long__won": {
+  "mode": "world",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 4,
+   "hp": 3018,
+   "maxhp": 3018,
+   "atk": 12,
+   "def": 4,
+   "xp": 23,
+   "next": 40,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 100,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 2
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true
+  },
+  "stats": {
+   "won": 1,
+   "slimes": 0,
+   "steps": 0
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 4,
+    "hp": 3018,
+    "maxhp": 3018,
+    "atk": 12,
+    "def": 4,
+    "xp": 23,
+    "next": 40,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 100,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 2
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true
+   },
+   "stats": {
+    "won": 1,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": "king"
+  }
+ },
+ "dadda-lose__log": [
+  [
+   0,
+   "mode",
+   "dialog"
+  ],
+  [
+   0,
+   "heroHp",
+   42
+  ],
+  [
+   0,
+   "herbs",
+   0
+  ],
+  [
+   0,
+   "xp",
+   0
+  ],
+  [
+   0,
+   "lvl",
+   3
+  ],
+  [
+   0,
+   "gold",
+   25
+  ],
+  [
+   0,
+   "map",
+   "cave"
+  ],
+  [
+   0,
+   "kingQuest",
+   1
+  ],
+  [
+   0,
+   "slimeCount",
+   3
+  ],
+  [
+   0,
+   "glowcaps",
+   0
+  ],
+  [
+   310,
+   "mode",
+   "world"
+  ],
+  [
+   362,
+   "mode",
+   "battle"
+  ],
+  [
+   362,
+   "enemy",
+   "king"
+  ],
+  [
+   362,
+   "msg",
+   ""
+  ],
+  [
+   362,
+   "phase",
+   "busy"
+  ],
+  [
+   362,
+   "turn",
+   0
+  ],
+  [
+   362,
+   "enemyHp",
+   140
+  ],
+  [
+   362,
+   "charged",
+   false
+  ],
+  [
+   362,
+   "gone",
+   false
+  ],
+  [
+   383,
+   "msg",
+   "The DADDA BOSS blocks your way!"
+  ],
+  [
+   458,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   458,
+   "phase",
+   "menu"
+  ],
+  [
+   479,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   479,
+   "phase",
+   "busy"
+  ],
+  [
+   512,
+   "enemyHp",
+   133
+  ],
+  [
+   543,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   543,
+   "turn",
+   1
+  ],
+  [
+   580,
+   "heroHp",
+   30
+  ],
+  [
+   620,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   620,
+   "phase",
+   "menu"
+  ],
+  [
+   621,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   621,
+   "phase",
+   "busy"
+  ],
+  [
+   653,
+   "enemyHp",
+   127
+  ],
+  [
+   684,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   684,
+   "turn",
+   2
+  ],
+  [
+   721,
+   "heroHp",
+   16
+  ],
+  [
+   761,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   761,
+   "phase",
+   "menu"
+  ],
+  [
+   762,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   762,
+   "phase",
+   "busy"
+  ],
+  [
+   794,
+   "enemyHp",
+   121
+  ],
+  [
+   825,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   825,
+   "turn",
+   3
+  ],
+  [
+   825,
+   "charged",
+   true
+  ],
+  [
+   925,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   925,
+   "phase",
+   "menu"
+  ],
+  [
+   926,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   926,
+   "phase",
+   "busy"
+  ],
+  [
+   957,
+   "enemyHp",
+   115
+  ],
+  [
+   987,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   987,
+   "turn",
+   4
+  ],
+  [
+   987,
+   "charged",
+   false
+  ],
+  [
+   1015,
+   "heroHp",
+   0
+  ],
+  [
+   1054,
+   "msg",
+   "You collapse..."
+  ],
+  [
+   1167,
+   "mode",
+   "dialog"
+  ],
+  [
+   1167,
+   "heroHp",
+   42
+  ],
+  [
+   1167,
+   "herbs",
+   3
+  ],
+  [
+   1167,
+   "map",
+   "village"
+  ],
+  [
+   1543,
+   "mode",
+   "world"
+  ]
+ ],
+ "dadda-lose__lost": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 13,
+   "y": 5,
+   "dir": "up",
+   "moving": false,
+   "fx": 13,
+   "fy": 5,
+   "tx": 13,
+   "ty": 5,
+   "t": 0,
+   "lvl": 3,
+   "hp": 42,
+   "maxhp": 42,
+   "atk": 10,
+   "def": 3,
+   "xp": 0,
+   "next": 27,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 25,
+   "weapon": "none",
+   "armor": "none",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 1
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true
+  },
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 0
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 13,
+    "y": 5,
+    "dir": "up",
+    "moving": false,
+    "fx": 13,
+    "fy": 5,
+    "tx": 13,
+    "ty": 5,
+    "t": 0,
+    "lvl": 3,
+    "hp": 42,
+    "maxhp": 42,
+    "atk": 10,
+    "def": 3,
+    "xp": 0,
+    "next": 27,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 25,
+    "weapon": "none",
+    "armor": "none",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 1
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true
+   },
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": "king"
+  }
+ },
+ "dadda-win__log": [
+  [
+   0,
+   "mode",
+   "dialog"
+  ],
+  [
+   0,
+   "heroHp",
+   76
+  ],
+  [
+   0,
+   "herbs",
+   5
+  ],
+  [
+   0,
+   "xp",
+   100
+  ],
+  [
+   0,
+   "lvl",
+   7
+  ],
+  [
+   0,
+   "gold",
+   40
+  ],
+  [
+   0,
+   "map",
+   "cave"
+  ],
+  [
+   0,
+   "kingQuest",
+   1
+  ],
+  [
+   0,
+   "slimeCount",
+   3
+  ],
+  [
+   0,
+   "glowcaps",
+   0
+  ],
+  [
+   310,
+   "mode",
+   "world"
+  ],
+  [
+   362,
+   "mode",
+   "battle"
+  ],
+  [
+   362,
+   "enemy",
+   "king"
+  ],
+  [
+   362,
+   "msg",
+   ""
+  ],
+  [
+   362,
+   "phase",
+   "busy"
+  ],
+  [
+   362,
+   "turn",
+   0
+  ],
+  [
+   362,
+   "enemyHp",
+   140
+  ],
+  [
+   362,
+   "charged",
+   false
+  ],
+  [
+   362,
+   "gone",
+   false
+  ],
+  [
+   383,
+   "msg",
+   "The DADDA BOSS blocks your way!"
+  ],
+  [
+   458,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   458,
+   "phase",
+   "menu"
+  ],
+  [
+   485,
+   "msg",
+   "There's no escape from the Dadda Boss!"
+  ],
+  [
+   485,
+   "phase",
+   "busy"
+  ],
+  [
+   556,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   556,
+   "turn",
+   1
+  ],
+  [
+   593,
+   "heroHp",
+   69
+  ],
+  [
+   633,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   633,
+   "phase",
+   "menu"
+  ],
+  [
+   637,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   637,
+   "phase",
+   "busy"
+  ],
+  [
+   669,
+   "enemyHp",
+   122
+  ],
+  [
+   700,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   700,
+   "turn",
+   2
+  ],
+  [
+   737,
+   "heroHp",
+   63
+  ],
+  [
+   777,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   777,
+   "phase",
+   "menu"
+  ],
+  [
+   778,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   778,
+   "phase",
+   "busy"
+  ],
+  [
+   810,
+   "enemyHp",
+   105
+  ],
+  [
+   841,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   841,
+   "turn",
+   3
+  ],
+  [
+   841,
+   "charged",
+   true
+  ],
+  [
+   941,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   941,
+   "phase",
+   "menu"
+  ],
+  [
+   948,
+   "msg",
+   "There's no escape from the Dadda Boss!"
+  ],
+  [
+   948,
+   "phase",
+   "busy"
+  ],
+  [
+   1017,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   1017,
+   "turn",
+   4
+  ],
+  [
+   1017,
+   "charged",
+   false
+  ],
+  [
+   1045,
+   "heroHp",
+   35
+  ],
+  [
+   1084,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1084,
+   "phase",
+   "menu"
+  ],
+  [
+   1088,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1088,
+   "phase",
+   "busy"
+  ],
+  [
+   1118,
+   "enemyHp",
+   87
+  ],
+  [
+   1148,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   1148,
+   "turn",
+   5
+  ],
+  [
+   1183,
+   "heroHp",
+   29
+  ],
+  [
+   1222,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1222,
+   "phase",
+   "menu"
+  ],
+  [
+   1226,
+   "msg",
+   "You eat an herb. +32 HP"
+  ],
+  [
+   1226,
+   "phase",
+   "busy"
+  ],
+  [
+   1226,
+   "heroHp",
+   61
+  ],
+  [
+   1226,
+   "herbs",
+   4
+  ],
+  [
+   1286,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   1286,
+   "turn",
+   6
+  ],
+  [
+   1286,
+   "charged",
+   true
+  ],
+  [
+   1386,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1386,
+   "phase",
+   "menu"
+  ],
+  [
+   1393,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1393,
+   "phase",
+   "busy"
+  ],
+  [
+   1424,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   1424,
+   "enemyHp",
+   55
+  ],
+  [
+   1464,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   1464,
+   "turn",
+   7
+  ],
+  [
+   1464,
+   "charged",
+   false
+  ],
+  [
+   1492,
+   "heroHp",
+   37
+  ],
+  [
+   1531,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1531,
+   "phase",
+   "menu"
+  ],
+  [
+   1532,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1532,
+   "phase",
+   "busy"
+  ],
+  [
+   1563,
+   "msg",
+   "A critical hit!"
+  ],
+  [
+   1563,
+   "enemyHp",
+   23
+  ],
+  [
+   1603,
+   "msg",
+   "DADDA BOSS attacks!"
+  ],
+  [
+   1603,
+   "turn",
+   8
+  ],
+  [
+   1638,
+   "heroHp",
+   29
+  ],
+  [
+   1677,
+   "msg",
+   "The DADDA BOSS is wobbling!"
+  ],
+  [
+   1741,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1741,
+   "phase",
+   "menu"
+  ],
+  [
+   1745,
+   "msg",
+   "You eat an herb. +34 HP"
+  ],
+  [
+   1745,
+   "phase",
+   "busy"
+  ],
+  [
+   1745,
+   "heroHp",
+   63
+  ],
+  [
+   1745,
+   "herbs",
+   3
+  ],
+  [
+   1805,
+   "msg",
+   "The DADDA BOSS puffs up huge! Brace yourself!"
+  ],
+  [
+   1805,
+   "turn",
+   9
+  ],
+  [
+   1805,
+   "charged",
+   true
+  ],
+  [
+   1906,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   1906,
+   "phase",
+   "menu"
+  ],
+  [
+   1913,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   1913,
+   "phase",
+   "busy"
+  ],
+  [
+   1945,
+   "enemyHp",
+   7
+  ],
+  [
+   1976,
+   "msg",
+   "BELLY FLOP!!"
+  ],
+  [
+   1976,
+   "turn",
+   10
+  ],
+  [
+   1976,
+   "charged",
+   false
+  ],
+  [
+   2006,
+   "heroHp",
+   39
+  ],
+  [
+   2046,
+   "msg",
+   "What will you do?"
+  ],
+  [
+   2046,
+   "phase",
+   "menu"
+  ],
+  [
+   2047,
+   "msg",
+   "You swing your sword!"
+  ],
+  [
+   2047,
+   "phase",
+   "busy"
+  ],
+  [
+   2079,
+   "enemyHp",
+   0
+  ],
+  [
+   2153,
+   "msg",
+   "The DADDA BOSS melts into a puddle!"
+  ],
+  [
+   2153,
+   "gone",
+   true
+  ],
+  [
+   2226,
+   "msg",
+   "You gain 80 XP and 100 gold."
+  ],
+  [
+   2226,
+   "xp",
+   180
+  ],
+  [
+   2226,
+   "gold",
+   140
+  ],
+  [
+   2298,
+   "msg",
+   "LEVEL UP! You are now LV8!"
+  ],
+  [
+   2298,
+   "heroHp",
+   82
+  ],
+  [
+   2298,
+   "xp",
+   45
+  ],
+  [
+   2298,
+   "lvl",
+   8
+  ],
+  [
+   2380,
+   "msg",
+   "HP+6 ATK+2 DEF+1. HP refilled!"
+  ],
+  [
+   2466,
+   "msg",
+   "The cave falls quiet. Return to Elder Moss!"
+  ],
+  [
+   2466,
+   "kingQuest",
+   2
+  ],
+  [
+   2589,
+   "mode",
+   "world"
+  ]
+ ],
+ "dadda-win__won": {
+  "mode": "world",
+  "player": {
+   "map": "cave",
+   "x": 10,
+   "y": 3,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 3,
+   "tx": 10,
+   "ty": 3,
+   "t": 0,
+   "lvl": 8,
+   "hp": 82,
+   "maxhp": 82,
+   "atk": 20,
+   "def": 8,
+   "xp": 45,
+   "next": 202,
+   "herbs": 3,
+   "maxHerbs": 5,
+   "gold": 140,
+   "weapon": "iron",
+   "armor": "vest",
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 2
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 31,
+   "slimes": 12,
+   "steps": 1500
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "cave",
+    "x": 10,
+    "y": 3,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 3,
+    "tx": 10,
+    "ty": 3,
+    "t": 0,
+    "lvl": 8,
+    "hp": 82,
+    "maxhp": 82,
+    "atk": 20,
+    "def": 8,
+    "xp": 45,
+    "next": 202,
+    "herbs": 3,
+    "maxHerbs": 5,
+    "gold": 140,
+    "weapon": "iron",
+    "armor": "vest",
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 2
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true
+   },
+   "stats": {
+    "won": 31,
     "slimes": 12,
     "steps": 1500
    },

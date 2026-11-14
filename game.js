@@ -322,6 +322,7 @@
   TILE['K'] = wallGate('locked');
   TILE['L'] = wallGate('open');
   TILE['G'] = wallGate('shut');
+  TILE['N'] = wallGate('open'); // an open gate that cannot be walked through yet: the road behind it is not built
   // ---- Stovner: paved streets, grey blocks with flat roofs, hedges and street lamps
   TILE['p'] = mk(16, 16, (g) => { // paving
     R(g, 0, 0, 16, 16, 7);
@@ -455,6 +456,29 @@
       R(g, x, y, w, h, 0); R(g, x + 1, y + 1, w - 2, h - 2, 7); R(g, x + 1, y + 1, w - 2, 1, 10); R(g, x + w - 2, y + 2, 1, h - 3, 3);
     }
   });
+  // ---- the shrine at the end of the north road: pale old stone
+  TILE['o'] = mk(16, 16, (g) => { // shrine floor
+    R(g, 0, 0, 16, 16, 10);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
+      const h = hash(x + 57, y + 83);
+      if (h < 0.04) P(g, x, y, 15); else if (h > 0.97) P(g, x, y, 7);
+    }
+    R(g, 0, 15, 16, 1, 7); R(g, 15, 0, 1, 16, 7);
+  });
+  TILE['i'] = mk(16, 16, (g) => { // pillar
+    g.drawImage(TILE['o'], 0, 0);
+    R(g, 3, 13, 10, 3, 0); R(g, 4, 14, 8, 1, 7);
+    R(g, 4, 2, 8, 12, 0); R(g, 5, 2, 6, 12, 10); R(g, 5, 2, 1, 12, 15); R(g, 10, 2, 1, 12, 7);
+    R(g, 3, 0, 10, 3, 0); R(g, 4, 1, 8, 1, 15);
+    P(g, 7, 6, 13); P(g, 8, 9, 13); // a pale glint in the stone
+  });
+  TILE['I'] = mk(16, 16, (g) => { // the pedestal: a stone block with a hollow the shape of a shard
+    g.drawImage(TILE['o'], 0, 0);
+    R(g, 1, 12, 14, 4, 0); R(g, 2, 13, 12, 2, 7);
+    R(g, 3, 4, 10, 9, 0); R(g, 4, 5, 8, 7, 10); R(g, 4, 5, 8, 1, 15); R(g, 11, 6, 1, 6, 7);
+    R(g, 7, 6, 2, 1, 2); R(g, 6, 7, 4, 2, 2); R(g, 7, 9, 2, 1, 2); P(g, 7, 7, 13);
+    P(g, 2, 2, 13); P(g, 13, 3, 13); P(g, 12, 1, 15); P(g, 3, 1, 15);
+  });
   // The fountain is one 32x32 picture cut into four tiles: '1' '2' above '3' '4'.
   const fountain = mk(32, 32, (g) => {
     for (const [x, y] of [[0, 0], [16, 0], [0, 16], [16, 16]]) g.drawImage(TILE['p'], x, y);
@@ -476,7 +500,7 @@
     TILE[ch] = mk(16, 16, (g) => g.drawImage(fountain, -x, -y));
   });
   const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x', 'K',
-    'G', 'A', 'B', 'd', 'h', 'l', 'n', 'M', 'J', 'Q', 'W', '1', '2', '3', '4', 'w', 'Y', 'z']);
+    'G', 'A', 'B', 'd', 'h', 'l', 'n', 'M', 'J', 'Q', 'W', '1', '2', '3', '4', 'w', 'Y', 'z', 'N', 'i', 'I']);
 
   // ---------------------------------------------------------------- characters
   function personSprite(o, dir, frame) {
@@ -666,6 +690,18 @@
     }));
   }
   SPR.heidi = buildStatic(heidiSprite(0), heidiSprite(1));
+  // MOHSIN: a tall figure in a dark robe with a pale headband. In battle he stands facing the hero,
+  // one pixel lower than usual (so his head clears the name box), with a long blade at his side.
+  const MOHSIN_LOOK = { hair: 0, skin: 19, shirt: 2, shirt2: 0, pants: 2, robe: true, beard: 0 };
+  SPR.mohsin = buildChar(MOHSIN_LOOK);
+  for (const k of ['down0', 'down1']) {
+    const plain = SPR.mohsin[k];
+    SPR.mohsin[k] = mk(16, 16, (g) => { g.drawImage(plain, 0, 0); R(g, 5, 3, 6, 1, 13); });
+  }
+  ENEMY_SPR.mohsin = [0, 1].map((f) => mk(16, 16, (g) => {
+    g.drawImage(SPR.mohsin['down' + f], 0, 1);
+    R(g, 13, 2 + f, 3, 13, 0); R(g, 14, 3 + f, 1, 9, 15); P(g, 14, 2 + f, 13); R(g, 13, 12 + f, 3, 1, 9); R(g, 14, 13 + f, 1, 2, 4);
+  }));
   ENEMY_SPR.heidi = [0, 1].map(heidiSprite);
   const KEBAB_SPR = outlined(mk(16, 16, (g) => {
     R(g, 5, 7, 6, 7, 15); R(g, 5, 7, 1, 7, 10); R(g, 6, 13, 4, 1, 10);
@@ -730,6 +766,8 @@
   //   quest      quest that becomes ready to turn in when the boss is beaten
   //   aftermath  closing line of the battle
   //   named      the name is a person's: no "The" in front of it when the fight begins
+  //   flag       saved flag set when the boss is beaten
+  //   after()    called back in the world once the won battle has faded out and been saved
   // An ordinary enemy may set:
   //   armored    its defence only counts against weapons that are not `heavy`
   //   quick      it strikes once before the hero's first move, unless the hero's armour is `nimble`
@@ -825,6 +863,34 @@
       defeated: 'LÆRER HEIDI sits down with a crunch. "Class... dismissed."',
       quest: 'under',
       aftermath: 'The tunnel falls quiet. Tell JOHANNE!',
+    },
+  };
+  ENEMIES.mohsin = {
+    name: 'MOHSIN', hp: 125, atk: 23, def: 6, xp: 110, gold: [120, 120], intro: 'stands ready!', quick: true,
+    boss: {
+      flash: 8,
+      named: true,
+      // Four turns, over and over: a strike, a quick one-two, a step back, then a lunge with full force.
+      async turn(b) {
+        const step = b.turn % 4;
+        if (step === 1) {
+          await msg(`${b.name} strikes!`, 100);
+          await enemyHit(1);
+        } else if (step === 2) {
+          await msg('MOHSIN darts in. One, two!', 100);
+          await enemyHit(0.8);
+          if (player.hp > 0) await enemyHit(0.8);
+        } else if (step === 3) {
+          SFX.charge();
+          await msg('MOHSIN steps back and watches you closely.', 900);
+        } else {
+          await msg('MOHSIN lunges with full force!', 100);
+          await enemyHit(1.8);
+        }
+      },
+      defeated: 'MOHSIN steps back and lowers the blade. "Enough."',
+      flag: 'mohsinBeaten',
+      after: () => mohsinHandover(),
     },
   };
   const WEAPONS = {
@@ -991,7 +1057,6 @@
       signs: {
         '24,8': ['EAST: TURNIP VALE.'],
         '11,1': ['NORTH: OUTER STOVNER.'],
-        '0,9': ['The west gate is shut tight.'],
       },
       encounter: null,
     },
@@ -1022,11 +1087,11 @@
       exits: {
         '14,19': { map: 'stovner', x: 12, y: 1, dir: 'down' },
         '15,19': { map: 'stovner', x: 13, y: 1, dir: 'down' },
+        '14,0': { map: 'northRoad', x: 5, y: 18, dir: 'up' }, // behind the barricade, which stands until JOHANNE has it cleared
+        '15,0': { map: 'northRoad', x: 6, y: 18, dir: 'up' },
       },
       signs: {
         '16,18': ['SOUTH: STOVNER.'],
-        '14,2': () => barricadeSign(),
-        '15,2': () => barricadeSign(),
         '23,9': () => cartSign(),
       },
       // The avenue, the west loop, the lake shore, the south entrance and the far north-east are safe.
@@ -1093,10 +1158,91 @@
     } else if (q.cart.s >= 2) say('', ['The overturned cart. Deep marks lead away from it, toward the town.']);
     else say('', ['An overturned cart, left where it fell.']);
   }
-  function barricadeSign() {
-    say('', q.under.s === 3
-      ? ['A barricade blocks the road north. MOHSIN went this way. It will have to be opened somehow.']
-      : ['A barricade blocks the road north.']);
+  // The road north of Outer Stovner: a narrow way between rocks and pines, up to the shrine.
+  MAPS.northRoad = {
+    name: 'NORTH ROAD',
+    rows: [
+      'rrrrrr==rrrrrrr',
+      'rrrrPg==gPrrrrr',
+      'rrrPgg==ggPrrrr',
+      'rrPggg==gggPrrr',
+      'rrgggg==ggggrrr',
+      'rPgggg==ggggPrr',
+      'rggPgg==ggmggrr',
+      'rgggg====ggggrr',
+      'rPggg====gggPrr',
+      'rrggggg==ggggrr',
+      'rrPgggg==gPggrr',
+      'rrrgggg==ggggrr',
+      'rrrPg====ggPrrr',
+      'rrrgg====gggrrr',
+      'rrPgg==gggggPrr',
+      'rrggg==ggmgggrr',
+      'rrPgg==ggggPrrr',
+      'rrrPg==ggPrrrrr',
+      'rrrrg==gPrrrrrr',
+      'rrrrr==rrrrrrrr',
+    ],
+    exits: {
+      '5,19': { map: 'stovnerOuter', x: 14, y: 1, dir: 'down' },
+      '6,19': { map: 'stovnerOuter', x: 15, y: 1, dir: 'down' },
+      '6,0': { map: 'shrine', x: 6, y: 11, dir: 'up' },
+      '7,0': { map: 'shrine', x: 7, y: 11, dir: 'up' },
+    },
+    signs: {},
+    // Safe at both ends and in the middle; the two wider stretches are not.
+    encounter: {
+      chance: 0.1, minSteps: 4, scaleFrom: 9,
+      zones: [
+        { at: [1, 12, 13, 15], table: [['blue', 0.5], ['rat', 0.5]] }, // the lower clearing
+        { at: [1, 4, 13, 8], table: [['golem', 0.4], ['rat', 0.4], ['blue', 0.2]] }, // the upper clearing
+      ],
+    },
+    backdrop: 'woods',
+    lighting: { dimEdges: 0.2 },
+  };
+  // The shrine where the road ends. Nothing attacks here.
+  MAPS.shrine = {
+    name: 'NORTHERN SHRINE',
+    rows: [
+      'rrrrrrrrrrrrrrr',
+      'rr###########rr',
+      'rr#oooiIiooo#rr',
+      'rr#ooooooooo#rr',
+      'rr#oioooooio#rr',
+      'rr#ooooooooo#rr',
+      'rr#oioooooio#rr',
+      'rr#ooooooooo#rr',
+      'rr####ooo####rr',
+      'rrrrr#ooo#rrrrr',
+      'rrrrr#ooo#rrrrr',
+      'rrrrrr==rrrrrrr',
+      'rrrrrr==rrrrrrr',
+    ],
+    exits: {
+      '6,12': { map: 'northRoad', x: 6, y: 1, dir: 'down' },
+      '7,12': { map: 'northRoad', x: 7, y: 1, dir: 'down' },
+    },
+    signs: {},
+    encounter: null,
+    backdrop: 'cave',
+  };
+  // After the fight MOHSIN hands over the fragment and the key, exactly once. This runs by itself when
+  // the won battle ends, and again from MOHSIN if the game was closed before it finished.
+  function mohsinHandover() {
+    say('MOHSIN', [
+      'You have strength. I hope you have judgment.',
+      'Take the fragment.',
+      'The BLUE KEY opens paths sealed long ago.',
+      'If you still believe the Crystal should be restored, find MARCUS, in AMMERUD.',
+      'Ask him why it was broken.',
+      '(Got CRYSTAL FRAGMENT 2 and the BLUE KEY!)',
+    ], () => {
+      flags.fragment2 = true; flags.blueKey = true;
+      markReady('mohsin');
+      SFX.quest();
+      saveGame();
+    });
   }
   for (const m of Object.values(MAPS)) { m.h = m.rows.length; m.w = m.rows[0].length; }
 
@@ -1119,8 +1265,10 @@
   //   open        the tile it becomes once opened
   //   flag        the saved flag that records it has been opened
   //   needs()     true when the hero can open it: an item, a flag, a quest state...
-  //   locked      lines shown when the hero tries it without meeting the requirement
+  //   locked      lines shown when the hero tries it without meeting the requirement (or a function giving them)
   //   opened      lines shown when it opens
+  //   beyond      lines shown when the hero tries an opened gate whose open tile still cannot be walked
+  //               through, because what lies behind it is not built yet (optional)
   //   sfx         name of the sound played when it opens (optional)
   const GATES = [
     {
@@ -1145,6 +1293,24 @@
       locked: ['A tunnel leads down under the town. Iron bars block the way in.'],
       opened: [],
     })),
+    // The barricade on the north road. JOHANNE has it pulled down (the northOpen flag) when she
+    // sends the hero after MOHSIN; then it is plain road.
+    ...[14, 15].map((x) => ({
+      map: 'stovnerOuter', x, y: 2, closed: 'J', open: '=', flag: 'northOpen',
+      needs: () => false,
+      locked: () => (q.under.s === 3
+        ? ['A barricade blocks the road north. MOHSIN went this way. It will have to be opened somehow.']
+        : ['A barricade blocks the road north.']),
+      opened: [],
+    })),
+    { // Stovner's west gate, toward Ammerud. The Blue Key unlocks it; the road behind it is not built yet.
+      map: 'stovner', x: 0, y: 9, closed: 'G', open: 'N', flag: 'blueGate',
+      needs: () => flags.blueKey,
+      locked: ['The west gate is shut tight.'],
+      opened: ['The BLUE KEY turns in the west gate. The road to AMMERUD is open!'],
+      beyond: ['The west gate stands open. The road to AMMERUD lies beyond.'],
+      sfx: 'pickup',
+    },
   ];
   for (const gate of GATES) (MAPS[gate.map].gates ||= {})[`${gate.x},${gate.y}`] = gate;
   const gateAt = (m, x, y) => m.gates?.[`${x},${y}`];
@@ -1176,13 +1342,15 @@
       title: 'CRYSTAL EDGE', turnIn: 'BRAM',
       tracker: () => `SHARDS ${player.shards}/2`, progress: () => `${player.shards}/2 SHARDS`,
     },
-    // ---- Stovner. JOHANNE's three follow one another; the kebab is BASIL's and stands apart.
+    // ---- Stovner. JOHANNE's four follow one another, and the last ends the chapter; the kebab is
+    // BASIL's and stands apart.
     road: {
       title: 'ROAD TROUBLE', turnIn: 'JOHANNE', state: { n: 0 },
       tracker: () => `ROADS ${q.road.n}/3`, progress: () => `${q.road.n}/3 MONSTERS`,
     },
-    cart: { title: 'OVERTURNED CART', turnIn: 'JOHANNE', tracker: () => 'CHECK THE CART', progress: () => 'ON THE EAST LOOP' },
+    cart: { title: 'OVERTURNED CART', turnIn: 'JOHANNE', tracker: () => 'CHECK THE CART', progress: () => 'THE EAST LOOP' },
     under: { title: 'UNDER STOVNER', turnIn: 'JOHANNE', tracker: () => 'INTO THE TUNNEL', progress: () => 'SOUTH OF TOWN' },
+    mohsin: { title: 'FIND MOHSIN', turnIn: 'JOHANNE', tracker: () => 'FIND MOHSIN', progress: () => 'UP THE ROAD' },
     kebab: { title: 'MISSING KEBAB', turnIn: 'BASIL', tracker: () => 'FIND THE KEBAB', progress: () => 'BY THE LAKE' },
   };
   const QUEST_ORDER = Object.keys(QUESTS);
@@ -1211,7 +1379,8 @@
   // are done, so every save file, old or new, is always in a valid chapter.
   const CHAPTERS = [
     { name: 'VESTLI', quest: 'king' },
-    { name: 'STOVNER', quest: null }, // its maps can be explored; it has no boss quest yet, so it cannot end
+    { name: 'STOVNER', quest: 'mohsin' },
+    { name: 'AMMERUD', quest: null }, // unlocked by finishing Stovner; nothing of it is built yet
   ];
   const chapterDone = (c) => c.quest != null && q[c.quest]?.s === 3;
   // Crystal Fragments and keys are kept as saved flags (fragment1, redKey, ...), set once and never unset.
@@ -1500,7 +1669,7 @@
       id: 'johanne', map: 'stovner', x: 16, y: 8, dir: 'down', home: 'down', spr: SPR.johanne,
       // (a quest done but the next not started = a save made mid-conversation; offer the next one again)
       news: () => q.road.s === 0 || q.road.s === 2 || (q.road.s === 3 && q.cart.s === 0) || q.cart.s === 2
-        || (q.cart.s === 3 && q.under.s === 0) || q.under.s === 2,
+        || (q.cart.s === 3 && q.under.s === 0) || q.under.s === 2 || (q.under.s === 3 && q.mohsin.s === 0) || q.mohsin.s === 2,
       talk() {
         const N = 'JOHANNE';
         const cartIntro = () => say(N, [
@@ -1559,9 +1728,29 @@
             player.hp = player.maxhp;
             complete('under');
           });
+        } else if (q.mohsin.s === 0) {
+          say(N, [
+            'I have news! The carters are pulling the north barricade down as we speak.',
+            'MOHSIN went up that road before it was shut. If anyone knows what is stirring around STOVNER, it may be MOHSIN.',
+            'But go carefully. I do not think MOHSIN wants to be found.',
+          ], () => { flags.northOpen = true; accept('mohsin'); });
+        } else if (q.mohsin.s === 1) {
+          say(N, ['The north road is open, past where the barricade stood. Go carefully.']);
+        } else if (q.mohsin.s === 2) {
+          say(N, ['You found MOHSIN, and came back in one piece! What happened up there?'], () => {
+            say(hero().name, ['MOHSIN warned me about the Crystal. MARCUS, in AMMERUD, may know why it was broken.'], () => {
+              say(N, [
+                'Then STOVNER is no longer the end of your road.',
+                'AMMERUD lies beyond our west gate. Whatever this Crystal is, I hope you are ready for the answer.',
+              ], () => {
+                complete('mohsin');
+                endChapter('mohsin');
+              });
+            });
+          });
         } else {
           say(N, [pick([
-            'MOHSIN went north, past the barricade. I am still asking how to open that road.',
+            'AMMERUD lies beyond the west gate. Go well.',
             'The square is lively again, thanks to you.',
             'BASIL has talked of nothing but kebab all day.',
           ])]);
@@ -1647,6 +1836,34 @@
           'No running in the corridor.',
           'Ask MOHSIN. North road. I have marking to do.',
         ])]);
+      },
+    },
+    { // he waits in front of the pedestal; beaten, he stays where he is and only talks
+      id: 'mohsin', map: 'shrine', x: 7, y: 3, dir: 'down', home: 'down', spr: SPR.mohsin,
+      talk() {
+        const N = 'MOHSIN', H = hero().name;
+        if (!flags.mohsinBeaten) {
+          say(N, [
+            'So. You are the one carrying the fragment out of VESTLI.',
+            'DADDA should never have let you take it.',
+          ], () => say(H, ['The monsters are getting worse everywhere. The fragments may be the only way to stop them.'],
+            () => say(N, [
+              'And you think putting the pieces together will stop them?',
+              "You don't know what you're collecting.",
+            ], () => say(H, ['Then tell me.'],
+              () => say(N, [
+                'No. Not all of it. Not yet.',
+                'If you take this fragment, you take responsibility for what follows.',
+                'Show me you can carry it.',
+              ], () => { encounter = { t: 0, type: 'mohsin' }; SFX.encounter(); })))));
+        } else if (!flags.fragment2) {
+          mohsinHandover();
+        } else {
+          say(N, [pick([
+            'Find MARCUS, in AMMERUD. Ask him why it was broken.',
+            'You have strength. I still hope you have judgment.',
+          ])]);
+        }
       },
     },
   ];
@@ -2034,6 +2251,11 @@
         for (let x = 0; x < 8; x++) if (row[x] !== '.') P(ctx, 82 + x, 135 + y, 6);
       });
     }
+    if (flags.blueKey) { // under the red one
+      ['.88.....', '8..8....', '8..88888', '8..8.8.8', '.88.....'].forEach((row, y) => {
+        for (let x = 0; x < 8; x++) if (row[x] !== '.') P(ctx, 82 + x, 141 + y, 8);
+      });
+    }
     if (menuNote) text(menuNote.text, 10, 146, menuNote.c);
     else text(isTouch ? 'A:SAVE' : 'SPACE:SAVE', 10, 146, menuSel === 2 ? 14 : 7);
     box(96, 2, 142, 156);
@@ -2079,8 +2301,8 @@
         SFX[gate.sfx]?.();
         flags[gate.flag] = true;
         say('', gate.opened, saveGame);
-      } else say('', gate.locked);
-    }
+      } else say('', typeof gate.locked === 'function' ? gate.locked() : gate.locked);
+    } else if (gate && gate.beyond) say('', gate.beyond);
   }
   function enterMap(name, x, y, dir) {
     Object.assign(player, { map: name, x, y, fx: x, fy: y, tx: x, ty: y, dir, moving: false, t: 0 });
@@ -2424,6 +2646,8 @@
     await wait(700);
     b.gone = true;
     stats.won++;
+    b.won = true;
+    if (boss && boss.flag) flags[boss.flag] = true;
     await msg(boss && boss.defeated ? boss.defeated : ENEMIES[b.type].defeated || `${b.name} is defeated!`, 600);
     player.xp += b.xp;
     player.gold += b.gold;
@@ -2483,7 +2707,12 @@
     }, 50);
   }
   function endBattle() {
-    fadeOut(() => { battle = null; mode = 'world'; held.length = 0; saveGame(); }, 36);
+    fadeOut(() => {
+      const after = battle.won && ENEMIES[battle.type].boss?.after;
+      battle = null; mode = 'world'; held.length = 0;
+      saveGame();
+      if (after) after();
+    }, 36);
   }
   function updateBattle() {
     const b = battle;

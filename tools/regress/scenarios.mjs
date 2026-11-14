@@ -761,7 +761,7 @@ const chapterScenarios = [
     name: 'chapter-fresh', save: FIX.fresh,
     run: async (T, g) => {
       await T.continueGame();
-      T.check('two chapters defined: Vestli, then Stovner without a boss quest', JSON.stringify(g.CHAPTERS) === '[{"name":"VESTLI","quest":"king"},{"name":"STOVNER","quest":null}]', JSON.stringify(g.CHAPTERS));
+      T.check('three chapters defined: Vestli, Stovner, then Ammerud without a boss quest', JSON.stringify(g.CHAPTERS) === '[{"name":"VESTLI","quest":"king"},{"name":"STOVNER","quest":"mohsin"},{"name":"AMMERUD","quest":null}]', JSON.stringify(g.CHAPTERS));
       T.check('a new game is in chapter 1', g.chapter === 0 && !g.storyDone, g.chapter);
       T.check('no fragment, key or open gate', !g.flags.fragment1 && !g.flags.redKey && !g.flags.redGate);
       T.check('nothing in the game uses a quest called null', !('null' in g.q) && !g.QUEST_ORDER.includes('null'));
@@ -823,10 +823,10 @@ const chapterScenarios = [
   { name: 'chapter-complete-alexandra', save: withHero(FIX.report, 'alexandra'), run: chapterEnd(`T.tap('Space')`), sameAs: { after: 'victory__after-victory' } },
   { // a save made by a version with more chapters still loads here
     name: 'chapter-save-unknown-boss-quest',
-    save: { ...FIX.finished, q: { ...FIX.finished.q, mohsin: { s: 2 } } },
+    save: { ...FIX.finished, q: { ...FIX.finished.q, marcus: { s: 2 } } },
     run: async (T, g) => {
       await T.continueGame();
-      T.check('loads into chapter 2 with the unknown quest kept', g.chapter === 1 && !g.storyDone && g.q.mohsin.s === 2);
+      T.check('loads into chapter 2 with the unknown quest kept', g.chapter === 1 && !g.storyDone && g.q.marcus.s === 2);
       await T.menuShot('log');
     },
   },
@@ -1313,8 +1313,8 @@ const stovnerScenarios = [
       };
       T.check('gate shut: its tile cannot be reached', !reach('village', 8, 7, false).has('0,7'));
       T.check('gate open: it can', reach('village', 8, 7, true).has('0,7'));
-      const starts = { village: [8, 7], forest: [1, 7], cave: [1, 7], stovner: [24, 9], stovnerOuter: [14, 18], tunnel: [9, 1] };
-      T.check('six maps', Object.keys(g.MAPS).sort().join() === Object.keys(starts).sort().join(), Object.keys(g.MAPS).join());
+      const starts = { village: [8, 7], forest: [1, 7], cave: [1, 7], stovner: [24, 9], stovnerOuter: [14, 18], tunnel: [9, 1], northRoad: [5, 18], shrine: [6, 11] };
+      T.check('eight maps', Object.keys(g.MAPS).sort().join() === Object.keys(starts).sort().join(), Object.keys(g.MAPS).join());
       for (const [name, [sx, sy]] of Object.entries(starts)) {
         const m = g.MAPS[name], seen = reach(name, sx, sy, true);
         const edge = [...seen].filter((k) => { const [x, y] = k.split(',').map(Number); return x === 0 || y === 0 || x === m.w - 1 || y === m.h - 1; });
@@ -1335,7 +1335,27 @@ const stovnerScenarios = [
         return out.join(' ');
       };
       T.check('town: all open ground can be reached', unreached('stovner', 24, 9) === '', unreached('stovner', 24, 9));
-      T.check('outer land: only the road behind the barricade cannot', unreached('stovnerOuter', 14, 18) === '14,0 15,0 14,1 15,1', unreached('stovnerOuter', 14, 18));
+      T.check('outer land: all open ground can be reached once the barricade is down', unreached('stovnerOuter', 14, 18) === '', unreached('stovnerOuter', 14, 18));
+      const shut = reach('stovnerOuter', 14, 18, false);
+      T.check('barricade up: the road behind it cannot be reached', ['14,0', '15,0', '14,1', '15,1', '14,2', '15,2'].every((k) => !shut.has(k)));
+      T.check('north road and shrine: all open ground can be reached', unreached('northRoad', 5, 18) === '' && unreached('shrine', 6, 11) === '', unreached('northRoad', 5, 18) + ' / ' + unreached('shrine', 6, 11));
+      T.check('the shrine leads nowhere but back', Object.values(g.MAPS.shrine.exits).every((e) => e.map === 'northRoad') && g.MAPS.shrine.encounter === null);
+      const nz = g.MAPS.northRoad.encounter.zones;
+      T.check('north road: two zones of Stovner enemies, none within three steps of either end', nz.length === 2
+        && nz.every((z) => z.table.every((e) => ['golem', 'rat', 'blue'].includes(e[0])) && Math.abs(z.table.reduce((n, e) => n + e[1], 0) - 1) < 1e-9)
+        && [[5, 18], [6, 18], [6, 1], [7, 1]].every((p) => nz.every((z) => Math.max(z.at[0] - p[0], p[0] - z.at[2], 0) + Math.max(z.at[1] - p[1], p[1] - z.at[3], 0) >= 3)));
+      T.check('the west gate, open or shut, cannot be walked through', !reach('stovner', 24, 9, true).has('0,9') && !reach('stovner', 24, 9, false).has('0,9') && g.SOLID.has('N') && g.SOLID.has('G'));
+      T.check('the outer zones are as they were', JSON.stringify(g.MAPS.stovnerOuter.encounter.zones.map((z) => z.at)) === '[[1,1,9,2],[10,3,20,4],[16,5,28,11],[9,6,13,11],[1,13,9,18],[18,13,28,17]]');
+      // every line of the quest log and every tracker must fit its box
+      const wide = [];
+      for (const id of g.QUEST_ORDER) {
+        const d = g.QUESTS[id];
+        if (d.title.length > 16) wide.push(d.title);
+        if (d.progress().length > 15) wide.push(d.progress());
+        if (d.tracker().length > 16) wide.push(d.tracker());
+        if (('SEE ' + d.turnIn + '!').length > 16) wide.push(d.turnIn);
+      }
+      T.check('every quest title, log line and tracker fits', wide.length === 0, wide.join(' | '));
       const at = (name, x, y) => g.MAPS[name].rows[y][x];
       T.check('west gate, tunnel and barricade are solid', ['G', 'Q', 'J'].every((c) => g.SOLID.has(c))
         && at('stovner', 0, 9) === 'G' && at('stovner', 12, 16) === 'Q' && at('stovner', 13, 16) === 'Q'
@@ -1383,7 +1403,7 @@ const stovnerScenarios = [
       T.check('the people of the town block nobody in', cut.length === 0, cut.join(' '));
       T.check('the old Stovner maps are as they were', g.MAPS.stovner.rows.join('').length === 26 * 18 && g.MAPS.stovnerOuter.rows.join('').length === 30 * 20
         && g.MAPS.stovner.rows[16] === '#.,......;.#QQ#....;....T#' && g.MAPS.stovnerOuter.rows[9] === 'T.~~~..=......==.......W..=..T');
-      T.check('Stovner still has no boss quest', g.CHAPTERS.length === 2 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === null && g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,kebab', g.QUEST_ORDER.join());
+      T.check('Stovner ends with FIND MOHSIN, and Ammerud has no quests', g.CHAPTERS.length === 3 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === 'mohsin' && g.CHAPTERS[2].quest === null && g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab', g.QUEST_ORDER.join());
     },
   },
 ];
@@ -2080,7 +2100,7 @@ const questScenarios = [
       T.check('Æ is a letter of the game font, as wide as any other', ae === m && ae === 8 && c.measureText('Æ').width !== 8, ae + ' ' + m + ' ' + c.measureText('Æ').width);
       const here = g.NPCS.filter((n) => n.map === 'stovner').map((n) => n.id + ' ' + n.x + ',' + n.y).join('; ');
       T.check('four people in the town', here === 'johanne 16,8; basil 20,10; dot 7,10; gus 10,16', here);
-      T.check('nobody new anywhere else but LÆRER HEIDI in the tunnel', g.NPCS.filter((n) => !['village', 'forest', 'cave', 'stovner'].includes(n.map)).map((n) => n.id + '@' + n.map).join() === 'heidi@tunnel,heidi2@tunnel'
+      T.check('nobody new anywhere else but LÆRER HEIDI in the tunnel and MOHSIN in the shrine', g.NPCS.filter((n) => !['village', 'forest', 'cave', 'stovner'].includes(n.map)).map((n) => n.id + '@' + n.map).join() === 'heidi@tunnel,heidi2@tunnel,mohsin@shrine'
         && g.NPCS.filter((n) => n.map === 'village').length === 5 && g.NPCS.filter((n) => n.map === 'stovnerOuter').length === 0);
       // JOHANNE must not sit under the status panel (2..93 across, 2..31 down) from the roads that lead to her
       const town = g.MAPS.stovner, hidden = [];
@@ -2436,10 +2456,8 @@ const questScenarios = [
         T.check('100 gold, a bigger pouch filled, healed', g.player.gold === gold + 100 && g.player.maxHerbs === 6 && g.player.herbs === 6 && g.player.hp === g.player.maxhp, JSON.stringify([g.player.gold - gold, g.player.maxHerbs, g.player.hp]));
         T.check('UNDER STOVNER is done and saved', g.q.under.s === 3 && d.q.under.s === 3 && g.tracked === null);
         T.check('and that is all: no chapter end, no new fragment or key, no new quest', g.mode === 'world' && g.chapter === 1 && g.storyDone === false
-          && Object.keys(g.flags).sort().join() === 'fragment1,metBram,redGate,redKey,shard1,shard2,tunnelOpen,vines' && g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,kebab'
-          && g.CHAPTERS.length === 2 && g.CHAPTERS[1].quest === null, Object.keys(g.flags).sort().join());
-        for (let i = 1; i <= 3; i++) await T.talk('johanne-after-' + i);
-        T.check('rewarded once', g.player.gold === gold + 100 && g.player.maxHerbs === 6);
+          && Object.keys(g.flags).sort().join() === 'fragment1,metBram,redGate,redKey,shard1,shard2,tunnelOpen,vines' && g.q.mohsin.s === 0, Object.keys(g.flags).sort().join());
+        T.check('JOHANNE has more to say', g.NPCS.find((n) => n.id === 'johanne').news() === true);
         T.shot('hud');
         await T.tap('KeyX', 6);
         T.check('eight quests known: the log opens on its first page', g.menuPage === 0 && g.menuSel === 2);
@@ -2543,6 +2561,494 @@ const questScenarios = [
       T.check('A on SAVE still saves', g.menuNote && g.menuNote.text === 'SAVED!' && g.player.weapon === 'crystal');
       await T.touch('b');
       T.check('B closes it', g.mode === 'world');
+    },
+  },
+];
+
+// FIND MOHSIN: JOHANNE's fourth quest, the north road, the shrine, MOHSIN, and the end of Chapter 2.
+// A save from the end of Expansion 1D: JOHANNE's first three done, the bigger herb pouch, and no
+// FIND MOHSIN quest in the file at all.
+const chainDone = {
+  ...atJohanne, player: { ...atJohanne.player, maxHerbs: 6, herbs: 6 },
+  q: { ...atJohanne.q, road: { s: 3, n: 3 }, cart: DONE, under: DONE }, flags: { ...atJohanne.flags, tunnelOpen: true },
+};
+const withFind = (fix) => ({ ...fix, q: { ...fix.q, mohsin: { s: 1 } }, flags: { ...fix.flags, northOpen: true }, tracked: 'mohsin' });
+const atMohsin = withFind(moved(chainDone, 'shrine', 7, 4, 'up'));
+const gear = (fix, weapon, armor) => {
+  const d = JSON.parse(JSON.stringify(fix));
+  Object.assign(d.player, { weapon, armor, weapons: [...new Set(['none', 'crystal', weapon])], armors: [...new Set(['none', 'vest', armor])] });
+  return d;
+};
+// The whole meeting with MOHSIN: the talk, the fight (an herb when below 45 HP), the hand-over.
+const MOHSIN = `async (T, g) => {
+  ${MEET}
+  await T.continueGame();
+  const gold = g.player.gold, xp = g.player.xp, won = g.stats.won, herbs = g.player.herbs, maxhp = g.player.maxhp;
+  const nimble = g.ARMORS[g.player.armor].nimble === true;
+  T.shot('shrine');
+  await T.tap('KeyX', 6); await T.tap('Space', 6);
+  T.check('SAVED! in front of MOHSIN', g.menuNote && g.menuNote.text === 'SAVED!' && saved().player.map === 'shrine');
+  await T.tap('KeyX', 6);
+  await T.frames(120);
+  T.check('standing there starts nothing', g.mode === 'world' && g.player.y === 4);
+  await T.talk(BEFORE);
+  await T.untilBattle();
+  const b = g.battle;
+  T.check('MOHSIN: 125 HP, ATK 23, DEF 6', b.type === 'mohsin' && b.name === 'MOHSIN' && b.boss === true && b.max === 125 && b.atk === 23 && b.def === 6 && b.xp === 110, JSON.stringify([b.max, b.atk, b.def, b.xp]));
+  T.check(nimble ? 'the Light Vest: no opening strike' : 'quick: he struck once before the hero could move',
+    b.turn === 0 && (nimble ? g.player.hp === maxhp : g.player.hp < maxhp && g.player.hp >= maxhp - 16), g.player.hp);
+  T.shot('battle');
+  let turns = 0, blows = 0;
+  const seen = {};
+  while (g.mode === 'battle') {
+    await T.until(() => g.mode !== 'battle' || b.phase === 'menu', 'the battle menu');
+    if (g.mode !== 'battle') break;
+    if (++turns > 40) throw new Error('the fight never ended');
+    const want = g.player.hp < 45 && g.player.herbs > 0 ? 1 : 0;
+    if (!want) blows++;
+    while (b.menu !== want) await T.tap('ArrowDown', 1);
+    await T.tap('Space', 1);
+    await T.until(() => g.mode !== 'battle' || b.phase !== 'menu', 'the action to start');
+    while (g.mode === 'battle' && b.phase !== 'menu') {
+      for (const [k, re] of [['combo', /One, two/], ['pause', /steps back and watches/], ['lunge', /full force/], ['defeated', /Enough/]]) {
+        if (!seen[k] && re.test(b.msg) && b.shown >= b.msg.length) { seen[k] = true; T.shot(k); }
+      }
+      await T.frames(1);
+    }
+  }
+  T.check('beaten', seen.defeated === true && g.stats.won === won + 1 && g.player.hp > 0, g.mode + ' ' + g.player.hp);
+  T.check('the whole pattern was seen', seen.combo === true && seen.pause === true && seen.lunge === true, JSON.stringify(seen));
+  await T.until(() => g.mode === 'dialog', 'MOHSIN to speak');
+  T.check('beaten is saved before anything is handed over', saved().flags.mohsinBeaten === true && !saved().flags.fragment2 && !saved().flags.blueKey && saved().q.mohsin.s === 1);
+  T.check('nothing yet', !g.flags.fragment2 && !g.flags.blueKey && g.q.mohsin.s === 1 && g.dlg.name === 'MOHSIN');
+  await T.dialog(HANDOVER);
+  T.check('CRYSTAL FRAGMENT 2 and the BLUE KEY', g.flags.fragment2 === true && g.flags.blueKey === true && saved().flags.fragment2 === true && saved().flags.blueKey === true);
+  T.check('fragment 1, the Red Key and the open gates are kept', g.flags.fragment1 === true && g.flags.redKey === true && g.flags.redGate === true && g.flags.tunnelOpen === true && g.flags.northOpen === true);
+  T.check('the quest is ready for JOHANNE, and the chapter is not over', g.q.mohsin.s === 2 && g.tracked === 'mohsin' && saved().q.mohsin.s === 2 && g.chapter === 1 && g.mode === 'world');
+  T.check('110 XP and 120 gold', g.player.xp + (g.player.lvl > 9 ? 303 : 0) === xp + 110 && g.player.gold === gold + 120, g.player.xp + ' ' + (g.player.gold - gold));
+  T.check('a fair fight', turns <= LIMIT[0] && herbs - g.player.herbs <= LIMIT[1], turns + ' turns, ' + blows + ' blows, ' + (herbs - g.player.herbs) + ' herbs, ' + g.player.hp + ' HP left');
+  T.shot('tracker');
+  await T.menuShot('status');
+  const flags = JSON.stringify(g.flags);
+  await T.talk(AFTER1); await T.talk(AFTER2);
+  T.check('he only talks now, and gives nothing twice', g.mode === 'world' && g.stats.won === won + 1 && JSON.stringify(g.flags) === flags);
+  T.state('beaten');
+}`;
+// (only the first of these scenarios photographs the talk: it is the same for all of them)
+const mohsinFight = (turns, herbs, talk = false) => MOHSIN.replace(/LIMIT/g, `[${turns}, ${herbs}]`)
+  .replace('BEFORE', talk ? "'before'" : '').replace('HANDOVER', talk ? "'handover'" : '').replace('AFTER1', talk ? "'after'" : '').replace('AFTER2', talk ? "'after-2'" : '');
+const mohsinReady = (fix) => ({
+  ...fix, q: { ...fix.q, mohsin: { s: 2 } }, tracked: 'mohsin',
+  flags: { ...fix.flags, northOpen: true, mohsinBeaten: true, fragment2: true, blueKey: true },
+});
+const mohsinScenarios = [
+  { // nothing about FIND MOHSIN can be started before UNDER STOVNER is turned in
+    name: 'mohsin-not-early',
+    save: { ...atTunnel, q: { ...atTunnel.q, kebab: DONE }, flags: { ...atTunnel.flags, kebab: true } },
+    run: async (T, g) => {
+      await T.continueGame();
+      T.place('stovner', 16, 9, 'up');
+      await T.talk('johanne');
+      T.check('JOHANNE still talks about the tunnel', g.q.mohsin.s === 0 && g.q.under.s === 1 && !g.flags.northOpen);
+      T.place('stovnerOuter', 14, 3, 'up');
+      await T.talk('barricade');
+      await T.step('up');
+      T.place('stovnerOuter', 15, 3, 'up');
+      await T.step('up');
+      T.check('the barricade stands, both lanes', g.player.x === 15 && g.player.y === 3 && g.player.map === 'stovnerOuter');
+      T.place('stovner', 1, 9, 'left');
+      await T.talk('west-gate');
+      await T.step('left');
+      T.check('the west gate is shut', g.player.x === 1 && !g.flags.blueGate);
+      T.check('a finished kebab changes none of it', g.q.kebab.s === 3 && g.q.mohsin.s === 0 && g.chapter === 1);
+    },
+  },
+  { // a save from the end of 1D: JOHANNE has news, the barricade comes down, the road north is open
+    name: 'mohsin-offer', save: chainDone,
+    run: [
+      async (T, g) => {
+        const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+        T.check('the save knows nothing of FIND MOHSIN', saved().q.mohsin === undefined);
+        await T.continueGame();
+        T.check('it loads with the quest unstarted and JOHANNE has news', g.q.mohsin.s === 0 && g.q.under.s === 3 && g.NPCS.find((n) => n.id === 'johanne').news() === true && g.chapter === 1);
+        T.shot('johanne');
+        T.place('stovnerOuter', 14, 3, 'up');
+        await T.talk('barricade-shut');
+        await T.step('up');
+        T.check('the barricade is still up', g.player.y === 3);
+        T.place('stovner', 16, 9, 'up');
+        await T.talk('offer');
+        T.check('FIND MOHSIN accepted, tracked and saved', g.q.mohsin.s === 1 && g.tracked === 'mohsin' && saved().q.mohsin.s === 1);
+        T.check('the barricade is down, for good', g.flags.northOpen === true && saved().flags.northOpen === true);
+        T.check('nothing else was given', !g.flags.fragment2 && !g.flags.blueKey && !g.flags.mohsinBeaten && g.player.gold === 260);
+        T.shot('tracker');
+        await T.tap('KeyX', 6);
+        T.check('the log opens on the page of the new quest', g.menuPage === 1);
+        T.shot('log');
+        await T.tap('KeyX', 6);
+        await T.talk('progress');
+        T.check('talking again changes nothing', g.q.mohsin.s === 1 && g.mode === 'world');
+        T.place('stovnerOuter', 14, 4, 'up');
+        await T.frames(20);
+        T.shot('barricade-gone');
+        await T.step('up', 2);
+        await T.tap('Space', 6);
+        T.check('where the barricade stood is plain road', g.player.x === 14 && g.player.y === 2 && g.mode === 'world');
+        await T.step('up', 2);
+        await T.until(() => g.player.map === 'northRoad', 'the north road');
+        await T.frames(20);
+        T.shot('north-road');
+        await T.frames(40);
+        T.check('onto the north road, autosaved', g.player.x === 5 && g.player.y === 18 && g.player.dir === 'up' && saved().player.map === 'northRoad', g.player.x + ',' + g.player.y);
+        await T.frames(120);
+        T.check('no bouncing back', g.player.map === 'northRoad' && g.player.y === 18);
+        await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+        T.state('on-the-road');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE on the north road, the way still open', g.player.map === 'northRoad' && g.player.x === 5 && g.player.y === 18 && g.flags.northOpen === true && g.q.mohsin.s === 1);
+        await T.step('down');
+        await T.until(() => g.player.map === 'stovnerOuter', 'Outer Stovner');
+        await T.frames(60);
+        T.check('back down the left lane', g.player.x === 14 && g.player.y === 1 && g.player.dir === 'down' && g.mode === 'world', g.player.x + ',' + g.player.y);
+        await T.frames(120);
+        T.check('no bouncing back', g.player.map === 'stovnerOuter' && g.player.y === 1);
+        await T.step('right'); await T.step('up');
+        await T.until(() => g.player.map === 'northRoad', 'the north road');
+        await T.frames(60);
+        T.check('up the right lane', g.player.x === 6 && g.player.y === 18, g.player.x + ',' + g.player.y);
+        await T.step('down');
+        await T.until(() => g.player.map === 'stovnerOuter', 'Outer Stovner');
+        await T.frames(60);
+        T.check('and down it', g.player.x === 15 && g.player.y === 1, g.player.x + ',' + g.player.y);
+        await T.step('down', 2);
+        T.check('through where the barricade was', g.player.y === 3 && g.mode === 'world');
+        T.state('back-in-outer');
+      },
+    ],
+  },
+  { // an unusual 1D save: kebab done, axe and Light Vest worn, unknown quest, gear and field
+    name: 'mohsin-offer-odd-save',
+    save: (() => {
+      const d = JSON.parse(JSON.stringify(chainDone));
+      Object.assign(d.player, { weapon: 'axe', weapons: ['none', 'crystal', 'axe', 'futureBlade'], armor: 'light', armors: ['none', 'vest', 'light'], mystery: 7, maxhp: 94, hp: 94 });
+      d.q.kebab = { s: 3 }; d.q.kebab1 = { s: 1, found: 2 };
+      Object.assign(d.flags, { kebab: true, chestAxe: true, chestVest: true });
+      return d;
+    })(),
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.talk();
+      const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+      T.check('FIND MOHSIN offered and accepted', d.q.mohsin.s === 1 && d.flags.northOpen === true);
+      T.check('gear, chests, kebab and the unknown things are kept', d.player.weapon === 'axe' && d.player.armor === 'light' && d.player.weapons.includes('futureBlade') && d.player.mystery === 7
+        && JSON.stringify(d.q.kebab1) === '{"s":1,"found":2}' && d.q.kebab.s === 3 && d.flags.chestAxe && d.flags.chestVest && d.player.maxhp === 94);
+      T.state('accepted');
+    },
+  },
+  { // the road north: where the monsters are, the walk up it, the shrine, and back
+    name: 'north-road-tour', save: withFind(moved(chainDone, 'northRoad', 5, 18, 'up')),
+    run: [
+      `async (T, g) => {
+        ${MEET}
+        await T.continueGame();
+        const real = Math.random;
+        Math.random = () => 0;
+        const safe = async (what, x, y, steps) => {
+          T.place('northRoad', x, y, 'up');
+          g.player.sinceBattle = 99;
+          await T.frames(60);
+          for (const [dir, n] of steps) await T.step(dir, n);
+          await T.frames(90);
+          T.check('safe: ' + what, g.mode === 'world' && g.player.map === 'northRoad', g.mode + ' at ' + g.player.x + ',' + g.player.y);
+        };
+        await safe('the foot of the road', 5, 18, [['up', 2], ['right'], ['down', 2]]);
+        await safe('the middle', 7, 11, [['up', 2], ['left', 3], ['right', 6]]);
+        await safe('the top', 6, 3, [['up', 2], ['right'], ['down', 2]]);
+        Math.random = real;
+        for (const [x, y, dir, v, want] of [[5, 15, 'up', 0, 'blue'], [5, 15, 'up', 0.9, 'rat'], [7, 8, 'up', 0, 'golem'], [7, 8, 'up', 0.5, 'rat'], [7, 8, 'up', 0.9, 'blue']]) {
+          g.player.hp = g.player.maxhp;
+          await meet(x, y, dir, v, 'northRoad');
+          T.check('at ' + x + ',' + y + ' with the dice at ' + v + ': ' + want, g.battle.type === want, g.battle.type);
+          if (want === 'golem') T.shot('battle');
+          await T.fight(() => 2);
+        }
+        // ---- the walk itself, with the monsters switched off in the running game
+        g.MAPS.northRoad.encounter = null;
+        g.player.hp = g.player.maxhp;
+        T.place('northRoad', 5, 18, 'up');
+        await T.step('up', 5); await T.step('left', 4);
+        T.check('rock on the left', g.player.x === 3 && g.player.y === 13, g.player.x + ',' + g.player.y);
+        T.shot('lower-clearing');
+        await T.step('right', 4); await T.step('up', 5);
+        T.shot('road');
+        await T.step('up', 7);
+        T.check('at the head of the road', g.player.x === 7 && g.player.y === 1, g.player.x + ',' + g.player.y);
+        await T.step('up');
+        await T.until(() => g.player.map === 'shrine', 'the shrine');
+        await T.frames(20);
+        T.shot('arriving');
+        await T.frames(40);
+        T.check('into the shrine, autosaved, and nothing happens by itself', g.player.x === 7 && g.player.y === 11 && g.player.dir === 'up' && g.mode === 'world' && saved().player.map === 'shrine', g.player.x + ',' + g.player.y);
+        await T.frames(180);
+        T.check('still nothing', g.mode === 'world' && g.player.map === 'shrine' && g.player.y === 11);
+        Math.random = () => 0;
+        g.player.sinceBattle = 99;
+        await T.step('up', 4); await T.step('left', 4); await T.step('up', 2); await T.step('right', 8); await T.step('down', 2);
+        Math.random = real;
+        T.check('no monsters in the shrine, however long the walk', g.mode === 'world' && g.player.x === 11 && g.player.y === 7, g.player.x + ',' + g.player.y);
+        T.shot('shrine');
+        await T.step('left', 4); await T.step('up', 3); await T.step('up');
+        T.check('MOHSIN stands in front of the pedestal', g.player.x === 7 && g.player.y === 4 && g.player.dir === 'up', g.player.x + ',' + g.player.y);
+        T.shot('mohsin');
+        await T.step('down', 6); await T.step('down', 2);
+        await T.until(() => g.player.map === 'northRoad', 'the north road');
+        await T.frames(60);
+        T.check('free to leave without a fight', g.player.x === 7 && g.player.y === 1 && g.player.dir === 'down' && !g.flags.mohsinBeaten && g.stats.won === 52, g.player.x + ',' + g.player.y);
+        await T.step('left'); await T.step('up');
+        await T.until(() => g.player.map === 'shrine', 'the shrine');
+        await T.frames(60);
+        T.check('the left lane leads to the left lane', g.player.x === 6 && g.player.y === 11, g.player.x + ',' + g.player.y);
+        await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+        T.state('in-the-shrine');
+      }`,
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE in the shrine', g.player.map === 'shrine' && g.player.x === 6 && g.player.y === 11 && g.q.mohsin.s === 1 && g.mode === 'world');
+        T.shot('continued');
+      },
+    ],
+  },
+  { name: 'mohsin', save: atMohsin, run: mohsinFight(12, 3, true) },
+  ...['mohammed', 'celine', 'alexandra'].map((id) => ({
+    name: `mohsin-${id}`, save: withHero(atMohsin, id), run: mohsinFight(12, 3), sameAs: { beaten: 'mohsin__beaten' },
+  })),
+  { name: 'mohsin-light-vest', save: gear(atMohsin, 'crystal', 'light'), run: mohsinFight(12, 3) },
+  { name: 'mohsin-axe', save: gear(atMohsin, 'axe', 'vest'), run: mohsinFight(14, 4) },
+  { // few herbs: two in a pouch of three
+    name: 'mohsin-few-herbs', save: { ...atMohsin, player: { ...atMohsin.player, maxHerbs: 3, herbs: 2 } }, run: mohsinFight(12, 2),
+  },
+  { // level 8, Iron Sword, Tough Vest, the pouch JOHANNE filled: the hardest way to do it
+    name: 'mohsin-modest',
+    save: withFind({
+      ...moved(modest, 'shrine', 7, 4, 'up'), player: { ...moved(modest, 'shrine', 7, 4, 'up').player, maxHerbs: 6, herbs: 6 },
+      q: { ...modest.q, road: { s: 3, n: 3 }, cart: DONE, under: DONE }, flags: { ...modest.flags, tunnelOpen: true },
+    }),
+    run: mohsinFight(18, 5),
+  },
+  { // one measured blow with each weapon: the axe gets nothing extra, and running away leaves him unbeaten
+    name: 'mohsin-weapons', save: atMohsin,
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      const dealt = {};
+      for (const w of ['iron', 'crystal', 'axe']) {
+        g.player.weapon = w; g.player.hp = g.player.maxhp;
+        await T.talk();
+        await T.untilBattle();
+        dealt[w] = await swing();
+        T.check(w + ': nothing is said about armour', g.battle.armorSaid !== true);
+        await T.fight(() => 2);
+        T.check('got away: he is unbeaten and nothing was handed over', g.mode === 'world' && !g.flags.mohsinBeaten && !g.flags.fragment2 && !g.flags.blueKey && g.q.mohsin.s === 1 && g.stats.won === 52, g.mode);
+      }
+      // hero ATK 22; +3 / +7 / +2; +1 from the dice; less his DEF 6
+      T.check('iron 20, crystal 24, axe 19', dealt.iron === 20 && dealt.crystal === 24 && dealt.axe === 19, JSON.stringify(dealt));
+      T.state('after');
+    }`,
+  },
+  { // beaten by him: carried home with nothing, and free to try again
+    name: 'mohsin-defeat', save: withFind(moved(feeble, 'shrine', 7, 4, 'up')),
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') { await T.frames(150); await T.tap('Space', 3); }
+        await T.until(() => g.mode === 'battle', 'the fight');
+        await T.until(() => g.mode === 'dialog', 'being carried home');
+        T.shot('wren');
+        await T.dialog();
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('in the village, patched up, saved there', g.player.map === 'village' && g.player.hp === g.player.maxhp && d.player.map === 'village' && g.stats.won === 0);
+        T.check('no fragment, no key, MOHSIN unbeaten, the quest still running, the road still open',
+          !d.flags.fragment2 && !d.flags.blueKey && !d.flags.mohsinBeaten && d.q.mohsin.s === 1 && d.flags.northOpen === true && d.flags.fragment1 === true);
+        T.state('home');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE in the village', g.player.map === 'village' && g.mode === 'world');
+        T.place('stovnerOuter', 14, 1, 'up');
+        await T.step('up');
+        await T.until(() => g.player.map === 'northRoad', 'the north road');
+        await T.frames(60);
+        T.place('shrine', 7, 4, 'up');
+        await T.tap('Space', 3);
+        T.check('MOHSIN is waiting for another try', g.mode === 'dialog' && g.dlg.name === 'MOHSIN', g.mode);
+      },
+    ],
+  },
+  { // closed in the middle of MOHSIN's hand-over: he finishes it next time, once
+    name: 'mohsin-handover-interrupted', save: { ...atMohsin, flags: { ...atMohsin.flags, mohsinBeaten: true } },
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        T.check('beaten, nothing held yet', g.flags.mohsinBeaten === true && !g.flags.fragment2 && g.q.mohsin.s === 1);
+        await T.talk('handover');
+        T.check('no second fight: the fragment and the key', g.stats.won === 52 && g.flags.fragment2 === true && g.flags.blueKey === true && g.q.mohsin.s === 2 && g.mode === 'world');
+        await T.talk('after');
+        T.check('once', Object.keys(g.flags).filter((k) => /^fragment/.test(k)).length === 2);
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: both fragments and both keys', g.flags.fragment1 && g.flags.fragment2 && g.flags.redKey && g.flags.blueKey && g.q.mohsin.s === 2);
+        await T.talk('later');
+        T.check('still once', g.mode === 'world' && g.stats.won === 52);
+      },
+    ],
+  },
+  { // back to JOHANNE with the kebab quest still running: the chapter ends, the west gate opens, the world goes on
+    name: 'chapter-two', save: { ...mohsinReady(chainDone), q: { ...mohsinReady(chainDone).q, kebab: { s: 1 } } },
+    run: [
+      async (T, g) => {
+        const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+        await T.continueGame();
+        T.check('ready to report, with the kebab quest running', g.q.mohsin.s === 2 && g.q.kebab.s === 1 && g.chapter === 1 && g.storyDone === false);
+        T.shot('johanne-ready');
+        T.place('stovner', 1, 9, 'left');
+        await T.frames(20);
+        T.shot('west-gate-shut');
+        T.place('stovner', 16, 9, 'up');
+        await T.talk('turn-in');
+        await T.until(() => g.mode === 'victory', 'the chapter screen');
+        await T.frames(120);
+        T.shot('chapter-complete');
+        T.check('FIND MOHSIN is done and saved', g.q.mohsin.s === 3 && saved().q.mohsin.s === 3);
+        await T.tap('Space');
+        await T.until(() => g.mode === 'world', 'the world');
+        await T.frames(40);
+        T.check('back beside JOHANNE in Stovner', g.player.map === 'stovner' && g.player.x === 16 && g.player.y === 9 && g.mode === 'world');
+        T.check('Chapter 3 now, and the story is not over', g.chapter === 2 && g.storyDone === false && g.CHAPTERS[2].name === 'AMMERUD' && g.CHAPTERS[2].quest === null);
+        T.check('the kebab quest is still running and is tracked again', g.q.kebab.s === 1 && g.tracked === 'kebab');
+        T.shot('after');
+        const flags = JSON.stringify(g.flags), gold = g.player.gold;
+        await T.talk('johanne-after-1'); await T.talk('johanne-after-2');
+        T.check('no second chapter screen, nothing given twice', g.mode === 'world' && JSON.stringify(g.flags) === flags && g.player.gold === gold);
+        // ---- the west gate
+        T.place('stovner', 1, 9, 'left');
+        await T.talk('unlock');
+        T.check('the BLUE KEY opens the west gate, saved', g.flags.blueGate === true && saved().flags.blueGate === true && g.flags.blueKey === true);
+        T.shot('west-gate-open');
+        await T.talk('beyond');
+        await T.step('left');
+        T.check('the road beyond is not built: no way through, no other map', g.player.x === 1 && g.player.y === 9 && g.player.map === 'stovner' && Object.keys(g.MAPS).length === 8);
+        T.check('the Red Key and the Red Gate are as they were', g.flags.redKey === true && g.flags.redGate === true);
+        await T.tap('KeyX', 6);
+        T.check('ten quests known: the log opens on the second page, where the kebab is', g.menuPage === 1 && g.menuSel === 2);
+        T.shot('log-2');
+        await T.tap('ArrowLeft', 6);
+        T.check('left: the first page', g.menuPage === 0);
+        T.shot('log-1');
+        await T.tap('Space', 6);
+        T.check('SAVED! after the chapter', g.menuNote && g.menuNote.text === 'SAVED!');
+        await T.tap('KeyX', 6);
+        T.state('chapter-done');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: chapter, fragments, keys and gates', g.chapter === 2 && g.q.mohsin.s === 3 && ['fragment1', 'fragment2', 'redKey', 'blueKey', 'redGate', 'blueGate', 'northOpen', 'tunnelOpen', 'mohsinBeaten'].every((k) => g.flags[k] === true));
+        T.shot('continued');
+        await T.talk('gate-still-open');
+        // the kebab, after the chapter
+        T.place('stovnerOuter', 7, 10, 'left');
+        await T.step('left');
+        await T.dialog();
+        T.place('stovner', 20, 11, 'up');
+        await T.talk();
+        T.check('the kebab can be finished afterwards', g.q.kebab.s === 3 && g.player.maxhp === 94 && g.mode === 'world' && g.chapter === 2);
+        // a chest, after the chapter
+        T.place('stovnerOuter', 27, 2, 'up');
+        await T.step('up');
+        await T.dialog();
+        T.check('so can a chest', g.player.weapons.includes('axe') && g.flags.chestAxe === true);
+        // everyone stays as they were left
+        T.place('shrine', 7, 4, 'up');
+        await T.talk('mohsin-later');
+        T.place('tunnel', 8, 11, 'left');
+        await T.talk('heidi-later');
+        T.check('MOHSIN and LÆRER HEIDI stay beaten', g.mode === 'world' && g.stats.won === 52);
+        T.place('stovner', 24, 9, 'right');
+        await T.step('right');
+        await T.until(() => g.player.map === 'village', 'the village');
+        await T.frames(60);
+        T.check('Vestli is still a walk away', g.player.x === 1 && g.player.y === 7);
+        T.place('village', 8, 7, 'up');
+        await T.talk('elder');
+        T.check('and Elder Moss has nothing new to hand over', g.mode === 'world' && Object.keys(g.flags).filter((k) => /^fragment/.test(k)).length === 2);
+        T.state('wandered');
+      },
+    ],
+  },
+  { // the same ending by the on-screen buttons, as Alexandra
+    name: 'chapter-two-touch', save: withHero(mohsinReady(chainDone), 'alexandra'),
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.touch('a');
+      T.check('A talks to JOHANNE', g.mode === 'dialog' && g.dlg.name === 'JOHANNE', g.mode);
+      let presses = 0, spoke = false;
+      while (g.mode === 'dialog') {
+        await T.frames(150);
+        if (g.dlg.name === 'ALEXANDRA') { if (!spoke) T.shot('hero-speaks'); spoke = true; }
+        await T.touch('a', 3);
+        if (++presses > 12) throw new Error('the talk never ended');
+      }
+      T.check('the hero answers under the hero\'s own name', spoke);
+      await T.until(() => g.mode === 'victory', 'the chapter screen');
+      await T.frames(120);
+      T.shot('chapter-complete');
+      await T.touch('a');
+      await T.until(() => g.mode === 'world', 'the world');
+      await T.frames(40);
+      T.check('A closes the chapter screen', g.q.mohsin.s === 3 && g.chapter === 2 && g.player.map === 'stovner');
+      await T.touch('b');
+      T.check('B opens the log; nothing is tracked, so page 1', g.mode === 'menu' && g.menuPage === 0 && g.menuSel === 2);
+      await T.touch('right');
+      T.check('right arrow: page 2', g.menuPage === 1);
+      T.shot('log-2');
+      await T.touch('a');
+      T.check('A saves', g.menuNote && g.menuNote.text === 'SAVED!');
+      await T.touch('b');
+      T.state('done');
+    },
+  },
+  { // the fight by the on-screen buttons
+    name: 'mohsin-touch', save: gear(atMohsin, 'crystal', 'light'),
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.touch('a');
+      let presses = 0;
+      while (g.mode === 'dialog') { await T.frames(150); await T.touch('a', 3); if (++presses > 20) throw new Error('the talk never ended'); }
+      await T.until(() => g.mode === 'battle' && g.battle.phase === 'menu', 'the battle menu');
+      const b = g.battle;
+      let turns = 0;
+      while (g.mode === 'battle') {
+        await T.until(() => g.mode !== 'battle' || b.phase === 'menu', 'the battle menu');
+        if (g.mode !== 'battle') break;
+        if (++turns > 30) throw new Error('the fight never ended');
+        const want = g.player.hp < 45 && g.player.herbs > 0 ? 1 : 0;
+        while (b.menu !== want) await T.touch(b.menu < want ? 'down' : 'up', 2);
+        await T.touch('a', 2);
+        await T.until(() => g.mode !== 'battle' || b.phase !== 'menu', 'the action to start');
+      }
+      await T.until(() => g.mode === 'dialog', 'MOHSIN to speak');
+      presses = 0;
+      while (g.mode === 'dialog') { await T.frames(150); await T.touch('a', 3); if (++presses > 12) throw new Error('the talk never ended'); }
+      await T.frames(10);
+      T.check('fought and won with the D-pad and A', g.flags.mohsinBeaten === true && g.flags.fragment2 === true && g.flags.blueKey === true && g.q.mohsin.s === 2 && g.mode === 'world', turns);
+      await T.touch('b');
+      T.shot('status');
+      await T.touch('a');
+      T.check('saved by touch', g.menuNote && g.menuNote.text === 'SAVED!');
+      await T.touch('b');
     },
   },
 ];
@@ -2936,6 +3442,7 @@ export const SCENARIOS = [
   ...stovnerScenarios,
   ...combatScenarios,
   ...questScenarios,
+  ...mohsinScenarios,
   ...manualSaveScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,

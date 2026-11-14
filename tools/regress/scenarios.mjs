@@ -463,6 +463,254 @@ const daddaScenarios = [
   },
 ];
 
+// ------------------------------------------------------------------ quests
+// Every quest step that the older scenarios do not already play: accepting, turning in, rewards,
+// collecting shards, and the fix-ups for saves made mid-conversation.
+const slimesDone = { s: 3, n: 3 };
+const talkAndRecord = (label) => `async (T, g) => {
+  await T.continueGame();
+  T.shot('before');
+  await T.talk('${label}');
+  if (g.mode === 'shop') { T.shot('shop'); await T.tap('KeyX', 6); }
+  await T.frames(20);
+  T.shot('after');
+  T.state('after');
+  await T.menuShot('log');
+}`;
+const questFlowScenarios = [
+  { // Slime Trouble turn-in: 30 gold, then the boss quest and the Old Sickle in the same conversation
+    name: 'quest-slimes-turn-in', run: talkAndRecord('elder'),
+    save: save({ at: ['village', 8, 7, 'up'], lvl: 2, player: { gold: 14 }, q: { slimes: { s: 2, n: 3 } }, stats: { won: 3, slimes: 3, steps: 200 }, tracked: 'slimes' }),
+  },
+  { // a save made between the two halves of that conversation: the boss quest is offered again
+    name: 'quest-king-offered-again', run: talkAndRecord('elder'),
+    save: save({ at: ['village', 8, 7, 'up'], lvl: 2, player: { gold: 44 }, q: { slimes: slimesDone } }),
+  },
+  { name: 'quest-biscuit-accept', run: talkAndRecord('pip'), save: save({ at: ['village', 8, 11, 'left'] }) },
+  { name: 'quest-glowcap-accept', run: talkAndRecord('wren'), save: save({ at: ['village', 13, 4, 'right'], player: { hp: 12, herbs: 1 } }) },
+  { // Biscuit will not come along before Pip has asked
+    name: 'quest-cat-before-asking', run: talkAndRecord('cat'), save: save({ at: ['forest', 16, 13, 'up'] }),
+  },
+  { // Bram before the boss quest: only the shop
+    name: 'quest-bram-before-boss-quest', run: talkAndRecord('bram'), save: save({ at: ['village', 8, 9, 'left'], player: { gold: 50 } }),
+  },
+  { // a save holding both shards with Crystal Edge still marked active: Bram fixes it up and forges the sword
+    name: 'quest-shards-fix-up', run: talkAndRecord('bram'),
+    save: save({
+      at: ['village', 8, 9, 'left'], lvl: 5, player: { sickle: true, shards: 2, weapon: 'iron' },
+      q: { slimes: slimesDone, king: { s: 1 }, shards: { s: 1 } }, flags: { vines: true, metBram: true, shard1: true, shard2: true }, tracked: 'shards',
+    }),
+  },
+  { // picking up the second shard while Crystal Edge is active makes it ready
+    name: 'quest-shard-pickup',
+    save: save({
+      at: ['cave', 16, 3, 'right'], lvl: 5, player: { sickle: true, shards: 1 },
+      q: { slimes: slimesDone, king: { s: 1 }, shards: { s: 1 } }, flags: { vines: true, metBram: true, shard2: true }, tracked: 'shards',
+    }),
+    run: async (T, g) => {
+      await T.continueGame();
+      T.shot('before');
+      await T.step('right');
+      await T.dialog('found');
+      T.shot('after');
+      T.state('after');
+      await T.menuShot('log');
+    },
+  },
+  { // picking up a shard before Bram has asked for them
+    name: 'quest-shard-pickup-early',
+    save: save({ at: ['cave', 16, 3, 'right'], lvl: 5, player: { sickle: true }, q: { slimes: slimesDone, king: { s: 1 } }, flags: { vines: true }, tracked: 'king' }),
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('right');
+      await T.dialog('found');
+      T.shot('after');
+      T.state('after');
+      await T.menuShot('log');
+    },
+  },
+];
+
+// The HUD tracker and the quest log for every quest in every state they can show.
+const questViews = {
+  none: {},
+  'slimes-0': { q: { slimes: { s: 1, n: 0 } }, tracked: 'slimes' },
+  'slimes-2': { q: { slimes: { s: 1, n: 2 } }, tracked: 'slimes' },
+  'slimes-ready': { q: { slimes: { s: 2, n: 3 } }, tracked: 'slimes' },
+  'biscuit-active': { q: { slimes: { s: 1, n: 1 }, biscuit: { s: 1 } }, tracked: 'biscuit' },
+  'biscuit-ready': { q: { slimes: { s: 1, n: 1 }, biscuit: { s: 2 } }, tracked: 'biscuit' },
+  'glowcap-1': { player: { glowcaps: 1 }, q: { glowcap: { s: 1 } }, tracked: 'glowcap' },
+  'glowcap-ready': { player: { glowcaps: 3 }, q: { glowcap: { s: 2 } }, tracked: 'glowcap' },
+  'king-active': { player: { sickle: true }, q: { slimes: slimesDone, king: { s: 1 } }, tracked: 'king' },
+  'king-ready': { player: { sickle: true }, q: { slimes: slimesDone, king: { s: 2 } }, tracked: 'king' },
+  'shards-1': { player: { sickle: true, shards: 1 }, q: { slimes: slimesDone, king: { s: 1 }, shards: { s: 1 } }, tracked: 'shards' },
+  'shards-ready': { player: { sickle: true, shards: 2 }, q: { slimes: slimesDone, king: { s: 1 }, shards: { s: 2 } }, tracked: 'shards' },
+  'all-active-untracked': { player: { sickle: true, glowcaps: 2, shards: 1 }, q: { slimes: { s: 1, n: 1 }, biscuit: { s: 1 }, glowcap: { s: 1 }, king: { s: 1 }, shards: { s: 1 } } },
+  'all-ready': { player: { sickle: true, glowcaps: 3, shards: 2 }, q: { slimes: { s: 2, n: 3 }, biscuit: { s: 2 }, glowcap: { s: 2 }, king: { s: 2 }, shards: { s: 2 } }, tracked: 'glowcap' },
+  'tracked-quest-is-done': { q: { slimes: slimesDone, biscuit: { s: 1 } }, tracked: 'slimes' },
+  mixed: { player: { sickle: true, glowcaps: 2 }, q: { slimes: slimesDone, biscuit: { s: 2 }, glowcap: { s: 1 }, king: { s: 1 } }, tracked: 'king' },
+  'all-done': { player: { sickle: true, weapon: 'crystal' }, q: { slimes: slimesDone, biscuit: DONE, glowcap: DONE, king: DONE, shards: DONE } },
+};
+const questViewScenarios = Object.entries(questViews).map(([label, v]) => ({
+  name: `quest-view-${label}`,
+  save: save({ at: ['village', 5, 5, 'down'], lvl: 3, ...v }),
+  run: async (T) => { await T.continueGame(); T.shot('hud'); await T.menuShot('log'); T.state('loaded'); },
+}));
+
+// ------------------------------------------------------------------ quest log paging
+// The game has five quests, so these add made-up quests at run time (see addTestQuests in shim.js).
+const allFive = save({
+  at: ['village', 5, 5, 'down'], lvl: 6, player: { sickle: true, glowcaps: 2, shards: 1 },
+  q: { slimes: slimesDone, biscuit: { s: 2 }, glowcap: { s: 1 }, king: { s: 1 }, shards: { s: 1 } }, flags: { vines: true }, tracked: 'king',
+});
+const pagingScenarios = [
+  { // exactly five quests: one page, no page marker, and the direction keys do nothing
+    name: 'paging-5-quests', save: allFive,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.tap('KeyX', 6);
+      T.shot('log');
+      for (const k of ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown']) await T.tap(k, 4);
+      T.check('still on the only page', g.menuPage === 0 && g.mode === 'menu', g.menuPage);
+      T.shot('log-after-direction-keys');
+      await T.tap('KeyX', 6);
+      T.check('closed', g.mode === 'world');
+    },
+  },
+  { // six quests: a second page appears
+    name: 'paging-6-quests', save: allFive,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.addTestQuests(1);
+      await T.tap('KeyX', 6);
+      T.check('opens on the page with the tracked quest', g.menuPage === 0 && g.tracked === 'king', `${g.menuPage} ${g.tracked}`);
+      T.shot('page-1');
+      await T.tap('ArrowRight', 6);
+      T.check('right goes to page 2', g.menuPage === 1, g.menuPage);
+      T.shot('page-2');
+      await T.tap('ArrowRight', 6);
+      T.check('right wraps to page 1', g.menuPage === 0, g.menuPage);
+      await T.tap('ArrowLeft', 6);
+      T.check('left wraps to page 2', g.menuPage === 1, g.menuPage);
+      await T.tap('ArrowUp', 6);
+      T.check('up goes back', g.menuPage === 0, g.menuPage);
+      await T.tap('ArrowDown', 6);
+      T.check('down goes forward', g.menuPage === 1, g.menuPage);
+      await T.tap('Space', 6);
+      T.check('the action button closes the log', g.mode === 'world', g.mode);
+      await T.tap('KeyX', 6);
+      T.check('reopens on the tracked page', g.mode === 'menu' && g.menuPage === 0);
+      await T.tap('Escape', 6);
+      T.check('the menu button closes the log', g.mode === 'world', g.mode);
+      await T.step('down');
+      T.check('the hero can walk again', g.player.y === 6, g.player.y);
+    },
+  },
+  { // twelve quests: three pages; the tracked quest is on the last one
+    name: 'paging-12-quests', save: { ...allFive, q: { ...allFive.q, glowcap: DONE, king: DONE, shards: DONE, biscuit: DONE }, tracked: null },
+    run: async (T, g) => {
+      await T.continueGame();
+      T.addTestQuests(7);
+      await T.frames(2);
+      T.shot('hud');
+      await T.tap('KeyX', 6);
+      T.check('opens on the page of the first unfinished quest', g.menuPage === 1 && g.tracked === 'test1', `${g.menuPage} ${g.tracked}`);
+      T.shot('opened-on-page-2');
+      await T.tap('ArrowLeft', 6); T.shot('page-1');
+      await T.tap('ArrowRight', 6); await T.tap('ArrowRight', 6);
+      T.check('page 3 reached', g.menuPage === 2, g.menuPage);
+      T.shot('page-3');
+      await T.tap('ArrowRight', 6);
+      T.check('wraps from page 3 to page 1', g.menuPage === 0, g.menuPage);
+      await T.tap('ArrowLeft', 6);
+      T.check('wraps from page 1 to page 3', g.menuPage === 2, g.menuPage);
+      await T.tap('KeyX', 6);
+    },
+  },
+  { // the same with the on-screen buttons used on phones
+    name: 'paging-touch', save: allFive,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.addTestQuests(7);
+      await T.touch('b');
+      T.check('B opens the log', g.mode === 'menu' && g.menuPage === 0, `${g.mode} ${g.menuPage}`);
+      await T.touch('right');
+      T.check('right arrow: page 2', g.menuPage === 1, g.menuPage);
+      await T.touch('down');
+      T.check('down arrow: page 3', g.menuPage === 2, g.menuPage);
+      T.shot('page-3');
+      await T.touch('up');
+      T.check('up arrow: page 2', g.menuPage === 1, g.menuPage);
+      await T.touch('left');
+      T.check('left arrow: page 1', g.menuPage === 0, g.menuPage);
+      await T.touch('left');
+      T.check('left arrow wraps to page 3', g.menuPage === 2, g.menuPage);
+      await T.touch('a');
+      T.check('A closes the log', g.mode === 'world', g.mode);
+      await T.touch('b'); await T.touch('b');
+      T.check('B opens and closes it', g.mode === 'world', g.mode);
+      await T.touch('down', 20);
+      T.check('the arrows walk again afterwards', g.player.y === 6, g.player.y);
+    },
+  },
+  { // the victory screen counts however many quests exist
+    name: 'paging-victory-count', save: FIX.report,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.addTestQuests(7);
+      await T.talk();
+      await T.until(() => g.mode === 'victory', 'victory screen');
+      await T.frames(120);
+      T.shot('victory');
+    },
+  },
+];
+
+// Saves written by other versions of the game: quests missing, quest fields missing, or quests this
+// version has never heard of. All must load, play and save without losing what they hold.
+const questSaveScenarios = [
+  {
+    name: 'quest-save-missing-quests',
+    save: { ...FIX.fresh, q: { slimes: { s: 1, n: 2 } }, tracked: 'slimes' },
+    run: async (T, g) => {
+      await T.continueGame();
+      T.check('saved quest kept', g.q.slimes.s === 1 && g.q.slimes.n === 2);
+      T.check('missing quests start fresh', ['biscuit', 'glowcap', 'king', 'shards'].every((id) => g.q[id] && g.q[id].s === 0));
+      await T.menuShot('log');
+      await T.talk();
+      T.state('after-talk');
+    },
+  },
+  {
+    name: 'quest-save-missing-field',
+    save: { ...FIX.fresh, q: { ...FIX.fresh.q, slimes: { s: 1 } }, tracked: 'slimes' },
+    run: async (T, g) => {
+      await T.continueGame();
+      T.check('the missing counter starts at 0', g.q.slimes.n === 0, g.q.slimes.n);
+      T.shot('hud');
+      await T.menuShot('log');
+    },
+  },
+  {
+    name: 'quest-save-unknown-quest',
+    save: { ...FIX.report, q: { ...FIX.report.q, kebab1: { s: 1, found: 2 } } },
+    run: async (T, g) => {
+      await T.continueGame();
+      T.check('known quests intact', g.q.king.s === 2 && g.q.shards.s === 2 && g.q.slimes.n === 3);
+      await T.menuShot('log');
+      await T.talk();
+      await T.until(() => g.mode === 'victory', 'victory screen');
+      await T.frames(120);
+      await T.tap('Space');
+      await T.until(() => g.mode === 'world', 'world');
+      await T.frames(40);
+      const saved = JSON.parse(localStorage.getItem('turnip-vale-save-v1')).q;
+      T.check('the unknown quest is kept in the save untouched', JSON.stringify(saved.kebab1) === '{"s":1,"found":2}', JSON.stringify(saved.kebab1));
+      T.check('the game carried on normally', saved.king.s === 3);
+    },
+  },
+];
+
 // Saves whose hero value is unusable must fall back to Michael, keep everything else, and still play.
 const BAD_HEROES = { unknown: 'nobody', builtin: 'constructor', number: 42, nothing: null, empty: '', list: ['michael'] };
 const badHeroScenarios = Object.entries(BAD_HEROES).map(([label, value]) => ({
@@ -676,6 +924,10 @@ export const SCENARIOS = [
   ...sandraScenarios,
   ...vineScenarios,
   ...daddaScenarios,
+  ...questFlowScenarios,
+  ...questViewScenarios,
+  ...pagingScenarios,
+  ...questSaveScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,
   ...heroScenarios,

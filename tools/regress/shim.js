@@ -121,6 +121,28 @@
     check(name, ok, detail) { T.out.checks.push({ name, ok: !!ok, detail: detail == null ? '' : String(detail) }); },
     savedPlayer() { const raw = localStorage.getItem(SAVE_KEY); return raw ? JSON.parse(raw).player : null; },
 
+    // ---- test-only helpers for the quest log
+    // Adds n made-up quests to the running game (never to the game's own data) so the quest log has
+    // more than one page. Their stages cycle through active, ready and done.
+    addTestQuests(n) {
+      const g = window.__rpg;
+      for (let i = 1; i <= n; i++) {
+        const id = `test${i}`;
+        g.QUESTS[id] = { title: `TEST QUEST ${i}`, turnIn: 'NOBODY', tracker: () => `TEST ${i}`, progress: () => `STEP ${i} OF 9` };
+        g.QUEST_ORDER.push(id);
+        g.q[id] = { s: ((i - 1) % 3) + 1 };
+      }
+    },
+    // Presses one of the on-screen touch buttons (up, down, left, right, a, b) the way a finger would.
+    async touch(name, after = 6) {
+      const btn = document.querySelector(`#controls button[data-btn="${name}"]`);
+      btn.setPointerCapture = () => {}; // a synthetic pointer cannot be captured
+      btn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerId: 1 }));
+      await T.frames(2);
+      btn.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, cancelable: true, pointerId: 1 }));
+      await T.frames(after);
+    },
+
     // ---- title screen
     async continueGame() {
       await T.frames(30);

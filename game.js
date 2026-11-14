@@ -673,14 +673,31 @@
   const OPP = { up: 'down', down: 'up', left: 'right', right: 'left' };
   const STEP_FRAMES = 10;
 
+  // Everything the HUD and the quest log show about a quest comes from its entry here. The ids are
+  // saved in save files, so they must never be renamed. The order here is the order in the quest log.
+  //   title       name in the quest log and in the NEW QUEST banner
+  //   turnIn      who to see once the goal is met (shown as SEE <turnIn>)
+  //   tracker()   short HUD label while the quest is active
+  //   progress()  quest-log line while the quest is active
+  //   state       extra saved fields besides the quest's stage `s`, with their starting values
   const QUESTS = {
-    slimes: { title: 'SLIME TROUBLE', turnIn: 'ELDER' },
-    biscuit: { title: 'LOST BISCUIT', turnIn: 'PIP' },
-    glowcap: { title: 'GLOWCAP BREW', turnIn: 'WREN' },
-    king: { title: 'THE DADDA BOSS', turnIn: 'ELDER' },
-    shards: { title: 'CRYSTAL EDGE', turnIn: 'BRAM' },
+    slimes: {
+      title: 'SLIME TROUBLE', turnIn: 'ELDER', state: { n: 0 },
+      tracker: () => `SLIMES ${q.slimes.n}/3`, progress: () => `${q.slimes.n}/3 SLIMES`,
+    },
+    biscuit: { title: 'LOST BISCUIT', turnIn: 'PIP', tracker: () => 'FIND BISCUIT', progress: () => 'FIND THE CAT' },
+    glowcap: {
+      title: 'GLOWCAP BREW', turnIn: 'WREN',
+      tracker: () => `GLOWCAPS ${player.glowcaps}/3`, progress: () => `${player.glowcaps}/3 GLOWCAPS`,
+    },
+    king: { title: 'THE DADDA BOSS', turnIn: 'ELDER', tracker: () => 'DADDA BOSS', progress: () => 'IN CRYSTAL CAVE' },
+    shards: {
+      title: 'CRYSTAL EDGE', turnIn: 'BRAM',
+      tracker: () => `SHARDS ${player.shards}/2`, progress: () => `${player.shards}/2 SHARDS`,
+    },
   };
-  const QUEST_ORDER = ['slimes', 'biscuit', 'glowcap', 'king', 'shards'];
+  const QUEST_ORDER = Object.keys(QUESTS);
+  const QUESTS_PER_PAGE = 5; // how many fit on one page of the quest log
 
   const newPlayer = () => ({
     map: 'village', x: 5, y: 4, dir: 'down', moving: false, fx: 5, fy: 4, tx: 5, ty: 4, t: 0,
@@ -690,7 +707,7 @@
     hero: DEFAULT_HERO,
   });
   // quest state s: 0 not started, 1 active, 2 ready to turn in, 3 done
-  const newQuests = () => ({ slimes: { s: 0, n: 0 }, biscuit: { s: 0 }, glowcap: { s: 0 }, king: { s: 0 }, shards: { s: 0 } });
+  const newQuests = () => Object.fromEntries(QUEST_ORDER.map((id) => [id, { s: 0, ...QUESTS[id].state }]));
 
   const player = newPlayer();
   let q = newQuests();
@@ -731,22 +748,17 @@
     if (!tracked) return null;
     const s = q[tracked].s;
     if (s === 2) return { text: `SEE ${QUESTS[tracked].turnIn}!`, ready: true };
-    return {
-      text: {
-        slimes: `SLIMES ${q.slimes.n}/3`, biscuit: 'FIND BISCUIT', glowcap: `GLOWCAPS ${player.glowcaps}/3`,
-        king: 'DADDA BOSS', shards: `SHARDS ${player.shards}/2`,
-      }[tracked],
-    };
+    return { text: QUESTS[tracked].tracker() };
   }
   function questProgress(id) {
     const s = q[id].s;
     if (s === 3) return 'DONE';
     if (s === 2) return `SEE ${QUESTS[id].turnIn}`;
-    return {
-      slimes: `${q.slimes.n}/3 SLIMES`, biscuit: 'FIND THE CAT', glowcap: `${player.glowcaps}/3 GLOWCAPS`,
-      king: 'IN CRYSTAL CAVE', shards: `${player.shards}/2 SHARDS`,
-    }[id];
+    return QUESTS[id].progress();
   }
+  // The quest log lists every quest that has been started, QUESTS_PER_PAGE to a page.
+  const knownQuests = () => QUEST_ORDER.filter((id) => q[id].s > 0);
+  const questPages = () => Math.max(1, Math.ceil(knownQuests().length / QUESTS_PER_PAGE));
 
   // ---------------------------------------------------------------- npcs
   const NPCS = [
@@ -966,7 +978,10 @@
     Object.assign(player, newPlayer(), d.player);
     if (Object.prototype.hasOwnProperty.call(HERO_RENAMED, player.hero)) player.hero = HERO_RENAMED[player.hero];
     if (!isHero(player.hero)) player.hero = DEFAULT_HERO;
-    q = Object.assign(newQuests(), d.q);
+    // Quests the save does not know yet start fresh; a saved quest keeps its values and gains any new fields.
+    const fresh = newQuests();
+    q = Object.assign({}, fresh, d.q);
+    for (const id of QUEST_ORDER) q[id] = { ...fresh[id], ...q[id] };
     flags = d.flags || {};
     stats = Object.assign({ won: 0, slimes: 0, steps: 0 }, d.stats);
     tracked = d.tracked || null;
@@ -1232,7 +1247,20 @@
   }
 
   // ---------------------------------------------------------------- status menu
+  let menuPage = 0;
+  function openMenu() {
+    mode = 'menu'; menuOpen = true;
+    // Start on the page that holds the quest being tracked.
+    pickTracked();
+    menuPage = Math.max(0, Math.floor(knownQuests().indexOf(tracked) / QUESTS_PER_PAGE));
+  }
   function updateMenu() {
+    const pages = questPages();
+    if (pages > 1 && navPressed) { // any direction turns the page: left/up back, right/down forward
+      const step = navPressed === 'left' || navPressed === 'up' ? -1 : 1;
+      menuPage = (Math.min(menuPage, pages - 1) + pages + step) % pages;
+      SFX.move();
+    }
     if (aPressed || bPressed) { mode = 'world'; menuOpen = null; SFX.move(); }
   }
   function drawMenu() {
@@ -1249,9 +1277,10 @@
     if (player.sickle) text('SICKLE', 10, 138, 10);
     box(96, 2, 142, 156);
     text('QUESTS', 104, 9, 14);
-    const known = QUEST_ORDER.filter((id) => q[id].s > 0);
+    const known = knownQuests(), pages = questPages(), page = Math.min(menuPage, pages - 1);
+    if (pages > 1) rtext(`< ${page + 1}/${pages} >`, 232, 9, 10);
     if (!known.length) text('None yet.', 104, 26, 10);
-    known.forEach((id, i) => {
+    known.slice(page * QUESTS_PER_PAGE, (page + 1) * QUESTS_PER_PAGE).forEach((id, i) => {
       const y = 24 + i * 24, s = q[id].s;
       text(QUESTS[id].title, 104, y, s === 3 ? 7 : 15);
       text(questProgress(id), 112, y + 10, s === 3 ? 11 : s === 2 ? 14 : 13);
@@ -1405,7 +1434,7 @@
       } else return;
     }
     if (aPressed) { queuedDir = null; interact(); return; }
-    if (bPressed) { queuedDir = null; mode = 'menu'; menuOpen = true; SFX.select(); return; }
+    if (bPressed) { queuedDir = null; openMenu(); SFX.select(); return; }
     const d = heldDir() || queuedDir;
     queuedDir = null;
     if (!d) return;
@@ -1787,7 +1816,7 @@
     ctx.drawImage(SPR.elder.down0, 104, 44, 32, 32);
     ctx.drawImage(SPR.pip.down0, 136, 44 - bob, 32, 32);
     const done = QUEST_ORDER.filter((id) => q[id].s === 3).length;
-    centered(`LEVEL ${player.lvl}   QUESTS ${done}/5`, 84, 15);
+    centered(`LEVEL ${player.lvl}   QUESTS ${done}/${QUEST_ORDER.length}`, 84, 15);
     centered(`WINS ${stats.won}   STEPS ${stats.steps}`, 96, 15);
     centered(`SLIMES SQUISHED ${stats.slimes}`, 108, 15);
     centered('Turnip Vale is saved!', 124, 11);
@@ -1889,7 +1918,8 @@
 
   // tiny debug hook for testing
   window.__rpg = {
-    player, NPCS, MAPS,
+    player, NPCS, MAPS, QUESTS, QUEST_ORDER,
+    get menuPage() { return menuPage; }, get tracked() { return tracked; },
     get q() { return q; }, get flags() { return flags; }, get stats() { return stats; },
     get mode() { return mode; }, get battle() { return battle; }, get shop() { return shop; },
   };

@@ -1303,11 +1303,11 @@
       [`XP ${player.xp}/${player.next}`, 13], [`GOLD ${player.gold}`, 14], [`HERB ${player.herbs}/${player.maxHerbs}`, 11],
     ];
     lines.forEach(([s, c], i) => text(s, 10, 24 + i * 12, c));
-    text(WEAPONS[player.weapon].name, 10, 114, 10);
-    text(ARMORS[player.armor].name, 10, 126, 10);
-    if (player.sickle) text('SICKLE', 10, 138, 10);
-    if (menuNote) text(menuNote.text, 10, 148, menuNote.c);
-    else text(isTouch ? 'A:SAVE' : 'SPACE:SAVE', 10, 148, 14);
+    text(WEAPONS[player.weapon].name, 10, 110, 10);
+    text(ARMORS[player.armor].name, 10, 122, 10);
+    if (player.sickle) text('SICKLE', 10, 134, 10);
+    if (menuNote) text(menuNote.text, 10, 146, menuNote.c);
+    else text(isTouch ? 'A:SAVE' : 'SPACE:SAVE', 10, 146, 14);
     box(96, 2, 142, 156);
     text('QUESTS', 104, 9, 14);
     const known = knownQuests(), pages = questPages(), page = Math.min(menuPage, pages - 1);

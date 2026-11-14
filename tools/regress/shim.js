@@ -133,6 +133,16 @@
         g.q[id] = { s: ((i - 1) % 3) + 1 };
       }
     },
+    // Adds a made-up chapter to the running game (never to the game's own data). By default it comes
+    // after the real one, so the real chapter is no longer the last; with before = true it is an
+    // already finished chapter in front of it.
+    addTestChapter(before = false) {
+      const g = window.__rpg, id = 'testchapter';
+      g.QUESTS[id] = { title: 'TEST CHAPTER', turnIn: 'NOBODY', tracker: () => 'TEST', progress: () => 'TEST' };
+      g.QUEST_ORDER.push(id);
+      g.q[id] = { s: before ? 3 : 0 };
+      if (before) g.CHAPTERS.unshift({ quest: id }); else g.CHAPTERS.push({ quest: id });
+    },
     // Presses one of the on-screen touch buttons (up, down, left, right, a, b) the way a finger would.
     async touch(name, after = 6) {
       const btn = document.querySelector(`#controls button[data-btn="${name}"]`);

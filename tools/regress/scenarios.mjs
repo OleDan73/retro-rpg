@@ -711,6 +711,83 @@ const questSaveScenarios = [
   },
 ];
 
+// Chapters. The game has one chapter, so the real ending is covered by the victory scenarios above;
+// these check how the current chapter is worked out and, with a made-up extra chapter added at run
+// time, the screen shown when a chapter that is not the last one ends.
+// (Scenario code runs inside the page, so these are pieces of source text.)
+const SAVED_FIELDS = `Object.keys(JSON.parse(localStorage.getItem('turnip-vale-save-v1'))).sort().join()`;
+const chapterEnd = (close) => `async (T, g) => {
+  await T.continueGame();
+  T.addTestChapter();
+  T.check('still in chapter 1 before the turn-in', g.chapter === 0 && !g.storyDone, g.chapter);
+  await T.talk();
+  await T.until(() => g.mode === 'victory', 'chapter screen');
+  T.check('now in chapter 2, story not over', g.chapter === 1 && !g.storyDone, g.chapter);
+  await T.frames(30);
+  await T.tap('Space');
+  T.check('cannot be skipped in the first moments', g.mode === 'victory', g.mode);
+  await T.frames(120);
+  T.shot('chapter-complete');
+  await ${close};
+  await T.until(() => g.mode === 'world', 'world after the chapter screen');
+  await T.frames(40);
+  T.shot('world');
+  T.check('boss quest done and saved', g.q.king.s === 3 && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).q.king.s === 3);
+  T.check('no chapter is written to the save', ${SAVED_FIELDS} === 'flags,player,q,stats,tracked,v', ${SAVED_FIELDS});
+  await T.talk('elder-after');
+}`;
+const chapterScenarios = [
+  {
+    name: 'chapter-fresh', save: FIX.fresh,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.check('one chapter defined, ending with the Dadda quest', g.CHAPTERS.length === 1 && g.CHAPTERS[0].quest === 'king');
+      T.check('a new game is in chapter 1', g.chapter === 0 && !g.storyDone, g.chapter);
+    },
+  },
+  {
+    name: 'chapter-boss-beaten', save: FIX.report,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.check('beating the boss alone does not end the chapter', g.chapter === 0 && !g.storyDone, g.chapter);
+    },
+  },
+  {
+    name: 'chapter-finished', save: FIX.finished,
+    run: `async (T, g) => {
+      await T.continueGame();
+      T.check('a finished save has completed the story', g.chapter === 0 && g.storyDone, g.chapter);
+      await T.step('left'); // walking saves the game
+      T.check('no chapter is written to the save', ${SAVED_FIELDS} === 'flags,player,q,stats,tracked,v', ${SAVED_FIELDS});
+    }`,
+  },
+  { // the last chapter still ends on the victory screen when an earlier chapter exists
+    name: 'chapter-last-of-two', save: FIX.report,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.addTestChapter(true);
+      T.check('in chapter 2 of 2', g.chapter === 1 && !g.storyDone, g.chapter);
+      await T.talk();
+      await T.until(() => g.mode === 'victory', 'victory screen');
+      await T.frames(120);
+      T.shot('victory');
+      T.check('story complete', g.storyDone);
+    },
+  },
+  { name: 'chapter-complete', save: FIX.report, run: chapterEnd(`T.tap('Space')`) },
+  { name: 'chapter-complete-touch', save: FIX.report, run: chapterEnd(`T.touch('a')`) },
+  { name: 'chapter-complete-alexandra', save: withHero(FIX.report, 'alexandra'), run: chapterEnd(`T.tap('Space')`) },
+  { // a save made by a version with more chapters still loads here
+    name: 'chapter-save-unknown-boss-quest',
+    save: { ...FIX.finished, q: { ...FIX.finished.q, mohsin: { s: 2 } } },
+    run: async (T, g) => {
+      await T.continueGame();
+      T.check('loads as a finished story', g.chapter === 0 && g.storyDone && g.q.mohsin.s === 2);
+      await T.menuShot('log');
+    },
+  },
+];
+
 // Saves whose hero value is unusable must fall back to Michael, keep everything else, and still play.
 const BAD_HEROES = { unknown: 'nobody', builtin: 'constructor', number: 42, nothing: null, empty: '', list: ['michael'] };
 const badHeroScenarios = Object.entries(BAD_HEROES).map(([label, value]) => ({
@@ -928,6 +1005,7 @@ export const SCENARIOS = [
   ...questViewScenarios,
   ...pagingScenarios,
   ...questSaveScenarios,
+  ...chapterScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,
   ...heroScenarios,

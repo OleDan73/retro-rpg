@@ -707,6 +707,28 @@
     hero: DEFAULT_HERO,
   });
   // quest state s: 0 not started, 1 active, 2 ready to turn in, 3 done
+  // The story is a list of chapters, in order. A chapter ends when its boss quest is turned in.
+  //   quest   the boss quest that ends the chapter
+  // Nothing about chapters is saved: the current chapter is worked out from which of these quests
+  // are done, so every save file, old or new, is always in a valid chapter.
+  const CHAPTERS = [
+    { quest: 'king' },
+  ];
+  const chapterDone = (c) => q[c.quest]?.s === 3;
+  // Index of the chapter being played: the first unfinished one, or the last one when all are done.
+  const currentChapter = () => {
+    const i = CHAPTERS.findIndex((c) => !chapterDone(c));
+    return i < 0 ? CHAPTERS.length - 1 : i;
+  };
+  const storyDone = () => CHAPTERS.every(chapterDone);
+  // Call when a quest has just been turned in. If it ends a chapter this shows the closing screen:
+  // the victory screen after the last chapter, a "chapter complete" screen after any earlier one.
+  function endChapter(questId) {
+    const i = CHAPTERS.findIndex((c) => c.quest === questId);
+    if (i < 0) return;
+    const last = i === CHAPTERS.length - 1;
+    fadeOut(() => { mode = 'victory'; victory = last ? { t: 0 } : { t: 0, chapter: i + 1 }; SFX.victory(); }, 40);
+  }
   const newQuests = () => Object.fromEntries(QUEST_ORDER.map((id) => [id, { s: 0, ...QUESTS[id].state }]));
 
   const player = newPlayer();
@@ -802,7 +824,7 @@
             'Tonight we feast on turnip stew in your honor!',
           ], () => {
             complete('king');
-            fadeOut(() => { mode = 'victory'; victory = { t: 0 }; SFX.victory(); }, 40);
+            endChapter('king');
           });
         } else {
           say(N, [pick([
@@ -1804,6 +1826,15 @@
     R(ctx, 0, 0, W, H, 0);
     drawStars(60);
     const t = victory.t;
+    if (victory.chapter) { // an earlier chapter has ended; the story goes on
+      centered(`CHAPTER ${victory.chapter}`, 30, 14, BIG);
+      centered('COMPLETE!', 52, 14);
+      ctx.drawImage(hero().spr.down0, 104, 66 + (Math.floor(t / 12) % 2 ? -2 : 0), 32, 32);
+      centered(`LEVEL ${player.lvl}   WINS ${stats.won}`, 108, 15);
+      centered('The quest goes on...', 124, 11);
+      if (t > 90 && Math.floor(tick / 30) % 2) centered(isTouch ? 'TAP A TO CONTINUE' : 'PRESS SPACE', 144, 10);
+      return;
+    }
     for (let i = 0; i < 24; i++) {
       const x = (hash(i, 5) * W + Math.sin((t + i * 20) / 20) * 6) | 0;
       const y = ((hash(i, 6) * H + t * (0.4 + hash(i, 7))) % (H + 10)) - 5 | 0;
@@ -1918,7 +1949,8 @@
 
   // tiny debug hook for testing
   window.__rpg = {
-    player, NPCS, MAPS, QUESTS, QUEST_ORDER,
+    player, NPCS, MAPS, QUESTS, QUEST_ORDER, CHAPTERS,
+    get chapter() { return currentChapter(); }, get storyDone() { return storyDone(); },
     get menuPage() { return menuPage; }, get tracked() { return tracked; },
     get q() { return q; }, get flags() { return flags; }, get stats() { return stats; },
     get mode() { return mode; }, get battle() { return battle; }, get shop() { return shop; },

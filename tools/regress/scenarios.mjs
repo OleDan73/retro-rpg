@@ -597,7 +597,9 @@ const pagingScenarios = [
       await T.tap('ArrowDown', 6);
       T.check('down goes forward', g.menuPage === 1, g.menuPage);
       await T.tap('Space', 6);
-      T.check('the action button closes the log', g.mode === 'world', g.mode);
+      T.check('the action button saves and leaves the log open', g.mode === 'menu' && g.menuPage === 1, g.mode);
+      await T.tap('KeyX', 6);
+      T.check('X closes the log', g.mode === 'world', g.mode);
       await T.tap('KeyX', 6);
       T.check('reopens on the tracked page', g.mode === 'menu' && g.menuPage === 0);
       await T.tap('Escape', 6);
@@ -646,7 +648,9 @@ const pagingScenarios = [
       await T.touch('left');
       T.check('left arrow wraps to page 3', g.menuPage === 2, g.menuPage);
       await T.touch('a');
-      T.check('A closes the log', g.mode === 'world', g.mode);
+      T.check('A saves and leaves the log open', g.mode === 'menu' && g.menuPage === 2, g.mode);
+      await T.touch('b');
+      T.check('B closes the log', g.mode === 'world', g.mode);
       await T.touch('b'); await T.touch('b');
       T.check('B opens and closes it', g.mode === 'world', g.mode);
       await T.touch('down', 20);
@@ -757,7 +761,7 @@ const chapterScenarios = [
     run: `async (T, g) => {
       await T.continueGame();
       T.check('a finished save has completed the story', g.chapter === 0 && g.storyDone, g.chapter);
-      await T.step('left'); // walking saves the game
+      await T.step('left');
       T.check('no chapter is written to the save', ${SAVED_FIELDS} === 'flags,player,q,stats,tracked,v', ${SAVED_FIELDS});
     }`,
   },
@@ -785,6 +789,173 @@ const chapterScenarios = [
       T.check('loads as a finished story', g.chapter === 0 && g.storyDone && g.q.mohsin.s === 2);
       await T.menuShot('log');
     },
+  },
+];
+
+// Manual saving from the menu. It writes the same save the game makes by itself, so everything here is
+// checked against the ordinary save file and the ordinary CONTINUE.
+// (Scenario code runs inside the page, so these are pieces of source text.)
+const RAW = `localStorage.getItem('turnip-vale-save-v1')`;
+const manualSave = (press) => [
+  `async (T, g) => {
+    await T.continueGame();
+    const before = ${RAW};
+    await T.step('right', 3);
+    T.check('walked three steps from the saved spot', g.player.x === JSON.parse(before).player.x + 3, g.player.x);
+    T.check('walking alone does not save (autosave unchanged)', ${RAW} === before);
+    await T.tap('KeyX', 6);
+    T.shot('menu');
+    T.check('opening the menu does not save', ${RAW} === before);
+    await ${press};
+    T.shot('saved');
+    T.check('confirmation shown, menu still open', g.mode === 'menu' && g.menuNote && g.menuNote.text === 'SAVED!', JSON.stringify(g.menuNote));
+    const d = JSON.parse(${RAW});
+    T.check('the new position is saved', d.player.x === g.player.x && d.player.y === g.player.y && d.player.map === g.player.map && d.player.dir === 'right');
+    T.check('same save format', Object.keys(d).sort().join() === 'flags,player,q,stats,tracked,v' && d.v === 1);
+    T.check('same player fields', Object.keys(d.player).sort().join() === [...new Set([...Object.keys(JSON.parse(before).player), 'hero'])].sort().join());
+    T.check('quests, flags and stats saved as they are', JSON.stringify(d.q) === JSON.stringify(g.q) && JSON.stringify(d.flags) === JSON.stringify(g.flags)
+      && JSON.stringify(d.stats) === JSON.stringify(g.stats));
+    await T.frames(100);
+    T.shot('confirmation-gone');
+    T.check('confirmation clears by itself', g.menuNote === null);
+    await T.tap('KeyX', 6);
+    T.check('X closes the menu', g.mode === 'world', g.mode);
+    T.state('saved');
+    await T.step('left', 2);
+    T.check('walking on afterwards does not overwrite the save', ${RAW} === JSON.stringify(d));
+  }`,
+  `async (T, g) => {
+    await T.frames(30);
+    T.shot('title');
+    await T.continueGame();
+    T.state('continued');
+    T.shot('world');
+    await T.menuShot('status');
+  }`,
+];
+const sameAsFirst = { saved: 'manual-save__saved', continued: 'manual-save__continued' };
+const manualSaveScenarios = [
+  { name: 'manual-save', save: FIX.report, run: manualSave(`T.tap('Space', 6)`) },
+  { name: 'manual-save-enter', save: FIX.report, run: manualSave(`T.tap('Enter', 6)`), sameAs: sameAsFirst },
+  { name: 'manual-save-touch', save: FIX.report, run: manualSave(`T.touch('a')`), sameAs: sameAsFirst },
+  { name: 'manual-save-alexandra', save: withHero(FIX.report, 'alexandra'), run: manualSave(`T.tap('Space', 6)`), sameAs: sameAsFirst },
+  { // touch from start to finish: open with B, save with A, close with B, then reopen the game
+    name: 'manual-save-touch-only', save: FIX.woods,
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.touch('b');
+        T.check('B opens the menu', g.mode === 'menu', g.mode);
+        await T.touch('a');
+        T.check('A saves', g.menuNote && g.menuNote.text === 'SAVED!');
+        T.shot('saved');
+        await T.touch('b');
+        T.check('B closes the menu', g.mode === 'world', g.mode);
+        T.state('saved');
+      },
+      async (T, g) => { await T.continueGame(); T.state('continued'); },
+    ],
+  },
+  { // a save written by hand and one written by the game are the same thing
+    name: 'manual-save-equals-autosave', save: FIX.report,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.talk(); // turning in the boss quest autosaves
+      await T.until(() => g.mode === 'victory', 'victory screen');
+      await T.frames(120);
+      await T.tap('Space');
+      await T.until(() => g.mode === 'world', 'world');
+      await T.frames(40);
+      const auto = localStorage.getItem('turnip-vale-save-v1');
+      await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+      T.check('saving by hand right after an autosave writes the identical file', localStorage.getItem('turnip-vale-save-v1') === auto);
+      T.state('after');
+    },
+    sameAs: { after: 'victory__after-victory' },
+  },
+  { // the newest save wins, whichever kind it is
+    name: 'manual-save-then-autosave', save: FIX.fresh,
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.step('right');
+        await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+        const manual = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('saved by hand one step right', manual.player.x === 9 && manual.q.slimes.s === 0, manual.player.x);
+        await T.step('left'); await T.step('up'); // back below Elder Moss, facing them
+        await T.talk(); // accepting a quest autosaves
+        const auto = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('the later autosave replaces it', auto.player.x === 8 && auto.q.slimes.s === 1, auto.player.x);
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE loads the latest save', g.player.x === 8 && g.q.slimes.s === 1, g.player.x);
+      },
+    ],
+  },
+  { // saving twice in a row, with every direction key pressed in between
+    name: 'manual-save-repeat', save: FIX.finished,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.tap('KeyX', 6);
+      await T.tap('Space', 6);
+      const first = localStorage.getItem('turnip-vale-save-v1');
+      for (const k of ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']) await T.tap(k, 4);
+      await T.tap('Space', 6);
+      T.check('second save is identical', localStorage.getItem('turnip-vale-save-v1') === first && g.mode === 'menu');
+      await T.tap('Escape', 6);
+      T.check('Esc closes the menu', g.mode === 'world', g.mode);
+      T.check('nothing moved', g.player.x === 12 && g.player.y === 7);
+    },
+  },
+  { // storage that refuses to save: say so, and keep playing
+    name: 'manual-save-storage-full', save: FIX.fresh,
+    run: async (T, g) => {
+      await T.continueGame();
+      const real = Storage.prototype.setItem;
+      Storage.prototype.setItem = () => { throw new Error('full'); };
+      await T.tap('KeyX', 6); await T.tap('Space', 6);
+      T.shot('failed');
+      T.check('failure is reported', g.menuNote && g.menuNote.text === 'FAILED!', JSON.stringify(g.menuNote));
+      Storage.prototype.setItem = real;
+      await T.tap('KeyX', 6);
+      await T.step('right');
+      T.check('the game carries on', g.mode === 'world' && g.player.x === 9, g.player.x);
+    },
+  },
+  { // the menu, and so saving by hand, is out of reach in dialogue and in battle
+    name: 'manual-save-not-elsewhere', save: FIX.boss,
+    run: async (T, g) => {
+      await T.continueGame();
+      const before = localStorage.getItem('turnip-vale-save-v1');
+      const same = () => localStorage.getItem('turnip-vale-save-v1') === before;
+      await T.tap('Space', 3);
+      T.check('in dialogue', g.mode === 'dialog', g.mode);
+      await T.tap('KeyX', 3);
+      T.check('the menu does not open during dialogue', g.mode !== 'menu' && same(), g.mode);
+      await T.dialog();
+      await T.untilBattle();
+      await T.tap('KeyX', 6);
+      T.check('the menu does not open in battle', g.mode === 'battle' && same(), g.mode);
+      await T.tap('Space', 1);
+      await T.frames(30);
+      T.check('the action button in battle does not save', g.mode === 'battle' && same() && g.menuNote === null);
+    },
+  },
+  { // an old save without the newer fields: save by hand, reopen, nothing lost
+    name: 'manual-save-old-save',
+    save: (() => { const d = JSON.parse(JSON.stringify(FIX.bram)); delete d.tracked; delete d.q.shards; d.q.kebab1 = { s: 1, found: 2 }; return d; })(),
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('unknown quest kept untouched', JSON.stringify(d.q.kebab1) === '{"s":1,"found":2}');
+        T.check('missing quest filled in, hero defaulted', d.q.shards.s === 0 && d.player.hero === 'michael');
+        T.state('saved');
+      },
+      async (T, g) => { await T.continueGame(); T.state('continued'); await T.menuShot('status'); },
+    ],
   },
 ];
 
@@ -1006,6 +1177,7 @@ export const SCENARIOS = [
   ...pagingScenarios,
   ...questSaveScenarios,
   ...chapterScenarios,
+  ...manualSaveScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,
   ...heroScenarios,

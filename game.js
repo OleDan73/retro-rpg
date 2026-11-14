@@ -989,7 +989,8 @@
       const p = { ...player, moving: false, fx: player.x, fy: player.y, tx: player.x, ty: player.y, t: 0 };
       localStorage.setItem(SAVE_KEY, JSON.stringify({ v: 1, player: p, q, flags, stats, tracked }));
       savedT = 90;
-    } catch (e) { /* storage unavailable */ }
+      return true;
+    } catch (e) { return false; /* storage unavailable */ }
   }
   function readSave() {
     try { const d = JSON.parse(localStorage.getItem(SAVE_KEY)); return d && d.v === 1 ? d : null; } catch (e) { return null; }
@@ -1269,9 +1270,9 @@
   }
 
   // ---------------------------------------------------------------- status menu
-  let menuPage = 0;
+  let menuPage = 0, menuNote = null;
   function openMenu() {
-    mode = 'menu'; menuOpen = true;
+    mode = 'menu'; menuOpen = true; menuNote = null;
     // Start on the page that holds the quest being tracked.
     pickTracked();
     menuPage = Math.max(0, Math.floor(knownQuests().indexOf(tracked) / QUESTS_PER_PAGE));
@@ -1283,7 +1284,15 @@
       menuPage = (Math.min(menuPage, pages - 1) + pages + step) % pages;
       SFX.move();
     }
-    if (aPressed || bPressed) { mode = 'world'; menuOpen = null; SFX.move(); }
+    if (menuNote && --menuNote.t <= 0) menuNote = null;
+    // The action button saves by hand. The menu only opens while standing in the world, so this is
+    // the same save the game makes by itself, just made on request.
+    if (aPressed) {
+      const ok = saveGame();
+      menuNote = { text: ok ? 'SAVED!' : 'FAILED!', c: ok ? 11 : 6, t: 90 };
+      (ok ? SFX.select : SFX.deny)();
+    }
+    if (bPressed) { mode = 'world'; menuOpen = null; SFX.move(); }
   }
   function drawMenu() {
     R(ctx, 0, 0, W, H, 0);
@@ -1297,6 +1306,8 @@
     text(WEAPONS[player.weapon].name, 10, 114, 10);
     text(ARMORS[player.armor].name, 10, 126, 10);
     if (player.sickle) text('SICKLE', 10, 138, 10);
+    if (menuNote) text(menuNote.text, 10, 148, menuNote.c);
+    else text(isTouch ? 'A:SAVE' : 'SPACE:SAVE', 10, 148, 14);
     box(96, 2, 142, 156);
     text('QUESTS', 104, 9, 14);
     const known = knownQuests(), pages = questPages(), page = Math.min(menuPage, pages - 1);
@@ -1951,7 +1962,7 @@
   window.__rpg = {
     player, NPCS, MAPS, QUESTS, QUEST_ORDER, CHAPTERS,
     get chapter() { return currentChapter(); }, get storyDone() { return storyDone(); },
-    get menuPage() { return menuPage; }, get tracked() { return tracked; },
+    get menuPage() { return menuPage; }, get menuNote() { return menuNote; }, get tracked() { return tracked; },
     get q() { return q; }, get flags() { return flags; }, get stats() { return stats; },
     get mode() { return mode; }, get battle() { return battle; }, get shop() { return shop; },
   };

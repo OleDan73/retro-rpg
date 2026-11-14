@@ -956,7 +956,7 @@
     { id: 'shard1', map: 'cave', x: 17, y: 3 },
     { id: 'shard2', map: 'cave', x: 3, y: 12 },
     { id: 'chestAxe', map: 'stovnerOuter', x: 27, y: 1, chest: true, weapon: 'axe' },
-    { id: 'chestVest', map: 'stovnerOuter', x: 1, y: 1, chest: true, armor: 'light' },
+    { id: 'chestVest', map: 'stovnerOuter', x: 9, y: 1, chest: true, armor: 'light' }, // clear of the status panel
   ];
 
   // ---------------------------------------------------------------- gates

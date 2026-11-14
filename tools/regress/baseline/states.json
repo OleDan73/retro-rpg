@@ -25325,13 +25325,13 @@
   "mode": "world",
   "player": {
    "map": "stovnerOuter",
-   "x": 1,
+   "x": 9,
    "y": 1,
-   "dir": "left",
+   "dir": "up",
    "moving": false,
-   "fx": 2,
-   "fy": 1,
-   "tx": 1,
+   "fx": 9,
+   "fy": 2,
+   "tx": 9,
    "ty": 1,
    "t": 0,
    "lvl": 9,
@@ -25394,7 +25394,7 @@
   "stats": {
    "won": 52,
    "slimes": 17,
-   "steps": 2910
+   "steps": 2912
   },
   "battle": null,
   "save": {
@@ -25435,7 +25435,161 @@
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
-    "sinceBattle": 2,
+    "sinceBattle": 4,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "chestAxe": true,
+    "chestVest": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2910
+   },
+   "tracked": null
+  }
+ },
+ "stovner-chests__equipped": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 9,
+   "y": 1,
+   "dir": "up",
+   "moving": false,
+   "fx": 9,
+   "fy": 2,
+   "tx": 9,
+   "ty": 1,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 0,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 260,
+   "weapon": "axe",
+   "armor": "light",
+   "weapons": [
+    "none",
+    "crystal",
+    "axe"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "light"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 4,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "chestAxe": true,
+   "chestVest": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2908
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 9,
+    "y": 1,
+    "dir": "up",
+    "moving": false,
+    "fx": 9,
+    "fy": 1,
+    "tx": 9,
+    "ty": 1,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 0,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 260,
+    "weapon": "axe",
+    "armor": "light",
+    "weapons": [
+     "none",
+     "crystal",
+     "axe"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "light"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 4,
     "hero": "michael"
    },
    "q": {
@@ -25471,160 +25625,6 @@
     "won": 52,
     "slimes": 17,
     "steps": 2908
-   },
-   "tracked": null
-  }
- },
- "stovner-chests__equipped": {
-  "mode": "world",
-  "player": {
-   "map": "stovnerOuter",
-   "x": 1,
-   "y": 1,
-   "dir": "left",
-   "moving": false,
-   "fx": 2,
-   "fy": 1,
-   "tx": 1,
-   "ty": 1,
-   "t": 0,
-   "lvl": 9,
-   "hp": 88,
-   "maxhp": 88,
-   "atk": 22,
-   "def": 9,
-   "xp": 0,
-   "next": 303,
-   "herbs": 5,
-   "maxHerbs": 5,
-   "gold": 260,
-   "weapon": "axe",
-   "armor": "light",
-   "weapons": [
-    "none",
-    "crystal",
-    "axe"
-   ],
-   "armors": [
-    "none",
-    "vest",
-    "light"
-   ],
-   "shards": 0,
-   "glowcaps": 0,
-   "sickle": true,
-   "sinceBattle": 2,
-   "hero": "michael"
-  },
-  "q": {
-   "slimes": {
-    "s": 3,
-    "n": 3
-   },
-   "biscuit": {
-    "s": 3
-   },
-   "glowcap": {
-    "s": 3
-   },
-   "king": {
-    "s": 3
-   },
-   "shards": {
-    "s": 3
-   }
-  },
-  "flags": {
-   "vines": true,
-   "metBram": true,
-   "shard1": true,
-   "shard2": true,
-   "fragment1": true,
-   "redKey": true,
-   "redGate": true,
-   "chestAxe": true,
-   "chestVest": true
-  },
-  "stats": {
-   "won": 52,
-   "slimes": 17,
-   "steps": 2906
-  },
-  "battle": null,
-  "save": {
-   "v": 1,
-   "player": {
-    "map": "stovnerOuter",
-    "x": 1,
-    "y": 1,
-    "dir": "left",
-    "moving": false,
-    "fx": 1,
-    "fy": 1,
-    "tx": 1,
-    "ty": 1,
-    "t": 0,
-    "lvl": 9,
-    "hp": 88,
-    "maxhp": 88,
-    "atk": 22,
-    "def": 9,
-    "xp": 0,
-    "next": 303,
-    "herbs": 5,
-    "maxHerbs": 5,
-    "gold": 260,
-    "weapon": "axe",
-    "armor": "light",
-    "weapons": [
-     "none",
-     "crystal",
-     "axe"
-    ],
-    "armors": [
-     "none",
-     "vest",
-     "light"
-    ],
-    "shards": 0,
-    "glowcaps": 0,
-    "sickle": true,
-    "sinceBattle": 2,
-    "hero": "michael"
-   },
-   "q": {
-    "slimes": {
-     "s": 3,
-     "n": 3
-    },
-    "biscuit": {
-     "s": 3
-    },
-    "glowcap": {
-     "s": 3
-    },
-    "king": {
-     "s": 3
-    },
-    "shards": {
-     "s": 3
-    }
-   },
-   "flags": {
-    "vines": true,
-    "metBram": true,
-    "shard1": true,
-    "shard2": true,
-    "fragment1": true,
-    "redKey": true,
-    "redGate": true,
-    "chestAxe": true,
-    "chestVest": true
-   },
-   "stats": {
-    "won": 52,
-    "slimes": 17,
-    "steps": 2906
    },
    "tracked": null
   }

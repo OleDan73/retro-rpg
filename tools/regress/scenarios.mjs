@@ -1738,11 +1738,30 @@ const combatScenarios = [
         T.shot('chest-gone');
         await T.step('down'); await T.step('up'); await T.tap('Space', 6);
         T.check('the chest is gone for good', g.mode === 'world' && g.player.y === 1 && g.player.weapons.length === 3, g.mode);
-        T.place('stovnerOuter', 2, 1, 'left'); g.player.sinceBattle = 0;
-        await T.step('left');
+        // The Light Vest's chest must not sit under the status panel (2..93 across, 2..31 down) from
+        // anywhere in the north-west corner, where the camera rests against the edge of the map.
+        const vest = g.ITEMS.find((i) => i.id === 'chestVest'), outer = g.MAPS.stovnerOuter, hidden = [];
+        T.check('the Light Vest chest stands at 9,1, in the glint slime zone', vest.x === 9 && vest.y === 1 && vest.map === 'stovnerOuter'
+          && outer.encounter.zones.findIndex((z) => vest.x >= z.at[0] && vest.y >= z.at[1] && vest.x <= z.at[2] && vest.y <= z.at[3]) === 0);
+        T.check('on open ground that was open before', outer.rows[1][9] === '.' && !g.SOLID.has('.'));
+        for (let y = 1; y <= 5; y++) for (let x = 1; x <= 9; x++) {
+          if (g.SOLID.has(outer.rows[y][x])) continue;
+          const camX = Math.max(0, Math.min(x * 16 + 8 - 120, outer.w * 16 - 240)), camY = Math.max(0, Math.min(y * 16 + 8 - 80, outer.h * 16 - 160));
+          const sx = vest.x * 16 - camX, sy = vest.y * 16 - camY;
+          if (sx < 94 && sx + 16 > 2 && sy < 32 && sy + 16 > 2) hidden.push(x + ',' + y);
+        }
+        T.check('never under the status panel from the north-west corner', hidden.length === 0, hidden.join(' '));
+        T.place('stovnerOuter', 8, 3, 'up'); g.player.sinceBattle = 0;
+        await T.frames(20);
+        T.shot('vest-chest');
+        await T.step('up'); await T.step('right');
+        T.shot('vest-chest-near');
+        await T.step('up');
+        T.check('three steps off the west loop', g.mode === 'dialog' && g.player.x === 9 && g.player.y === 1, g.mode + ' ' + g.player.x + ',' + g.player.y);
         await T.dialog('vest');
         T.check('the Light Vest is owned, not worn', JSON.stringify(g.player.armors) === '["none","vest","light"]' && g.player.armor === 'vest' && g.flags.chestVest === true, JSON.stringify(g.player.armors));
-        await T.step('right'); await T.step('left');
+        T.check('and saved', JSON.stringify(saved().player.armors) === '["none","vest","light"]' && saved().flags.chestVest === true);
+        await T.step('down'); await T.step('up');
         T.check('once only', g.mode === 'world' && g.player.armors.length === 3);
         // ---- the menu
         await T.tap('KeyX', 6);
@@ -1803,8 +1822,9 @@ const combatScenarios = [
         await T.frames(60);
         T.place('stovnerOuter', 27, 2, 'up');
         await T.step('up');
-        T.place('stovnerOuter', 2, 1, 'left'); g.player.sinceBattle = 0;
-        await T.step('left');
+        T.place('stovnerOuter', 9, 2, 'up'); g.player.sinceBattle = 0;
+        await T.step('up');
+        T.check('back where the Light Vest was', g.player.x === 9 && g.player.y === 1);
         T.check('no second helping after reloading and travelling', g.mode === 'world' && g.player.weapons.length === 3 && g.player.armors.length === 3, g.mode);
         await T.tap('KeyX', 6); await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
         await T.tap('Space', 4); await T.tap('Space', 4);

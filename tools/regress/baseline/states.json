@@ -24,6 +24,12 @@
    "gold": 28,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": false,
@@ -80,6 +86,12 @@
     "gold": 28,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": false,
@@ -1215,6 +1227,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -1273,6 +1291,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -1333,6 +1357,14 @@
    "gold": 40,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -1462,6 +1494,14 @@
    "gold": 140,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -1521,6 +1561,14 @@
     "gold": 140,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -1582,6 +1630,15 @@
    "gold": 17,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -1642,6 +1699,15 @@
     "gold": 17,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -1704,6 +1770,14 @@
    "gold": 17,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -1764,6 +1838,14 @@
     "gold": 17,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -1826,6 +1908,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -1882,6 +1970,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -1940,6 +2034,14 @@
    "gold": 51,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -1999,6 +2101,14 @@
     "gold": 51,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -2060,6 +2170,14 @@
    "gold": 40,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -2189,6 +2307,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -2252,6 +2378,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -2317,6 +2451,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -2380,6 +2522,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -2445,6 +2595,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -2508,6 +2666,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -2573,6 +2739,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -2636,6 +2810,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -2701,6 +2883,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -2764,6 +2954,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -2829,6 +3027,14 @@
    "gold": 140,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -2890,6 +3096,14 @@
     "gold": 140,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -2953,6 +3167,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -3016,6 +3238,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -6243,6 +6473,12 @@
    "gold": 100,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -6301,6 +6537,12 @@
     "gold": 100,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -6658,6 +6900,12 @@
    "gold": 25,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -6716,6 +6964,12 @@
     "gold": 25,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -7398,6 +7652,14 @@
    "gold": 140,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -7457,6 +7719,14 @@
     "gold": 140,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -7518,6 +7788,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -7574,6 +7850,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -7632,6 +7914,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -7745,6 +8033,14 @@
    "gold": 0,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -7872,6 +8168,14 @@
    "gold": 11,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -7940,6 +8244,14 @@
     "gold": 11,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -8000,6 +8312,14 @@
    "gold": 19,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -8068,6 +8388,14 @@
     "gold": 19,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -8128,6 +8456,14 @@
    "gold": 30,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -8196,6 +8532,14 @@
     "gold": 30,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -8256,6 +8600,14 @@
    "gold": 36,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -8324,6 +8676,14 @@
     "gold": 36,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -8384,6 +8744,14 @@
    "gold": 43,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -8452,6 +8820,14 @@
     "gold": 43,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -8512,6 +8888,14 @@
    "gold": 51,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -8580,6 +8964,14 @@
     "gold": 51,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -8640,6 +9032,14 @@
    "gold": 57,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -8708,6 +9108,14 @@
     "gold": 57,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -8768,6 +9176,14 @@
    "gold": 63,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -8836,6 +9252,14 @@
     "gold": 63,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -8896,6 +9320,14 @@
    "gold": 71,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -8964,6 +9396,14 @@
     "gold": 71,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -9024,6 +9464,14 @@
    "gold": 81,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -9092,6 +9540,14 @@
     "gold": 81,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -9152,6 +9608,14 @@
    "gold": 89,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -9220,6 +9684,14 @@
     "gold": 89,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -9280,6 +9752,14 @@
    "gold": 97,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -9348,6 +9828,14 @@
     "gold": 97,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -9408,6 +9896,14 @@
    "gold": 108,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -9476,6 +9972,14 @@
     "gold": 108,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -9536,6 +10040,14 @@
    "gold": 116,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -9604,6 +10116,14 @@
     "gold": 116,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -9664,6 +10184,14 @@
    "gold": 127,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -9732,6 +10260,14 @@
     "gold": 127,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -9792,6 +10328,14 @@
    "gold": 136,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -9850,6 +10394,14 @@
     "gold": 136,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -9910,6 +10462,14 @@
    "gold": 0,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -10033,6 +10593,14 @@
    "gold": 5,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -10099,6 +10667,14 @@
     "gold": 5,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -10157,6 +10733,14 @@
    "gold": 10,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -10223,6 +10807,14 @@
     "gold": 10,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -10281,6 +10873,14 @@
    "gold": 14,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -10347,6 +10947,14 @@
     "gold": 14,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -10405,6 +11013,14 @@
    "gold": 19,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -10471,6 +11087,14 @@
     "gold": 19,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -10529,6 +11153,14 @@
    "gold": 24,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -10595,6 +11227,14 @@
     "gold": 24,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -10653,6 +11293,14 @@
    "gold": 28,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -10719,6 +11367,14 @@
     "gold": 28,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -10777,6 +11433,14 @@
    "gold": 32,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -10843,6 +11507,14 @@
     "gold": 32,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -10901,6 +11573,14 @@
    "gold": 38,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -10967,6 +11647,14 @@
     "gold": 38,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -11025,6 +11713,14 @@
    "gold": 42,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -11091,6 +11787,14 @@
     "gold": 42,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -11149,6 +11853,14 @@
    "gold": 45,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -11205,6 +11917,14 @@
     "gold": 45,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -11263,6 +11983,14 @@
    "gold": 0,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -11386,6 +12114,14 @@
    "gold": 5,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -11452,6 +12188,14 @@
     "gold": 5,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -11510,6 +12254,14 @@
    "gold": 9,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -11576,6 +12328,14 @@
     "gold": 9,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -11634,6 +12394,14 @@
    "gold": 13,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 1,
    "sickle": true,
@@ -11700,6 +12468,14 @@
     "gold": 13,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 1,
     "sickle": true,
@@ -11758,6 +12534,14 @@
    "gold": 19,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": true,
@@ -11824,6 +12608,14 @@
     "gold": 19,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": true,
@@ -11882,6 +12674,14 @@
    "gold": 24,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": true,
@@ -11948,6 +12748,14 @@
     "gold": 24,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": true,
@@ -12006,6 +12814,14 @@
    "gold": 29,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": true,
@@ -12072,6 +12888,14 @@
     "gold": 29,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": true,
@@ -12130,6 +12954,14 @@
    "gold": 32,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": true,
@@ -12196,6 +13028,14 @@
     "gold": 32,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": true,
@@ -12254,6 +13094,14 @@
    "gold": 35,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": true,
@@ -12320,6 +13168,14 @@
     "gold": 35,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": true,
@@ -12378,6 +13234,14 @@
    "gold": 39,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": true,
@@ -12444,6 +13308,14 @@
     "gold": 39,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": true,
@@ -12502,6 +13374,14 @@
    "gold": 43,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": true,
@@ -12568,6 +13448,14 @@
     "gold": 43,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": true,
@@ -12626,6 +13514,14 @@
    "gold": 47,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 3,
    "sickle": true,
@@ -12692,6 +13588,14 @@
     "gold": 47,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 3,
     "sickle": true,
@@ -12750,6 +13654,14 @@
    "gold": 53,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 3,
    "sickle": true,
@@ -12816,6 +13728,14 @@
     "gold": 53,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 3,
     "sickle": true,
@@ -12874,6 +13794,14 @@
    "gold": 57,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 3,
    "sickle": true,
@@ -12940,6 +13868,14 @@
     "gold": 57,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 3,
     "sickle": true,
@@ -12998,6 +13934,14 @@
    "gold": 61,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 3,
    "sickle": true,
@@ -13054,6 +13998,14 @@
     "gold": 61,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 3,
     "sickle": true,
@@ -13112,6 +14064,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -13235,6 +14195,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -13296,6 +14264,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -13334,6 +14310,1031 @@
    "tracked": null
   }
  },
+ "gear-bram__after": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 9,
+   "dir": "left",
+   "moving": false,
+   "fx": 8,
+   "fy": 9,
+   "tx": 8,
+   "ty": 9,
+   "t": 0,
+   "lvl": 5,
+   "hp": 54,
+   "maxhp": 54,
+   "atk": 14,
+   "def": 5,
+   "xp": 0,
+   "next": 60,
+   "herbs": 2,
+   "maxHerbs": 3,
+   "gold": 25,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "iron",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 1
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "shard1": true,
+   "shard2": true,
+   "metBram": true
+  },
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 0
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 9,
+    "dir": "left",
+    "moving": false,
+    "fx": 8,
+    "fy": 9,
+    "tx": 8,
+    "ty": 9,
+    "t": 0,
+    "lvl": 5,
+    "hp": 54,
+    "maxhp": 54,
+    "atk": 14,
+    "def": 5,
+    "xp": 0,
+    "next": 60,
+    "herbs": 2,
+    "maxHerbs": 3,
+    "gold": 25,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "iron",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 1
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": "king"
+  }
+ },
+ "gear-migration__migrated-crystal-none": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 12,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 12,
+   "fy": 7,
+   "tx": 12,
+   "ty": 7,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 0,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 260,
+   "weapon": "crystal",
+   "armor": "none",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael",
+   "mystery": 7
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "kebab1": {
+    "s": 1,
+    "found": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 12,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 12,
+    "fy": 7,
+    "tx": 12,
+    "ty": 7,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 0,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 260,
+    "weapon": "crystal",
+    "armor": "none",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael",
+    "mystery": 7
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "kebab1": {
+     "s": 1,
+     "found": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": null
+  }
+ },
+ "gear-migration__migrated-crystal-vest": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 12,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 12,
+   "fy": 7,
+   "tx": 12,
+   "ty": 7,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 0,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 260,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael",
+   "mystery": 7
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "kebab1": {
+    "s": 1,
+    "found": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 12,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 12,
+    "fy": 7,
+    "tx": 12,
+    "ty": 7,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 0,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 260,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael",
+    "mystery": 7
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "kebab1": {
+     "s": 1,
+     "found": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": null
+  }
+ },
+ "gear-migration__migrated-iron-none": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 12,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 12,
+   "fy": 7,
+   "tx": 12,
+   "ty": 7,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 0,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 260,
+   "weapon": "iron",
+   "armor": "none",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael",
+   "mystery": 7
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "kebab1": {
+    "s": 1,
+    "found": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 12,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 12,
+    "fy": 7,
+    "tx": 12,
+    "ty": 7,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 0,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 260,
+    "weapon": "iron",
+    "armor": "none",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael",
+    "mystery": 7
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "kebab1": {
+     "s": 1,
+     "found": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": null
+  }
+ },
+ "gear-migration__migrated-iron-vest": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 12,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 12,
+   "fy": 7,
+   "tx": 12,
+   "ty": 7,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 0,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 260,
+   "weapon": "iron",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael",
+   "mystery": 7
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "kebab1": {
+    "s": 1,
+    "found": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 12,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 12,
+    "fy": 7,
+    "tx": 12,
+    "ty": 7,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 0,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 260,
+    "weapon": "iron",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael",
+    "mystery": 7
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "kebab1": {
+     "s": 1,
+     "found": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": null
+  }
+ },
+ "gear-migration__migrated-none-none": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 12,
+   "y": 7,
+   "dir": "up",
+   "moving": false,
+   "fx": 12,
+   "fy": 7,
+   "tx": 12,
+   "ty": 7,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 0,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 260,
+   "weapon": "none",
+   "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael",
+   "mystery": 7
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "kebab1": {
+    "s": 1,
+    "found": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 12,
+    "y": 7,
+    "dir": "up",
+    "moving": false,
+    "fx": 12,
+    "fy": 7,
+    "tx": 12,
+    "ty": 7,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 0,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 260,
+    "weapon": "none",
+    "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael",
+    "mystery": 7
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "kebab1": {
+     "s": 1,
+     "found": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": null
+  }
+ },
+ "gear-shop-owned__after": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 8,
+   "y": 9,
+   "dir": "left",
+   "moving": false,
+   "fx": 8,
+   "fy": 9,
+   "tx": 8,
+   "ty": 9,
+   "t": 0,
+   "lvl": 5,
+   "hp": 54,
+   "maxhp": 54,
+   "atk": 14,
+   "def": 5,
+   "xp": 0,
+   "next": 60,
+   "herbs": 2,
+   "maxHerbs": 3,
+   "gold": 60,
+   "weapon": "iron",
+   "armor": "light",
+   "weapons": [
+    "none",
+    "axe",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "light"
+   ],
+   "shards": 2,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 1
+   },
+   "shards": {
+    "s": 2
+   }
+  },
+  "flags": {
+   "vines": true,
+   "shard1": true,
+   "shard2": true
+  },
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 0
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 8,
+    "y": 9,
+    "dir": "left",
+    "moving": false,
+    "fx": 8,
+    "fy": 9,
+    "tx": 8,
+    "ty": 9,
+    "t": 0,
+    "lvl": 5,
+    "hp": 54,
+    "maxhp": 54,
+    "atk": 14,
+    "def": 5,
+    "xp": 0,
+    "next": 60,
+    "herbs": 2,
+    "maxHerbs": 3,
+    "gold": 60,
+    "weapon": "iron",
+    "armor": "light",
+    "weapons": [
+     "none",
+     "axe",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "light"
+    ],
+    "shards": 2,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 1
+    },
+    "shards": {
+     "s": 2
+    }
+   },
+   "flags": {
+    "vines": true,
+    "shard1": true,
+    "shard2": true
+   },
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 0
+   },
+   "tracked": "shards"
+  }
+ },
  "hero-alexandra-boss__battle-start": {
   "mode": "battle",
   "player": {
@@ -13359,6 +15360,14 @@
    "gold": 40,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -13489,6 +15498,14 @@
    "gold": 140,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -13548,6 +15565,14 @@
     "gold": 140,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -13609,6 +15634,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -13665,6 +15696,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -13723,6 +15760,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -13779,6 +15822,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -13837,6 +15886,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -13893,6 +15948,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -13951,6 +16012,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -14014,6 +16083,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -14079,6 +16156,12 @@
    "gold": 37,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": false,
@@ -14135,6 +16218,12 @@
     "gold": 37,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": false,
@@ -14193,6 +16282,14 @@
    "gold": 40,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -14323,6 +16420,14 @@
    "gold": 140,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -14382,6 +16487,14 @@
     "gold": 140,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -14443,6 +16556,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -14499,6 +16618,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -14557,6 +16682,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -14613,6 +16744,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -14671,6 +16808,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -14727,6 +16870,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -14785,6 +16934,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -14848,6 +17005,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -14913,6 +17078,12 @@
    "gold": 37,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": false,
@@ -14969,6 +17140,12 @@
     "gold": 37,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": false,
@@ -15027,6 +17204,14 @@
    "gold": 40,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -15157,6 +17342,14 @@
    "gold": 140,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -15216,6 +17409,14 @@
     "gold": 140,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -15277,6 +17478,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -15333,6 +17540,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -15391,6 +17604,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -15447,6 +17666,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -15505,6 +17730,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -15561,6 +17792,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -15619,6 +17856,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -15682,6 +17927,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -15747,6 +18000,12 @@
    "gold": 37,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": false,
@@ -15803,6 +18062,12 @@
     "gold": 37,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": false,
@@ -15861,6 +18126,14 @@
    "gold": 40,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -15991,6 +18264,14 @@
    "gold": 140,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -16050,6 +18331,14 @@
     "gold": 140,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -16111,6 +18400,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -16167,6 +18462,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -16225,6 +18526,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -16281,6 +18588,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -16339,6 +18652,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -16395,6 +18714,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -16453,6 +18778,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -16516,6 +18849,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -16581,6 +18922,12 @@
    "gold": 37,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": false,
@@ -16637,6 +18984,12 @@
     "gold": 37,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": false,
@@ -16695,6 +19048,14 @@
    "gold": 40,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -16825,6 +19186,14 @@
    "gold": 140,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -16884,6 +19253,14 @@
     "gold": 140,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -16945,6 +19322,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -17008,6 +19393,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -17073,6 +19466,14 @@
    "gold": 40,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -17192,6 +19593,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -17253,6 +19662,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -17316,6 +19733,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -17377,6 +19802,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -17440,6 +19873,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -17501,6 +19942,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -17564,6 +20013,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -17625,6 +20082,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -17688,6 +20153,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -17751,6 +20224,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -17816,6 +20297,12 @@
    "gold": 100,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -17880,6 +20367,12 @@
     "gold": 100,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -17946,6 +20439,12 @@
    "gold": 100,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -18010,6 +20509,12 @@
     "gold": 100,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -18076,6 +20581,12 @@
    "gold": 12,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 1,
    "sickle": false,
@@ -18132,6 +20643,12 @@
     "gold": 12,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 1,
     "sickle": false,
@@ -18190,6 +20707,12 @@
    "gold": 12,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 1,
    "sickle": false,
@@ -18246,6 +20769,12 @@
     "gold": 12,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 1,
     "sickle": false,
@@ -18304,6 +20833,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -18365,6 +20902,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -18428,6 +20973,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -18489,6 +21042,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -18552,6 +21113,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -18613,6 +21182,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -18676,6 +21253,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -18737,6 +21322,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -18800,6 +21393,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -18856,6 +21455,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -18914,6 +21519,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -18970,6 +21581,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -19028,6 +21645,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -19084,6 +21707,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -19142,6 +21771,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -19198,6 +21833,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -19256,6 +21897,12 @@
    "gold": 50,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -19371,6 +22018,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -19484,6 +22137,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -19540,6 +22199,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,
@@ -19598,6 +22263,12 @@
    "gold": 44,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -19654,6 +22325,12 @@
     "gold": 44,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -19712,6 +22389,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -19813,6 +22496,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 1,
    "glowcaps": 0,
    "sickle": true,
@@ -19872,6 +22561,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 1,
     "glowcaps": 0,
     "sickle": true,
@@ -19933,6 +22628,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -19994,6 +22695,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -20057,6 +22764,14 @@
    "gold": 0,
    "weapon": "crystal",
    "armor": "none",
+   "weapons": [
+    "none",
+    "iron",
+    "crystal"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -20118,6 +22833,14 @@
     "gold": 0,
     "weapon": "crystal",
     "armor": "none",
+    "weapons": [
+     "none",
+     "iron",
+     "crystal"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -20181,6 +22904,12 @@
    "gold": 44,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -20237,6 +22966,12 @@
     "gold": 44,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -20295,6 +23030,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 1,
    "glowcaps": 2,
    "sickle": true,
@@ -20408,6 +23149,13 @@
    "gold": 0,
    "weapon": "crystal",
    "armor": "none",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -20521,6 +23269,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 2,
    "glowcaps": 3,
    "sickle": true,
@@ -20634,6 +23388,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -20747,6 +23507,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -20860,6 +23626,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 1,
    "sickle": false,
@@ -20973,6 +23745,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 3,
    "sickle": false,
@@ -21086,6 +23864,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -21199,6 +23983,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -21312,6 +24102,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": true,
@@ -21425,6 +24221,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -21538,6 +24340,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 1,
    "glowcaps": 0,
    "sickle": true,
@@ -21651,6 +24459,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -21764,6 +24578,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -21877,6 +24697,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -21990,6 +24816,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -22103,6 +24935,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -22191,6 +25029,882 @@
    "tracked": "slimes"
   }
  },
+ "stovner-blue-slime__continued": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 6,
+   "y": 15,
+   "dir": "right",
+   "moving": false,
+   "fx": 6,
+   "fy": 15,
+   "tx": 6,
+   "ty": 15,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 22,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 270,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 1,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 6,
+    "y": 15,
+    "dir": "right",
+    "moving": false,
+    "fx": 6,
+    "fy": 15,
+    "tx": 6,
+    "ty": 15,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 22,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 270,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 1,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
+ "stovner-blue-slime__won": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 6,
+   "y": 15,
+   "dir": "right",
+   "moving": false,
+   "fx": 5,
+   "fy": 15,
+   "tx": 6,
+   "ty": 15,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 22,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 270,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 1,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 6,
+    "y": 15,
+    "dir": "right",
+    "moving": false,
+    "fx": 6,
+    "fy": 15,
+    "tx": 6,
+    "ty": 15,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 22,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 270,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 1,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
+ "stovner-chests__changed-back": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 1,
+   "y": 1,
+   "dir": "left",
+   "moving": false,
+   "fx": 2,
+   "fy": 1,
+   "tx": 1,
+   "ty": 1,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 0,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 260,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "axe"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "light"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 1,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "chestAxe": true,
+   "chestVest": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2910
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 14,
+    "y": 18,
+    "dir": "up",
+    "moving": false,
+    "fx": 14,
+    "fy": 18,
+    "tx": 14,
+    "ty": 18,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 0,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 260,
+    "weapon": "axe",
+    "armor": "light",
+    "weapons": [
+     "none",
+     "crystal",
+     "axe"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "light"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 2,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "chestAxe": true,
+    "chestVest": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2908
+   },
+   "tracked": null
+  }
+ },
+ "stovner-chests__equipped": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 1,
+   "y": 1,
+   "dir": "left",
+   "moving": false,
+   "fx": 2,
+   "fy": 1,
+   "tx": 1,
+   "ty": 1,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 0,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 260,
+   "weapon": "axe",
+   "armor": "light",
+   "weapons": [
+    "none",
+    "crystal",
+    "axe"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "light"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 2,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "chestAxe": true,
+   "chestVest": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2906
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 1,
+    "y": 1,
+    "dir": "left",
+    "moving": false,
+    "fx": 1,
+    "fy": 1,
+    "tx": 1,
+    "ty": 1,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 0,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 260,
+    "weapon": "axe",
+    "armor": "light",
+    "weapons": [
+     "none",
+     "crystal",
+     "axe"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "light"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 2,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "chestAxe": true,
+    "chestVest": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2906
+   },
+   "tracked": null
+  }
+ },
+ "stovner-defeat__home": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 13,
+   "y": 5,
+   "dir": "up",
+   "moving": false,
+   "fx": 13,
+   "fy": 5,
+   "tx": 13,
+   "ty": 5,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 33,
+   "weapon": "iron",
+   "armor": "none",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 1
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 13,
+    "y": 5,
+    "dir": "up",
+    "moving": false,
+    "fx": 13,
+    "fy": 5,
+    "tx": 13,
+    "ty": 5,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 33,
+    "weapon": "iron",
+    "armor": "none",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 1
+   },
+   "tracked": null
+  }
+ },
+ "stovner-defeat__home-again": {
+  "mode": "world",
+  "player": {
+   "map": "village",
+   "x": 10,
+   "y": 5,
+   "dir": "left",
+   "moving": false,
+   "fx": 11,
+   "fy": 5,
+   "tx": 10,
+   "ty": 5,
+   "t": 0,
+   "lvl": 1,
+   "hp": 30,
+   "maxhp": 30,
+   "atk": 6,
+   "def": 1,
+   "xp": 0,
+   "next": 12,
+   "herbs": 3,
+   "maxHerbs": 3,
+   "gold": 33,
+   "weapon": "iron",
+   "armor": "none",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 0
+   },
+   "glowcap": {
+    "s": 0
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 0,
+   "slimes": 0,
+   "steps": 5
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "village",
+    "x": 13,
+    "y": 5,
+    "dir": "up",
+    "moving": false,
+    "fx": 13,
+    "fy": 5,
+    "tx": 13,
+    "ty": 5,
+    "t": 0,
+    "lvl": 1,
+    "hp": 30,
+    "maxhp": 30,
+    "atk": 6,
+    "def": 1,
+    "xp": 0,
+    "next": 12,
+    "herbs": 3,
+    "maxHerbs": 3,
+    "gold": 33,
+    "weapon": "iron",
+    "armor": "none",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 0
+    },
+    "glowcap": {
+     "s": 0
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 0,
+    "slimes": 0,
+    "steps": 2
+   },
+   "tracked": null
+  }
+ },
  "stovner-from-old-finished-save__arrived": {
   "mode": "world",
   "player": {
@@ -22216,6 +25930,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -22280,6 +26002,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -22346,6 +26076,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -22410,6 +26148,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -22476,6 +26222,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -22540,6 +26294,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -22581,6 +26343,442 @@
    "tracked": "shards"
   }
  },
+ "stovner-glint-slime-modest__after": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 5,
+   "y": 2,
+   "dir": "up",
+   "moving": false,
+   "fx": 5,
+   "fy": 3,
+   "tx": 5,
+   "ty": 2,
+   "t": 0,
+   "lvl": 8,
+   "hp": 41,
+   "maxhp": 82,
+   "atk": 20,
+   "def": 8,
+   "xp": 60,
+   "next": 202,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 210,
+   "weapon": "iron",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 42,
+   "slimes": 14,
+   "steps": 2101
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 5,
+    "y": 2,
+    "dir": "up",
+    "moving": false,
+    "fx": 5,
+    "fy": 2,
+    "tx": 5,
+    "ty": 2,
+    "t": 0,
+    "lvl": 8,
+    "hp": 41,
+    "maxhp": 82,
+    "atk": 20,
+    "def": 8,
+    "xp": 60,
+    "next": 202,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 210,
+    "weapon": "iron",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 42,
+    "slimes": 14,
+    "steps": 2101
+   },
+   "tracked": "shards"
+  }
+ },
+ "stovner-glint-slime__after": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 5,
+   "y": 2,
+   "dir": "up",
+   "moving": false,
+   "fx": 5,
+   "fy": 3,
+   "tx": 5,
+   "ty": 2,
+   "t": 0,
+   "lvl": 9,
+   "hp": 62,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 60,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 290,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2901
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 5,
+    "y": 2,
+    "dir": "up",
+    "moving": false,
+    "fx": 5,
+    "fy": 2,
+    "tx": 5,
+    "ty": 2,
+    "t": 0,
+    "lvl": 9,
+    "hp": 62,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 60,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 290,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2901
+   },
+   "tracked": null
+  }
+ },
+ "stovner-golem__after": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 17,
+   "y": 4,
+   "dir": "up",
+   "moving": false,
+   "fx": 17,
+   "fy": 5,
+   "tx": 17,
+   "ty": 4,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 68,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 292,
+   "weapon": "axe",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "axe"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 54,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 17,
+    "y": 4,
+    "dir": "up",
+    "moving": false,
+    "fx": 17,
+    "fy": 4,
+    "tx": 17,
+    "ty": 4,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 68,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 292,
+    "weapon": "axe",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "axe"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 54,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
  "stovner-hub-tour__outer": {
   "mode": "world",
   "player": {
@@ -22606,6 +26804,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -22670,6 +26876,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -22711,6 +26925,294 @@
    "tracked": null
   }
  },
+ "stovner-level-up__after": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 5,
+   "y": 15,
+   "dir": "left",
+   "moving": false,
+   "fx": 6,
+   "fy": 15,
+   "tx": 5,
+   "ty": 15,
+   "t": 0,
+   "lvl": 10,
+   "hp": 94,
+   "maxhp": 94,
+   "atk": 24,
+   "def": 10,
+   "xp": 9,
+   "next": 454,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 270,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 5,
+    "y": 15,
+    "dir": "left",
+    "moving": false,
+    "fx": 5,
+    "fy": 15,
+    "tx": 5,
+    "ty": 15,
+    "t": 0,
+    "lvl": 10,
+    "hp": 94,
+    "maxhp": 94,
+    "atk": 24,
+    "def": 10,
+    "xp": 9,
+    "next": 454,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 270,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
+ "stovner-modest-hero__after": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 17,
+   "y": 4,
+   "dir": "up",
+   "moving": false,
+   "fx": 17,
+   "fy": 5,
+   "tx": 17,
+   "ty": 4,
+   "t": 0,
+   "lvl": 8,
+   "hp": 53,
+   "maxhp": 82,
+   "atk": 20,
+   "def": 8,
+   "xp": 76,
+   "next": 202,
+   "herbs": 4,
+   "maxHerbs": 5,
+   "gold": 214,
+   "weapon": "iron",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 1
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 44,
+   "slimes": 14,
+   "steps": 2103
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 17,
+    "y": 4,
+    "dir": "up",
+    "moving": false,
+    "fx": 17,
+    "fy": 4,
+    "tx": 17,
+    "ty": 4,
+    "t": 0,
+    "lvl": 8,
+    "hp": 53,
+    "maxhp": 82,
+    "atk": 20,
+    "def": 8,
+    "xp": 76,
+    "next": 202,
+    "herbs": 4,
+    "maxHerbs": 5,
+    "gold": 214,
+    "weapon": "iron",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 1
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 44,
+    "slimes": 14,
+    "steps": 2103
+   },
+   "tracked": "shards"
+  }
+ },
  "stovner-outer-tour__town": {
   "mode": "world",
   "player": {
@@ -22736,6 +27238,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -22800,6 +27310,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -22841,6 +27359,598 @@
    "tracked": null
   }
  },
+ "stovner-rat-alexandra__after": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 20,
+   "y": 8,
+   "dir": "left",
+   "moving": false,
+   "fx": 21,
+   "fy": 8,
+   "tx": 20,
+   "ty": 8,
+   "t": 0,
+   "lvl": 9,
+   "hp": 80,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 40,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 276,
+   "weapon": "crystal",
+   "armor": "light",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "light"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "alexandra"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 54,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 20,
+    "y": 8,
+    "dir": "left",
+    "moving": false,
+    "fx": 20,
+    "fy": 8,
+    "tx": 20,
+    "ty": 8,
+    "t": 0,
+    "lvl": 9,
+    "hp": 80,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 40,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 276,
+    "weapon": "crystal",
+    "armor": "light",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "light"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "alexandra"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 54,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
+ "stovner-rat-celine__after": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 20,
+   "y": 8,
+   "dir": "left",
+   "moving": false,
+   "fx": 21,
+   "fy": 8,
+   "tx": 20,
+   "ty": 8,
+   "t": 0,
+   "lvl": 9,
+   "hp": 80,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 40,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 276,
+   "weapon": "crystal",
+   "armor": "light",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "light"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "celine"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 54,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 20,
+    "y": 8,
+    "dir": "left",
+    "moving": false,
+    "fx": 20,
+    "fy": 8,
+    "tx": 20,
+    "ty": 8,
+    "t": 0,
+    "lvl": 9,
+    "hp": 80,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 40,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 276,
+    "weapon": "crystal",
+    "armor": "light",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "light"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "celine"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 54,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
+ "stovner-rat-mohammed__after": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 20,
+   "y": 8,
+   "dir": "left",
+   "moving": false,
+   "fx": 21,
+   "fy": 8,
+   "tx": 20,
+   "ty": 8,
+   "t": 0,
+   "lvl": 9,
+   "hp": 80,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 40,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 276,
+   "weapon": "crystal",
+   "armor": "light",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "light"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "mohammed"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 54,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 20,
+    "y": 8,
+    "dir": "left",
+    "moving": false,
+    "fx": 20,
+    "fy": 8,
+    "tx": 20,
+    "ty": 8,
+    "t": 0,
+    "lvl": 9,
+    "hp": 80,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 40,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 276,
+    "weapon": "crystal",
+    "armor": "light",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "light"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "mohammed"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 54,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
+ "stovner-rat__after": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 20,
+   "y": 8,
+   "dir": "left",
+   "moving": false,
+   "fx": 21,
+   "fy": 8,
+   "tx": 20,
+   "ty": 8,
+   "t": 0,
+   "lvl": 9,
+   "hp": 80,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 40,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 276,
+   "weapon": "crystal",
+   "armor": "light",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "light"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true
+  },
+  "stats": {
+   "won": 54,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 20,
+    "y": 8,
+    "dir": "left",
+    "moving": false,
+    "fx": 20,
+    "fy": 8,
+    "tx": 20,
+    "ty": 8,
+    "t": 0,
+    "lvl": 9,
+    "hp": 80,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 40,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 276,
+    "weapon": "crystal",
+    "armor": "light",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "light"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true
+   },
+   "stats": {
+    "won": 54,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
  "stovner-save-touch__home": {
   "mode": "world",
   "player": {
@@ -22866,6 +27976,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -22930,6 +28048,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -22996,6 +28122,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -23064,6 +28198,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -23134,6 +28276,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -23202,6 +28352,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -23272,6 +28430,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -23340,6 +28506,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -23410,6 +28584,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -23478,6 +28660,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -23548,6 +28738,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -23616,6 +28814,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -23686,6 +28892,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -23754,6 +28968,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -23799,6 +29021,306 @@
    "tracked": null
   }
  },
+ "stovner-touch__continued": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 17,
+   "y": 4,
+   "dir": "up",
+   "moving": false,
+   "fx": 17,
+   "fy": 4,
+   "tx": 17,
+   "ty": 4,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 34,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 276,
+   "weapon": "axe",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "axe"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "chestAxe": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 17,
+    "y": 4,
+    "dir": "up",
+    "moving": false,
+    "fx": 17,
+    "fy": 4,
+    "tx": 17,
+    "ty": 4,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 34,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 276,
+    "weapon": "axe",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "axe"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "chestAxe": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
+ "stovner-touch__saved": {
+  "mode": "world",
+  "player": {
+   "map": "stovnerOuter",
+   "x": 17,
+   "y": 4,
+   "dir": "up",
+   "moving": false,
+   "fx": 17,
+   "fy": 5,
+   "tx": 17,
+   "ty": 4,
+   "t": 0,
+   "lvl": 9,
+   "hp": 88,
+   "maxhp": 88,
+   "atk": 22,
+   "def": 9,
+   "xp": 34,
+   "next": 303,
+   "herbs": 5,
+   "maxHerbs": 5,
+   "gold": 276,
+   "weapon": "axe",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "axe"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "chestAxe": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2902
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovnerOuter",
+    "x": 17,
+    "y": 4,
+    "dir": "up",
+    "moving": false,
+    "fx": 17,
+    "fy": 4,
+    "tx": 17,
+    "ty": 4,
+    "t": 0,
+    "lvl": 9,
+    "hp": 88,
+    "maxhp": 88,
+    "atk": 22,
+    "def": 9,
+    "xp": 34,
+    "next": 303,
+    "herbs": 5,
+    "maxHerbs": 5,
+    "gold": 276,
+    "weapon": "axe",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "axe"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "chestAxe": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2902
+   },
+   "tracked": null
+  }
+ },
  "stovner-travel__arrived": {
   "mode": "world",
   "player": {
@@ -23824,6 +29346,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -23888,6 +29418,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -23954,6 +29492,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -24018,6 +29564,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -24084,6 +29638,14 @@
    "gold": 260,
    "weapon": "crystal",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -24148,6 +29710,14 @@
     "gold": 260,
     "weapon": "crystal",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -24214,6 +29784,14 @@
    "gold": 180,
    "weapon": "iron",
    "armor": "vest",
+   "weapons": [
+    "none",
+    "iron"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
    "shards": 2,
    "glowcaps": 0,
    "sickle": true,
@@ -24277,6 +29855,14 @@
     "gold": 180,
     "weapon": "iron",
     "armor": "vest",
+    "weapons": [
+     "none",
+     "iron"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
     "shards": 2,
     "glowcaps": 0,
     "sickle": true,
@@ -24342,6 +29928,12 @@
    "gold": 60,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -24400,6 +29992,12 @@
     "gold": 60,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -24460,6 +30058,12 @@
    "gold": 60,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -24518,6 +30122,12 @@
     "gold": 60,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -24578,6 +30188,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -24691,6 +30307,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -24804,6 +30426,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -24917,6 +30545,12 @@
    "gold": 60,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -24975,6 +30609,12 @@
     "gold": 60,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -25035,6 +30675,12 @@
    "gold": 60,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": true,
@@ -25093,6 +30739,12 @@
     "gold": 60,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": true,
@@ -25153,6 +30805,12 @@
    "gold": 17,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 1,
    "sickle": false,
@@ -25209,6 +30867,12 @@
     "gold": 17,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 1,
     "sickle": false,
@@ -25267,6 +30931,12 @@
    "gold": 21,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 1,
    "sickle": false,
@@ -25323,6 +30993,12 @@
     "gold": 21,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 1,
     "sickle": false,
@@ -25381,6 +31057,12 @@
    "gold": 38,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 2,
    "sickle": false,
@@ -25437,6 +31119,12 @@
     "gold": 38,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 2,
     "sickle": false,
@@ -25495,6 +31183,12 @@
    "gold": 21,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 1,
    "sickle": false,
@@ -25551,6 +31245,12 @@
     "gold": 21,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 1,
     "sickle": false,
@@ -25609,6 +31309,12 @@
    "gold": 0,
    "weapon": "none",
    "armor": "none",
+   "weapons": [
+    "none"
+   ],
+   "armors": [
+    "none"
+   ],
    "shards": 0,
    "glowcaps": 0,
    "sickle": false,
@@ -25665,6 +31371,12 @@
     "gold": 0,
     "weapon": "none",
     "armor": "none",
+    "weapons": [
+     "none"
+    ],
+    "armors": [
+     "none"
+    ],
     "shards": 0,
     "glowcaps": 0,
     "sickle": false,

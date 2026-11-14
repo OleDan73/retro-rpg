@@ -259,7 +259,7 @@ const sandraScenarios = [
         const before = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
         await T.continueGame();
         T.check('a Sandra save loads as Alexandra', g.player.hero === 'alexandra', g.player.hero);
-        const strip = (p) => JSON.stringify(Object.keys(p).filter((k) => k !== 'hero').sort().map((k) => [k, p[k]]));
+        const strip = (p) => JSON.stringify(Object.keys(p).filter((k) => k !== 'hero' && k !== 'weapons' && k !== 'armors').sort().map((k) => [k, p[k]]));
         T.check('every other player field is exactly as saved', strip(g.player) === strip(before.player));
         T.check('quests, flags and stats are exactly as saved', JSON.stringify([g.q, g.flags, g.stats]) === JSON.stringify([before.q, before.flags, before.stats]));
         await T.menuShot('status');
@@ -592,10 +592,16 @@ const pagingScenarios = [
       T.check('right wraps to page 1', g.menuPage === 0, g.menuPage);
       await T.tap('ArrowLeft', 6);
       T.check('left wraps to page 2', g.menuPage === 1, g.menuPage);
+      await T.tap('ArrowLeft', 6);
+      T.check('left goes back', g.menuPage === 0, g.menuPage);
+      await T.tap('ArrowRight', 6);
+      T.check('right goes forward', g.menuPage === 1, g.menuPage);
       await T.tap('ArrowUp', 6);
-      T.check('up goes back', g.menuPage === 0, g.menuPage);
+      T.check('up moves the cursor, not the page', g.menuPage === 1 && g.menuSel === 1, g.menuPage + ' ' + g.menuSel);
+      await T.tap('ArrowLeft', 6); await T.tap('ArrowRight', 6);
+      T.check('the pages still turn while the cursor is up there', g.menuPage === 1 && g.menuSel === 1, g.menuPage);
       await T.tap('ArrowDown', 6);
-      T.check('down goes forward', g.menuPage === 1, g.menuPage);
+      T.check('down puts it back on SAVE', g.menuPage === 1 && g.menuSel === 2, g.menuPage + ' ' + g.menuSel);
       await T.tap('Space', 6);
       T.check('the action button saves and leaves the log open', g.mode === 'menu' && g.menuPage === 1, g.mode);
       await T.tap('KeyX', 6);
@@ -638,11 +644,11 @@ const pagingScenarios = [
       T.check('B opens the log', g.mode === 'menu' && g.menuPage === 0, `${g.mode} ${g.menuPage}`);
       await T.touch('right');
       T.check('right arrow: page 2', g.menuPage === 1, g.menuPage);
-      await T.touch('down');
-      T.check('down arrow: page 3', g.menuPage === 2, g.menuPage);
+      await T.touch('right');
+      T.check('right arrow again: page 3', g.menuPage === 2, g.menuPage);
       T.shot('page-3');
-      await T.touch('up');
-      T.check('up arrow: page 2', g.menuPage === 1, g.menuPage);
+      await T.touch('left');
+      T.check('left arrow: page 2', g.menuPage === 1, g.menuPage);
       await T.touch('left');
       T.check('left arrow: page 1', g.menuPage === 0, g.menuPage);
       await T.touch('left');
@@ -864,7 +870,7 @@ const chapterScenarios = [
         const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
         T.check('fragment and key handed over and saved', d.flags.fragment1 === true && d.flags.redKey === true);
         T.check('old flags kept', ['vines', 'metBram', 'shard1', 'shard2'].every((k) => d.flags[k] === true) && Object.keys(d.flags).length === 6, Object.keys(d.flags).join());
-        const strip = (p) => JSON.stringify(Object.keys(p).filter((k) => k !== 'hero').sort().map((k) => [k, p[k]]));
+        const strip = (p) => JSON.stringify(Object.keys(p).filter((k) => k !== 'hero' && k !== 'weapons' && k !== 'armors').sort().map((k) => [k, p[k]]));
         T.check('player, quests and stats exactly as they were', strip(d.player) === strip(before.player) && JSON.stringify([d.q, d.stats]) === JSON.stringify([before.q, before.stats]));
         T.state('after');
         T.shot('no-more-news');
@@ -1111,6 +1117,7 @@ const stovnerScenarios = [
     name: 'stovner-outer-tour', save: inOuter,
     run: async (T, g) => {
       await T.continueGame();
+      g.MAPS.stovnerOuter.encounter = null; // the monsters have scenarios of their own
       await T.step('right', 2);
       await T.talk('south-sign');
       await T.step('left'); await T.step('up', 15); await T.step('up');
@@ -1214,9 +1221,10 @@ const stovnerScenarios = [
         await T.continueGame();
         T.check('CONTINUE back in the village', g.player.map === 'village' && g.player.x === 3 && g.player.y === 7 && g.player.dir === 'right', g.player.map + ' ' + g.player.x);
         const a = JSON.parse(localStorage.getItem('regress-original')), b = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
-        const where = ['map', 'x', 'y', 'fx', 'fy', 'tx', 'ty', 'dir'];
+        const where = ['map', 'x', 'y', 'fx', 'fy', 'tx', 'ty', 'dir', 'weapons', 'armors'];
         const rest = (p) => JSON.stringify(Object.keys(p).filter((k) => !where.includes(k)).sort().map((k) => [k, p[k]]));
         T.check('hero, level, gold, gear and items as they were', rest(a.player) === rest(b.player), rest(b.player));
+        T.check('and it owns what it wore', JSON.stringify([b.player.weapons, b.player.armors]) === '[["none","crystal"],["none","vest"]]', JSON.stringify([b.player.weapons, b.player.armors]));
         T.check('quests as they were, the unknown one too', JSON.stringify(a.q) === JSON.stringify(b.q) && JSON.stringify(b.q.kebab1) === '{"s":1,"found":2}');
         T.check('fragment, key and gate as they were', JSON.stringify(a.flags) === JSON.stringify(b.flags) && b.flags.fragment1 && b.flags.redKey && b.flags.redGate);
         T.check('only the step count moved', b.stats.won === a.stats.won && b.stats.slimes === a.stats.slimes && b.stats.steps === a.stats.steps + 50, b.stats.steps - a.stats.steps);
@@ -1332,9 +1340,604 @@ const stovnerScenarios = [
       T.check('west gate, tunnel and barricade are solid', ['G', 'Q', 'J'].every((c) => g.SOLID.has(c))
         && at('stovner', 0, 9) === 'G' && at('stovner', 12, 16) === 'Q' && at('stovner', 13, 16) === 'Q'
         && at('stovnerOuter', 14, 2) === 'J' && at('stovnerOuter', 15, 2) === 'J');
-      T.check('no battles in Stovner', g.MAPS.stovner.encounter === null && g.MAPS.stovnerOuter.encounter === null);
+      T.check('no battles in the town', g.MAPS.stovner.encounter === null);
+      const enc = g.MAPS.stovnerOuter.encounter, outer = g.MAPS.stovnerOuter;
+      T.check('six zones outside it, all inside the map', enc.zones.length === 6 && enc.zones.every((z) => z.at[0] >= 0 && z.at[1] >= 0 && z.at[2] < outer.w && z.at[3] < outer.h && z.at[0] <= z.at[2] && z.at[1] <= z.at[3]));
+      T.check('every enemy in them exists and the odds add up', enc.zones.every((z) => z.table.every((e) => g.ENEMIES[e[0]]) && Math.abs(z.table.reduce((n, e) => n + e[1], 0) - 1) < 1e-9));
+      T.check('only Stovner enemies', enc.zones.every((z) => z.table.every((e) => ['blue', 'rat', 'golem', 'glint'].includes(e[0]))));
+      T.check('the glint slime lives in one zone only', enc.zones.filter((z) => z.table.some((e) => e[0] === 'glint')).length === 1);
+      const inZone = (x, y) => enc.zones.some((z) => x >= z.at[0] && y >= z.at[1] && x <= z.at[2] && y <= z.at[3]);
+      const near = [];
+      for (let y = 0; y < outer.h; y++) for (let x = 0; x < outer.w; x++) {
+        if (inZone(x, y) && [[14, 19], [15, 19], [14, 18], [15, 18]].some((p) => Math.abs(p[0] - x) + Math.abs(p[1] - y) <= 3)) near.push(x + ',' + y);
+      }
+      T.check('no zone within three steps of the way in', near.length === 0, near.join(' '));
+      let danger = 0, open = 0;
+      for (let y = 0; y < outer.h; y++) for (let x = 0; x < outer.w; x++) if (walk(outer, x, y, true)) { open++; if (inZone(x, y)) danger++; }
+      T.check('between a third and two thirds of the open ground is dangerous', danger / open > 0.33 && danger / open < 0.67, danger + ' of ' + open);
+      T.check('both chests stand on open ground', g.ITEMS.filter((i) => i.chest).length === 2 && g.ITEMS.filter((i) => i.chest).every((i) => walk(g.MAPS[i.map], i.x, i.y, true) && !g.MAPS[i.map].exits[i.x + ',' + i.y]));
+      T.check('the old enemies are as they were', JSON.stringify(['slime', 'shroom', 'bat', 'gloop', 'king'].map((k) => [g.ENEMIES[k].hp, g.ENEMIES[k].atk, g.ENEMIES[k].def, g.ENEMIES[k].xp, g.ENEMIES[k].gold]))
+        === '[[12,4,0,5,[3,5]],[16,5,1,7,[4,6]],[26,11,2,12,[6,9]],[36,13,3,15,[8,11]],[140,15,5,80,[100,100]]]');
+      T.check('the old gear is as it was', JSON.stringify([g.WEAPONS.none.atk, g.WEAPONS.iron.atk, g.WEAPONS.crystal.atk, g.ARMORS.none.def, g.ARMORS.vest.def]) === '[0,3,7,0,2]'
+        && g.WEAPONS.iron.name === 'IRON SWORD' && g.WEAPONS.crystal.name === 'CRYSTAL SWD' && g.ARMORS.vest.name === 'TOUGH VEST');
       T.check('nobody lives there yet', g.NPCS.every((n) => !/^stovner/.test(n.map)));
       T.check('Stovner still has no boss quest', g.CHAPTERS.length === 2 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === null && g.QUEST_ORDER.length === 5, g.QUEST_ORDER.join());
+    },
+  },
+];
+
+// Stovner's monsters, the encounter zones of Outer Stovner, and the gear the hero owns and wears.
+// (Scenario code runs inside the page, so shared helpers are pieces of source text.)
+// meet(x, y, dir, v) starts a battle on tile x,y by stepping onto it in direction dir: the dice are
+// held at 0 for the step, so the encounter is certain, and at v while the enemy is picked from the
+// zone's table. The game's own dice are put back before the fight begins.
+const MEET = `
+  const KEY = 'turnip-vale-save-v1';
+  const saved = () => JSON.parse(localStorage.getItem(KEY));
+  const meet = async (x, y, dir, v, map = 'stovnerOuter') => {
+    const from = { left: [1, 0], right: [-1, 0], up: [0, 1], down: [0, -1] }[dir];
+    T.place(map, x + from[0], y + from[1], dir);
+    g.player.sinceBattle = 99;
+    const real = Math.random;
+    Math.random = () => 0;
+    await T.step(dir);
+    Math.random = () => v;
+    await T.until(() => g.mode === 'battle', 'a battle');
+    Math.random = real;
+    await T.untilBattle();
+  };
+  // One attack with the dice held in the middle (no critical hit, +1 of 0..2): returns the damage dealt.
+  const swing = async () => {
+    const real = Math.random, b = g.battle, hp = b.hp;
+    Math.random = () => 0.5;
+    while (b.menu !== 0) await T.tap('ArrowDown', 1);
+    await T.tap('Space', 1);
+    await T.until(() => b.hp !== hp, 'the blow to land');
+    Math.random = real;
+    return hp - b.hp;
+  };
+  const cautious = (g) => (g.player.hp < 30 && g.player.herbs > 0 ? 1 : 0);
+`;
+const RAT = `async (T, g) => {
+  ${MEET}
+  await T.continueGame();
+  await meet(20, 8, 'left', 0);
+  const b = g.battle;
+  T.check('a Stovner rat', b.type === 'rat' && b.name === 'STOVNER RAT' && b.max === 34 && b.atk === 17 && b.def === 3 && b.xp === 20 && !b.boss, JSON.stringify([b.type, b.max, b.atk, b.def, b.xp]));
+  const bite = 88 - g.player.hp;
+  T.check('quick: it bit once before the hero could move', bite >= 6 && bite <= 8 && b.turn === 0, bite + ' turn ' + b.turn);
+  T.shot('battle');
+  let swings = 0;
+  await T.fight(() => { swings++; return 0; });
+  T.check('beaten in one or two blows', swings <= 2 && g.stats.won === 53 && g.player.xp === 20, swings);
+  T.check('8 to 12 gold', g.player.gold >= 268 && g.player.gold <= 272, g.player.gold);
+  const lostTough = 88 - g.player.hp;
+  g.player.armors.push('light'); g.player.armor = 'light'; g.player.hp = 88;
+  await meet(20, 8, 'left', 0);
+  T.check('in the Light Vest it gets no opening bite', g.player.hp === 88 && g.battle.turn === 0 && g.battle.type === 'rat', g.player.hp);
+  T.shot('battle-light-vest');
+  await T.fight();
+  const lostLight = 88 - g.player.hp;
+  T.check('and the whole fight costs less than in the Tough Vest', lostLight < lostTough, lostLight + ' against ' + lostTough);
+  T.check('still in Outer Stovner', g.player.map === 'stovnerOuter' && g.mode === 'world' && g.stats.won === 54);
+  T.state('after');
+}`;
+// Fights the glint slime, eating an herb when hurt; photographs its mending and its end.
+const GLINT = `async (T, g) => {
+  ${MEET}
+  await T.continueGame();
+  const won = g.stats.won, gold = g.player.gold, xp = g.player.xp;
+  await meet(5, 2, 'up', 0);
+  const b = g.battle;
+  T.check('a glint slime', b.type === 'glint' && b.name === 'GLINT SLIME' && b.max === 72 && b.atk === 22 && b.def === 8 && b.xp === 60 && !b.boss, JSON.stringify([b.type, b.max, b.atk, b.def, b.xp]));
+  T.shot('battle');
+  let mended = false, dust = false, turns = 0, herbs = g.player.herbs;
+  while (g.mode === 'battle') {
+    await T.until(() => g.mode !== 'battle' || b.phase === 'menu', 'the battle menu');
+    if (g.mode !== 'battle') break;
+    if (++turns > 40) throw new Error('the fight never ended');
+    const want = cautious(g);
+    while (b.menu !== want) await T.tap('ArrowDown', 1);
+    await T.tap('Space', 1);
+    await T.until(() => g.mode !== 'battle' || b.phase !== 'menu', 'the action to start');
+    while (g.mode === 'battle' && b.phase !== 'menu') {
+      if (!mended && /shimmers/.test(b.msg) && b.shown >= b.msg.length) { mended = true; T.shot('mends'); }
+      if (!dust && /dust/.test(b.msg) && b.shown >= b.msg.length) { dust = true; T.shot('defeated'); }
+      await T.frames(1);
+    }
+  }
+  await T.frames(70);
+  T.check('it mended itself during the fight', mended);
+  T.check('and was beaten all the same', dust && g.stats.won === won + 1 && g.player.hp > 0 && g.player.map === 'stovnerOuter' && g.mode === 'world', g.player.map);
+  T.check('60 XP and 30 to 40 gold', g.player.xp === xp + 60 && g.player.gold >= gold + 30 && g.player.gold <= gold + 40, g.player.gold - gold);
+  T.check('a fair fight: at most ten turns and three herbs', turns <= 10 && herbs - g.player.herbs <= 3, turns + ' turns, ' + (herbs - g.player.herbs) + ' herbs');
+  T.state('after');
+}`;
+// A hero who finished Vestli with the shop's gear only: level 8, Iron Sword, Tough Vest.
+const modest = save({
+  at: ['stovnerOuter', 14, 18, 'up'], lvl: 8,
+  player: { maxhp: 82, hp: 82, herbs: 5, maxHerbs: 5, gold: 180, weapon: 'iron', armor: 'vest', sickle: true },
+  q: { slimes: { s: 3, n: 3 }, biscuit: DONE, glowcap: DONE, king: DONE, shards: { s: 1 } },
+  flags: { vines: true, metBram: true, fragment1: true, redKey: true, redGate: true }, stats: { won: 41, slimes: 14, steps: 2100 },
+});
+const feeble = save({
+  at: ['stovnerOuter', 14, 18, 'up'], lvl: 1, player: { hp: 5, gold: 33, weapon: 'iron', sickle: true },
+  q: { slimes: { s: 3, n: 3 }, king: DONE }, flags: { vines: true, fragment1: true, redKey: true, redGate: true },
+});
+const GEAR = [['none', 'none'], ['iron', 'none'], ['iron', 'vest'], ['crystal', 'none'], ['crystal', 'vest']];
+const migrate = (i) => `async (T, g) => {
+  const KEY = 'turnip-vale-save-v1', want = ${JSON.stringify(GEAR[i])}, next = ${JSON.stringify(GEAR[i + 1] || null)};
+  const old = JSON.parse(localStorage.getItem(KEY));
+  if (${i} === 0) { old.player.weapon = want[0]; old.player.armor = want[1]; old.player.mystery = 7; old.q.kebab1 = { s: 1, found: 2 }; localStorage.setItem(KEY, JSON.stringify(old)); }
+  T.check('a save from before gear was kept', old.player.weapons === undefined && old.player.armors === undefined);
+  await T.continueGame();
+  const list = (id) => JSON.stringify(id === 'none' ? ['none'] : ['none', id]);
+  T.check('still wearing ' + want.join(' and '), g.player.weapon === want[0] && g.player.armor === want[1]);
+  T.check('and now owns exactly that', JSON.stringify(g.player.weapons) === list(want[0]) && JSON.stringify(g.player.armors) === list(want[1]), JSON.stringify([g.player.weapons, g.player.armors]));
+  await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+  const d = JSON.parse(localStorage.getItem(KEY));
+  T.check('saved that way', JSON.stringify(d.player.weapons) === list(want[0]) && JSON.stringify(d.player.armors) === list(want[1]) && d.player.weapon === want[0] && d.player.armor === want[1]);
+  T.check('unknown quest and unknown field kept', JSON.stringify(d.q.kebab1) === '{"s":1,"found":2}' && d.player.mystery === 7);
+  const rest = (p) => JSON.stringify(Object.keys(p).filter((k) => k !== 'weapons' && k !== 'armors' && k !== 'hero').sort().map((k) => [k, p[k]]));
+  T.check('nothing else changed', rest(d.player) === rest(old.player) && JSON.stringify([d.q, d.flags, d.stats]) === JSON.stringify([old.q, old.flags, old.stats]));
+  T.state('migrated-' + want.join('-'));
+  if (next) { delete d.player.weapons; delete d.player.armors; d.player.weapon = next[0]; d.player.armor = next[1]; }
+  else { d.player.weapons = ['none', 'crystal', 'futureBlade']; d.player.armors = ['futureCoat', 'vest']; }
+  localStorage.setItem(KEY, JSON.stringify(d));
+}`;
+const combatScenarios = [
+  { // save by hand, fight, win, save again, reopen
+    name: 'stovner-blue-slime', save: inOuter,
+    run: [
+      `async (T, g) => {
+        ${MEET}
+        await T.continueGame();
+        await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+        const before = localStorage.getItem(KEY);
+        await meet(5, 15, 'left', 0);
+        const b = g.battle;
+        T.check('a blue slime', b.type === 'blue' && b.name === 'BLUE SLIME' && b.max === 44 && b.atk === 19 && b.def === 5 && b.xp === 22 && !b.boss, JSON.stringify([b.type, b.max, b.atk, b.def, b.xp]));
+        T.check('it waits its turn', g.player.hp === 88 && b.turn === 0);
+        T.shot('battle');
+        await T.tap('KeyX', 6);
+        T.check('no menu and no saving in battle', g.mode === 'battle' && localStorage.getItem(KEY) === before, g.mode);
+        let swings = 0;
+        await T.fight(() => { swings++; return 0; });
+        T.check('beaten in two or three blows', swings >= 1 && swings <= 3 && g.stats.won === 53, swings);
+        T.check('22 XP and 10 to 14 gold', g.player.xp === 22 && g.player.gold >= 270 && g.player.gold <= 274, g.player.gold);
+        T.check('it did not hurt much', g.player.hp >= 68 && g.player.hp <= 88, g.player.hp);
+        T.check('the win was autosaved over the manual save', saved().stats.won === 53 && saved().player.xp === 22);
+        T.check('nothing else was touched', JSON.stringify(saved().flags) === JSON.stringify(JSON.parse(before).flags) && JSON.stringify(saved().q) === JSON.stringify(JSON.parse(before).q));
+        T.shot('after');
+        await T.step('right');
+        await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+        T.state('won');
+      }`,
+      `async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE after the fight', g.player.map === 'stovnerOuter' && g.player.x === 6 && g.player.y === 15 && g.stats.won === 53 && g.player.xp === 22, g.player.x + ',' + g.player.y);
+        T.check('fragment, key and gate still there', g.flags.fragment1 && g.flags.redKey && g.flags.redGate && g.chapter === 1 && g.storyDone === false);
+        T.state('continued');
+      }`,
+    ],
+  },
+  { name: 'stovner-rat', save: inOuter, run: RAT },
+  ...['mohammed', 'celine', 'alexandra'].map((id) => ({
+    name: `stovner-rat-${id}`, save: withHero(inOuter, id), run: RAT, sameAs: { after: 'stovner-rat__after' },
+  })),
+  { // the golem with the Crystal Sword, then with the Heavy Axe
+    name: 'stovner-golem', save: inOuter,
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      await meet(17, 4, 'up', 0);
+      const b = g.battle;
+      T.check('a tunnel golem', b.type === 'golem' && b.name === 'TUNNEL GOLEM' && b.max === 44 && b.atk === 22 && b.def === 16 && b.xp === 34 && !b.boss, JSON.stringify([b.type, b.max, b.atk, b.def, b.xp]));
+      T.shot('battle');
+      let swings = 0, afterFirst = null, said = false;
+      await T.fight((g) => { if (swings === 1) { afterFirst = g.player.hp; said = g.battle.armorSaid === true; } swings++; return 0; });
+      T.check('slow: it does not strike on its first turn', afterFirst === 88, afterFirst);
+      T.check('the hero is told about its armour', said);
+      const sword = swings, swordLost = 88 - g.player.hp;
+      T.check('the Crystal Sword needs three to five blows', sword >= 3 && sword <= 5 && g.stats.won === 53, sword);
+      T.check('16 to 22 gold, 34 XP', g.player.xp === 34 && g.player.gold >= 276 && g.player.gold <= 282, g.player.gold);
+      g.player.weapons.push('axe'); g.player.weapon = 'axe'; g.player.hp = 88;
+      await meet(17, 4, 'up', 0);
+      const dealt = await swing();
+      await T.until(() => /smashes/.test(g.battle.msg) && g.battle.shown >= g.battle.msg.length, 'the axe line');
+      T.shot('axe');
+      T.check('the axe ignores its armour: ATK 24, +1, no defence', dealt === 25, dealt);
+      swings = 1;
+      await T.fight(() => { swings++; return 0; });
+      const axeLost = 88 - g.player.hp;
+      T.check('the Heavy Axe needs fewer blows', swings < sword && swings <= 2 && g.stats.won === 54, swings + ' against ' + sword);
+      T.check('and the hero is hurt less', axeLost < swordLost, axeLost + ' against ' + swordLost);
+      T.state('after');
+    }`,
+  },
+  { // one measured blow with each weapon against an ordinary enemy and against the armoured one
+    name: 'stovner-weapons', save: inOuter,
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      const dealt = {};
+      for (const w of ['iron', 'crystal', 'axe']) {
+        g.player.weapon = w;
+        for (const [foe, x, y, dir] of [['blue', 5, 15, 'left'], ['golem', 17, 4, 'up']]) {
+          g.player.hp = 88;
+          await meet(x, y, dir, 0);
+          if (g.battle.type !== foe) throw new Error('met a ' + g.battle.type);
+          dealt[w + ' ' + foe] = await swing();
+          await T.fight(() => 2);
+        }
+      }
+      // hero ATK 22; +3 / +7 / +2; +1 from the dice; less DEF 5 (slime) or 16 (golem, unless the axe)
+      T.check('blue slime: iron 21, crystal 25, axe 20', dealt['iron blue'] === 21 && dealt['crystal blue'] === 25 && dealt['axe blue'] === 20, JSON.stringify(dealt));
+      T.check('tunnel golem: iron 10, crystal 14, axe 25', dealt['iron golem'] === 10 && dealt['crystal golem'] === 14 && dealt['axe golem'] === 25, JSON.stringify(dealt));
+      T.check('so the axe is the worst of the three on a slime and the best on a golem', dealt['axe blue'] < dealt['iron blue'] && dealt['axe golem'] > dealt['crystal golem']);
+      T.check('running away cost no gear', g.player.weapon === 'axe' && g.stats.won === 52);
+    }`,
+  },
+  { name: 'stovner-glint-slime', save: inOuter, run: GLINT },
+  { name: 'stovner-glint-slime-modest', save: modest, run: GLINT },
+  { // Iron Sword and Tough Vest at level 8: one of each ordinary enemy in a row, eating herbs when hurt
+    name: 'stovner-modest-hero', save: modest,
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      const blows = {};
+      for (const [foe, x, y, dir] of [['blue', 5, 15, 'left'], ['rat', 20, 8, 'left'], ['golem', 17, 4, 'up']]) {
+        await meet(x, y, dir, 0);
+        if (g.battle.type !== foe) throw new Error('met a ' + g.battle.type);
+        if (foe === 'blue') T.check('enemies are not scaled up for a level 8 hero', g.battle.max === 44 && g.battle.atk === 19);
+        let n = 0;
+        await T.fight((g) => { const c = cautious(g); if (!c) n++; return c; });
+        blows[foe] = n;
+        T.check('beat the ' + foe, g.mode === 'world' && g.player.map === 'stovnerOuter' && g.player.hp > 0, g.player.map);
+      }
+      T.check('three wins', g.stats.won === 44 && g.player.xp === 76, g.stats.won + ' ' + g.player.xp);
+      T.check('no fight dragged on', blows.blue <= 4 && blows.rat <= 3 && blows.golem <= 8, JSON.stringify(blows));
+      T.check('with herbs to spare', g.player.herbs >= 3 && g.player.hp > 0, g.player.herbs + ' herbs, ' + g.player.hp + ' HP');
+      T.state('after');
+    }`,
+  },
+  { // a win that brings a level: saved, reopened, and the next enemy is one level stronger
+    name: 'stovner-level-up', save: { ...inOuter, player: { ...inOuter.player, xp: 290 } },
+    run: [
+      `async (T, g) => {
+        ${MEET}
+        await T.continueGame();
+        await meet(5, 15, 'left', 0);
+        await T.fight();
+        T.check('level 10', g.player.lvl === 10 && g.player.maxhp === 94 && g.player.hp === 94 && g.player.xp === 9 && g.player.atk === 24 && g.player.def === 10, JSON.stringify([g.player.lvl, g.player.maxhp, g.player.xp]));
+        T.check('autosaved', saved().player.lvl === 10);
+        await T.tap('KeyX', 6); await T.tap('Space', 6);
+        T.shot('status');
+        await T.tap('KeyX', 6);
+      }`,
+      `async (T, g) => {
+        ${MEET}
+        await T.continueGame();
+        T.check('CONTINUE at level 10', g.player.lvl === 10 && g.player.maxhp === 94 && g.player.xp === 9);
+        await meet(5, 15, 'left', 0);
+        const b = g.battle;
+        T.check('enemies grow with the hero above level 9', b.max === 47 && b.atk === 20 && b.def === 5 && b.xp === 24, JSON.stringify([b.max, b.atk, b.def, b.xp]));
+        await T.fight(() => 2);
+        T.state('after');
+      }`,
+    ],
+  },
+  { // which enemy lives where, and where nothing does
+    name: 'stovner-zones', save: inOuter,
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      for (const [x, y, dir, v, want] of [
+        [5, 15, 'left', 0.9, 'rat'], [17, 4, 'up', 0.9, 'rat'], [5, 2, 'up', 0.5, 'blue'], [20, 8, 'left', 0.9, 'blue'],
+        [11, 8, 'left', 0, 'blue'], [11, 8, 'left', 0.9, 'rat'], [20, 15, 'left', 0, 'blue'], [20, 15, 'left', 0.9, 'rat'],
+      ]) {
+        g.player.hp = g.player.maxhp;
+        await meet(x, y, dir, v);
+        T.check('at ' + x + ',' + y + ' with the dice at ' + v + ': ' + want, g.battle.type === want, g.battle.type);
+        await T.fight(() => 2);
+      }
+      // with the dice held at 0 every step inside a zone starts a battle, so a walk that ends in the world was safe
+      const real = Math.random;
+      Math.random = () => 0;
+      const safe = async (what, map, x, y, steps) => {
+        T.place(map, x, y, 'up');
+        g.player.sinceBattle = 99;
+        await T.frames(60);
+        for (const [dir, n] of steps) await T.step(dir, n);
+        await T.frames(90);
+        T.check('safe: ' + what, g.mode === 'world' && g.player.map === map, g.mode + ' at ' + g.player.x + ',' + g.player.y);
+      };
+      await safe('standing where the road arrives, then up the avenue', 'stovnerOuter', 14, 18, [['up', 13]]);
+      T.check('as far as the last crossing', g.player.x === 14 && g.player.y === 5);
+      await safe('the other lane', 'stovnerOuter', 15, 18, [['up', 13], ['down', 13]]);
+      await safe('the west loop and the lake shore', 'stovnerOuter', 7, 12, [['left', 2], ['right', 2], ['up', 5], ['left', 2], ['up', 4], ['right', 3], ['down', 2]]);
+      T.check('all the way round', g.player.x === 8 && g.player.y === 5, g.player.x + ',' + g.player.y);
+      await safe('the south road', 'stovnerOuter', 14, 17, [['left', 4], ['up', 2]]);
+      await safe('the far north-east', 'stovnerOuter', 26, 3, [['up', 1], ['left', 4], ['down', 1]]);
+      await safe('the town square', 'stovner', 24, 9, [['left', 10], ['up', 2], ['left', 3], ['down', 2], ['left', 10]]);
+      await safe('the town ring road', 'stovner', 3, 9, [['down', 6], ['right', 19], ['up', 11], ['left', 19]]);
+      await safe('the village', 'village', 10, 7, [['right', 8], ['left', 8]]);
+      // the old areas keep their own monsters
+      T.place('forest', 3, 5, 'right'); g.player.sinceBattle = 99;
+      await T.step('right');
+      await T.until(() => g.mode === 'battle', 'a battle in the woods');
+      Math.random = real;
+      await T.untilBattle();
+      T.check('the woods still hold slimes', g.battle.type === 'slime', g.battle.type);
+      await T.fight(() => 2);
+      Math.random = () => 0;
+      T.place('cave', 2, 7, 'right'); g.player.sinceBattle = 99;
+      await T.step('right');
+      await T.until(() => g.mode === 'battle', 'a battle in the cave');
+      Math.random = real;
+      await T.untilBattle();
+      T.check('the cave still holds bats', g.battle.type === 'bat', g.battle.type);
+      await T.fight(() => 2);
+      const names = (m) => (g.MAPS[m].encounter.table || []).map((e) => e[0]).join();
+      T.check('Vestli tables untouched', names('forest') === 'slime,shroom' && names('cave') === 'bat,gloop' && g.MAPS.village.encounter === null, names('forest') + ' / ' + names('cave'));
+    }`,
+  },
+  { // beaten in Stovner: carried home, patched up, nothing lost, and CONTINUE is safe
+    name: 'stovner-defeat', save: feeble,
+    run: [
+      `async (T, g) => {
+        await T.continueGame();
+        T.place('stovnerOuter', 21, 8, 'left'); g.player.sinceBattle = 99;
+        const real = Math.random;
+        Math.random = () => 0;
+        await T.step('left');
+        await T.until(() => g.mode === 'battle', 'a battle');
+        Math.random = real;
+        T.check('a rat', g.battle.type === 'rat');
+        await T.until(() => g.mode === 'dialog', 'being carried home');
+        T.shot('wren');
+        T.check('its opening bite was enough', g.stats.won === 0);
+        await T.dialog();
+        T.check('back in the village, patched up', g.player.map === 'village' && g.player.x === 13 && g.player.y === 5 && g.player.hp === g.player.maxhp && g.player.herbs === 3 && g.mode === 'world', g.player.map + ' ' + g.player.hp);
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('saved there, not in the fight', d.player.map === 'village' && d.player.hp === d.player.maxhp);
+        T.check('gold, gear, fragment, key and gate kept', d.player.gold === 33 && d.player.weapon === 'iron' && d.flags.fragment1 && d.flags.redKey && d.flags.redGate && d.q.king.s === 3);
+        T.state('home');
+      }`,
+      `async (T, g) => {
+        ${MEET}
+        await T.continueGame();
+        T.check('CONTINUE wakes up in the village', g.player.map === 'village' && g.player.hp === g.player.maxhp && g.mode === 'world');
+        await meet(17, 4, 'up', 0);
+        T.check('a golem', g.battle.type === 'golem');
+        await T.fight();
+        T.check('lost a real fight too', g.mode === 'dialog' && g.stats.won === 0, g.mode);
+        await T.dialog();
+        T.check('and is carried home again', g.player.map === 'village' && g.player.hp === g.player.maxhp && g.flags.redGate === true && g.chapter === 1);
+        await T.step('left', 3);
+        T.check('free to walk on', g.player.x < 13 && g.mode === 'world', g.player.x);
+        T.state('home-again');
+      }`,
+    ],
+  },
+  { // the two chests: found once each, worn from the menu, kept through saving and travel
+    name: 'stovner-chests', save: inOuter,
+    run: [
+      `async (T, g) => {
+        ${MEET}
+        await T.continueGame();
+        T.check('an old save owns what it wears', JSON.stringify([g.player.weapons, g.player.armors]) === '[["none","crystal"],["none","vest"]]', JSON.stringify([g.player.weapons, g.player.armors]));
+        T.place('stovnerOuter', 27, 2, 'up');
+        await T.frames(20);
+        T.shot('chest');
+        await T.step('up');
+        T.check('the chest opens', g.mode === 'dialog' && g.player.x === 27 && g.player.y === 1, g.mode);
+        await T.dialog('axe');
+        T.check('the Heavy Axe is owned, not worn', JSON.stringify(g.player.weapons) === '["none","crystal","axe"]' && g.player.weapon === 'crystal' && g.flags.chestAxe === true, JSON.stringify(g.player.weapons));
+        T.check('and saved', JSON.stringify(saved().player.weapons) === '["none","crystal","axe"]' && saved().flags.chestAxe === true);
+        T.shot('chest-gone');
+        await T.step('down'); await T.step('up'); await T.tap('Space', 6);
+        T.check('the chest is gone for good', g.mode === 'world' && g.player.y === 1 && g.player.weapons.length === 3, g.mode);
+        T.place('stovnerOuter', 2, 1, 'left'); g.player.sinceBattle = 0;
+        await T.step('left');
+        await T.dialog('vest');
+        T.check('the Light Vest is owned, not worn', JSON.stringify(g.player.armors) === '["none","vest","light"]' && g.player.armor === 'vest' && g.flags.chestVest === true, JSON.stringify(g.player.armors));
+        await T.step('right'); await T.step('left');
+        T.check('once only', g.mode === 'world' && g.player.armors.length === 3);
+        // ---- the menu
+        await T.tap('KeyX', 6);
+        T.check('the cursor starts on SAVE', g.menuSel === 2);
+        T.shot('menu');
+        await T.tap('ArrowUp', 4);
+        T.check('up: armour', g.menuSel === 1);
+        T.shot('armour');
+        await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
+        T.check('up: weapon, and no further', g.menuSel === 0);
+        T.shot('weapons');
+        const wear = async (kind, want) => {
+          await T.tap('Space', 4);
+          T.check(kind + ' -> ' + want, g.player[kind] === want && g.mode === 'menu', g.player[kind]);
+        };
+        await wear('weapon', 'axe');
+        T.shot('axe');
+        await wear('weapon', 'none'); await wear('weapon', 'crystal'); await wear('weapon', 'axe');
+        await T.tap('ArrowDown', 4);
+        await wear('armor', 'light');
+        T.shot('light-vest');
+        await wear('armor', 'none'); await wear('armor', 'vest'); await wear('armor', 'light');
+        T.check('nothing was lost by changing', JSON.stringify([g.player.weapons, g.player.armors]) === '[["none","crystal","axe"],["none","vest","light"]]');
+        T.check('changing gear does not save by itself', saved().player.weapon === 'crystal' && saved().player.armor === 'vest');
+        await T.tap('Enter', 4);
+        T.check('Enter changes gear too', g.player.armor === 'none');
+        await T.tap('Space', 4); await T.tap('Space', 4);
+        await T.tap('ArrowLeft', 4); await T.tap('ArrowRight', 4);
+        T.check('left and right leave the cursor alone', g.menuSel === 1 && g.menuPage === 0 && g.player.armor === 'light');
+        await T.tap('ArrowDown', 4); await T.tap('ArrowDown', 4);
+        T.check('down: SAVE, and no further', g.menuSel === 2);
+        await T.tap('Space', 6);
+        T.check('SAVED! with the new gear on', g.menuNote && g.menuNote.text === 'SAVED!' && saved().player.weapon === 'axe' && saved().player.armor === 'light');
+        T.shot('saved');
+        await T.tap('ArrowUp', 4);
+        await T.tap('KeyX', 6);
+        await T.tap('KeyX', 6);
+        T.check('the cursor is back on SAVE when the menu opens again', g.mode === 'menu' && g.menuSel === 2);
+        const raw = localStorage.getItem(KEY);
+        await T.tap('Space', 6);
+        T.check('and the action button saves straight away', g.menuNote && g.menuNote.text === 'SAVED!' && localStorage.getItem(KEY) === raw);
+        await T.tap('Escape', 6);
+        T.state('equipped');
+      }`,
+      `async (T, g) => {
+        ${MEET}
+        await T.continueGame();
+        T.check('CONTINUE: wearing the axe and the Light Vest', g.player.weapon === 'axe' && g.player.armor === 'light');
+        T.check('owning everything', JSON.stringify([g.player.weapons, g.player.armors]) === '[["none","crystal","axe"],["none","vest","light"]]', JSON.stringify([g.player.weapons, g.player.armors]));
+        T.check('fragment, key, gate and both chest flags', ['fragment1', 'redKey', 'redGate', 'chestAxe', 'chestVest'].every((k) => g.flags[k] === true));
+        await T.menuShot('status');
+        T.place('stovnerOuter', 14, 18, 'down');
+        await T.step('down');
+        await T.until(() => g.player.map === 'stovner', 'Stovner');
+        await T.frames(60);
+        await T.step('up');
+        await T.until(() => g.player.map === 'stovnerOuter', 'Outer Stovner');
+        await T.frames(60);
+        T.place('stovnerOuter', 27, 2, 'up');
+        await T.step('up');
+        T.place('stovnerOuter', 2, 1, 'left'); g.player.sinceBattle = 0;
+        await T.step('left');
+        T.check('no second helping after reloading and travelling', g.mode === 'world' && g.player.weapons.length === 3 && g.player.armors.length === 3, g.mode);
+        await T.tap('KeyX', 6); await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
+        await T.tap('Space', 4); await T.tap('Space', 4);
+        T.check('back to the Crystal Sword', g.player.weapon === 'crystal' && g.player.weapons.length === 3);
+        await T.tap('ArrowDown', 4);
+        await T.tap('Space', 4); await T.tap('Space', 4);
+        T.check('back to the Tough Vest', g.player.armor === 'vest' && g.player.armors.length === 3);
+        await T.tap('KeyX', 6);
+        T.state('changed-back');
+      }`,
+    ],
+  },
+  { // the on-screen buttons: open a chest, wear the axe, fight a golem, save, reopen
+    name: 'stovner-touch', save: inOuter,
+    run: [
+      `async (T, g) => {
+        await T.continueGame();
+        T.place('stovnerOuter', 27, 2, 'up');
+        await T.touch('up', 14);
+        T.check('the D-pad opens the chest', g.mode === 'dialog', g.mode);
+        while (g.mode === 'dialog') { await T.frames(150); await T.touch('a', 3); }
+        await T.frames(10);
+        T.check('the axe is owned', g.player.weapons.includes('axe') && g.player.weapon === 'crystal');
+        await T.touch('b');
+        T.check('B opens the menu on SAVE', g.mode === 'menu' && g.menuSel === 2);
+        await T.touch('up'); await T.touch('up');
+        T.check('up twice: the weapon', g.menuSel === 0);
+        T.shot('weapons');
+        await T.touch('a');
+        T.check('A wears the axe', g.player.weapon === 'axe' && g.mode === 'menu');
+        await T.touch('down');
+        await T.touch('a');
+        T.check('A on the armour line with one vest: the tunic', g.player.armor === 'none');
+        await T.touch('a');
+        T.check('and back', g.player.armor === 'vest');
+        await T.touch('left'); await T.touch('right');
+        await T.touch('down');
+        await T.touch('a');
+        T.check('A on SAVE saves', g.menuNote && g.menuNote.text === 'SAVED!' && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).player.weapon === 'axe');
+        await T.touch('b');
+        T.place('stovnerOuter', 17, 5, 'up'); g.player.sinceBattle = 99;
+        const real = Math.random;
+        Math.random = () => 0;
+        await T.touch('up', 14);
+        await T.until(() => g.mode === 'battle', 'a battle');
+        Math.random = real;
+        await T.untilBattle();
+        T.check('a golem', g.battle.type === 'golem');
+        let presses = 0;
+        while (g.mode === 'battle') {
+          await T.until(() => g.mode !== 'battle' || g.battle.phase === 'menu', 'the battle menu');
+          if (g.mode !== 'battle') break;
+          if (++presses > 20) throw new Error('the fight never ended');
+          await T.touch('a', 3);
+          await T.until(() => g.mode !== 'battle' || g.battle.phase !== 'menu', 'the action to start');
+        }
+        await T.frames(70);
+        T.check('beaten with the A button', g.stats.won === 53 && presses <= 3 && g.mode === 'world', presses);
+        await T.touch('b'); await T.touch('a');
+        T.check('saved after the fight', g.menuNote && g.menuNote.text === 'SAVED!');
+        T.shot('saved');
+        await T.touch('b');
+        T.state('saved');
+      }`,
+      `async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: the axe, the win and the chest flag', g.player.weapon === 'axe' && g.stats.won === 53 && g.player.xp === 34 && g.flags.chestAxe === true && g.player.map === 'stovnerOuter');
+        T.state('continued');
+      }`,
+    ],
+  },
+  { // every way an old save can be dressed, one after another, then a save with gear this version does not know
+    name: 'gear-migration', save: FIX.finished,
+    run: [
+      ...GEAR.map((_, i) => migrate(i)),
+      `async (T, g) => {
+        await T.continueGame();
+        T.check('unknown gear is kept, and the stick and tunic are always there', JSON.stringify(g.player.weapons) === '["none","crystal","futureBlade"]' && JSON.stringify(g.player.armors) === '["futureCoat","vest","none"]', JSON.stringify([g.player.weapons, g.player.armors]));
+        await T.tap('KeyX', 6); await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
+        T.shot('weapons');
+        await T.tap('Space', 4); await T.tap('Space', 4);
+        T.check('the menu only offers what it knows', g.player.weapon === 'crystal' && g.mode === 'menu');
+        await T.tap('ArrowDown', 4); await T.tap('ArrowDown', 4); await T.tap('Space', 6);
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('and saves the unknown gear back', d.player.weapons.includes('futureBlade') && d.player.armors.includes('futureCoat') && d.player.mystery === 7 && JSON.stringify(d.q.kebab1) === '{"s":1,"found":2}');
+      }`,
+    ],
+  },
+  { // Bram: buy the sword and the vest, have the Crystal Sword forged, and still own all three
+    name: 'gear-bram', save: FIX.bram,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.talk();
+      await T.tap('ArrowDown'); await T.tap('Space', 4);
+      await T.tap('ArrowDown'); await T.tap('Space', 4);
+      T.check('bought and put on', g.player.weapon === 'iron' && g.player.armor === 'vest' && g.player.gold === 25, g.player.gold);
+      await T.tap('KeyX', 6);
+      await T.talk();
+      T.check('the Crystal Sword is worn and the Iron Sword kept', g.player.weapon === 'crystal' && JSON.stringify(g.player.weapons) === '["none","iron","crystal"]' && JSON.stringify(g.player.armors) === '["none","vest"]', JSON.stringify(g.player.weapons));
+      await T.talk();
+      T.check('the shop again', g.mode === 'shop', g.mode);
+      await T.tap('ArrowDown'); await T.tap('Space', 4);
+      await T.tap('ArrowDown'); await T.tap('Space', 4);
+      T.check('nothing can be bought twice', g.player.gold === 25 && g.player.weapons.length === 3 && g.player.armors.length === 2, g.player.gold);
+      await T.tap('KeyX', 6);
+      await T.tap('KeyX', 6); await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
+      T.shot('weapons');
+      await T.tap('Space', 4);
+      T.check('crystal -> stick', g.player.weapon === 'none');
+      await T.tap('Space', 4);
+      T.check('stick -> iron', g.player.weapon === 'iron');
+      T.shot('iron');
+      await T.tap('Space', 4);
+      T.check('iron -> crystal', g.player.weapon === 'crystal');
+      await T.tap('KeyX', 6);
+      T.state('after');
+    },
+  },
+  { // the shop goes by what is owned, not by what is worn
+    name: 'gear-shop-owned',
+    save: { ...FIX.bram, player: { ...FIX.bram.player, weapon: 'axe', weapons: ['none', 'axe'], armor: 'light', armors: ['none', 'vest', 'light'] } },
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.talk();
+      T.check('shop opened', g.mode === 'shop', g.mode);
+      T.shot('shop');
+      await T.tap('ArrowDown'); await T.tap('Space', 4);
+      T.check('an axe is no reason not to buy a sword', g.player.gold === 60 && g.player.weapon === 'iron' && JSON.stringify(g.player.weapons) === '["none","axe","iron"]', JSON.stringify(g.player.weapons));
+      await T.tap('ArrowDown'); await T.tap('Space', 4);
+      T.check('a Tough Vest in the pack is not sold again', g.player.gold === 60 && g.player.armor === 'light' && g.player.armors.length === 3, g.player.gold);
+      T.shot('vest-owned');
+      await T.tap('KeyX', 6);
+      T.state('after');
     },
   },
 ];
@@ -1359,7 +1962,7 @@ const manualSave = (press) => [
     const d = JSON.parse(${RAW});
     T.check('the new position is saved', d.player.x === g.player.x && d.player.y === g.player.y && d.player.map === g.player.map && d.player.dir === 'right');
     T.check('same save format', Object.keys(d).sort().join() === 'flags,player,q,stats,tracked,v' && d.v === 1);
-    T.check('same player fields', Object.keys(d.player).sort().join() === [...new Set([...Object.keys(JSON.parse(before).player), 'hero'])].sort().join());
+    T.check('same player fields', Object.keys(d.player).sort().join() === [...new Set([...Object.keys(JSON.parse(before).player), 'hero', 'weapons', 'armors'])].sort().join());
     T.check('quests, flags and stats saved as they are', JSON.stringify(d.q) === JSON.stringify(g.q) && JSON.stringify(d.flags) === JSON.stringify(g.flags)
       && JSON.stringify(d.stats) === JSON.stringify(g.stats));
     await T.frames(100);
@@ -1726,6 +2329,7 @@ export const SCENARIOS = [
   ...chapterScenarios,
   ...gateScenarios,
   ...stovnerScenarios,
+  ...combatScenarios,
   ...manualSaveScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,

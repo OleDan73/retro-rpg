@@ -603,6 +603,47 @@
       if (f) { R(g, 4, 13, 3, 1, 4); R(g, 9, 13, 3, 1, 4); } else { R(g, 5, 13, 2, 1, 4); R(g, 9, 13, 2, 1, 4); }
     }))),
   };
+  // ---- Stovner's monsters
+  ENEMY_SPR.blue = [0, 1].map((f) => slimeSprite(f, 8, 2));
+  // The glint slime is a blue slime with pale eyes and slivers of something bright growing out of its back.
+  ENEMY_SPR.glint = [0, 1].map((f) => mk(16, 16, (g) => {
+    g.drawImage(slimeSprite(f, 8, 2), 0, 0);
+    const o = f ? 1 : 0, cy = f ? 10 : 10;
+    R(g, 6, cy - 1, 1, 2, 13); R(g, 10, cy - 1, 1, 2, 13);
+    for (const [x, top, h] of [[3, 4, 4], [7, 1, 5], [11, 3, 4]]) {
+      R(g, x - 1, top + o - 1, 4, h + 1, 0);
+      R(g, x, top + o, 2, h, 13); R(g, x, top + o, 1, h - 1, 15); P(g, x + 1, top + o + h - 1, 8);
+    }
+  }));
+  ENEMY_SPR.rat = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    for (const [x, y] of [[3, 11], [2, 10], [1, 9], [0, 8], [0, 7], [1, 6]]) P(g, x, y + o, 12); // tail
+    ellipse(g, 7.5, 10.5 + o, 5, 3.4, 7);
+    ellipse(g, 7.5, 12 + o, 4, 1.6, 3);
+    ellipse(g, 12, 9 + o, 3, 2.6, 7);
+    R(g, 10, 5 + o, 2, 2, 7); P(g, 10, 5 + o, 12); // ear
+    P(g, 13, 8 + o, 0); P(g, 15, 9 + o, 16); // eye, nose
+    R(g, 13, 11 + o, 1, 2, 15); // one big tooth
+    if (f) { R(g, 4, 14, 2, 1, 12); R(g, 10, 14, 2, 1, 12); } else { R(g, 5, 14, 2, 1, 12); R(g, 9, 14, 2, 1, 12); }
+  })));
+  ENEMY_SPR.golem = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    R(g, 3, 5, 10, 9, 7); R(g, 3, 5, 10, 1, 10); R(g, 12, 6, 1, 8, 3);
+    R(g, 5, 1, 6, 4, 7); R(g, 5, 1, 6, 1, 10); R(g, 10, 2, 1, 3, 3);
+    P(g, 6, 3, 14); P(g, 9, 3, 14);
+    R(g, 0, 6 + o, 3, 6, 7); R(g, 0, 6 + o, 3, 1, 10); R(g, 0, 11 + o, 3, 2, 3);
+    R(g, 13, 6 + o, 3, 6, 7); R(g, 13, 6 + o, 3, 1, 10); R(g, 13, 11 + o, 3, 2, 3);
+    R(g, 4, 14, 3, 2, 3); R(g, 9, 14, 3, 2, 3);
+    R(g, 3, 8, 10, 2, 3); for (const x of [4, 7, 10]) P(g, x, 8, 10); // an iron band with rivets
+    P(g, 5, 11, 3); P(g, 6, 12, 3); P(g, 10, 11, 3);
+  })));
+  const CHEST_SPR = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    R(g, 3, 8, 10, 6, 4); R(g, 3, 5, 10, 3, 9); R(g, 3, 5, 10, 1, 14);
+    R(g, 3, 8, 10, 1, 1); R(g, 3, 13, 10, 1, 1);
+    R(g, 3, 5, 1, 9, 1); R(g, 12, 5, 1, 9, 1);
+    R(g, 7, 7, 2, 3, 14); P(g, 7, 9, 9);
+    if (f) P(g, 10, 6, 15); else P(g, 5, 6, 15);
+  })));
   const SHARD_SPR = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
     P(g, 8, 5, 13); R(g, 7, 6, 3, 1, 13); R(g, 6, 7, 5, 2, 13); R(g, 7, 9, 3, 1, 13); P(g, 8, 10, 13);
     P(g, 7, 7, 15); P(g, 8, 6, 15); R(g, 9, 8, 2, 1, 8); P(g, 8, 10, 8);
@@ -620,11 +661,43 @@
   //   defeated   line shown when the boss is beaten
   //   quest      quest that becomes ready to turn in when the boss is beaten
   //   aftermath  closing line of the battle
+  // An ordinary enemy may set:
+  //   armored    its defence only counts against weapons that are not `heavy`
+  //   quick      it strikes once before the hero's first move, unless the hero's armour is `nimble`
+  //   turn(b)    its whole turn in place of a plain attack, as for a boss
+  //   defeated   line shown when it is beaten
   const ENEMIES = {
     slime: { name: 'SLIME', hp: 12, atk: 4, def: 0, xp: 5, gold: [3, 5], intro: 'oozes out!' },
     shroom: { name: 'SHROOMLET', hp: 16, atk: 5, def: 1, xp: 7, gold: [4, 6], intro: 'pops up!' },
     bat: { name: 'CAVE BAT', hp: 26, atk: 11, def: 2, xp: 12, gold: [6, 9], intro: 'swoops down!' },
     gloop: { name: 'GLOOP', hp: 36, atk: 13, def: 3, xp: 15, gold: [8, 11], intro: 'bubbles up!' },
+    // ---- Stovner
+    blue: { name: 'BLUE SLIME', hp: 44, atk: 19, def: 5, xp: 22, gold: [10, 14], intro: 'oozes out!' },
+    rat: { name: 'STOVNER RAT', hp: 34, atk: 17, def: 3, xp: 20, gold: [8, 12], intro: 'scurries out!', quick: true },
+    golem: {
+      name: 'TUNNEL GOLEM', hp: 44, atk: 22, def: 16, xp: 34, gold: [16, 22], intro: 'lumbers up!', armored: true,
+      // Slow: it only strikes on every second turn.
+      async turn(b) {
+        if (b.turn % 2) { await msg('The TUNNEL GOLEM grinds slowly forward...', 500); return; }
+        await msg(`${b.name} swings a stone fist!`, 100);
+        await enemyHit(1);
+      },
+    },
+    glint: {
+      name: 'GLINT SLIME', hp: 72, atk: 22, def: 8, xp: 60, gold: [30, 40], intro: 'glitters into view!',
+      // On its second turn, and every third turn after that, it mends itself instead of attacking.
+      async turn(b) {
+        if (b.turn % 3 === 2 && b.hp < b.max) {
+          b.hp = Math.min(b.max, b.hp + 14);
+          SFX.heal();
+          await msg('The GLINT SLIME shimmers. Its wounds close!', 700);
+          return;
+        }
+        await msg(`${b.name} attacks!`, 100);
+        await enemyHit(1);
+      },
+      defeated: 'The GLINT SLIME crumbles into glittering dust.',
+    },
     king: {
       name: 'DADDA BOSS', hp: 140, atk: 15, def: 5, xp: 80, gold: [100, 100], intro: 'blocks your way!',
       boss: {
@@ -653,8 +726,23 @@
       },
     },
   };
-  const WEAPONS = { none: { name: 'STICK', atk: 0 }, iron: { name: 'IRON SWORD', atk: 3 }, crystal: { name: 'CRYSTAL SWD', atk: 7 } };
-  const ARMORS = { none: { name: 'TUNIC', def: 0 }, vest: { name: 'TOUGH VEST', def: 2 } };
+  // The hero keeps every weapon and armour ever gained (player.weapons, player.armors) and wears one of
+  // each (player.weapon, player.armor). The menu lists them in the order they are written here.
+  //   heavy    the weapon ignores the defence of `armored` enemies
+  //   nimble   `quick` enemies do not get their opening strike against this armour
+  //   swing    battle line for an attack (default: 'You swing your sword!')
+  //   desc     shown in the menu; at most three lines of 16 letters
+  const WEAPONS = {
+    none: { name: 'STICK', atk: 0, desc: 'Better than nothing.' },
+    iron: { name: 'IRON SWORD', atk: 3, desc: 'Sturdy and sharp. Good against anything.' },
+    crystal: { name: 'CRYSTAL SWD', atk: 7, desc: 'Very sharp. The best blade around.' },
+    axe: { name: 'HEAVY AXE', atk: 2, heavy: true, swing: 'You swing your axe!', desc: 'Smashes through armour. Clumsy otherwise.' },
+  };
+  const ARMORS = {
+    none: { name: 'TUNIC', def: 0, desc: 'Plain cloth.' },
+    vest: { name: 'TOUGH VEST', def: 2, desc: 'Padded leather. Solid protection.' },
+    light: { name: 'LIGHT VEST', def: 1, nimble: true, desc: 'Quick enemies cannot strike you first.' },
+  };
 
   // ---------------------------------------------------------------- maps
   // Everything that makes an area behave or look different lives in its entry here, so a new area
@@ -665,6 +753,9 @@
   //                pick()     optional: chooses the enemy itself when the area has special rules
   //                scaleFrom  enemies gain one level for each hero level above this (default 1)
   //                minSteps, chance   optional overrides of ENCOUNTER_DEFAULTS
+  //                zones      in place of tile and table: a list of { at: [x0, y0, x1, y1], table }.
+  //                           Battles only happen inside a zone (the first one that holds the hero),
+  //                           with that zone's enemies; everywhere else on the map is safe.
   //   backdrop   which BACKDROPS entry is drawn behind battles here (default 'woods')
   //   ambient    decorative life, never saved:
   //                ripples       true: rings appear on water tiles
@@ -842,15 +933,30 @@
         '15,2': ['A barricade blocks the road north.'],
         '23,9': ['An overturned cart, left where it fell.'],
       },
-      encounter: null,
+      // The avenue, the west loop, the lake shore, the south entrance and the far north-east are safe.
+      encounter: {
+        chance: 0.1, minSteps: 4, scaleFrom: 9,
+        zones: [
+          { at: [1, 1, 9, 2], table: [['glint', 0.3], ['blue', 0.7]] }, // the far north-west corner
+          { at: [10, 3, 20, 4], table: [['golem', 0.7], ['rat', 0.3]] }, // under the rocks
+          { at: [16, 5, 28, 11], table: [['rat', 0.7], ['blue', 0.3]] }, // the east loop, around the cart
+          { at: [9, 6, 13, 11], table: [['blue', 0.6], ['rat', 0.4]] }, // the meadow west of the avenue
+          { at: [1, 13, 9, 18], table: [['blue', 0.8], ['rat', 0.2]] }, // the south-west meadow
+          { at: [18, 13, 28, 17], table: [['blue', 0.7], ['rat', 0.3]] }, // the south-east meadow
+        ],
+      },
       ambient: { ripples: true, butterflies: [[150, 136, 15, 1.3], [420, 232, 14, 0.4]] },
     },
   };
   for (const m of Object.values(MAPS)) { m.h = m.rows.length; m.w = m.rows[0].length; }
 
+  // Things lying in the world, taken once by walking onto them; the id is the saved flag that records it.
+  // A plain entry is a crystal shard. A `chest` holds one weapon or armour.
   const ITEMS = [
     { id: 'shard1', map: 'cave', x: 17, y: 3 },
     { id: 'shard2', map: 'cave', x: 3, y: 12 },
+    { id: 'chestAxe', map: 'stovnerOuter', x: 27, y: 1, chest: true, weapon: 'axe' },
+    { id: 'chestVest', map: 'stovnerOuter', x: 1, y: 1, chest: true, armor: 'light' },
   ];
 
   // ---------------------------------------------------------------- gates
@@ -914,10 +1020,18 @@
   const QUEST_ORDER = Object.keys(QUESTS);
   const QUESTS_PER_PAGE = 5; // how many fit on one page of the quest log
 
+  // Which zone of a map's encounters the tile lies in (the whole encounter block for a map without zones).
+  function encounterAt(m, x, y) {
+    const enc = m.encounter;
+    if (!enc) return null;
+    if (enc.zones) return enc.zones.find((z) => x >= z.at[0] && y >= z.at[1] && x <= z.at[2] && y <= z.at[3]) || null;
+    return tileAt(m, x, y) === enc.tile ? enc : null;
+  }
+
   const newPlayer = () => ({
     map: 'village', x: 5, y: 4, dir: 'down', moving: false, fx: 5, fy: 4, tx: 5, ty: 4, t: 0,
     lvl: 1, hp: 30, maxhp: 30, atk: 6, def: 1, xp: 0, next: 12,
-    herbs: 3, maxHerbs: 3, gold: 0, weapon: 'none', armor: 'none',
+    herbs: 3, maxHerbs: 3, gold: 0, weapon: 'none', armor: 'none', weapons: ['none'], armors: ['none'],
     shards: 0, glowcaps: 0, sickle: false, sinceBattle: 0,
     hero: DEFAULT_HERO,
   });
@@ -956,6 +1070,11 @@
   let stats = { won: 0, slimes: 0, steps: 0 };
   let tracked = null;
 
+  // kind is 'weapon' or 'armor'
+  const gearTable = (kind) => (kind === 'weapon' ? WEAPONS : ARMORS);
+  const ownedGear = (kind) => Object.keys(gearTable(kind)).filter((id) => player[kind + 's'].includes(id));
+  const owns = (kind, id) => player[kind + 's'].includes(id);
+  function own(kind, id) { if (!owns(kind, id)) player[kind + 's'].push(id); }
   const atk = () => player.atk + WEAPONS[player.weapon].atk;
   const def = () => player.def + ARMORS[player.armor].def;
 
@@ -1161,6 +1280,7 @@
             '*CLANG* *CLANG* *HISS* ...Behold, the CRYSTAL SWORD! (ATK +7!)',
           ], () => {
             player.shards -= 2;
+            own('weapon', 'crystal');
             player.weapon = 'crystal';
             complete('shards');
           });
@@ -1237,6 +1357,12 @@
     Object.assign(player, newPlayer(), d.player);
     if (Object.prototype.hasOwnProperty.call(HERO_RENAMED, player.hero)) player.hero = HERO_RENAMED[player.hero];
     if (!isHero(player.hero)) player.hero = DEFAULT_HERO;
+    // A save from before gear was kept owns the stick, the tunic and whatever it is wearing.
+    for (const kind of ['weapon', 'armor']) {
+      const list = Array.isArray(player[kind + 's']) ? player[kind + 's'].slice() : [];
+      for (const id of ['none', player[kind]]) if (!list.includes(id)) list.push(id);
+      player[kind + 's'] = list;
+    }
     // Quests the save does not know yet start fresh; a saved quest keeps its values and gains any new fields.
     const fresh = newQuests();
     q = Object.assign({}, fresh, d.q);
@@ -1466,18 +1592,19 @@
     { id: 'vest', name: 'TOUGH VEST', price: 35, desc: () => 'DEF +2. Padded leather.' },
     { id: 'exit', name: 'LEAVE', price: 0, desc: () => 'Come back anytime!' },
   ];
+  const shopOwned = (item) => (item.id === 'iron' && (owns('weapon', 'iron') || owns('weapon', 'crystal')))
+    || (item.id === 'vest' && owns('armor', 'vest'));
   function openShop() { shop = { sel: 0, note: '', noteT: 0 }; mode = 'shop'; }
   function buy(item) {
     const note = (t, ok) => { shop.note = t; shop.noteT = 120; ok ? SFX.coin() : SFX.deny(); };
     if (item.id === 'exit') { mode = 'world'; shop = null; SFX.move(); return; }
     if (item.id === 'herb' && player.herbs >= player.maxHerbs) return note('Your pouch is full!');
-    if (item.id === 'iron' && player.weapon !== 'none') return note('You have a better blade.');
-    if (item.id === 'vest' && player.armor === 'vest') return note('You already wear one.');
+    if (shopOwned(item)) return note(item.id === 'iron' ? 'You have a better blade.' : 'You already wear one.');
     if (player.gold < item.price) return note('Not enough gold!');
     player.gold -= item.price;
     if (item.id === 'herb') player.herbs++;
-    if (item.id === 'iron') player.weapon = 'iron';
-    if (item.id === 'vest') player.armor = 'vest';
+    if (item.id === 'iron') { own('weapon', 'iron'); player.weapon = 'iron'; }
+    if (item.id === 'vest') { own('armor', 'vest'); player.armor = 'vest'; }
     note(`Bought ${item.name}!`, true);
     saveGame();
   }
@@ -1495,7 +1622,7 @@
     R(ctx, 28, 29, 184, 1, 8);
     SHOP.forEach((it, i) => {
       const y = 36 + i * 15;
-      const owned = (it.id === 'iron' && player.weapon !== 'none') || (it.id === 'vest' && player.armor === 'vest');
+      const owned = shopOwned(it);
       text(it.name, 42, y, owned ? 7 : 15);
       if (it.price) rtext(owned ? 'OWNED' : `${it.price}G`, 210, y, owned ? 7 : 14);
       if (shop.sel === i && Math.floor(tick / 16) % 3) cursor(30, y);
@@ -1506,24 +1633,34 @@
   }
 
   // ---------------------------------------------------------------- status menu
-  let menuPage = 0, menuNote = null;
+  // menuSel is the line the cursor is on: 0 weapon, 1 armour, 2 SAVE.
+  let menuPage = 0, menuNote = null, menuSel = 2;
   function openMenu() {
-    mode = 'menu'; menuOpen = true; menuNote = null;
+    mode = 'menu'; menuOpen = true; menuNote = null; menuSel = 2;
     // Start on the page that holds the quest being tracked.
     pickTracked();
     menuPage = Math.max(0, Math.floor(knownQuests().indexOf(tracked) / QUESTS_PER_PAGE));
   }
   function updateMenu() {
     const pages = questPages();
-    if (pages > 1 && navPressed) { // any direction turns the page: left/up back, right/down forward
-      const step = navPressed === 'left' || navPressed === 'up' ? -1 : 1;
+    if (navPressed === 'up' || navPressed === 'down') { // up and down move the cursor
+      const to = clamp(menuSel + (navPressed === 'up' ? -1 : 1), 0, 2);
+      if (to !== menuSel) { menuSel = to; menuNote = null; SFX.move(); }
+    } else if (pages > 1 && navPressed) { // left and right turn the pages of the quest log
+      const step = navPressed === 'left' ? -1 : 1;
       menuPage = (Math.min(menuPage, pages - 1) + pages + step) % pages;
       SFX.move();
     }
     if (menuNote && --menuNote.t <= 0) menuNote = null;
-    // The action button saves by hand. The menu only opens while standing in the world, so this is
+    // On the weapon or armour line the action button puts on the next one the hero owns.
+    if (aPressed && menuSel < 2) {
+      const kind = menuSel === 0 ? 'weapon' : 'armor', list = ownedGear(kind);
+      if (list.length > 1) { player[kind] = list[(list.indexOf(player[kind]) + 1) % list.length]; SFX.select(); }
+      else SFX.deny();
+    }
+    // On SAVE it saves by hand. The menu only opens while standing in the world, so this is
     // the same save the game makes by itself, just made on request.
-    if (aPressed) {
+    if (aPressed && menuSel === 2) {
       const ok = saveGame();
       menuNote = { text: ok ? 'SAVED!' : 'FAILED!', c: ok ? 11 : 6, t: 90 };
       (ok ? SFX.select : SFX.deny)();
@@ -1539,8 +1676,9 @@
       [`XP ${player.xp}/${player.next}`, 13], [`GOLD ${player.gold}`, 14], [`HERB ${player.herbs}/${player.maxHerbs}`, 11],
     ];
     lines.forEach(([s, c], i) => text(s, 10, 24 + i * 12, c));
-    text(WEAPONS[player.weapon].name, 10, 110, 10);
-    text(ARMORS[player.armor].name, 10, 122, 10);
+    text(WEAPONS[player.weapon].name, 10, 110, menuSel === 0 ? 15 : 10);
+    text(ARMORS[player.armor].name, 10, 122, menuSel === 1 ? 15 : 10);
+    cursor(5, [110, 122, 146][menuSel]);
     if (player.sickle) text('SICKLE', 10, 134, 10);
     // Story items share the sickle's line: a crystal with the number of fragments, and each key.
     if (fragments()) {
@@ -1555,8 +1693,22 @@
       });
     }
     if (menuNote) text(menuNote.text, 10, 146, menuNote.c);
-    else text(isTouch ? 'A:SAVE' : 'SPACE:SAVE', 10, 146, 14);
+    else text(isTouch ? 'A:SAVE' : 'SPACE:SAVE', 10, 146, menuSel === 2 ? 14 : 7);
     box(96, 2, 142, 156);
+    if (menuSel < 2) { // the cursor is on the weapon or armour: show what the hero owns in place of the quests
+      const kind = menuSel === 0 ? 'weapon' : 'armor', table = gearTable(kind), list = ownedGear(kind), worn = table[player[kind]];
+      text(kind === 'weapon' ? 'WEAPONS' : 'ARMOUR', 104, 9, 14);
+      list.forEach((id, i) => {
+        const on = id === player[kind], y = 24 + i * 12;
+        text(table[id].name, 114, y, on ? 15 : 7);
+        if (on) cursor(106, y);
+      });
+      text(kind === 'weapon' ? `ATK +${worn.atk}` : `DEF +${worn.def}`, 104, 80, 13);
+      wrap(worn.desc, 16).forEach((l, i) => text(l, 104, 92 + i * 11, 10));
+      if (list.length > 1) text(isTouch ? 'A:CHANGE' : 'SPACE:CHANGE', 104, 134, 14);
+      if (Math.floor(tick / 30) % 2) rtext('X:BACK', 232, 146, 7);
+      return;
+    }
     text('QUESTS', 104, 9, 14);
     const known = knownQuests(), pages = questPages(), page = Math.min(menuPage, pages - 1);
     if (pages > 1) rtext(`< ${page + 1}/${pages} >`, 232, 9, 10);
@@ -1600,6 +1752,15 @@
     const exit = m.exits[`${player.x},${player.y}`];
     if (exit) { fadeOut(() => enterMap(exit.map, exit.x, exit.y, exit.dir)); return; }
     const item = itemAt(player.map, player.x, player.y);
+    if (item && item.chest) {
+      const kind = item.weapon ? 'weapon' : 'armor', id = item[kind];
+      flags[item.id] = true;
+      own(kind, id);
+      SFX.pickup();
+      held.length = 0;
+      say('', [`You open the chest. Inside is a ${gearTable(kind)[id].name}!`, 'Pick it in the menu to use it.'], saveGame);
+      return;
+    }
     if (item) {
       flags[item.id] = true;
       player.shards++;
@@ -1609,7 +1770,7 @@
       say('', [`You found a CRYSTAL SHARD! (${player.shards} held)`], saveGame);
       return;
     }
-    if (m.encounter && tileAt(m, player.x, player.y) === m.encounter.tile) {
+    if (encounterAt(m, player.x, player.y)) {
       const enc = { ...ENCOUNTER_DEFAULTS, ...m.encounter };
       player.sinceBattle++;
       if (player.sinceBattle > enc.minSteps && Math.random() < enc.chance) {
@@ -1745,6 +1906,7 @@
     }
     for (const it of ITEMS) {
       if (it.map !== player.map || flags[it.id]) continue;
+      if (it.chest) { ctx.drawImage(CHEST_SPR[Math.floor(tick / 30) % 2], it.x * TS - camX, it.y * TS - camY); continue; }
       const bob = Math.floor(tick / 20) % 2;
       ctx.drawImage(SHARD_SPR[Math.floor(tick / 15) % 2], it.x * TS - camX, it.y * TS - camY - bob);
     }
@@ -1793,7 +1955,7 @@
 
   // ---------------------------------------------------------------- battle
   function pickEnemy() {
-    const enc = MAPS[player.map].encounter;
+    const enc = encounterAt(MAPS[player.map], player.x, player.y) || MAPS[player.map].encounter;
     if (enc.pick) return enc.pick();
     let r = Math.random();
     for (const [type, p] of enc.table) { if ((r -= p) < 0) return type; }
@@ -1827,6 +1989,14 @@
   async function runIntro(intro) {
     await wait(350);
     await msg(`${battle.boss ? 'The' : 'A'} ${battle.name} ${intro}`, 700);
+    if (ENEMIES[battle.type].quick) {
+      if (ARMORS[player.armor].nimble) await msg('It darts at you, but you step lightly aside!', 500);
+      else {
+        await msg(`The ${battle.name} is quick! It strikes first!`, 100);
+        await enemyHit(1);
+        if (player.hp <= 0) return loseBattle();
+      }
+    }
     toMenu();
   }
   const enemyX = () => (battle.boss ? 64 : 64);
@@ -1834,9 +2004,11 @@
     battle.phase = 'busy';
     SFX.select();
     if (choice === 0) {
-      await msg('You swing your sword!', 150);
+      const weapon = WEAPONS[player.weapon], armored = !!ENEMIES[battle.type].armored;
+      const smash = armored && !!weapon.heavy;
+      await msg(weapon.swing || 'You swing your sword!', 150);
       const crit = Math.random() < 0.12;
-      let dmg = Math.max(1, atk() + rand(0, 2) - battle.def);
+      let dmg = Math.max(1, atk() + rand(0, 2) - (smash ? 0 : battle.def));
       if (crit) dmg = Math.floor(dmg * 1.8);
       battle.hp = Math.max(0, battle.hp - dmg);
       battle.flash = 24;
@@ -1844,6 +2016,10 @@
       float(enemyX(), battle.boss ? 24 : 36, crit ? `${dmg}!` : `${dmg}`, crit ? 14 : 15);
       if (crit) await msg('A critical hit!', 400); else await wait(500);
       if (battle.hp <= 0) return winBattle();
+      if (armored && !battle.armorSaid) { // said once per fight, so the hero learns what armour does
+        battle.armorSaid = true;
+        await msg(smash ? 'The axe smashes right through its armour!' : 'Its armour turns most of the blow!', 500);
+      }
     } else if (choice === 1) {
       if (player.herbs <= 0) { await msg('No herbs left!', 500); return toMenu(); }
       if (player.hp >= player.maxhp) { await msg('Your HP is already full!', 500); return toMenu(); }
@@ -1879,7 +2055,8 @@
     const b = battle;
     b.turn++;
     const boss = ENEMIES[b.type].boss;
-    if (boss && boss.turn) await boss.turn(b);
+    const special = (boss && boss.turn) || ENEMIES[b.type].turn;
+    if (special) await special(b);
     else {
       await msg(`${b.name} attacks!`, 100);
       await enemyHit(1);
@@ -1895,7 +2072,7 @@
     await wait(700);
     b.gone = true;
     stats.won++;
-    await msg(boss && boss.defeated ? boss.defeated : `${b.name} is defeated!`, 600);
+    await msg(boss && boss.defeated ? boss.defeated : ENEMIES[b.type].defeated || `${b.name} is defeated!`, 600);
     player.xp += b.xp;
     player.gold += b.gold;
     SFX.coin();
@@ -2210,7 +2387,8 @@
 
   // tiny debug hook for testing
   window.__rpg = {
-    player, NPCS, MAPS, SOLID, QUESTS, QUEST_ORDER, CHAPTERS,
+    player, NPCS, MAPS, SOLID, QUESTS, QUEST_ORDER, CHAPTERS, ENEMIES, WEAPONS, ARMORS, ITEMS,
+    get menuSel() { return menuSel; },
     get chapter() { return currentChapter(); }, get storyDone() { return storyDone(); },
     get menuPage() { return menuPage; }, get menuNote() { return menuNote; }, get tracked() { return tracked; },
     get q() { return q; }, get flags() { return flags; }, get stats() { return stats; },

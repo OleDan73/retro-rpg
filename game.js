@@ -306,8 +306,9 @@
     spike(2, 8, 3); spike(10, 6, 3); spike(6, 2, 3);
     R(g, 1, 15, 14, 1, 0);
   });
-  // The old gate in the village wall: locked (red lock) and unlocked (doors ajar).
-  function wallGate(locked) {
+  // A gate in a town wall: 'locked' (red lock), 'open' (doors ajar, can be walked through) or 'shut' (no lock).
+  function wallGate(state) {
+    const locked = state === 'locked';
     return mk(16, 16, (g) => {
       g.drawImage(TILE['#'], 0, 0);
       R(g, 2, 1, 12, 15, 0);
@@ -315,12 +316,127 @@
       for (const x of [5, 8, 11]) R(g, x, 2, 1, 14, 1);
       R(g, 3, 4, 10, 1, 9); R(g, 3, 12, 10, 1, 9);
       if (locked) { R(g, 6, 6, 5, 5, 0); R(g, 7, 7, 3, 3, 6); P(g, 8, 8, 0); }
-      else R(g, 7, 2, 3, 14, 0);
+      else if (state === 'open') R(g, 7, 2, 3, 14, 0);
     });
   }
-  TILE['K'] = wallGate(true);
-  TILE['L'] = wallGate(false);
-  const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x', 'K', 'L']);
+  TILE['K'] = wallGate('locked');
+  TILE['L'] = wallGate('open');
+  TILE['G'] = wallGate('shut');
+  // ---- Stovner: paved streets, grey blocks with flat roofs, hedges and street lamps
+  TILE['p'] = mk(16, 16, (g) => { // paving
+    R(g, 0, 0, 16, 16, 7);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
+      const h = hash(x + 23, y + 51);
+      if (h < 0.05) P(g, x, y, 10); else if (h > 0.97) P(g, x, y, 3);
+    }
+    R(g, 0, 7, 16, 1, 3); R(g, 0, 15, 16, 1, 3);
+    R(g, 7, 0, 1, 7, 3); R(g, 15, 0, 1, 7, 3); R(g, 3, 8, 1, 7, 3); R(g, 11, 8, 1, 7, 3);
+  });
+  TILE['A'] = mk(16, 16, (g) => { // flat roof
+    R(g, 0, 0, 16, 16, 2);
+    R(g, 0, 0, 16, 2, 0); R(g, 0, 2, 16, 1, 8);
+    for (let x = 1; x < 16; x += 5) R(g, x, 6, 3, 1, 8);
+    for (let x = 3; x < 16; x += 5) R(g, x, 10, 3, 1, 8);
+    R(g, 0, 13, 16, 1, 10); R(g, 0, 14, 16, 2, 3);
+  });
+  function blockWall(g) {
+    R(g, 0, 0, 16, 16, 10);
+    R(g, 0, 0, 1, 16, 3); R(g, 15, 0, 1, 16, 3);
+    R(g, 1, 15, 14, 1, 7);
+  }
+  TILE['B'] = mk(16, 16, (g) => { // block wall with a window
+    blockWall(g);
+    R(g, 3, 3, 10, 9, 0); R(g, 4, 4, 8, 7, 2);
+    R(g, 4, 4, 8, 1, 13); R(g, 4, 5, 2, 2, 13);
+    R(g, 8, 4, 1, 7, 0);
+    R(g, 2, 12, 12, 1, 15);
+  });
+  TILE['d'] = mk(16, 16, (g) => { // block door
+    blockWall(g);
+    R(g, 3, 2, 10, 14, 0); R(g, 4, 3, 8, 13, 2);
+    R(g, 5, 4, 6, 4, 13); R(g, 5, 4, 6, 1, 15);
+    P(g, 10, 10, 14);
+    R(g, 2, 1, 12, 1, 15);
+  });
+  TILE['h'] = mk(16, 16, (g) => { // hedge
+    grass(g, 9);
+    R(g, 0, 2, 16, 13, 0);
+    R(g, 0, 3, 16, 11, 5);
+    for (let y = 3; y < 14; y++) for (let x = 0; x < 16; x++) {
+      const h = hash(x + 9, y + 33);
+      if (h < 0.16) P(g, x, y, 11); else if (h > 0.93) P(g, x, y, 0);
+    }
+    R(g, 0, 3, 16, 1, 11);
+  });
+  TILE['l'] = mk(16, 16, (g) => { // street lamp
+    grass(g, 10);
+    R(g, 5, 15, 6, 1, 5);
+    R(g, 6, 13, 4, 2, 0); R(g, 7, 6, 2, 8, 0); P(g, 7, 7, 3); P(g, 7, 9, 3); P(g, 7, 11, 3);
+    R(g, 4, 0, 8, 7, 0); R(g, 5, 1, 6, 5, 14); R(g, 6, 2, 3, 2, 15);
+    R(g, 5, 1, 6, 1, 3);
+  });
+  TILE['n'] = mk(16, 16, (g) => { // bench
+    grass(g, 11);
+    R(g, 1, 4, 14, 9, 0);
+    R(g, 2, 5, 12, 2, 4); R(g, 2, 5, 12, 1, 9);
+    R(g, 2, 8, 12, 2, 4); R(g, 2, 8, 12, 1, 9);
+    R(g, 2, 11, 12, 1, 4);
+    R(g, 2, 13, 2, 2, 0); R(g, 12, 13, 2, 2, 0);
+    R(g, 2, 15, 12, 1, 5);
+  });
+  TILE['M'] = mk(16, 16, (g) => { // market stall, empty
+    grass(g, 12);
+    R(g, 0, 0, 16, 7, 0);
+    for (let x = 1; x < 15; x++) R(g, x, 1, 1, 5, Math.floor((x - 1) / 2) % 2 ? 15 : 6);
+    R(g, 1, 7, 1, 8, 0); R(g, 14, 7, 1, 8, 0);
+    R(g, 2, 7, 12, 3, 1);
+    R(g, 1, 10, 14, 5, 0); R(g, 2, 11, 12, 3, 4); R(g, 2, 11, 12, 1, 9);
+    R(g, 1, 15, 14, 1, 5);
+  });
+  TILE['J'] = mk(16, 16, (g) => { // barricade across a road
+    g.drawImage(pathTile, 0, 0);
+    for (const x of [1, 7, 13]) { R(g, x - 1, 1, 4, 15, 0); R(g, x, 3, 2, 12, 4); P(g, x, 2, 9); P(g, x + 1, 2, 4); }
+    for (const y of [5, 10]) { R(g, 0, y - 1, 16, 4, 0); R(g, 0, y, 16, 2, 4); R(g, 0, y, 16, 1, 9); }
+    for (const [x, y] of [[4, 5], [10, 5], [5, 10], [11, 10]]) P(g, x, y, 10);
+  });
+  TILE['Q'] = mk(16, 16, (g) => { // tunnel mouth, barred
+    g.drawImage(TILE['#'], 0, 0);
+    R(g, 2, 3, 12, 13, 0); R(g, 3, 2, 10, 1, 0); R(g, 4, 1, 8, 1, 0);
+    R(g, 3, 4, 10, 12, 1); R(g, 4, 3, 8, 1, 1);
+    R(g, 4, 9, 8, 7, 0);
+    for (const x of [4, 7, 10]) { R(g, x, 3, 1, 13, 10); R(g, x + 1, 3, 1, 13, 3); }
+    R(g, 3, 6, 10, 1, 10); R(g, 3, 12, 10, 1, 10);
+  });
+  TILE['W'] = mk(16, 16, (g) => { // overturned cart
+    grass(g, 13);
+    R(g, 1, 14, 14, 2, 5);
+    R(g, 1, 6, 13, 8, 0); R(g, 2, 7, 11, 6, 4); R(g, 2, 7, 11, 1, 9);
+    R(g, 5, 8, 1, 5, 1); R(g, 9, 8, 1, 5, 1);
+    circle(g, 11.5, 5.5, 4.6, 0); circle(g, 11.5, 5.5, 3.6, 4); circle(g, 11.5, 5.5, 2.4, 12); circle(g, 11.5, 5.5, 1, 0);
+    R(g, 11, 2, 1, 7, 4); R(g, 8, 5, 7, 1, 4);
+  });
+  // The fountain is one 32x32 picture cut into four tiles: '1' '2' above '3' '4'.
+  const fountain = mk(32, 32, (g) => {
+    for (const [x, y] of [[0, 0], [16, 0], [0, 16], [16, 16]]) g.drawImage(TILE['p'], x, y);
+    const disc = (cx, cy, rx, ry, c) => {
+      for (let y = 0; y < 32; y++) for (let x = 0; x < 32; x++) {
+        const dx = (x + 0.5 - cx) / rx, dy = (y + 0.5 - cy) / ry;
+        if (dx * dx + dy * dy <= 1) P(g, x, y, c);
+      }
+    };
+    disc(16, 19, 14, 11, 0); disc(16, 19, 13, 10, 10); disc(16, 20, 13, 9, 3);
+    disc(16, 18, 13, 9, 10); disc(16, 18, 11, 7, 8);
+    for (const [x, y] of [[9, 16], [21, 15], [12, 22], [22, 21], [7, 19]]) { R(g, x, y, 3, 1, 13); P(g, x + 1, y - 1, 15); }
+    R(g, 13, 6, 6, 14, 0); R(g, 14, 7, 4, 13, 10); R(g, 14, 7, 1, 13, 15);
+    R(g, 10, 4, 12, 4, 0); R(g, 11, 5, 10, 2, 10); R(g, 11, 5, 10, 1, 15);
+    R(g, 15, 1, 2, 3, 13); P(g, 15, 1, 15);
+    for (const x of [10, 21]) { R(g, x, 8, 1, 6, 13); P(g, x, 8, 15); }
+  });
+  [['1', 0, 0], ['2', 16, 0], ['3', 0, 16], ['4', 16, 16]].forEach(([ch, x, y]) => {
+    TILE[ch] = mk(16, 16, (g) => g.drawImage(fountain, -x, -y));
+  });
+  const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x', 'K',
+    'G', 'A', 'B', 'd', 'h', 'l', 'n', 'M', 'J', 'Q', 'W', '1', '2', '3', '4']);
 
   // ---------------------------------------------------------------- characters
   function personSprite(o, dir, frame) {
@@ -576,7 +692,10 @@
         '#..T..,..;.........#',
         '####################',
       ],
-      exits: { '19,7': { map: 'forest', x: 1, y: 7, dir: 'right' } },
+      exits: {
+        '19,7': { map: 'forest', x: 1, y: 7, dir: 'right' },
+        '0,7': { map: 'stovner', x: 24, y: 9, dir: 'left' }, // the old gate; shut until the Red Key opens it
+      },
       signs: {
         '18,8': ['EAST: WHISPER WOODS.', 'Beware of slimes!'],
         '12,6': ['The village well. The water is cool and clear.', 'Somewhere far below, something goes *plip*.'],
@@ -651,6 +770,81 @@
       backdrop: 'cave',
       lighting: { dimEdges: 0.35 },
     },
+    // ---- Chapter 2: Stovner. A safe town with roads out in every direction, and the open land north of it.
+    // Still closed: the tunnel under the town (south), the west gate, and the road north past the barricade.
+    stovner: {
+      name: 'STOVNER',
+      rows: [
+        'hhhhhhhhhhhhpphhhhhhhhhhhh',
+        '#.T..AAAA..Spp...AAAA..T.#',
+        '#....BBBB...pp...BBBB....#',
+        '#....BdBB..lppl..BBdB....#',
+        '#..pppppppppppppppppppp..#',
+        '#.,p....;...pp...,....p.T#',
+        '#..p.AAA..pppppp..AAA.p..#',
+        '#..p.BBB.pppppppp.BBB.p..#',
+        '#..p.BdB.ppp12ppp.BdB.p.S#',
+        'Gppppppppppp34pppppppppppL',
+        '#..p..n..pppppppp..M..p..#',
+        '#..p.;....pppppp....,.p..#',
+        '#..p.AAAA...pp...AAAA.p..#',
+        '#.Tp.BBBB...pp...BBBB.p.T#',
+        '#..p.BdBB..lppl..BBdB.p..#',
+        '#..pppppppppppppppppppp..#',
+        '#.,......;.#QQ#....;....T#',
+        'hhhhhhhhhhhhhhhhhhhhhhhhhh',
+      ],
+      exits: {
+        '25,9': { map: 'village', x: 1, y: 7, dir: 'right' },
+        '12,0': { map: 'stovnerOuter', x: 14, y: 18, dir: 'up' },
+        '13,0': { map: 'stovnerOuter', x: 15, y: 18, dir: 'up' },
+      },
+      signs: {
+        '24,8': ['EAST: TURNIP VALE.'],
+        '11,1': ['NORTH: OUTER STOVNER.'],
+        '0,9': ['The west gate is shut tight.'],
+        '12,16': ['A tunnel leads down under the town. Iron bars block the way in.'],
+        '13,16': ['A tunnel leads down under the town. Iron bars block the way in.'],
+      },
+      encounter: null,
+    },
+    stovnerOuter: {
+      name: 'OUTER STOVNER',
+      rows: [
+        'TTTTTTTTTTTTrr==rrTTTTTTTTTTTT',
+        'T..,...T..rrrr==rrrr.....T...T',
+        'T.T.......rrrrJJrrrr.......;.T',
+        'T....====..T..==......=====..T',
+        'T.,..=..=.....==......=...=.TT',
+        'T....=..========..T...=...=..T',
+        'TT...=..=..T..==......=...=..T',
+        'T..T.====.....=========...=.,T',
+        'T......=...;..==...T......=..T',
+        'T.~~~..=......==.......W..=..T',
+        'T~~~~~.=..T...==....=======..T',
+        'T~~~~~.=......==....=...T....T',
+        'T.~~~..================...T..T',
+        'T......=....T.==..,..........T',
+        'T.T....=......==......T..;...T',
+        'T...,..====...==...T.........T',
+        'TT........=...==.........T...T',
+        'T..T..;...======....T........T',
+        'T........T....==S.;.....T....T',
+        'TTTTTTTTTTTTTT==TTTTTTTTTTTTTT',
+      ],
+      exits: {
+        '14,19': { map: 'stovner', x: 12, y: 1, dir: 'down' },
+        '15,19': { map: 'stovner', x: 13, y: 1, dir: 'down' },
+      },
+      signs: {
+        '16,18': ['SOUTH: STOVNER.'],
+        '14,2': ['A barricade blocks the road north.'],
+        '15,2': ['A barricade blocks the road north.'],
+        '23,9': ['An overturned cart, left where it fell.'],
+      },
+      encounter: null,
+      ambient: { ripples: true, butterflies: [[150, 136, 15, 1.3], [420, 232, 14, 0.4]] },
+    },
   };
   for (const m of Object.values(MAPS)) { m.h = m.rows.length; m.w = m.rows[0].length; }
 
@@ -669,8 +863,6 @@
   //   needs()     true when the hero can open it: an item, a flag, a quest state...
   //   locked      lines shown when the hero tries it without meeting the requirement
   //   opened      lines shown when it opens
-  //   beyond      lines shown when the hero tries an opened gate whose open tile still cannot be walked
-  //               through, because what lies behind it is not built yet (optional)
   //   sfx         name of the sound played when it opens (optional)
   const GATES = [
     {
@@ -680,12 +872,11 @@
       opened: ['You hack through the thorny vines with the old sickle. The way east is open!'],
       sfx: 'cut',
     },
-    { // The way to Stovner. The Red Key unlocks it; the road behind it comes with the next chapter.
+    { // The way to Stovner. The Red Key unlocks it; the open gate is the village's west exit.
       map: 'village', x: 0, y: 7, closed: 'K', open: 'L', flag: 'redGate',
       needs: () => flags.redKey,
       locked: ['An old gate with a red lock. The road to STOVNER lies beyond.'],
       opened: ['The RED KEY turns in the lock. The gate to STOVNER is unlocked!'],
-      beyond: ['The gate is unlocked. Beyond it, the road leads to STOVNER.', 'TO BE CONTINUED...'],
       sfx: 'pickup',
     },
   ];
@@ -738,7 +929,7 @@
   // are done, so every save file, old or new, is always in a valid chapter.
   const CHAPTERS = [
     { name: 'VESTLI', quest: 'king' },
-    { name: 'STOVNER', quest: null }, // unlocked by finishing Vestli; nothing of it can be played yet
+    { name: 'STOVNER', quest: null }, // its maps can be explored; it has no boss quest yet, so it cannot end
   ];
   const chapterDone = (c) => c.quest != null && q[c.quest]?.s === 3;
   // Crystal Fragments and keys are kept as saved flags (fragment1, redKey, ...), set once and never unset.
@@ -1395,7 +1586,7 @@
         flags[gate.flag] = true;
         say('', gate.opened, saveGame);
       } else say('', gate.locked);
-    } else if (gate && gate.beyond) say('', gate.beyond);
+    }
   }
   function enterMap(name, x, y, dir) {
     Object.assign(player, { map: name, x, y, fx: x, fy: y, tx: x, ty: y, dir, moving: false, t: 0 });
@@ -2019,7 +2210,7 @@
 
   // tiny debug hook for testing
   window.__rpg = {
-    player, NPCS, MAPS, QUESTS, QUEST_ORDER, CHAPTERS,
+    player, NPCS, MAPS, SOLID, QUESTS, QUEST_ORDER, CHAPTERS,
     get chapter() { return currentChapter(); }, get storyDone() { return storyDone(); },
     get menuPage() { return menuPage; }, get menuNote() { return menuNote; }, get tracked() { return tracked; },
     get q() { return q; }, get flags() { return flags; }, get stats() { return stats; },

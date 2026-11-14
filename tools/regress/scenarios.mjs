@@ -950,9 +950,6 @@ const gateScenarios = [
         T.check('unlocked and autosaved', g.flags.redGate === true && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).flags.redGate === true);
         T.check('the key is kept', g.flags.redKey === true);
         T.shot('unlocked');
-        await T.talk('beyond');
-        await T.step('left');
-        T.check('there is no way through yet', g.player.x === 1 && g.player.map === 'village' && g.mode === 'world', g.player.x);
         await T.step('right', 2);
         await T.tap('KeyX', 6); await T.tap('Space', 6);
         T.shot('manual-save');
@@ -970,7 +967,8 @@ const gateScenarios = [
         T.state('continued');
         await T.step('left', 2);
         T.shot('still-unlocked');
-        await T.talk('beyond-again');
+        await T.tap('Space', 6);
+        T.check('the open gate has nothing more to say', g.mode === 'world', g.mode);
         await T.menuShot('status');
         await T.step('right', 7); await T.step('up');
         await T.talk('elder');
@@ -990,12 +988,353 @@ const gateScenarios = [
       await T.until(() => g.mode === 'world', 'world');
       T.check('unlocked', g.flags.redGate === true);
       await T.touch('left', 20);
-      T.check('no way through', g.player.x === 1 && g.mode === 'world', g.player.x);
+      await T.until(() => g.player.map === 'stovner', 'Stovner');
+      await T.frames(60);
+      T.check('through the gate into Stovner', g.player.x === 24 && g.player.y === 9 && g.player.dir === 'left' && g.mode === 'world', g.player.x);
       await T.touch('b'); await T.touch('a');
-      T.check('saved with the on-screen buttons', g.menuNote && g.menuNote.text === 'SAVED!' && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).flags.redGate === true);
+      const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+      T.check('saved with the on-screen buttons', g.menuNote && g.menuNote.text === 'SAVED!' && d.flags.redGate === true && d.player.map === 'stovner');
       T.shot('saved');
       await T.touch('b');
       T.check('back in the world', g.mode === 'world', g.mode);
+      await T.touch('right', 20);
+      await T.until(() => g.player.map === 'village', 'the village');
+      await T.frames(60);
+      T.check('and back again', g.player.x === 1 && g.player.y === 7 && g.player.dir === 'right' && g.mode === 'world', g.player.x);
+      T.shot('back');
+    },
+  },
+];
+
+// Stovner: the town behind the old gate and the open land north of it. Nothing happens there yet, so
+// these check the travel, the boundaries and the saving.
+const moved = (fix, map, x, y, dir) => ({ ...fix, player: { ...fix.player, map, x, y, fx: x, fy: y, tx: x, ty: y, dir } });
+const gateOpen = { ...chapterOneDone, flags: { ...chapterOneDone.flags, redGate: true } };
+const inHub = moved(gateOpen, 'stovner', 24, 9, 'left');
+const inOuter = moved(gateOpen, 'stovnerOuter', 14, 18, 'up');
+const stovnerScenarios = [
+  { // the boss is beaten but not reported: no key, no way through
+    name: 'stovner-gate-before-turn-in', save: FIX.report,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('left', 7);
+      await T.talk('locked');
+      await T.step('left');
+      T.check('the gate stays shut', g.player.x === 1 && g.player.map === 'village' && !g.flags.redGate && g.mode === 'world', g.player.x);
+    },
+  },
+  { // holding the key is not enough: the gate has to be unlocked
+    name: 'stovner-gate-key-unused', save: chapterOneDone,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('left', 2);
+      await T.frames(60);
+      T.check('walking into the locked gate does nothing', g.player.x === 1 && g.player.map === 'village' && !g.flags.redGate && g.mode === 'world', g.player.x);
+    },
+  },
+  { // there and back, three times over
+    name: 'stovner-travel', save: gateOpen,
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        const saved = () => JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        const keep = JSON.stringify([g.q, g.flags]);
+        for (let lap = 1; lap <= 3; lap++) {
+          await T.step('left');
+          await T.until(() => g.player.map === 'stovner', 'Stovner');
+          if (lap === 1) { await T.frames(20); T.shot('arriving'); }
+          await T.frames(60);
+          T.check('lap ' + lap + ': arrives inside the east gate, facing in', g.player.x === 24 && g.player.y === 9 && g.player.dir === 'left' && g.mode === 'world', g.player.x + ',' + g.player.y);
+          T.check('lap ' + lap + ': autosaved in Stovner', saved().player.map === 'stovner' && saved().player.x === 24 && saved().player.y === 9);
+          T.check('lap ' + lap + ': Chapter 2, not finished', g.chapter === 1 && g.storyDone === false);
+          if (lap === 1) { T.shot('stovner'); T.state('arrived'); }
+          await T.frames(120);
+          T.check('lap ' + lap + ': stays put', g.player.map === 'stovner' && g.player.x === 24);
+          await T.step('right');
+          await T.until(() => g.player.map === 'village', 'the village');
+          await T.frames(60);
+          T.check('lap ' + lap + ': back inside the west gate, facing in', g.player.x === 1 && g.player.y === 7 && g.player.dir === 'right' && g.mode === 'world', g.player.x + ',' + g.player.y);
+          T.check('lap ' + lap + ': autosaved in the village', saved().player.map === 'village' && saved().player.x === 1);
+          if (lap === 1) T.shot('back');
+          await T.frames(120);
+          T.check('lap ' + lap + ': stays put', g.player.map === 'village' && g.player.x === 1);
+        }
+        T.check('quests and flags untouched', JSON.stringify([g.q, g.flags]) === keep);
+        T.check('six steps, no battles', g.stats.steps === 2906 && g.stats.won === 52, g.stats.steps);
+        T.state('home');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE returns to the village gate', g.player.map === 'village' && g.player.x === 1 && g.player.y === 7);
+        T.state('continued');
+      },
+    ],
+  },
+  { // every road in the town, and each of its closed ways
+    name: 'stovner-hub-tour', save: inHub,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.shot('east-gate');
+      await T.step('up');
+      await T.talk('east-sign');
+      await T.step('left', 10); await T.step('up', 2); await T.step('left', 3);
+      T.check('round the fountain', g.player.x === 11 && g.player.y === 7, g.player.x + ',' + g.player.y);
+      T.shot('plaza');
+      await T.step('down', 2); await T.step('left', 10);
+      T.shot('west-gate');
+      await T.talk('west-gate');
+      await T.step('left');
+      T.check('the west gate is shut', g.player.x === 1 && g.player.y === 9 && g.player.map === 'stovner', g.player.x);
+      await T.step('right', 2); await T.step('down', 6); await T.step('right', 9); await T.step('down');
+      T.check('the tunnel is barred', g.player.x === 12 && g.player.y === 15 && g.player.dir === 'down', g.player.x + ',' + g.player.y);
+      T.shot('tunnel');
+      await T.talk('tunnel');
+      await T.step('right'); await T.step('down');
+      T.check('both sides of it', g.player.x === 13 && g.player.y === 15, g.player.x + ',' + g.player.y);
+      await T.talk('tunnel-right');
+      await T.step('left'); await T.step('up', 5); await T.step('up');
+      T.check('the fountain is in the way', g.player.x === 12 && g.player.y === 10, g.player.x + ',' + g.player.y);
+      await T.step('left'); await T.step('up', 3); await T.step('right'); await T.step('up', 6); await T.step('left');
+      T.check('at the north road', g.player.x === 12 && g.player.y === 1 && g.player.dir === 'left', g.player.x + ',' + g.player.y);
+      T.shot('north-road');
+      await T.talk('north-sign');
+      T.check('no battles, no gifts, same chapter', g.stats.won === 52 && g.player.gold === 260 && g.chapter === 1 && Object.keys(g.flags).length === 7, Object.keys(g.flags).join());
+      await T.step('up');
+      await T.until(() => g.player.map === 'stovnerOuter', 'Outer Stovner');
+      await T.frames(60);
+      T.check('out onto the avenue', g.player.x === 14 && g.player.y === 18 && g.player.dir === 'up' && g.mode === 'world', g.player.x + ',' + g.player.y);
+      T.shot('outer');
+      T.state('outer');
+    },
+  },
+  { // both loops of the outer land, the barricade, and home again
+    name: 'stovner-outer-tour', save: inOuter,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('right', 2);
+      await T.talk('south-sign');
+      await T.step('left'); await T.step('up', 15); await T.step('up');
+      T.check('stopped by the barricade', g.player.x === 14 && g.player.y === 3 && g.player.dir === 'up', g.player.x + ',' + g.player.y);
+      T.shot('barricade');
+      await T.talk('barricade');
+      await T.step('right'); await T.step('up');
+      T.check('on both sides', g.player.x === 15 && g.player.y === 3, g.player.x + ',' + g.player.y);
+      await T.talk('barricade-right');
+      await T.step('left'); await T.step('down', 4); await T.step('right', 8); await T.step('down', 3); await T.step('right'); await T.step('up');
+      T.check('at the cart', g.player.x === 23 && g.player.y === 10 && g.player.dir === 'up', g.player.x + ',' + g.player.y);
+      T.shot('cart');
+      await T.talk('cart');
+      await T.step('left', 3); await T.step('down', 2); await T.step('left', 13);
+      T.check('by the lake', g.player.x === 7 && g.player.y === 12, g.player.x + ',' + g.player.y);
+      T.shot('lake');
+      await T.step('left', 3);
+      T.check('the lake is not walkable', g.player.x === 5 && g.player.y === 12, g.player.x);
+      await T.step('right', 2); await T.step('down', 3); await T.step('right', 3); await T.step('down', 2); await T.step('right', 4);
+      T.check('no battles on the way', g.stats.won === 52 && g.mode === 'world' && g.chapter === 1 && g.storyDone === false);
+      await T.step('down', 2);
+      await T.until(() => g.player.map === 'stovner', 'Stovner');
+      await T.frames(60);
+      T.check('back in town at the north road', g.player.x === 12 && g.player.y === 1 && g.player.dir === 'down' && g.mode === 'world', g.player.x + ',' + g.player.y);
+      T.shot('town');
+      T.state('town');
+    },
+  },
+  { // the other tile of each two-wide road leads to the matching tile
+    name: 'stovner-wide-roads', save: moved(gateOpen, 'stovner', 13, 1, 'up'),
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('up');
+      await T.until(() => g.player.map === 'stovnerOuter', 'Outer Stovner');
+      await T.frames(60);
+      T.check('right lane out', g.player.x === 15 && g.player.y === 18 && g.player.dir === 'up', g.player.x + ',' + g.player.y);
+      await T.frames(120);
+      T.check('no bouncing back', g.player.map === 'stovnerOuter' && g.player.y === 18);
+      await T.step('down');
+      await T.until(() => g.player.map === 'stovner', 'Stovner');
+      await T.frames(60);
+      T.check('right lane home', g.player.x === 13 && g.player.y === 1 && g.player.dir === 'down', g.player.x + ',' + g.player.y);
+      await T.frames(120);
+      T.check('no bouncing back either', g.player.map === 'stovner' && g.player.y === 1);
+    },
+  },
+  { // save by hand in the town and in the outer land, reopen each time, then walk home and do it again
+    name: 'stovner-save',
+    save: (() => { const d = JSON.parse(JSON.stringify(withHero(gateOpen, 'alexandra'))); d.q.kebab1 = { s: 1, found: 2 }; return d; })(),
+    run: [
+      async (T, g) => {
+        localStorage.setItem('regress-original', localStorage.getItem('turnip-vale-save-v1'));
+        await T.continueGame();
+        await T.step('left');
+        await T.until(() => g.player.map === 'stovner', 'Stovner');
+        await T.frames(60);
+        await T.step('left', 3);
+        T.check('walking alone does not save', JSON.parse(localStorage.getItem('turnip-vale-save-v1')).player.x === 24);
+        await T.tap('KeyX', 6); await T.tap('Space', 6);
+        T.shot('saved');
+        T.check('SAVED! in Stovner', g.menuNote && g.menuNote.text === 'SAVED!', JSON.stringify(g.menuNote));
+        await T.tap('KeyX', 6);
+        T.state('saved-town');
+      },
+      async (T, g) => {
+        await T.frames(30);
+        T.shot('title');
+        await T.continueGame();
+        T.check('CONTINUE in the town', g.player.map === 'stovner' && g.player.x === 21 && g.player.y === 9 && g.player.dir === 'left' && g.player.hero === 'alexandra', g.player.map + ' ' + g.player.x);
+        T.shot('continued-town');
+        T.state('continued-town');
+        await T.menuShot('status');
+        await T.step('left', 5); await T.step('up', 2); await T.step('left', 3); await T.step('up', 7);
+        await T.until(() => g.player.map === 'stovnerOuter', 'Outer Stovner');
+        await T.frames(60);
+        const auto = JSON.parse(localStorage.getItem('turnip-vale-save-v1')).player;
+        T.check('autosaved on entering', auto.map === 'stovnerOuter' && auto.x === 15 && auto.y === 18, auto.map);
+        await T.step('up', 3);
+        T.check('walking alone does not save', JSON.parse(localStorage.getItem('turnip-vale-save-v1')).player.y === 18);
+        await T.tap('KeyX', 6); await T.tap('Space', 6);
+        T.check('SAVED! in Outer Stovner', g.menuNote && g.menuNote.text === 'SAVED!', JSON.stringify(g.menuNote));
+        await T.tap('KeyX', 6);
+        T.state('saved-outer');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE in the outer land', g.player.map === 'stovnerOuter' && g.player.x === 15 && g.player.y === 15 && g.player.dir === 'up', g.player.map + ' ' + g.player.y);
+        T.shot('continued-outer');
+        T.state('continued-outer');
+        await T.step('down', 4);
+        await T.until(() => g.player.map === 'stovner', 'Stovner');
+        await T.frames(60);
+        await T.step('down', 6); await T.step('right', 3); await T.step('down', 2); await T.step('right', 9);
+        await T.until(() => g.player.map === 'village', 'the village');
+        await T.frames(60);
+        await T.step('right', 2);
+        await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+        T.state('saved-home');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE back in the village', g.player.map === 'village' && g.player.x === 3 && g.player.y === 7 && g.player.dir === 'right', g.player.map + ' ' + g.player.x);
+        const a = JSON.parse(localStorage.getItem('regress-original')), b = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        const where = ['map', 'x', 'y', 'fx', 'fy', 'tx', 'ty', 'dir'];
+        const rest = (p) => JSON.stringify(Object.keys(p).filter((k) => !where.includes(k)).sort().map((k) => [k, p[k]]));
+        T.check('hero, level, gold, gear and items as they were', rest(a.player) === rest(b.player), rest(b.player));
+        T.check('quests as they were, the unknown one too', JSON.stringify(a.q) === JSON.stringify(b.q) && JSON.stringify(b.q.kebab1) === '{"s":1,"found":2}');
+        T.check('fragment, key and gate as they were', JSON.stringify(a.flags) === JSON.stringify(b.flags) && b.flags.fragment1 && b.flags.redKey && b.flags.redGate);
+        T.check('only the step count moved', b.stats.won === a.stats.won && b.stats.slimes === a.stats.slimes && b.stats.steps === a.stats.steps + 50, b.stats.steps - a.stats.steps);
+        T.check('same save format', Object.keys(b).sort().join() === 'flags,player,q,stats,tracked,v' && b.v === 1);
+        T.state('continued-home');
+        await T.menuShot('status-home');
+      },
+    ],
+  },
+  { // the on-screen buttons: walk, save, reopen, walk home
+    name: 'stovner-save-touch', save: inHub,
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.touch('left', 14); await T.touch('left', 14);
+        T.check('two steps with the D-pad', g.player.x === 22 && g.player.y === 9, g.player.x);
+        await T.touch('b'); await T.touch('a');
+        T.check('A saves', g.menuNote && g.menuNote.text === 'SAVED!' && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).player.x === 22);
+        T.shot('saved');
+        await T.touch('b');
+        T.check('B closes the menu', g.mode === 'world', g.mode);
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE in Stovner', g.player.map === 'stovner' && g.player.x === 22 && g.player.y === 9, g.player.map + ' ' + g.player.x);
+        await T.touch('up', 14);
+        T.check('the sign is solid', g.player.x === 22 && g.player.y === 8, g.player.y);
+        await T.touch('down', 14);
+        await T.touch('right', 14); await T.touch('right', 14); await T.touch('right', 14);
+        await T.until(() => g.player.map === 'village', 'the village');
+        await T.frames(60);
+        T.check('home through the gate by D-pad', g.player.x === 1 && g.player.y === 7 && g.player.dir === 'right' && g.mode === 'world', g.player.x);
+        T.state('home');
+      },
+    ],
+  },
+  { // a finished save from before the chapters: collect the key, unlock the gate, walk through
+    name: 'stovner-from-old-finished-save', save: atElder(FIX.finished),
+    run: [
+      async (T, g) => {
+        const before = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        await T.continueGame();
+        await T.talk();
+        await T.until(() => g.mode === 'victory', 'chapter screen');
+        await T.frames(120);
+        await T.tap('Space');
+        await T.until(() => g.mode === 'world', 'world');
+        await T.frames(40);
+        await T.step('left', 7);
+        await T.talk();
+        T.check('gate unlocked', g.flags.redGate === true);
+        await T.step('left');
+        await T.until(() => g.player.map === 'stovner', 'Stovner');
+        await T.frames(60);
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('in Stovner, saved there', d.player.map === 'stovner' && d.player.x === 24 && d.player.y === 9);
+        T.check('nothing lost on the way', JSON.stringify([d.q, d.stats.won, d.player.gold, d.player.lvl, d.player.weapon, d.player.armor])
+          === JSON.stringify([before.q, before.stats.won, before.player.gold, before.player.lvl, before.player.weapon, before.player.armor]));
+        T.state('arrived');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE in Stovner', g.player.map === 'stovner' && g.player.x === 24 && g.chapter === 1);
+        T.shot('continued');
+      },
+    ],
+  },
+  { // the maps themselves: what can be walked, where the edges are, and where every exit leads
+    name: 'stovner-map-audit', save: gateOpen,
+    run: async (T, g) => {
+      await T.continueGame();
+      const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+      const tile = (m, x, y, open) => { const gate = m.gates && m.gates[x + ',' + y]; return gate ? (open ? gate.open : gate.closed) : m.rows[y][x]; };
+      const walk = (m, x, y, open) => x >= 0 && y >= 0 && x < m.w && y < m.h && !g.SOLID.has(tile(m, x, y, open));
+      const reach = (name, sx, sy, open) => {
+        const m = g.MAPS[name], seen = new Set([sx + ',' + sy]), todo = [[sx, sy]];
+        while (todo.length) {
+          const [x, y] = todo.pop();
+          if (m.exits[x + ',' + y]) continue; // stepping here leaves the map
+          for (const [dx, dy] of Object.values(DIRS)) {
+            const k = (x + dx) + ',' + (y + dy);
+            if (!seen.has(k) && walk(m, x + dx, y + dy, open)) { seen.add(k); todo.push([x + dx, y + dy]); }
+          }
+        }
+        return seen;
+      };
+      T.check('gate shut: its tile cannot be reached', !reach('village', 8, 7, false).has('0,7'));
+      T.check('gate open: it can', reach('village', 8, 7, true).has('0,7'));
+      const starts = { village: [8, 7], forest: [1, 7], cave: [1, 7], stovner: [24, 9], stovnerOuter: [14, 18] };
+      T.check('five maps', Object.keys(g.MAPS).sort().join() === Object.keys(starts).sort().join(), Object.keys(g.MAPS).join());
+      for (const [name, [sx, sy]] of Object.entries(starts)) {
+        const m = g.MAPS[name], seen = reach(name, sx, sy, true);
+        const edge = [...seen].filter((k) => { const [x, y] = k.split(',').map(Number); return x === 0 || y === 0 || x === m.w - 1 || y === m.h - 1; });
+        T.check(name + ': every reachable edge tile is an exit', edge.every((k) => m.exits[k]), edge.join(' '));
+        T.check(name + ': every row is as wide as the map', m.rows.every((r) => r.length === m.w));
+        for (const [k, e] of Object.entries(m.exits)) {
+          const to = g.MAPS[e.map], [dx, dy] = DIRS[e.dir];
+          T.check(name + ' ' + k + ': arrives on open ground', !!to && walk(to, e.x, e.y, true), e.map);
+          T.check(name + ' ' + k + ': not onto another exit', !!to && !to.exits[e.x + ',' + e.y]);
+          const back = to && to.exits[(e.x - dx) + ',' + (e.y - dy)];
+          T.check(name + ' ' + k + ': the exit behind leads back', !!back && back.map === name, JSON.stringify(back));
+          T.check(name + ' ' + k + ': and back to the tile in front of this one', !!back && Math.abs(back.x - Number(k.split(',')[0])) + Math.abs(back.y - Number(k.split(',')[1])) === 1);
+        }
+      }
+      const unreached = (name, sx, sy) => {
+        const m = g.MAPS[name], seen = reach(name, sx, sy, true), out = [];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (walk(m, x, y, true) && !seen.has(x + ',' + y)) out.push(x + ',' + y);
+        return out.join(' ');
+      };
+      T.check('town: all open ground can be reached', unreached('stovner', 24, 9) === '', unreached('stovner', 24, 9));
+      T.check('outer land: only the road behind the barricade cannot', unreached('stovnerOuter', 14, 18) === '14,0 15,0 14,1 15,1', unreached('stovnerOuter', 14, 18));
+      const at = (name, x, y) => g.MAPS[name].rows[y][x];
+      T.check('west gate, tunnel and barricade are solid', ['G', 'Q', 'J'].every((c) => g.SOLID.has(c))
+        && at('stovner', 0, 9) === 'G' && at('stovner', 12, 16) === 'Q' && at('stovner', 13, 16) === 'Q'
+        && at('stovnerOuter', 14, 2) === 'J' && at('stovnerOuter', 15, 2) === 'J');
+      T.check('no battles in Stovner', g.MAPS.stovner.encounter === null && g.MAPS.stovnerOuter.encounter === null);
+      T.check('nobody lives there yet', g.NPCS.every((n) => !/^stovner/.test(n.map)));
+      T.check('Stovner still has no boss quest', g.CHAPTERS.length === 2 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === null && g.QUEST_ORDER.length === 5, g.QUEST_ORDER.join());
     },
   },
 ];
@@ -1386,6 +1725,7 @@ export const SCENARIOS = [
   ...questSaveScenarios,
   ...chapterScenarios,
   ...gateScenarios,
+  ...stovnerScenarios,
   ...manualSaveScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,

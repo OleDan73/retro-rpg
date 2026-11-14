@@ -415,6 +415,46 @@
     circle(g, 11.5, 5.5, 4.6, 0); circle(g, 11.5, 5.5, 3.6, 4); circle(g, 11.5, 5.5, 2.4, 12); circle(g, 11.5, 5.5, 1, 0);
     R(g, 11, 2, 1, 7, 4); R(g, 8, 5, 7, 1, 4);
   });
+  TILE['q'] = mk(16, 16, (g) => { // tunnel mouth, open
+    g.drawImage(TILE['#'], 0, 0);
+    R(g, 2, 3, 12, 13, 0); R(g, 3, 2, 10, 1, 0); R(g, 4, 1, 8, 1, 0);
+    R(g, 3, 4, 10, 12, 1); R(g, 4, 3, 8, 1, 1);
+    R(g, 4, 8, 8, 8, 0);
+    R(g, 4, 12, 8, 1, 3); R(g, 5, 14, 6, 1, 3); // steps going down
+  });
+  // ---- the tunnel under Stovner: dark brick, paved floor
+  TILE['t'] = mk(16, 16, (g) => { // tunnel floor
+    R(g, 0, 0, 16, 16, 1);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) if (hash(x + 71, y + 29) < 0.05) P(g, x, y, 3);
+    R(g, 0, 7, 16, 1, 0); R(g, 0, 15, 16, 1, 0);
+    R(g, 5, 0, 1, 7, 0); R(g, 13, 8, 1, 7, 0);
+  });
+  TILE['w'] = mk(16, 16, (g) => { // tunnel wall
+    R(g, 0, 0, 16, 16, 3);
+    for (let r = 0; r < 4; r++) {
+      const y = r * 4;
+      R(g, 0, y + 3, 16, 1, 0);
+      for (let x = (r % 2) * 4; x < 16; x += 8) R(g, x, y, 1, 3, 0);
+      for (let x = (r % 2) * 4 + 1; x < 16; x += 8) R(g, x, y, 3, 1, 7);
+    }
+  });
+  TILE['e'] = mk(16, 16, (g) => { // steps up to the town
+    R(g, 0, 0, 16, 16, 0);
+    for (let i = 0; i < 4; i++) { R(g, 1 + i, 12 - i * 4, 14 - i * 2, 3, 7); R(g, 1 + i, 12 - i * 4, 14 - i * 2, 1, 10); }
+  });
+  TILE['Y'] = mk(16, 16, (g) => { // a slate wall covered in chalk
+    g.drawImage(TILE['w'], 0, 0);
+    R(g, 1, 2, 14, 11, 4); R(g, 2, 3, 12, 9, 0);
+    for (const [x, y, w] of [[3, 4, 5], [9, 4, 3], [3, 6, 8], [3, 8, 4], [8, 8, 3]]) R(g, x, y, w, 1, 15);
+    R(g, 3, 10, 6, 1, 14);
+    R(g, 10, 13, 3, 1, 15);
+  });
+  TILE['z'] = mk(16, 16, (g) => { // a cave-in
+    g.drawImage(TILE['t'], 0, 0);
+    for (const [x, y, w, h] of [[0, 9, 7, 7], [6, 6, 8, 10], [10, 2, 6, 14], [2, 3, 6, 6], [0, 0, 5, 4]]) {
+      R(g, x, y, w, h, 0); R(g, x + 1, y + 1, w - 2, h - 2, 7); R(g, x + 1, y + 1, w - 2, 1, 10); R(g, x + w - 2, y + 2, 1, h - 3, 3);
+    }
+  });
   // The fountain is one 32x32 picture cut into four tiles: '1' '2' above '3' '4'.
   const fountain = mk(32, 32, (g) => {
     for (const [x, y] of [[0, 0], [16, 0], [0, 16], [16, 16]]) g.drawImage(TILE['p'], x, y);
@@ -436,7 +476,7 @@
     TILE[ch] = mk(16, 16, (g) => g.drawImage(fountain, -x, -y));
   });
   const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x', 'K',
-    'G', 'A', 'B', 'd', 'h', 'l', 'n', 'M', 'J', 'Q', 'W', '1', '2', '3', '4']);
+    'G', 'A', 'B', 'd', 'h', 'l', 'n', 'M', 'J', 'Q', 'W', '1', '2', '3', '4', 'w', 'Y', 'z']);
 
   // ---------------------------------------------------------------- characters
   function personSprite(o, dir, frame) {
@@ -603,6 +643,34 @@
       if (f) { R(g, 4, 13, 3, 1, 4); R(g, 9, 13, 3, 1, 4); } else { R(g, 5, 13, 2, 1, 4); R(g, 9, 13, 2, 1, 4); }
     }))),
   };
+  // ---- Stovner's people
+  SPR.johanne = buildChar({ hair: 4, shirt: 11, shirt2: 5, skirt: 11, hem: 5, longHair: true, bow: 14 });
+  SPR.basil = buildChar({ hair: 0, shirt: 15, shirt2: 10, pants: 3, beard: 0, apron: 6, belt: 0 });
+  SPR.dot = buildChar({ hair: 10, shirt: 17, shirt2: 1, skirt: 17, hem: 1 });
+  SPR.gus = buildChar({ hair: 7, shirt: 2, shirt2: 0, pants: 3, beard: 7 });
+  // LÆRER HEIDI: a broad stone golem with a bun, spectacles and a pointer.
+  function heidiSprite(f) {
+    return outlined(mk(16, 16, (g) => { // the top rows stay empty: in battle they would sit behind the name box
+      const o = f ? 1 : 0;
+      R(g, 2, 8, 12, 6, 7); R(g, 2, 8, 12, 1, 10); R(g, 13, 9, 1, 5, 3);
+      R(g, 4, 3, 8, 5, 7); R(g, 4, 3, 8, 1, 10); R(g, 11, 4, 1, 4, 3);
+      R(g, 6, 2, 4, 1, 3);
+      R(g, 5, 5, 2, 2, 15); R(g, 9, 5, 2, 2, 15); R(g, 7, 5, 2, 1, 15); P(g, 6, 6, 2); P(g, 10, 6, 2);
+      R(g, 7, 7, 2, 1, 1);
+      R(g, 0, 9 + o, 2, 5, 7); R(g, 0, 9 + o, 2, 1, 10); R(g, 0, 13 + o, 2, 1, 3);
+      R(g, 14, 7 + o, 2, 6, 7); R(g, 14, 7 + o, 2, 1, 10);
+      R(g, 15, 2 + o, 1, 5, 12); P(g, 15, 2 + o, 15);
+      R(g, 3, 14, 4, 2, 3); R(g, 9, 14, 4, 2, 3);
+      R(g, 2, 10, 12, 2, 3); for (const x of [3, 6, 9, 12]) P(g, x, 10, 10);
+      P(g, 8, 9, 6);
+    }));
+  }
+  SPR.heidi = buildStatic(heidiSprite(0), heidiSprite(1));
+  ENEMY_SPR.heidi = [0, 1].map(heidiSprite);
+  const KEBAB_SPR = outlined(mk(16, 16, (g) => {
+    R(g, 5, 7, 6, 7, 15); R(g, 5, 7, 1, 7, 10); R(g, 6, 13, 4, 1, 10);
+    R(g, 5, 4, 6, 3, 4); P(g, 6, 4, 11); P(g, 9, 5, 6); P(g, 7, 5, 15); P(g, 10, 4, 11);
+  }));
   // ---- Stovner's monsters
   ENEMY_SPR.blue = [0, 1].map((f) => slimeSprite(f, 8, 2));
   // The glint slime is a blue slime with pale eyes and slivers of something bright growing out of its back.
@@ -661,6 +729,7 @@
   //   defeated   line shown when the boss is beaten
   //   quest      quest that becomes ready to turn in when the boss is beaten
   //   aftermath  closing line of the battle
+  //   named      the name is a person's: no "The" in front of it when the fight begins
   // An ordinary enemy may set:
   //   armored    its defence only counts against weapons that are not `heavy`
   //   quick      it strikes once before the hero's first move, unless the hero's armour is `nimble`
@@ -732,6 +801,32 @@
   //   nimble   `quick` enemies do not get their opening strike against this armour
   //   swing    battle line for an attack (default: 'You swing your sword!')
   //   desc     shown in the menu; at most three lines of 16 letters
+  // (defined after the table so that the table above stays in story order)
+  ENEMIES.heidi = {
+    name: 'LÆRER HEIDI', hp: 100, atk: 20, def: 14, xp: 70, gold: [60, 60], intro: 'stomps forward!', armored: true,
+    boss: {
+      flash: 10,
+      named: true,
+      // Two stone strikes, then a warning, then the pop quiz: a blow twice as hard.
+      async turn(b) {
+        if (b.quiz) { // (not b.charged: that swells the sprite, and she is tall enough already)
+          b.quiz = false;
+          await msg('POP QUIZ!!', 100);
+          await enemyHit(2);
+        } else if (b.turn % 4 === 3) {
+          b.quiz = true;
+          SFX.charge();
+          await msg('LÆRER HEIDI raps her pointer. "PAY ATTENTION!"', 900);
+        } else {
+          await msg(`${b.name} swings a stone fist!`, 100);
+          await enemyHit(1);
+        }
+      },
+      defeated: 'LÆRER HEIDI sits down with a crunch. "Class... dismissed."',
+      quest: 'under',
+      aftermath: 'The tunnel falls quiet. Tell JOHANNE!',
+    },
+  };
   const WEAPONS = {
     none: { name: 'STICK', atk: 0, desc: 'Better than nothing.' },
     iron: { name: 'IRON SWORD', atk: 3, desc: 'Sturdy and sharp. Good against anything.' },
@@ -762,6 +857,7 @@
   //                chimneySmoke  {}: smoke rises from chimney tiles; forge: 'x,y' marks the smithy's chimney
   //                butterflies   list of [x, y, colour, phase] anchor points in pixels
   //   lighting   dimEdges: 0..1 darkens the edges of the screen by that much
+  // A sign is a list of lines, or a function that shows whatever fits the moment.
   const ENCOUNTER_DEFAULTS = { minSteps: 3, chance: 0.13, scaleFrom: 1 };
   const MAPS = {
     village: {
@@ -862,7 +958,7 @@
       lighting: { dimEdges: 0.35 },
     },
     // ---- Chapter 2: Stovner. A safe town with roads out in every direction, and the open land north of it.
-    // Still closed: the tunnel under the town (south), the west gate, and the road north past the barricade.
+    // Still closed: the west gate, the road north past the barricade, and the caved-in end of the tunnel.
     stovner: {
       name: 'STOVNER',
       rows: [
@@ -889,13 +985,13 @@
         '25,9': { map: 'village', x: 1, y: 7, dir: 'right' },
         '12,0': { map: 'stovnerOuter', x: 14, y: 18, dir: 'up' },
         '13,0': { map: 'stovnerOuter', x: 15, y: 18, dir: 'up' },
+        '12,16': { map: 'tunnel', x: 9, y: 1, dir: 'down' }, // the tunnel mouths; barred until JOHANNE has them opened
+        '13,16': { map: 'tunnel', x: 10, y: 1, dir: 'down' },
       },
       signs: {
         '24,8': ['EAST: TURNIP VALE.'],
         '11,1': ['NORTH: OUTER STOVNER.'],
         '0,9': ['The west gate is shut tight.'],
-        '12,16': ['A tunnel leads down under the town. Iron bars block the way in.'],
-        '13,16': ['A tunnel leads down under the town. Iron bars block the way in.'],
       },
       encounter: null,
     },
@@ -929,9 +1025,9 @@
       },
       signs: {
         '16,18': ['SOUTH: STOVNER.'],
-        '14,2': ['A barricade blocks the road north.'],
-        '15,2': ['A barricade blocks the road north.'],
-        '23,9': ['An overturned cart, left where it fell.'],
+        '14,2': () => barricadeSign(),
+        '15,2': () => barricadeSign(),
+        '23,9': () => cartSign(),
       },
       // The avenue, the west loop, the lake shore, the south entrance and the far north-east are safe.
       encounter: {
@@ -948,6 +1044,60 @@
       ambient: { ripples: true, butterflies: [[150, 136, 15, 1.3], [420, 232, 14, 0.4]] },
     },
   };
+  // The tunnel under Stovner: steps down from the town, a ring of passage, and one room at the far end.
+  MAPS.tunnel = {
+    name: 'STOVNER TUNNEL',
+    rows: [
+      'wwwwwwwwweewwwwwwwww',
+      'wwwwwwwwttttwwwwwwww',
+      'wwwwwwwwttttwwwwwwww',
+      'wwwttttttttttttttwww',
+      'wwwtwwwwwwwwwwwwtwww',
+      'wwwtwwwwwwwwwwwwtwww',
+      'wwwtwwwwwwwwwwwwtwww',
+      'wwwttttttttttttttwww',
+      'wwwwwwwwwttwwwwwwwww',
+      'wwwwwwwwwtwYwwwwwwww',
+      'wwwwwwkttttttwwwwwww',
+      'wwwwwwtttttttzwwwwww',
+      'wwwwwwttttttkwwwwwww',
+      'wwwwwwwwwwwwwwwwwwww',
+    ],
+    exits: {
+      '9,0': { map: 'stovner', x: 12, y: 15, dir: 'up' },
+      '10,0': { map: 'stovner', x: 13, y: 15, dir: 'up' },
+    },
+    signs: {
+      '11,9': ['A slate wall covered in chalk. Sums, spelling, and a long list of names.', 'One name is underlined twice: MOHSIN.'],
+      '13,11': ['The tunnel has caved in here. Cold air drifts through the cracks.'],
+    },
+    // The middle of the tunnel is safe: the steps, the way to the far room, and the room itself.
+    encounter: {
+      chance: 0.1, minSteps: 4, scaleFrom: 9,
+      zones: [
+        { at: [3, 3, 7, 7], table: [['golem', 0.5], ['rat', 0.3], ['blue', 0.2]] }, // the west passage
+        { at: [12, 3, 16, 7], table: [['golem', 0.5], ['rat', 0.3], ['blue', 0.2]] }, // the east passage
+      ],
+    },
+    backdrop: 'cave',
+    lighting: { dimEdges: 0.45 },
+  };
+  // What the cart and the barricade have to say depends on JOHANNE's quests.
+  function cartSign() {
+    if (q.cart.s === 1) {
+      say('', [
+        'The cart was not tipped by the wind. Something heavy rammed it.',
+        'Deep marks in the road. Chips of broken stone. A pale glitter in the dust.',
+        'The trail runs south, toward the old tunnel under the town. Tell JOHANNE!',
+      ], () => { markReady('cart'); saveGame(); });
+    } else if (q.cart.s >= 2) say('', ['The overturned cart. Deep marks lead away from it, toward the town.']);
+    else say('', ['An overturned cart, left where it fell.']);
+  }
+  function barricadeSign() {
+    say('', q.under.s === 3
+      ? ['A barricade blocks the road north. MOHSIN went this way. It will have to be opened somehow.']
+      : ['A barricade blocks the road north.']);
+  }
   for (const m of Object.values(MAPS)) { m.h = m.rows.length; m.w = m.rows[0].length; }
 
   // Things lying in the world, taken once by walking onto them; the id is the saved flag that records it.
@@ -955,6 +1105,8 @@
   const ITEMS = [
     { id: 'shard1', map: 'cave', x: 17, y: 3 },
     { id: 'shard2', map: 'cave', x: 3, y: 12 },
+    // (a `quest` item lies there only while that quest is active; finding it makes the quest ready to turn in)
+    { id: 'kebab', map: 'stovnerOuter', x: 6, y: 10, quest: 'kebab', found: ['A kebab, lying in the grass. There are tiny tooth marks in the foil.', 'Still warm. Best not to ask. Take it back to BASIL!'] },
     { id: 'chestAxe', map: 'stovnerOuter', x: 27, y: 1, chest: true, weapon: 'axe' },
     { id: 'chestVest', map: 'stovnerOuter', x: 9, y: 1, chest: true, armor: 'light' }, // clear of the status panel
   ];
@@ -985,6 +1137,14 @@
       opened: ['The RED KEY turns in the lock. The gate to STOVNER is unlocked!'],
       sfx: 'pickup',
     },
+    // The tunnel mouths in Stovner. Nobody opens these by hand: JOHANNE has the bars taken off
+    // (the tunnelOpen flag) when she sends the hero down.
+    ...[12, 13].map((x) => ({
+      map: 'stovner', x, y: 16, closed: 'Q', open: 'q', flag: 'tunnelOpen',
+      needs: () => false,
+      locked: ['A tunnel leads down under the town. Iron bars block the way in.'],
+      opened: [],
+    })),
   ];
   for (const gate of GATES) (MAPS[gate.map].gates ||= {})[`${gate.x},${gate.y}`] = gate;
   const gateAt = (m, x, y) => m.gates?.[`${x},${y}`];
@@ -1016,6 +1176,14 @@
       title: 'CRYSTAL EDGE', turnIn: 'BRAM',
       tracker: () => `SHARDS ${player.shards}/2`, progress: () => `${player.shards}/2 SHARDS`,
     },
+    // ---- Stovner. JOHANNE's three follow one another; the kebab is BASIL's and stands apart.
+    road: {
+      title: 'ROAD TROUBLE', turnIn: 'JOHANNE', state: { n: 0 },
+      tracker: () => `ROADS ${q.road.n}/3`, progress: () => `${q.road.n}/3 MONSTERS`,
+    },
+    cart: { title: 'OVERTURNED CART', turnIn: 'JOHANNE', tracker: () => 'CHECK THE CART', progress: () => 'ON THE EAST LOOP' },
+    under: { title: 'UNDER STOVNER', turnIn: 'JOHANNE', tracker: () => 'INTO THE TUNNEL', progress: () => 'SOUTH OF TOWN' },
+    kebab: { title: 'MISSING KEBAB', turnIn: 'BASIL', tracker: () => 'FIND THE KEBAB', progress: () => 'BY THE LAKE' },
   };
   const QUEST_ORDER = Object.keys(QUESTS);
   const QUESTS_PER_PAGE = 5; // how many fit on one page of the quest log
@@ -1327,10 +1495,165 @@
         ], () => { encounter = { t: 0, type: 'king' }; SFX.encounter(); });
       },
     },
+    // ---- Stovner
+    {
+      id: 'johanne', map: 'stovner', x: 16, y: 8, dir: 'down', home: 'down', spr: SPR.johanne,
+      // (a quest done but the next not started = a save made mid-conversation; offer the next one again)
+      news: () => q.road.s === 0 || q.road.s === 2 || (q.road.s === 3 && q.cart.s === 0) || q.cart.s === 2
+        || (q.cart.s === 3 && q.under.s === 0) || q.under.s === 2,
+      talk() {
+        const N = 'JOHANNE';
+        const cartIntro = () => say(N, [
+          'One more thing. A cart was found overturned on the east loop, and its owner will not say why.',
+          'Would you take a look at it? North road out of town, then east.',
+        ], () => accept('cart'));
+        const underIntro = () => say(N, [
+          'Something is under our town. The old tunnel has been barred for years.',
+          'I will have GUS take the bars off. Please go down and see what is there.',
+          'The tunnel is at the south end of town. Look after yourself!',
+        ], () => { flags.tunnelOpen = true; accept('under'); });
+        if (q.road.s === 0) {
+          say(N, [
+            'Oh, a traveller! Through the old gate, even. I am JOHANNE.',
+            'I look after things here in STOVNER. Lately that means monsters.',
+            'The roads north of town are crawling with them. Could you beat 3 of them for us?',
+            'Take the north road out of the square. And do be careful!',
+          ], () => accept('road'));
+        } else if (q.road.s === 1) {
+          say(N, [`You have beaten ${q.road.n} of 3. The north road leads out to them.`]);
+        } else if (q.road.s === 2) {
+          say(N, [
+            'Three already? The carters will be so relieved!',
+            'Here, for your trouble. (Got 60 gold!)',
+          ], () => {
+            player.gold += 60;
+            complete('road');
+            cartIntro();
+          });
+        } else if (q.cart.s === 0) {
+          cartIntro();
+        } else if (q.cart.s === 1) {
+          say(N, ['The cart lies by the east loop of the outer roads. Have a good look at it.']);
+        } else if (q.cart.s === 2) {
+          say(N, [
+            'Stone chips and glitter, leading to the tunnel? I do not like that at all.',
+            'Thank you for looking. (Got 40 gold!)',
+          ], () => {
+            player.gold += 40;
+            complete('cart');
+            underIntro();
+          });
+        } else if (q.under.s === 0) {
+          underIntro();
+        } else if (q.under.s === 1) {
+          say(N, ['GUS has opened the tunnel, at the south end of town. Mind your step down there.']);
+        } else if (q.under.s === 2) {
+          say(N, [
+            'A stone teacher, under our streets? And you beat her? Goodness.',
+            'The town can sleep again. You have earned this. (Got 100 gold! Herb pouch +1!)',
+            'She spoke of MOHSIN? I have heard that name. MOHSIN went north, past the barricade.',
+            'That road is still shut. Rest a while. I will find out how to open it.',
+          ], () => {
+            player.gold += 100;
+            player.maxHerbs += 1; player.herbs = player.maxHerbs;
+            player.hp = player.maxhp;
+            complete('under');
+          });
+        } else {
+          say(N, [pick([
+            'MOHSIN went north, past the barricade. I am still asking how to open that road.',
+            'The square is lively again, thanks to you.',
+            'BASIL has talked of nothing but kebab all day.',
+          ])]);
+        }
+      },
+    },
+    {
+      id: 'basil', map: 'stovner', x: 20, y: 10, dir: 'down', home: 'down', spr: SPR.basil,
+      news: () => q.kebab.s === 0 || q.kebab.s === 2,
+      talk() {
+        const N = 'BASIL';
+        if (q.kebab.s === 0) {
+          say(N, [
+            'DISASTER! My lunch! My beautiful kebab! GONE!',
+            'I put it down for ONE moment by the lake outside town, and now it is missing.',
+            'Find it for me? I cannot work. I cannot think. I can only mourn.',
+          ], () => accept('kebab'));
+        } else if (q.kebab.s === 1) {
+          say(N, ['The lake! West of the north road! Extra garlic sauce! Please hurry!']);
+        } else if (q.kebab.s === 2) {
+          say(N, [
+            'MY KEBAB! ...Something has nibbled it. I do not care. We are reunited.',
+            'Wait here. I made you a fresh one. Eat! (MAX HP +6!)',
+          ], () => {
+            player.maxhp += 6; player.hp = player.maxhp;
+            complete('kebab');
+          });
+        } else {
+          say(N, [pick([
+            'Best kebab in STOVNER. Only kebab in STOVNER.',
+            'One day this stall will open again. Today I rest.',
+            'Never put your lunch down near a lake.',
+          ])]);
+        }
+      },
+    },
+    {
+      id: 'dot', map: 'stovner', x: 7, y: 10, dir: 'down', home: 'down', spr: SPR.dot,
+      talk() {
+        say('DOT', [pick([
+          'That barricade went up on the north road, and nobody will say who built it.',
+          'I sit here every day. The fountain is better company than the monsters.',
+          'A cart tipped over on the east loop. Its owner ran all the way home.',
+          ...(q.under.s === 3 ? ['I slept the whole night through. First time in weeks.'] : []),
+        ])]);
+      },
+    },
+    {
+      id: 'gus', map: 'stovner', x: 10, y: 16, dir: 'up', home: 'up', spr: SPR.gus,
+      talk() {
+        const N = 'GUS';
+        if (q.under.s === 0) {
+          say(N, [pick([
+            'Nobody goes down the tunnel. I am GUS, and I make sure of it.',
+            'Some nights I hear scraping down there. Like chalk on a slate.',
+          ])]);
+        } else if (q.under.s === 1) {
+          say(N, ['JOHANNE says you may go down. The bars are off. Rather you than me.']);
+        } else {
+          say(N, ['A teacher made of stone? Well. That explains the scraping.']);
+        }
+      },
+    },
+    { // she blocks the way into the far room until she is beaten...
+      id: 'heidi', map: 'tunnel', x: 9, y: 10, dir: 'up', home: 'up', spr: SPR.heidi, anim: true,
+      visible: () => q.under.s <= 1,
+      talk() {
+        say('LÆRER HEIDI', [
+          'WHO is running in my corridor?!',
+          `Sit DOWN, little ${hero().name}. Today's lesson is GRAVEL.`,
+        ], () => { encounter = { t: 0, type: 'heidi' }; SFX.encounter(); });
+      },
+    },
+    { // ...and sits in the corner afterwards
+      id: 'heidi2', map: 'tunnel', x: 7, y: 11, dir: 'right', home: 'right', spr: SPR.heidi,
+      visible: () => q.under.s >= 2,
+      talk() {
+        say('LÆRER HEIDI', q.under.s === 2 ? [
+          'Hmph. Top marks. I did not expect that.',
+          'I only wanted a quiet classroom. Something up north keeps waking the stones.',
+          'You want to know what? Ask MOHSIN. North road. Now off you go.',
+        ] : [pick([
+          'No running in the corridor.',
+          'Ask MOHSIN. North road. I have marking to do.',
+        ])]);
+      },
+    },
   ];
   const npcVisible = (n) => !n.visible || n.visible();
   const npcAt = (map, x, y) => NPCS.find((n) => n.map === map && n.x === x && n.y === y && npcVisible(n));
-  const itemAt = (map, x, y) => ITEMS.find((i) => i.map === map && i.x === x && i.y === y && !flags[i.id]);
+  const itemThere = (i) => !flags[i.id] && (!i.quest || q[i.quest].s === 1);
+  const itemAt = (map, x, y) => ITEMS.find((i) => i.map === map && i.x === x && i.y === y && itemThere(i));
   function tileAt(m, x, y) {
     if (x < 0 || y < 0 || x >= m.w || y >= m.h) return '#';
     const gate = gateAt(m, x, y);
@@ -1338,6 +1661,24 @@
     return m.rows[y][x];
   }
   const canWalk = (x, y) => !SOLID.has(tileAt(MAPS[player.map], x, y)) && !npcAt(player.map, x, y);
+  // A save can hold a spot that somebody or something now stands on. If so, the hero wakes on the
+  // nearest free tile that can be walked to from one of the map's ways in. Otherwise nothing changes.
+  function settle() {
+    const m = MAPS[player.map];
+    if (!m || canWalk(player.x, player.y)) return;
+    const seen = new Set(), todo = [];
+    const visit = (x, y) => { const k = `${x},${y}`; if (!seen.has(k) && canWalk(x, y)) { seen.add(k); todo.push([x, y]); } };
+    for (const from of Object.values(MAPS)) for (const e of Object.values(from.exits)) if (MAPS[e.map] === m) visit(e.x, e.y);
+    let best = null;
+    while (todo.length) {
+      const [x, y] = todo.shift();
+      if (m.exits[`${x},${y}`]) continue;
+      const d = Math.abs(x - player.x) + Math.abs(y - player.y);
+      if (!best || d < best.d || (d === best.d && (y < best.y || (y === best.y && x < best.x)))) best = { x, y, d };
+      for (const [dx, dy] of Object.values(DIRS)) visit(x + dx, y + dy);
+    }
+    if (best) Object.assign(player, { x: best.x, y: best.y, fx: best.x, fy: best.y, tx: best.x, ty: best.y, moving: false, t: 0 });
+  }
 
   // ---------------------------------------------------------------- save / load
   function saveGame() {
@@ -1370,6 +1711,7 @@
     flags = d.flags || {};
     stats = Object.assign({ won: 0, slimes: 0, steps: 0 }, d.stats);
     tracked = d.tracked || null;
+    settle();
     return true;
   }
   function newGame(heroId) {
@@ -1730,7 +2072,7 @@
     if (npc) { npc.dir = OPP[player.dir]; SFX.move(); npc.talk(); return; }
     const m = MAPS[player.map];
     const sign = m.signs?.[`${x},${y}`];
-    if (sign) { SFX.move(); say('', sign); return; }
+    if (sign) { SFX.move(); if (typeof sign === 'function') sign(); else say('', sign); return; }
     const gate = gateAt(m, x, y);
     if (gate && !flags[gate.flag]) {
       if (gate.needs()) {
@@ -1752,6 +2094,14 @@
     const exit = m.exits[`${player.x},${player.y}`];
     if (exit) { fadeOut(() => enterMap(exit.map, exit.x, exit.y, exit.dir)); return; }
     const item = itemAt(player.map, player.x, player.y);
+    if (item && item.quest) {
+      flags[item.id] = true;
+      markReady(item.quest);
+      SFX.pickup();
+      held.length = 0;
+      say('', item.found, saveGame);
+      return;
+    }
     if (item && item.chest) {
       const kind = item.weapon ? 'weapon' : 'armor', id = item[kind];
       flags[item.id] = true;
@@ -1782,7 +2132,7 @@
     }
   }
   // ---------------------------------------------------------------- living world (visual only, never saved)
-  const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram']);
+  const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram', 'johanne', 'basil', 'dot', 'gus']);
   const faceToward = (dx, dy) => (Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
   // Villagers glance around now and then; they face the hero when the hero is right next to them,
   // and a villager with a "!" notices the hero from two tiles away.
@@ -1905,7 +2255,8 @@
       }
     }
     for (const it of ITEMS) {
-      if (it.map !== player.map || flags[it.id]) continue;
+      if (it.map !== player.map || !itemThere(it)) continue;
+      if (it.quest) { ctx.drawImage(KEBAB_SPR, it.x * TS - camX, it.y * TS - camY); continue; }
       if (it.chest) { ctx.drawImage(CHEST_SPR[Math.floor(tick / 30) % 2], it.x * TS - camX, it.y * TS - camY); continue; }
       const bob = Math.floor(tick / 20) % 2;
       ctx.drawImage(SHARD_SPR[Math.floor(tick / 15) % 2], it.x * TS - camX, it.y * TS - camY - bob);
@@ -1988,7 +2339,8 @@
   function toMenu() { battle.phase = 'menu'; battle.msg = 'What will you do?'; battle.shown = 99; }
   async function runIntro(intro) {
     await wait(350);
-    await msg(`${battle.boss ? 'The' : 'A'} ${battle.name} ${intro}`, 700);
+    const article = ENEMIES[battle.type].boss?.named ? '' : battle.boss ? 'The ' : 'A ';
+    await msg(`${article}${battle.name} ${intro}`, 700);
     if (ENEMIES[battle.type].quick) {
       if (ARMORS[player.armor].nimble) await msg('It darts at you, but you step lightly aside!', 500);
       else {
@@ -2097,6 +2449,14 @@
           await msg('That makes 3 slimes! Tell Elder Moss!', 1000);
         } else await msg(`Slimes defeated: ${q.slimes.n}/3`, 700);
       }
+    }
+    if (q.road.s === 1 && player.map === 'stovnerOuter' && !boss) {
+      q.road.n++;
+      if (q.road.n >= 3) {
+        markReady('road');
+        SFX.quest();
+        await msg('The roads feel safer already! Tell JOHANNE!', 1000);
+      } else await msg(`Monsters off the road: ${q.road.n}/3`, 700);
     }
     if (b.type === 'shroom' && q.glowcap.s === 1 && Math.random() < 0.6) {
       player.glowcaps++;
@@ -2388,7 +2748,7 @@
   // tiny debug hook for testing
   window.__rpg = {
     player, NPCS, MAPS, SOLID, QUESTS, QUEST_ORDER, CHAPTERS, ENEMIES, WEAPONS, ARMORS, ITEMS,
-    get menuSel() { return menuSel; },
+    get menuSel() { return menuSel; }, get dlg() { return dlg; },
     get chapter() { return currentChapter(); }, get storyDone() { return storyDone(); },
     get menuPage() { return menuPage; }, get menuNote() { return menuNote; }, get tracked() { return tracked; },
     get q() { return q; }, get flags() { return flags; }, get stats() { return stats; },

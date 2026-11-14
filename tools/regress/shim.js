@@ -143,6 +143,11 @@
       g.q[id] = { s: before ? 3 : 0 };
       if (before) g.CHAPTERS.unshift({ quest: id }); else g.CHAPTERS.push({ quest: id });
     },
+    // True when `now` holds every quest of `then` unchanged, and any quest `then` did not have is unstarted.
+    questsKept(now, then) {
+      return Object.keys(then).every((k) => JSON.stringify(now[k]) === JSON.stringify(then[k]))
+        && Object.keys(now).every((k) => k in then || now[k].s === 0);
+    },
     // Removes the chapters that are not built yet from the running game (never from the game's own
     // data), so that Vestli is the last chapter and its end is the end of the story.
     vestliIsLastChapter() { window.__rpg.CHAPTERS.splice(1); },

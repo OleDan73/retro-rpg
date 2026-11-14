@@ -143,6 +143,13 @@
       g.q[id] = { s: before ? 3 : 0 };
       if (before) g.CHAPTERS.unshift({ quest: id }); else g.CHAPTERS.push({ quest: id });
     },
+    // Removes the chapters that are not built yet from the running game (never from the game's own
+    // data), so that Vestli is the last chapter and its end is the end of the story.
+    vestliIsLastChapter() { window.__rpg.CHAPTERS.splice(1); },
+    // Puts the hero somewhere at once, instead of walking there through random encounters.
+    place(map, x, y, dir) {
+      Object.assign(window.__rpg.player, { map, x, y, fx: x, fy: y, tx: x, ty: y, dir, moving: false, t: 0 });
+    },
     // Presses one of the on-screen touch buttons (up, down, left, right, a, b) the way a finger would.
     async touch(name, after = 6) {
       const btn = document.querySelector(`#controls button[data-btn="${name}"]`);

@@ -306,7 +306,21 @@
     spike(2, 8, 3); spike(10, 6, 3); spike(6, 2, 3);
     R(g, 1, 15, 14, 1, 0);
   });
-  const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x']);
+  // The old gate in the village wall: locked (red lock) and unlocked (doors ajar).
+  function wallGate(locked) {
+    return mk(16, 16, (g) => {
+      g.drawImage(TILE['#'], 0, 0);
+      R(g, 2, 1, 12, 15, 0);
+      R(g, 3, 2, 10, 14, 4);
+      for (const x of [5, 8, 11]) R(g, x, 2, 1, 14, 1);
+      R(g, 3, 4, 10, 1, 9); R(g, 3, 12, 10, 1, 9);
+      if (locked) { R(g, 6, 6, 5, 5, 0); R(g, 7, 7, 3, 3, 6); P(g, 8, 8, 0); }
+      else R(g, 7, 2, 3, 14, 0);
+    });
+  }
+  TILE['K'] = wallGate(true);
+  TILE['L'] = wallGate(false);
+  const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x', 'K', 'L']);
 
   // ---------------------------------------------------------------- characters
   function personSprite(o, dir, frame) {
@@ -553,7 +567,7 @@
         '#..;.=.......=..~~.#',
         '#....=========..~~.#',
         '#.,.......=.O...~~.#',
-        '#.........=========E',
+        'K.........=========E',
         '#..RCRR.bx=...,FFFS#',
         '#..HHDH...=..T.uuu.#',
         '#....======....uuu.#',
@@ -655,6 +669,8 @@
   //   needs()     true when the hero can open it: an item, a flag, a quest state...
   //   locked      lines shown when the hero tries it without meeting the requirement
   //   opened      lines shown when it opens
+  //   beyond      lines shown when the hero tries an opened gate whose open tile still cannot be walked
+  //               through, because what lies behind it is not built yet (optional)
   //   sfx         name of the sound played when it opens (optional)
   const GATES = [
     {
@@ -663,6 +679,14 @@
       locked: ['Thick, thorny vines block the way east.'],
       opened: ['You hack through the thorny vines with the old sickle. The way east is open!'],
       sfx: 'cut',
+    },
+    { // The way to Stovner. The Red Key unlocks it; the road behind it comes with the next chapter.
+      map: 'village', x: 0, y: 7, closed: 'K', open: 'L', flag: 'redGate',
+      needs: () => flags.redKey,
+      locked: ['An old gate with a red lock. The road to STOVNER lies beyond.'],
+      opened: ['The RED KEY turns in the lock. The gate to STOVNER is unlocked!'],
+      beyond: ['The gate is unlocked. Beyond it, the road leads to STOVNER.', 'TO BE CONTINUED...'],
+      sfx: 'pickup',
     },
   ];
   for (const gate of GATES) (MAPS[gate.map].gates ||= {})[`${gate.x},${gate.y}`] = gate;
@@ -708,13 +732,17 @@
   });
   // quest state s: 0 not started, 1 active, 2 ready to turn in, 3 done
   // The story is a list of chapters, in order. A chapter ends when its boss quest is turned in.
-  //   quest   the boss quest that ends the chapter
+  //   name    the part of Oslo it plays in
+  //   quest   the boss quest that ends the chapter (null while the chapter is not built yet)
   // Nothing about chapters is saved: the current chapter is worked out from which of these quests
   // are done, so every save file, old or new, is always in a valid chapter.
   const CHAPTERS = [
-    { quest: 'king' },
+    { name: 'VESTLI', quest: 'king' },
+    { name: 'STOVNER', quest: null }, // unlocked by finishing Vestli; nothing of it can be played yet
   ];
-  const chapterDone = (c) => q[c.quest]?.s === 3;
+  const chapterDone = (c) => c.quest != null && q[c.quest]?.s === 3;
+  // Crystal Fragments and keys are kept as saved flags (fragment1, redKey, ...), set once and never unset.
+  const fragments = () => Object.keys(flags).filter((k) => /^fragment\d+$/.test(k) && flags[k]).length;
   // Index of the chapter being played: the first unfinished one, or the last one when all are done.
   const currentChapter = () => {
     const i = CHAPTERS.findIndex((c) => !chapterDone(c));
@@ -787,7 +815,9 @@
     {
       id: 'elder', map: 'village', x: 8, y: 6, dir: 'down', home: 'down', spr: SPR.elder,
       // (slimes done but king not started = a save made mid-conversation; offer the king quest again)
-      news: () => q.slimes.s === 0 || q.slimes.s === 2 || (q.slimes.s === 3 && q.king.s === 0) || q.king.s === 2,
+      // (king done but no fragment = a save from before the fragments existed, or one made mid-conversation)
+      news: () => q.slimes.s === 0 || q.slimes.s === 2 || (q.slimes.s === 3 && q.king.s === 0) || q.king.s === 2
+        || (q.king.s === 3 && !flags.fragment1),
       talk() {
         const N = 'ELDER MOSS';
         const kingIntro = () => say(N, [
@@ -796,6 +826,19 @@
           'Take my old sickle. It can cut through the thorny vines that block the cave. (Got the OLD SICKLE!)',
           'The Dadda Boss is strong. Grow stronger first, and visit Bram the smith for better gear.',
         ], () => { player.sickle = true; accept('king'); });
+        // The end of Chapter 1: the first Crystal Fragment and the Red Key, handed over exactly once.
+        const fragment = () => say(N, [
+          'Wait... what is that glowing in your pack?',
+          'A CRYSTAL FRAGMENT! The DADDA BOSS had it all along?',
+          'Long ago the Crystal kept monsters away from Oslo. Then it was broken.',
+          'I know little else. Find the other pieces, and the monsters may leave us be.',
+          'Take this RED KEY. It opens the old gate to STOVNER, at the west wall.',
+          '(Got CRYSTAL FRAGMENT 1 and the RED KEY!)',
+        ], () => {
+          flags.fragment1 = true; flags.redKey = true;
+          saveGame();
+          endChapter('king');
+        });
         if (q.slimes.s === 0) {
           say(N, [
             'Ah, a traveler! Welcome to Turnip Vale. I am Elder Moss.',
@@ -824,8 +867,10 @@
             'Tonight we feast on turnip stew in your honor!',
           ], () => {
             complete('king');
-            endChapter('king');
+            fragment();
           });
+        } else if (!flags.fragment1) {
+          fragment();
         } else {
           say(N, [pick([
             `Thanks to you, the turnips grow in peace. Rest well, ${hero().name}.`,
@@ -1306,6 +1351,18 @@
     text(WEAPONS[player.weapon].name, 10, 110, 10);
     text(ARMORS[player.armor].name, 10, 122, 10);
     if (player.sickle) text('SICKLE', 10, 134, 10);
+    // Story items share the sickle's line: a crystal with the number of fragments, and each key.
+    if (fragments()) {
+      ['..f.....', '.fd8....', 'fdd8....', 'fddd8...', '.fdd8...', '..fd8...', '...d....'].forEach((row, y) => {
+        for (let x = 0; x < 8; x++) if (row[x] !== '.') P(ctx, 62 + x, 134 + y, { f: 15, d: 13, 8: 8 }[row[x]]);
+      });
+      text(String(fragments()), 70, 134, 13);
+    }
+    if (flags.redKey) {
+      ['.66.....', '6..6....', '6..66666', '6..6.6.6', '.66.....'].forEach((row, y) => {
+        for (let x = 0; x < 8; x++) if (row[x] !== '.') P(ctx, 82 + x, 135 + y, 6);
+      });
+    }
     if (menuNote) text(menuNote.text, 10, 146, menuNote.c);
     else text(isTouch ? 'A:SAVE' : 'SPACE:SAVE', 10, 146, 14);
     box(96, 2, 142, 156);
@@ -1338,7 +1395,7 @@
         flags[gate.flag] = true;
         say('', gate.opened, saveGame);
       } else say('', gate.locked);
-    }
+    } else if (gate && gate.beyond) say('', gate.beyond);
   }
   function enterMap(name, x, y, dir) {
     Object.assign(player, { map: name, x, y, fx: x, fy: y, tx: x, ty: y, dir, moving: false, t: 0 });
@@ -1838,11 +1895,13 @@
     drawStars(60);
     const t = victory.t;
     if (victory.chapter) { // an earlier chapter has ended; the story goes on
+      const ended = CHAPTERS[victory.chapter - 1], next = CHAPTERS[victory.chapter];
       centered(`CHAPTER ${victory.chapter}`, 30, 14, BIG);
-      centered('COMPLETE!', 52, 14);
+      centered(ended.name ? `${ended.name} COMPLETE!` : 'COMPLETE!', 52, 14);
       ctx.drawImage(hero().spr.down0, 104, 66 + (Math.floor(t / 12) % 2 ? -2 : 0), 32, 32);
-      centered(`LEVEL ${player.lvl}   WINS ${stats.won}`, 108, 15);
-      centered('The quest goes on...', 124, 11);
+      centered(`LEVEL ${player.lvl}   WINS ${stats.won}`, 106, 15);
+      if (next.name) centered(`${next.name} UNLOCKED!`, 118, 13);
+      centered('The quest goes on...', 130, 11);
       if (t > 90 && Math.floor(tick / 30) % 2) centered(isTouch ? 'TAP A TO CONTINUE' : 'PRESS SPACE', 144, 10);
       return;
     }

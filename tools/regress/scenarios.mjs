@@ -662,6 +662,7 @@ const pagingScenarios = [
     run: async (T, g) => {
       await T.continueGame();
       T.addTestQuests(7);
+      T.vestliIsLastChapter(); // the victory screen only follows the last chapter
       await T.talk();
       await T.until(() => g.mode === 'victory', 'victory screen');
       await T.frames(120);
@@ -715,17 +716,20 @@ const questSaveScenarios = [
   },
 ];
 
-// Chapters. The game has one chapter, so the real ending is covered by the victory scenarios above;
-// these check how the current chapter is worked out and, with a made-up extra chapter added at run
-// time, the screen shown when a chapter that is not the last one ends.
-// (Scenario code runs inside the page, so these are pieces of source text.)
-const SAVED_FIELDS = `Object.keys(JSON.parse(localStorage.getItem('turnip-vale-save-v1'))).sort().join()`;
+// Chapters. Vestli is Chapter 1. Turning in the Dadda quest hands over Crystal Fragment 1 and the Red
+// Key, ends the chapter and unlocks Stovner, which is defined but not built. The scenarios named
+// "...victory" elsewhere in this file now end on the chapter screen too; the real victory screen is
+// reached here by removing the unbuilt chapters at run time.
+// (Scenario code runs inside the page, so shared pieces are source text.)
+const SAVED = `JSON.parse(localStorage.getItem('turnip-vale-save-v1'))`;
 const chapterEnd = (close) => `async (T, g) => {
   await T.continueGame();
-  T.addTestChapter();
-  T.check('still in chapter 1 before the turn-in', g.chapter === 0 && !g.storyDone, g.chapter);
-  await T.talk();
+  T.check('in chapter 1 before the turn-in, nothing awarded', g.chapter === 0 && !g.storyDone && !g.flags.fragment1 && !g.flags.redKey, g.chapter);
+  await T.talk('elder');
   await T.until(() => g.mode === 'victory', 'chapter screen');
+  const auto = ${SAVED};
+  T.check('fragment and key awarded', g.flags.fragment1 === true && g.flags.redKey === true);
+  T.check('autosaved before the chapter screen', auto.flags.fragment1 === true && auto.flags.redKey === true && auto.q.king.s === 3);
   T.check('now in chapter 2, story not over', g.chapter === 1 && !g.storyDone, g.chapter);
   await T.frames(30);
   await T.tap('Space');
@@ -736,17 +740,25 @@ const chapterEnd = (close) => `async (T, g) => {
   await T.until(() => g.mode === 'world', 'world after the chapter screen');
   await T.frames(40);
   T.shot('world');
-  T.check('boss quest done and saved', g.q.king.s === 3 && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).q.king.s === 3);
-  T.check('no chapter is written to the save', ${SAVED_FIELDS} === 'flags,player,q,stats,tracked,v', ${SAVED_FIELDS});
+  T.check('no chapter is written to the save', Object.keys(${SAVED}).sort().join() === 'flags,player,q,stats,tracked,v');
+  T.state('after');
+  const flags = JSON.stringify(g.flags), gold = g.player.gold;
   await T.talk('elder-after');
+  for (let i = 0; i < 5; i++) await T.talk();
+  T.check('talking to Elder Moss again gives nothing more', JSON.stringify(g.flags) === flags && g.player.gold === gold && g.mode === 'world');
+  T.check('exactly one fragment and one key', Object.keys(g.flags).filter((k) => /^fragment/.test(k)).join() === 'fragment1' && g.flags.redKey === true);
+  await T.menuShot('status');
 }`;
+const atElder = (fix) => ({ ...fix, player: { ...fix.player, map: 'village', x: 8, y: 7, fx: 8, fy: 7, tx: 8, ty: 7, dir: 'up' } });
 const chapterScenarios = [
   {
     name: 'chapter-fresh', save: FIX.fresh,
     run: async (T, g) => {
       await T.continueGame();
-      T.check('one chapter defined, ending with the Dadda quest', g.CHAPTERS.length === 1 && g.CHAPTERS[0].quest === 'king');
+      T.check('two chapters defined: Vestli, then Stovner without a boss quest', JSON.stringify(g.CHAPTERS) === '[{"name":"VESTLI","quest":"king"},{"name":"STOVNER","quest":null}]', JSON.stringify(g.CHAPTERS));
       T.check('a new game is in chapter 1', g.chapter === 0 && !g.storyDone, g.chapter);
+      T.check('no fragment, key or open gate', !g.flags.fragment1 && !g.flags.redKey && !g.flags.redGate);
+      T.check('nothing in the game uses a quest called null', !('null' in g.q) && !g.QUEST_ORDER.includes('null'));
     },
   },
   {
@@ -754,21 +766,43 @@ const chapterScenarios = [
     run: async (T, g) => {
       await T.continueGame();
       T.check('beating the boss alone does not end the chapter', g.chapter === 0 && !g.storyDone, g.chapter);
+      T.check('nor does it award anything', !g.flags.fragment1 && !g.flags.redKey);
     },
   },
-  {
+  { // a save that finished the one-chapter game: untouched by loading, and the story is no longer over
     name: 'chapter-finished', save: FIX.finished,
     run: `async (T, g) => {
+      const before = localStorage.getItem('turnip-vale-save-v1');
       await T.continueGame();
-      T.check('a finished save has completed the story', g.chapter === 0 && g.storyDone, g.chapter);
+      T.check('Vestli is done, Stovner is next, the story is not over', g.chapter === 1 && !g.storyDone, g.chapter);
+      T.check('loading awards nothing by itself', !g.flags.fragment1 && !g.flags.redKey);
       await T.step('left');
-      T.check('no chapter is written to the save', ${SAVED_FIELDS} === 'flags,player,q,stats,tracked,v', ${SAVED_FIELDS});
+      T.check('loading and walking change nothing in the save', localStorage.getItem('turnip-vale-save-v1') === before);
     }`,
   },
-  { // the last chapter still ends on the victory screen when an earlier chapter exists
+  { // the real victory screen still follows the last chapter (unbuilt chapters removed for the test)
+    name: 'chapter-final-victory', save: FIX.report,
+    run: async (T, g) => {
+      await T.continueGame();
+      T.vestliIsLastChapter();
+      await T.talk();
+      await T.until(() => g.mode === 'victory', 'victory screen');
+      T.check('the story is complete', g.storyDone && g.chapter === 0, g.chapter);
+      T.check('fragment and key are still handed over', g.flags.fragment1 === true && g.flags.redKey === true);
+      await T.frames(120);
+      T.shot('victory');
+      await T.tap('Space');
+      await T.until(() => g.mode === 'world', 'world after victory');
+      await T.frames(40);
+      T.state('after');
+    },
+    sameAs: { after: 'victory__after-victory' },
+  },
+  { // ...and also when an earlier, finished chapter comes before it
     name: 'chapter-last-of-two', save: FIX.report,
     run: async (T, g) => {
       await T.continueGame();
+      T.vestliIsLastChapter();
       T.addTestChapter(true);
       T.check('in chapter 2 of 2', g.chapter === 1 && !g.storyDone, g.chapter);
       await T.talk();
@@ -778,16 +812,190 @@ const chapterScenarios = [
       T.check('story complete', g.storyDone);
     },
   },
-  { name: 'chapter-complete', save: FIX.report, run: chapterEnd(`T.tap('Space')`) },
-  { name: 'chapter-complete-touch', save: FIX.report, run: chapterEnd(`T.touch('a')`) },
-  { name: 'chapter-complete-alexandra', save: withHero(FIX.report, 'alexandra'), run: chapterEnd(`T.tap('Space')`) },
+  { name: 'chapter-complete', save: FIX.report, run: chapterEnd(`T.tap('Space')`), sameAs: { after: 'victory__after-victory' } },
+  { name: 'chapter-complete-touch', save: FIX.report, run: chapterEnd(`T.touch('a')`), sameAs: { after: 'victory__after-victory' } },
+  { name: 'chapter-complete-alexandra', save: withHero(FIX.report, 'alexandra'), run: chapterEnd(`T.tap('Space')`), sameAs: { after: 'victory__after-victory' } },
   { // a save made by a version with more chapters still loads here
     name: 'chapter-save-unknown-boss-quest',
     save: { ...FIX.finished, q: { ...FIX.finished.q, mohsin: { s: 2 } } },
     run: async (T, g) => {
       await T.continueGame();
-      T.check('loads as a finished story', g.chapter === 0 && g.storyDone && g.q.mohsin.s === 2);
+      T.check('loads into chapter 2 with the unknown quest kept', g.chapter === 1 && !g.storyDone && g.q.mohsin.s === 2);
       await T.menuShot('log');
+    },
+  },
+  { // a save from before the boss fight: win, go back to Elder Moss, finish the chapter
+    name: 'chapter-from-before-boss', save: FIX.boss,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.talk();
+      await T.untilBattle();
+      await T.fight((g) => (g.player.hp < 35 && g.player.herbs > 0 ? 1 : 0));
+      T.check('boss beaten, quest ready, nothing awarded yet', g.q.king.s === 2 && !g.flags.fragment1 && !g.flags.redKey && g.chapter === 0);
+      T.place('village', 8, 7, 'up'); // skip the walk home
+      await T.frames(10);
+      await T.talk('elder');
+      await T.until(() => g.mode === 'victory', 'chapter screen');
+      await T.frames(120);
+      T.shot('chapter-complete');
+      await T.tap('Space');
+      await T.until(() => g.mode === 'world', 'world');
+      await T.frames(40);
+      const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+      T.check('chapter finished and saved', d.q.king.s === 3 && d.flags.fragment1 === true && d.flags.redKey === true && g.chapter === 1);
+      T.check('battle rewards kept', g.player.gold === 140 && g.player.lvl >= 7, g.player.gold);
+      T.state('after');
+    },
+  },
+  { // a save that finished the one-chapter game: Elder Moss has news, and hands the fragment and key over once
+    name: 'chapter-old-finished-save', save: atElder(FIX.finished),
+    run: [
+      async (T, g) => {
+        const before = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        await T.continueGame();
+        T.shot('elder-has-news');
+        await T.talk('elder');
+        await T.until(() => g.mode === 'victory', 'chapter screen');
+        await T.frames(120);
+        T.shot('chapter-complete');
+        await T.tap('Space');
+        await T.until(() => g.mode === 'world', 'world');
+        await T.frames(40);
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('fragment and key handed over and saved', d.flags.fragment1 === true && d.flags.redKey === true);
+        T.check('old flags kept', ['vines', 'metBram', 'shard1', 'shard2'].every((k) => d.flags[k] === true) && Object.keys(d.flags).length === 6, Object.keys(d.flags).join());
+        const strip = (p) => JSON.stringify(Object.keys(p).filter((k) => k !== 'hero').sort().map((k) => [k, p[k]]));
+        T.check('player, quests and stats exactly as they were', strip(d.player) === strip(before.player) && JSON.stringify([d.q, d.stats]) === JSON.stringify([before.q, before.stats]));
+        T.state('after');
+        T.shot('no-more-news');
+        await T.talk('elder-after');
+        T.check('nothing is handed over twice', JSON.stringify(g.flags) === JSON.stringify(d.flags));
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('still held after reopening', g.flags.fragment1 === true && g.flags.redKey === true && g.chapter === 1);
+        await T.talk('elder-reopened');
+        T.check('and still only once', Object.keys(g.flags).length === 6, Object.keys(g.flags).join());
+        await T.menuShot('status');
+      },
+    ],
+  },
+  { // the game is closed in the middle of Elder Moss's speech, after the quest is done but before the hand-over
+    name: 'chapter-closed-mid-conversation', save: FIX.report,
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.tap('Space', 3);
+        for (let i = 0; i < 2; i++) { await T.frames(150); await T.tap('Space', 3); }
+        T.check('quest turned in, hand-over still being spoken', g.mode === 'dialog' && g.q.king.s === 3 && !g.flags.fragment1 && !g.flags.redKey);
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('that is what the save holds', d.q.king.s === 3 && !d.flags.fragment1 && !d.flags.redKey);
+        await T.frames(150); await T.tap('Space', 3);
+        T.shot('closed-here');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('reopened without fragment or key', g.q.king.s === 3 && !g.flags.fragment1 && !g.flags.redKey);
+        T.shot('elder-has-news');
+        await T.talk('elder');
+        await T.until(() => g.mode === 'victory', 'chapter screen');
+        await T.frames(120);
+        await T.tap('Space');
+        await T.until(() => g.mode === 'world', 'world');
+        await T.frames(40);
+        T.check('handed over after all, once', g.flags.fragment1 === true && g.flags.redKey === true);
+        T.state('after');
+        await T.talk();
+        T.check('and not again', Object.keys(g.flags).filter((k) => /^fragment|Key$/.test(k)).join() === 'fragment1,redKey');
+      },
+    ],
+    sameAs: { after: 'victory__after-victory' },
+  },
+];
+
+// The old gate to Stovner in the village's west wall.
+const chapterOneDone = {
+  ...FIX.finished, player: { ...FIX.finished.player, x: 1, fx: 1, tx: 1, dir: 'left' },
+  flags: { ...FIX.finished.flags, fragment1: true, redKey: true },
+};
+const gateScenarios = [
+  { // without the key
+    name: 'stovner-gate-locked', save: FIX.fresh,
+    run: async (T, g) => {
+      const before = localStorage.getItem('turnip-vale-save-v1');
+      await T.continueGame();
+      await T.step('left', 7);
+      T.check('standing at the gate', g.player.x === 1 && g.player.y === 7, g.player.x);
+      T.shot('gate');
+      await T.talk('locked');
+      await T.step('left');
+      T.check('the gate stays shut', g.player.x === 1 && !g.flags.redGate && g.mode === 'world');
+      T.check('nothing saved', localStorage.getItem('turnip-vale-save-v1') === before);
+    },
+  },
+  { // finish the chapter, walk to the gate, unlock it, save by hand, reopen
+    name: 'stovner-gate', save: FIX.report,
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.talk();
+        await T.until(() => g.mode === 'victory', 'chapter screen');
+        await T.frames(120);
+        await T.tap('Space');
+        await T.until(() => g.mode === 'world', 'world');
+        await T.frames(40);
+        await T.step('left', 7);
+        T.shot('locked');
+        await T.talk('unlock');
+        T.check('unlocked and autosaved', g.flags.redGate === true && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).flags.redGate === true);
+        T.check('the key is kept', g.flags.redKey === true);
+        T.shot('unlocked');
+        await T.talk('beyond');
+        await T.step('left');
+        T.check('there is no way through yet', g.player.x === 1 && g.player.map === 'village' && g.mode === 'world', g.player.x);
+        await T.step('right', 2);
+        await T.tap('KeyX', 6); await T.tap('Space', 6);
+        T.shot('manual-save');
+        await T.tap('KeyX', 6);
+        T.check('saved by hand after the chapter', JSON.parse(localStorage.getItem('turnip-vale-save-v1')).player.x === 3);
+        await T.step('up');
+        T.state('saved');
+      },
+      async (T, g) => {
+        await T.frames(30);
+        T.shot('title');
+        await T.continueGame();
+        T.check('back where the manual save was made', g.player.x === 3 && g.player.y === 7, g.player.x);
+        T.check('fragment, key and gate persist', g.flags.fragment1 === true && g.flags.redKey === true && g.flags.redGate === true && g.chapter === 1);
+        T.state('continued');
+        await T.step('left', 2);
+        T.shot('still-unlocked');
+        await T.talk('beyond-again');
+        await T.menuShot('status');
+        await T.step('right', 7); await T.step('up');
+        await T.talk('elder');
+        T.check('the rest of the village still works', g.player.x === 8 && g.mode === 'world', g.player.x);
+      },
+    ],
+  },
+  { // the same with the on-screen buttons only
+    name: 'stovner-gate-touch', save: chapterOneDone,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.touch('a');
+      T.check('A tries the gate', g.mode === 'dialog', g.mode);
+      await T.frames(150);
+      T.shot('unlock');
+      await T.touch('a');
+      await T.until(() => g.mode === 'world', 'world');
+      T.check('unlocked', g.flags.redGate === true);
+      await T.touch('left', 20);
+      T.check('no way through', g.player.x === 1 && g.mode === 'world', g.player.x);
+      await T.touch('b'); await T.touch('a');
+      T.check('saved with the on-screen buttons', g.menuNote && g.menuNote.text === 'SAVED!' && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).flags.redGate === true);
+      T.shot('saved');
+      await T.touch('b');
+      T.check('back in the world', g.mode === 'world', g.mode);
     },
   },
 ];
@@ -1177,6 +1385,7 @@ export const SCENARIOS = [
   ...pagingScenarios,
   ...questSaveScenarios,
   ...chapterScenarios,
+  ...gateScenarios,
   ...manualSaveScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,

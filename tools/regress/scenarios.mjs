@@ -761,7 +761,7 @@ const chapterScenarios = [
     name: 'chapter-fresh', save: FIX.fresh,
     run: async (T, g) => {
       await T.continueGame();
-      T.check('five chapters defined: Vestli, Stovner, Ammerud, Grorud, then Veitvet without a boss quest', JSON.stringify(g.CHAPTERS) === '[{"name":"VESTLI","quest":"king"},{"name":"STOVNER","quest":"mohsin"},{"name":"AMMERUD","quest":"trouble"},{"name":"GRORUD","quest":"power"},{"name":"VEITVET","quest":null}]', JSON.stringify(g.CHAPTERS));
+      T.check('six chapters defined: Vestli, Stovner, Ammerud, Grorud, Veitvet, then Oslo S without a boss quest', JSON.stringify(g.CHAPTERS) === '[{"name":"VESTLI","quest":"king"},{"name":"STOVNER","quest":"mohsin"},{"name":"AMMERUD","quest":"trouble"},{"name":"GRORUD","quest":"power"},{"name":"VEITVET","quest":"signal"},{"name":"OSLO S","quest":null}]', JSON.stringify(g.CHAPTERS));
       T.check('a new game is in chapter 1', g.chapter === 0 && !g.storyDone, g.chapter);
       T.check('no fragment, key or open gate', !g.flags.fragment1 && !g.flags.redKey && !g.flags.redGate);
       T.check('nothing in the game uses a quest called null', !('null' in g.q) && !g.QUEST_ORDER.includes('null'));
@@ -1314,8 +1314,9 @@ const stovnerScenarios = [
       T.check('gate shut: its tile cannot be reached', !reach('village', 8, 7, false).has('0,7'));
       T.check('gate open: it can', reach('village', 8, 7, true).has('0,7'));
       const starts = { village: [8, 7], forest: [1, 7], cave: [1, 7], stovner: [24, 9], stovnerOuter: [14, 18], tunnel: [9, 1], northRoad: [5, 18], shrine: [6, 11], ammerud: [28, 10], darkPath: [14, 10],
-        grorudHeights: [15, 3], grorudTown: [12, 3], grorudWorks: [12, 16], veitvetRoad: [1, 5] };
-      T.check('fourteen maps', Object.keys(g.MAPS).sort().join() === Object.keys(starts).sort().join(), Object.keys(g.MAPS).join());
+        grorudHeights: [15, 3], grorudTown: [12, 3], grorudWorks: [12, 16], veitvetRoad: [1, 5],
+        veitvet: [1, 10], veitvetUnder: [2, 15], veitvetCenter: [11, 14], osloRoad: [1, 5] };
+      T.check('eighteen maps', Object.keys(g.MAPS).sort().join() === Object.keys(starts).sort().join(), Object.keys(g.MAPS).join());
       for (const [name, [sx, sy]] of Object.entries(starts)) {
         const m = g.MAPS[name], seen = reach(name, sx, sy, true);
         const edge = [...seen].filter((k) => { const [x, y] = k.split(',').map(Number); return x === 0 || y === 0 || x === m.w - 1 || y === m.h - 1; });
@@ -1404,7 +1405,7 @@ const stovnerScenarios = [
       T.check('the people of the town block nobody in', cut.length === 0, cut.join(' '));
       T.check('the old Stovner maps are as they were', g.MAPS.stovner.rows.join('').length === 26 * 18 && g.MAPS.stovnerOuter.rows.join('').length === 30 * 20
         && g.MAPS.stovner.rows[16] === '#.,......;.#QQ#....;....T#' && g.MAPS.stovnerOuter.rows[9] === 'T.~~~..=......==.......W..=..T');
-      T.check('Stovner ends with FIND MOHSIN, Ammerud with AMMERUD TROUBLE, Grorud with POWER TO GRORUD, and Veitvet has no quests', g.CHAPTERS.length === 5 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === 'mohsin' && g.CHAPTERS[2].quest === 'trouble' && g.CHAPTERS[3].quest === 'power' && g.CHAPTERS[4].quest === null && g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab,trouble,ball,wisp,power,bag,yard', g.QUEST_ORDER.join());
+      T.check('Stovner ends with FIND MOHSIN, Ammerud with AMMERUD TROUBLE, Grorud with POWER TO GRORUD, Veitvet with VEITVET SIGNAL, and Oslo S has no quests', g.CHAPTERS.length === 6 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === 'mohsin' && g.CHAPTERS[2].quest === 'trouble' && g.CHAPTERS[3].quest === 'power' && g.CHAPTERS[4].quest === 'signal' && g.CHAPTERS[5].quest === null && g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab,trouble,ball,wisp,power,bag,yard,signal,phone', g.QUEST_ORDER.join());
     },
   },
 ];
@@ -2101,7 +2102,7 @@ const questScenarios = [
       T.check('Æ is a letter of the game font, as wide as any other', ae === m && ae === 8 && c.measureText('Æ').width !== 8, ae + ' ' + m + ' ' + c.measureText('Æ').width);
       const here = g.NPCS.filter((n) => n.map === 'stovner').map((n) => n.id + ' ' + n.x + ',' + n.y).join('; ');
       T.check('four people in the town', here === 'johanne 16,8; basil 20,10; dot 7,10; gus 10,16', here);
-      T.check('nobody new anywhere else but LÆRER HEIDI in the tunnel and MOHSIN in the shrine', g.NPCS.filter((n) => !['village', 'forest', 'cave', 'stovner', 'ammerud', 'darkPath', 'grorudHeights', 'grorudTown', 'grorudWorks'].includes(n.map)).map((n) => n.id + '@' + n.map).join() === 'heidi@tunnel,heidi2@tunnel,mohsin@shrine'
+      T.check('nobody new anywhere else but LÆRER HEIDI in the tunnel and MOHSIN in the shrine', g.NPCS.filter((n) => !['village', 'forest', 'cave', 'stovner', 'ammerud', 'darkPath', 'grorudHeights', 'grorudTown', 'grorudWorks', 'veitvet', 'veitvetUnder', 'veitvetCenter'].includes(n.map)).map((n) => n.id + '@' + n.map).join() === 'heidi@tunnel,heidi2@tunnel,mohsin@shrine'
         && g.NPCS.filter((n) => n.map === 'village').length === 5 && g.NPCS.filter((n) => n.map === 'stovnerOuter').length === 0);
       // JOHANNE must not sit under the status panel (2..93 across, 2..31 down) from the roads that lead to her
       const town = g.MAPS.stovner, hidden = [];
@@ -4265,9 +4266,9 @@ const grorudScenarios = [
         T.check(name + ': all open ground can be reached', out.length === 0, out.join(' '));
       }
       const targets = (m) => JSON.stringify(Object.values(m.exits).map((e) => e.map));
-      T.check('the exits: heights to Ammerud and the town; town to the heights, the Works and the road; the Works and the road only back',
+      T.check('the exits: heights to Ammerud and the town; town to the heights, the Works and the road; the Works only back; the road back, and on to Veitvet',
         targets(M.grorudHeights) === '["ammerud","grorudTown","grorudTown"]' && targets(M.grorudTown) === '["grorudHeights","grorudHeights","grorudWorks","veitvetRoad"]'
-        && targets(M.grorudWorks) === '["grorudTown"]' && targets(M.veitvetRoad) === '["grorudTown"]' && g.MAPS.ammerud.exits['15,21'].map === 'grorudHeights',
+        && targets(M.grorudWorks) === '["grorudTown"]' && targets(M.veitvetRoad) === '["grorudTown","veitvet"]' && g.MAPS.ammerud.exits['15,21'].map === 'grorudHeights',
         targets(M.grorudHeights) + ' ' + targets(M.grorudTown));
       const landing = [];
       for (const from of [...Object.keys(M), 'ammerud']) for (const [k, e] of Object.entries(g.MAPS[from].exits)) {
@@ -4283,8 +4284,8 @@ const grorudScenarios = [
         && tile(M.grorudTown, 20, 2, false) === '[' && tile(M.grorudTown, 20, 2, true) === ']' && tile(M.grorudTown, 25, 9, false) === 'G' && tile(M.grorudTown, 25, 9, true) === 'L');
       T.check('the terminal stands beside the gate and lights up with it', tile(M.grorudTown, 18, 3, false) === '+' && tile(M.grorudTown, 18, 3, true) === '@' && g.SOLID.has('+') && g.SOLID.has('@'));
       const road = reach('veitvetRoad', 1, 5, true);
-      T.check('Veitvet is not built: no such map, and nothing past the barricade can be reached', !Object.keys(g.MAPS).some((k) => /^veitvet$/i.test(k)) && Object.keys(g.MAPS).length === 14
-        && [...road].every((k) => +k.split(',')[0] < 13) && g.SOLID.has('J'));
+      T.check('the road to Veitvet now runs on into VEITVET: the barricade is gone', g.MAPS.veitvet && Object.keys(g.MAPS).length === 18
+        && road.has('15,5') && !M.veitvetRoad.rows.join('').includes('J'));
       T.check('the first POWER CELL lies in the nook west of the stream, reachable from the way in', walk(M.grorudHeights, 2, 7, true) && reach('grorudHeights', 15, 3, true).has('2,7'));
       // monsters
       const zones = (m) => (m.encounter ? m.encounter.zones : []);
@@ -4372,8 +4373,8 @@ const grorudScenarios = [
         && JSON.stringify(['none', 'vest', 'light', 'sneakers', 'rvest'].map((k) => [g.ARMORS[k].def, !!g.ARMORS[k].nimble, !!g.ARMORS[k].insulated])) === '[[0,false,false],[2,false,false],[1,true,false],[3,true,false],[4,false,false]]');
       T.check('the Ammerud enemies and MARCUS are as they were, and none of the old ones is electric', JSON.stringify(['crawler', 'shadow', 'brute', 'wisp', 'glowwisp', 'marcus'].map((k) => [g.ENEMIES[k].hp, g.ENEMIES[k].atk, g.ENEMIES[k].def, g.ENEMIES[k].xp]))
         === '[[58,25,7,34],[40,29,4,32],[84,25,12,48],[50,27,6,40],[110,28,8,90],[180,26,9,150]]' && Object.keys(g.ENEMIES).filter((k) => g.ENEMIES[k].shock).join() === 'pwisp');
-      T.check('five chapters: Grorud ends with POWER TO GRORUD, and Veitvet comes next without a quest', JSON.stringify(g.CHAPTERS.slice(3)) === '[{"name":"GRORUD","quest":"power"},{"name":"VEITVET","quest":null}]' && g.CHAPTERS.length === 5);
-      T.check('fifteen quests, the new three last', g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab,trouble,ball,wisp,power,bag,yard', g.QUEST_ORDER.join());
+      T.check('Grorud ends with POWER TO GRORUD, and Veitvet comes next', JSON.stringify(g.CHAPTERS.slice(3, 5)) === '[{"name":"GRORUD","quest":"power"},{"name":"VEITVET","quest":"signal"}]');
+      T.check('the Grorud quests follow the Ammerud ones, and the Veitvet ones follow them', g.QUEST_ORDER.join().startsWith('slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab,trouble,ball,wisp,power,bag,yard,'), g.QUEST_ORDER.join());
     }`,
   },
   { // each of Grorud's monsters, met for certain on a chosen tile, and what the gear does against them
@@ -4984,14 +4985,16 @@ const nabilahScenarios = [
         T.check('onto the ROAD TO VEITVET, autosaved', g.player.x === 1 && g.player.y === 5 && saved().player.map === 'veitvetRoad');
         await T.step('right', 11);
         T.check('along the road to the sign', g.player.x === 12 && g.player.y === 5, g.player.x + ',' + g.player.y);
-        await T.step('right');
-        T.check('the barricade stops the hero', g.player.x === 12 && g.player.map === 'veitvetRoad');
-        const end = await hear('barricade');
-        T.check('TO BE CONTINUED', /TO BE CONTINUED/.test(end) && g.mode === 'world', end);
         g.player.dir = 'up';
         await T.talk('sign');
-        T.check('no victory screen, no new map', g.mode === 'world' && Object.keys(g.MAPS).length === 14);
-        T.shot('barricade');
+        T.check('no victory screen', g.mode === 'world');
+        T.shot('road-on');
+        await T.step('right', 3);
+        await T.until(() => g.player.map === 'veitvet', 'Veitvet');
+        await T.frames(60);
+        T.check('where the barricade stood in 1G, the road now runs on into VEITVET', g.player.x === 1 && g.player.y === 10 && g.mode === 'world');
+        T.place('veitvetRoad', 12, 5, 'right');
+        await T.frames(10);
         await T.tap('KeyX', 6);
         await T.tap('ArrowUp', 4);
         T.check('ITEMS: the fragments and the FACTORY KEY', g.menuSel === 3);
@@ -5138,6 +5141,1042 @@ const stageScenario = {
     if (next) localStorage.setItem(KEY, JSON.stringify(next));
   }`),
 };
+// ------------------------------------------------------------------ Veitvet (Expansion 1H)
+// A save from the end of Grorud, the way a player who explored normally would have it: level 12, every Grorud
+// quest done, the wrench in hand and the insulated vest on, all four Grorud chests opened, seven herbs.
+// Standing on the road to Veitvet, where 1G's barricade used to be.
+const chapterFourDone = (() => {
+  const d = nabilahDone(powered(chapterThreeDone));
+  d.q.power = { s: 3 }; d.q.bag = { s: 3 }; d.q.yard = { s: 3, n: 2 }; d.tracked = null;
+  Object.assign(d.flags, { bag: true, chestWrench: true, chestBlade: true, chestArmor: true, veitvetGate: true });
+  Object.assign(d.player, level(12), {
+    maxhp: 112, hp: 112, maxHerbs: 7, herbs: 7, gold: 1100, weapon: 'wrench', armor: 'insulated',
+    weapons: ['none', 'crystal', 'bat', 'wrench', 'blade'], armors: ['none', 'vest', 'sneakers', 'insulated', 'factory'],
+    map: 'veitvetRoad', x: 12, y: 5, fx: 12, fy: 5, tx: 12, ty: 5, dir: 'right',
+  });
+  d.stats = { won: 130, slimes: 17, steps: 7300 };
+  return d;
+})();
+const inVeitvet = moved(chapterFourDone, 'veitvet', 1, 10, 'right');
+// The main quest running, with the given story flags set (underSeen, deviceSeen, shieldOff, signalOff, ...).
+const withSignal = (fix, list, s = 1) => {
+  const d = JSON.parse(JSON.stringify(fix));
+  d.q.signal = { s }; d.tracked = s ? 'signal' : null;
+  for (const k of list) d.flags[k] = true;
+  return d;
+};
+const ALL_SIGNAL = ['underSeen', 'deviceSeen', 'shieldOff', 'signalOff'];
+const atSandra = withSignal(moved(chapterFourDone, 'veitvetCenter', 10, 4, 'up'), ALL_SIGNAL);
+const sandraDone = (fix) => {
+  const d = JSON.parse(JSON.stringify(fix));
+  d.q.signal = { s: 2 }; d.tracked = 'signal';
+  Object.assign(d.flags, { sandraBeaten: true, fragment4: true });
+  return d;
+};
+const atLevel = (fix, n, extra = {}) => { const d = JSON.parse(JSON.stringify(fix)); Object.assign(d.player, level(n), extra); return d; };
+// Shared by the Veitvet runs (on top of GR): no random battles anywhere in Veitvet.
+const VV = `
+  ${GR}
+  const calm = () => { for (const m of ['veitvet', 'veitvetUnder', 'veitvetCenter']) g.MAPS[m].encounter.chance = 0; };
+`;
+const VEITVET_MAPS = ['veitvetRoad', 'veitvet', 'veitvetUnder', 'veitvetCenter', 'osloRoad'];
+// The whole meeting with SANDRA: the talk, the fight (an herb below HEAL HP), the hand-over, and nothing twice.
+const SANDRA = `async (T, g) => {
+  ${GR}
+  ${WATCH.replace('const want = g.player.hp < heal && g.player.herbs > 0 ? 1 : 0;', 'const want = (g.player.hp < heal || (b.charged && g.player.hp <= feedback())) && g.player.herbs > 0 ? 1 : 0;')}
+  // what a FEEDBACK would do to the hero right now (the dice at their worst), as a careful player reckons it
+  const feedback = () => { const b = g.battle, a = g.ARMORS[g.player.armor]; const d = Math.max(1, Math.round((b.atk + 2) * 2) - Math.max(0, g.player.def + a.def - (b.soft ? b.soft.amt : 0))); return Math.round(d * (1 - (a.resist || 0))); };
+  await T.continueGame();
+  const p = g.player, gold = p.gold, xp = p.xp, won = g.stats.won, herbs = p.herbs, weapons = p.weapons.slice(), armors = p.armors.slice();
+  const baseAtk = p.atk, baseDef = p.def;
+  T.check('SANDRA waits on her stage, right in front of the hero', g.NPCS.some((n) => n.id === 'sandra' && n.map === 'veitvetCenter' && n.x === 10 && n.y === 3 && !n.visible) && p.x === 10 && p.y === 4);
+  if (TALK) T.shot('stage');
+  const said = await hear(TALK ? 'before' : '');
+  T.check('she says what she is doing before the fight starts', /relay/.test(said) && /LOUDER/.test(said), said);
+  await T.untilBattle();
+  const b = g.battle;
+  T.check('SANDRA: 290 HP, ATK 31, DEF 11, a boss; the device makes no difference to her', b.type === 'sandraBoss' && b.name === 'SANDRA' && b.boss === true && b.max === 290 && b.atk === 31 && b.def === 11 && b.xp === 230 && !b.boosted, JSON.stringify([b.max, b.atk, b.def, b.xp, b.boosted]));
+  if (TALK) T.shot('battle');
+  let overAt = null, pink = false, defAfter = null, shotOver = false, shotJam = false, shotDist = false, shotWarn = false, shotFeedback = false;
+  const jams = [], dists = [], feedbackSoft = [];
+  let lastMsg = '';
+  const { turns, seen } = await watchFight(HEAL, [['swing', /mic stand/], ['pulse', /SIGNAL PULSE/], ['watch', /watches you/], ['burst', /STATIC BURST/],
+    ['overload', /SIGNAL OVERLOAD/], ['warps', /warps and hisses/], ['jam', /^SIGNAL JAM/], ['atkdown', /ATK drops/], ['dist', /^DISTORTION/], ['defdown', /DEF drops/],
+    ['warn', /shrill whine/], ['feedback', /FEEDBACK!!/], ['wave', /wave of noise/], ['clear', /head clears/],
+    ['muffle', /muffle the noise/], ['soften', /softens the blow/], ['soak', /soaks up/], ['defeated', /Signal lost/]], () => {
+    if (b.overload && overAt === null) { overAt = b.hp; pink = b.look === 'sandra2'; defAfter = b.def; }
+    if (b.weak && !jams.includes(b.weak)) jams.push(b.weak);
+    if (b.soft && !dists.includes(b.soft)) dists.push(b.soft);
+    if (b.msg !== lastMsg) { lastMsg = b.msg; if (b.msg === 'FEEDBACK!!') feedbackSoft.push(!!b.soft); }
+    if (TALK && !shotOver && /SIGNAL OVERLOAD/.test(b.msg) && b.shown >= b.msg.length && b.glitch > 0 && Math.floor(b.glitch / 3) % 2 === 0) { shotOver = true; T.shot('signal-overload'); }
+    if (TALK && !shotJam && b.weak && /ATK drops/.test(b.msg) && b.shown >= b.msg.length) { shotJam = true; T.shot('signal-jam'); }
+    if (TALK && !shotDist && b.soft && /DEF drops/.test(b.msg) && b.shown >= b.msg.length) { shotDist = true; T.shot('distortion'); }
+    if (TALK && !shotWarn && b.charged && b.shown >= b.msg.length) { shotWarn = true; T.shot('feedback-warning'); }
+    if (TALK && !shotFeedback && b.msg === 'FEEDBACK!!' && b.glitch > 0 && Math.floor(b.glitch / 3) % 2 === 0) { shotFeedback = true; T.shot('feedback'); }
+  });
+  const phones = p.armor === 'phones';
+  T.check('SIGNAL OVERLOAD exactly once, at half HP or below: the coat turns pink, her guard drops to 9', seen.overload === 1 && seen.warps === 1 && overAt !== null && overAt <= 145 && pink && defAfter === 9, JSON.stringify(seen) + ' ' + overAt + ' ' + defAfter);
+  T.check(DEEP ? 'phase 1 seen whole: a swing, a SIGNAL PULSE, a look and a STATIC BURST' : 'phase 1 seen: a swing, a SIGNAL PULSE and a look', seen.swing >= 1 && seen.pulse >= 1 && seen.watch >= 1 && (!DEEP || seen.burst >= 1), JSON.stringify(seen));
+  T.check('phase 2 seen: SIGNAL JAM and DISTORTION, each with its warning line', seen.jam >= 1 && seen.atkdown === seen.jam && (seen.dist || 0) === (seen.defdown || 0) && (DEEP ? seen.dist >= 1 : true), JSON.stringify(seen));
+  T.check('every FEEDBACK was warned of the turn before', (seen.feedback || 0) <= (seen.warn || 0), JSON.stringify(seen));
+  T.check(phones ? 'with HEADPHONES: JAM -4 for 2 moves, DISTORTION -3 for 2' : 'without HEADPHONES: JAM -8 for 3 moves, DISTORTION -6 for 3',
+    jams.every((j) => j.amt === (phones ? 4 : 8)) && dists.every((d) => d.amt === (phones ? 3 : 6)) && jams.length === seen.jam && dists.length === (seen.dist || 0), JSON.stringify([jams, dists]));
+  T.check(phones ? 'with HEADPHONES the DISTORTION is gone before FEEDBACK lands' : 'without them, FEEDBACK lands while the DISTORTION is still on', feedbackSoft.every((s) => s === !phones), JSON.stringify(feedbackSoft));
+  T.check('the armour speaks up once, and only the one being worn', (seen.muffle || 0) === (phones ? 1 : 0) && (seen.soften || 0) === (p.armor === 'padded' ? 1 : 0) && (seen.soak || 0) === (p.armor === 'insulated' ? 1 : 0), JSON.stringify(seen));
+  T.check('beaten', seen.defeated === 1 && g.stats.won === won + 1 && p.hp > 0, g.mode + ' ' + p.hp);
+  T.check('nothing of the JAM or the DISTORTION is left on the hero', g.battle === null && p.atk >= baseAtk && p.def >= baseDef);
+  await T.until(() => g.mode === 'dialog', 'SANDRA to speak');
+  T.check('beaten is saved before anything is handed over', saved().flags.sandraBeaten === true && !saved().flags.fragment4 && saved().q.signal.s === 1);
+  T.check('nothing yet', !g.flags.fragment4 && g.q.signal.s === 1 && g.dlg.name === 'SANDRA');
+  const hand = await (async () => { const out = []; let i = 0; while (g.mode === 'dialog') { if (++i > 40) throw new Error('never ended'); await T.frames(150); if (TALK) T.shot('handover-p' + i); out.push(g.dlg.pages[g.dlg.page].join(' ')); await T.tap('Space', 3); } await T.frames(10); return out.join(' '); })();
+  T.check('THE FOUR FRAGMENTS BEGIN TO GLOW... and the crystal reacts to central Oslo', /THE FOUR FRAGMENTS BEGIN TO GLOW/.test(hand) && /CENTRAL OSLO/.test(hand) && !/OSAKA/i.test(hand), hand);
+  T.check('CRYSTAL FRAGMENT 4, saved', g.flags.fragment4 === true && saved().flags.fragment4 === true);
+  T.check('four Crystal Fragments now', Object.keys(g.flags).filter((k) => /^fragment\\d+$/.test(k) && g.flags[k]).length === 4);
+  T.check('the quest is ready for MINA, and the chapter is not over', g.q.signal.s === 2 && g.tracked === 'signal' && saved().q.signal.s === 2 && g.chapter === 4 && g.mode === 'world');
+  T.check('230 XP and 220 gold', p.xp + (p.lvl > LVL ? NEXT : 0) === xp + 230 && p.gold === gold + 220, p.xp + ' ' + (p.gold - gold));
+  T.check('every weapon and armour owned before is kept, and what was worn is still worn', weapons.every((w) => p.weapons.includes(w)) && armors.every((a) => p.armors.includes(a)) && p.weapon === __WEAPON__ && p.armor === __ARMOR__);
+  T.check('a fair fight', turns <= LIMIT[0] && herbs - p.herbs <= LIMIT[1], turns + ' turns, ' + (herbs - p.herbs) + ' herbs, ' + p.hp + ' HP left');
+  T.out.states.balance = { turns, herbs: herbs - p.herbs, hpLeft: p.hp, maxhp: p.maxhp, seen };
+  if (TALK) { T.shot('tracker'); await T.menuShot('status'); }
+  const flags = JSON.stringify(g.flags);
+  await hear(TALK ? 'after' : ''); await hear(TALK ? 'after-2' : '');
+  T.check('she only talks now, and gives nothing twice', g.mode === 'world' && g.stats.won === won + 1 && JSON.stringify(g.flags) === flags);
+  T.check('her masts have gone dark', ['8,2', '12,2'].every((k) => g.MAPS.veitvetCenter.gates[k].open === 'ò' && g.flags[g.MAPS.veitvetCenter.gates[k].flag] === true));
+  T.state('beaten');
+}`;
+const sandraFight = (fix, { turns, herbs, heal = 55, talk = false, deep = true }) => SANDRA.replace(/LIMIT/g, `[${turns}, ${herbs}]`).replace('HEAL', String(heal))
+  .replace(/TALK/g, String(talk)).replace(/DEEP/g, String(deep)).replace('__WEAPON__', `'${fix.player.weapon}'`).replace('__ARMOR__', `'${fix.player.armor}'`)
+  .replace('LVL', String(fix.player.lvl)).replace('NEXT', String(fix.player.next));
+const atSandraIn = (weapon, armor, base = atSandra) => dressed(base, weapon, armor);
+const veitvetScenarios = [
+  { // a save from the end of Grorud: on along the road, into Veitvet, a look around, and back
+    name: 'veitvet-arrive', save: chapterFourDone,
+    run: [
+      `async (T, g) => {
+        ${VV}
+        T.check('the save knows nothing of Veitvet', saved().q.signal === undefined && saved().q.phone === undefined);
+        await T.continueGame();
+        T.check('it loads in Chapter 5 with every Veitvet quest unstarted, where the barricade used to be', g.chapter === 4 && g.q.signal.s === 0 && g.q.phone.s === 0 && g.player.map === 'veitvetRoad' && g.player.x === 12 && g.player.y === 5);
+        T.shot('road');
+        await T.step('right', 3);
+        await T.until(() => g.player.map === 'veitvet', 'Veitvet');
+        await T.frames(20);
+        T.shot('arriving');
+        await T.frames(40);
+        T.check('along the road into VEITVET, autosaved', g.player.x === 1 && g.player.y === 10 && g.player.dir === 'right' && saved().player.map === 'veitvet', g.player.x + ',' + g.player.y);
+        await T.frames(120);
+        T.check('nothing happens by itself', g.mode === 'world' && g.player.map === 'veitvet');
+        calm();
+        const here = g.NPCS.filter((n) => n.map === 'veitvet' && (!n.visible || n.visible())).map((n) => n.id + ' ' + n.x + ',' + n.y).join('; ');
+        T.check('three people in Veitvet to begin with (NOAH is still stuck below)', here === 'mina 4,9; elias 8,14; marianne 7,5', here);
+        const news = g.NPCS.filter((n) => n.map === 'veitvet' && n.news && n.news()).map((n) => n.id).join();
+        T.check('MINA and ELIAS have a mark; MARIANNE does not', news === 'mina,elias', news);
+        T.check('the tracker is empty until MINA has asked', g.tracked === null);
+        T.place('veitvet', 13, 9, 'up'); await T.frames(20); T.shot('square');
+        T.place('veitvet', 21, 4, 'up'); await T.frames(20); T.shot('center-doors');
+        const doors = await hear('center-doors');
+        T.check('the centre is shuttered, and something buzzes behind it', /shutters/.test(doors) && /buzzes/.test(doors), doors);
+        await T.step('up');
+        T.check('the doors do not open', g.player.map === 'veitvet' && g.player.y === 4 && !g.flags.signalOff);
+        T.place('veitvet', 26, 10, 'right'); await T.frames(20); T.shot('east-gate');
+        const gate = await hear('east-gate');
+        await T.step('right');
+        T.check('the east gate to OSLO S is locked', /OSLO S/.test(gate) && g.player.map === 'veitvet' && g.player.x === 26 && !g.flags.osloGate, gate);
+        T.place('veitvet', 13, 16, 'right'); await T.talk('station-sign');
+        T.place('veitvet', 13, 16, 'down'); await T.frames(20); T.shot('stairs');
+        await T.step('down');
+        await T.until(() => g.player.map === 'veitvetUnder', 'the underground');
+        await T.frames(20);
+        T.shot('underground');
+        await T.frames(40);
+        T.check('down the stairs into the old station: noted as found, autosaved', g.player.x === 2 && g.player.y === 15 && g.flags.underSeen === true && saved().flags.underSeen === true && saved().player.map === 'veitvetUnder');
+        await T.step('down');
+        await T.until(() => g.player.map === 'veitvet', 'back up');
+        await T.frames(60);
+        T.check('and back up the stairs', g.player.x === 13 && g.player.y === 16, g.player.x + ',' + g.player.y);
+        T.place('veitvet', 1, 10, 'left');
+        await T.step('left');
+        await T.until(() => g.player.map === 'veitvetRoad', 'the road');
+        await T.frames(60);
+        T.check('and back west along the road', g.player.x === 14 && g.player.y === 5 && g.player.dir === 'left', g.player.x + ',' + g.player.y);
+        T.check('nothing was started, given or picked up by looking around', g.q.signal.s === 0 && g.q.phone.s === 0 && g.player.gold === 1100 && !g.flags.phone && !g.flags.noahHelped);
+        await T.step('right', 2);
+        await T.until(() => g.player.map === 'veitvet', 'Veitvet again');
+        await T.frames(60);
+        T.state('arrived');
+      }`,
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE in Veitvet', g.player.map === 'veitvet' && g.player.x === 1 && g.player.y === 10 && g.chapter === 4 && g.mode === 'world');
+        T.shot('continued');
+      },
+    ],
+  },
+  { // the maps themselves: open ground, edges, exits, gates, monsters, and what the HUD might hide
+    name: 'veitvet-map-audit', save: inVeitvet,
+    run: `async (T, g) => {
+      ${HUD_CHECK}
+      ${WRAP}
+      await T.continueGame();
+      const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+      const tile = (m, x, y, open) => { const gate = m.gates && m.gates[x + ',' + y]; return gate ? (open ? gate.open : gate.closed) : m.rows[y][x]; };
+      const walk = (m, x, y, open) => x >= 0 && y >= 0 && x < m.w && y < m.h && !g.SOLID.has(tile(m, x, y, open));
+      const reach = (name, sx, sy, open) => {
+        const m = g.MAPS[name], seen = new Set([sx + ',' + sy]), todo = [[sx, sy]];
+        while (todo.length) {
+          const [x, y] = todo.pop();
+          if (m.exits[x + ',' + y]) continue;
+          for (const [dx, dy] of Object.values(DIRS)) {
+            const k = (x + dx) + ',' + (y + dy);
+            if (!seen.has(k) && walk(m, x + dx, y + dy, open)) { seen.add(k); todo.push([x + dx, y + dy]); }
+          }
+        }
+        return seen;
+      };
+      const M = Object.fromEntries(${JSON.stringify(VEITVET_MAPS)}.map((n) => [n, g.MAPS[n]]));
+      const size = Object.entries(M).map(([n, m]) => n + ' ' + m.w + 'x' + m.h + (m.rows.every((r) => r.length === m.w) ? '' : ' RAGGED')).join(', ');
+      T.check('the road 16x10, Veitvet 28x20, the underground 26x18, the centre 22x16, the road to Oslo S 16x10', size === 'veitvetRoad 16x10, veitvet 28x20, veitvetUnder 26x18, veitvetCenter 22x16, osloRoad 16x10', size);
+      const START = { veitvetRoad: [1, 5], veitvet: [1, 10], veitvetUnder: [2, 15], veitvetCenter: [11, 14], osloRoad: [1, 5] };
+      for (const [name, [sx, sy]] of Object.entries(START)) {
+        const m = M[name], seen = reach(name, sx, sy, true), out = [];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (walk(m, x, y, true) && !seen.has(x + ',' + y)) out.push(x + ',' + y);
+        T.check(name + ': all open ground can be reached', out.length === 0, out.join(' '));
+      }
+      const targets = (m) => JSON.stringify(Object.values(m.exits).map((e) => e.map));
+      T.check('the exits: the road between Grorud and Veitvet; Veitvet to the road, the centre, the station and the road to Oslo S; the rest only back',
+        targets(M.veitvetRoad) === '["grorudTown","veitvet"]' && targets(M.veitvet) === '["veitvetRoad","veitvetCenter","veitvetUnder","osloRoad"]'
+        && targets(M.veitvetUnder) === '["veitvet"]' && targets(M.veitvetCenter) === '["veitvet"]' && targets(M.osloRoad) === '["veitvet"]',
+        targets(M.veitvetRoad) + ' ' + targets(M.veitvet));
+      const landing = [];
+      for (const from of [...Object.keys(M), 'grorudTown']) for (const [k, e] of Object.entries(g.MAPS[from].exits)) {
+        if (!M[e.map]) continue;
+        const to = g.MAPS[e.map];
+        if (!walk(to, e.x, e.y, true) || to.exits[e.x + ',' + e.y]) landing.push(from + ' ' + k + ' -> ' + e.map + ' ' + e.x + ',' + e.y);
+        const back = Object.entries(to.exits).some(([bk, be]) => be.map === from && Math.abs(+bk.split(',')[0] - e.x) + Math.abs(+bk.split(',')[1] - e.y) === 1);
+        if (!back) landing.push('no way back from ' + e.map + ' ' + e.x + ',' + e.y);
+      }
+      T.check('every way in lands on open ground, one step from the way back', landing.length === 0, landing.join('; '));
+      const shut = reach('veitvet', 1, 10, false), open = reach('veitvet', 1, 10, true);
+      T.check('shut, the centre doors and the east gate cannot be walked through; open, they lead on', !shut.has('21,3') && !shut.has('27,10') && open.has('21,3') && open.has('27,10')
+        && tile(M.veitvet, 21, 3, false) === 'Å' && tile(M.veitvet, 21, 3, true) === 'å' && tile(M.veitvet, 27, 10, false) === 'G' && tile(M.veitvet, 27, 10, true) === 'L');
+      const below = reach('veitvetUnder', 2, 15, false), belowOpen = reach('veitvetUnder', 2, 15, true);
+      T.check('under the town the shield keeps the device out of reach until it is down; the breaker can always be reached', !below.has('12,3') && belowOpen.has('12,3') && below.has('21,4') && below.has('12,5')
+        && tile(M.veitvetUnder, 12, 4, false) === 'ß' && tile(M.veitvetUnder, 12, 4, true) === 'ä' && g.SOLID.has('ß'));
+      T.check('the device, its relays, the breaker and her masts all stand solid, live and dead alike', ['Ü', 'ü', 'Ÿ', 'ÿ', '§', '¶', 'Ò', 'ò', 'Ø', 'Ð'].every((c) => g.SOLID.has(c)) && ['ä', 'ö', 'þ', 'ø', 'å', 'Ë', 'Í'].every((c) => !g.SOLID.has(c)));
+      const flagOf = (m, k) => m.gates[k].flag;
+      T.check('the centre doors, the device and both relays share one flag; the shield and the breaker another; the masts a third',
+        ['21,3'].every((k) => flagOf(M.veitvet, k) === 'signalOff') && ['12,2', '11,2', '13,2'].every((k) => flagOf(M.veitvetUnder, k) === 'signalOff')
+        && ['12,4', '21,3'].every((k) => flagOf(M.veitvetUnder, k) === 'shieldOff') && ['8,2', '12,2'].every((k) => flagOf(M.veitvetCenter, k) === 'sandraBeaten') && flagOf(M.veitvet, '27,10') === 'osloGate');
+      const oslo = reach('osloRoad', 1, 5, true);
+      T.check('Oslo S is not built: no such map, and nothing past the barricade can be reached', !Object.keys(g.MAPS).some((k) => /^oslo(s|S)?$|osloS|centralStation/i.test(k) && k !== 'osloRoad') && Object.keys(g.MAPS).length === 18
+        && [...oslo].every((k) => +k.split(',')[0] < 15) && g.SOLID.has('J') && M.osloRoad.rows[5][14] === 'J');
+      T.check('the old barricade on the road to Veitvet is gone', !M.veitvetRoad.rows.join('').includes('J') && reach('veitvetRoad', 1, 5, true).has('15,5'));
+      // monsters
+      const zones = (m) => (m.encounter ? m.encounter.zones : []);
+      const inZone = (m, x, y) => zones(m).find((z) => x >= z.at[0] && y >= z.at[1] && x <= z.at[2] && y <= z.at[3]);
+      const ok = (m) => zones(m).every((z) => z.at[0] >= 0 && z.at[1] >= 0 && z.at[2] < m.w && z.at[3] < m.h && z.table.every((e) => g.ENEMIES[e[0]] && !g.ENEMIES[e[0]].boss) && Math.abs(z.table.reduce((n, e) => n + e[1], 0) - 1) < 1e-9);
+      T.check('every zone lies inside its map, its monsters exist, none is a boss, the odds add up', Object.values(M).every(ok));
+      const types = (m) => [...new Set(zones(m).flatMap((z) => z.table.map((e) => e[0])))].sort().join();
+      T.check('the town: bots, hounds and a few guards; the station: bots, hounds, wisps and golems; the centre: guards, wisps and hounds; the roads: nothing',
+        types(M.veitvet) === 'bot,hound,vguard' && types(M.veitvetUnder) === 'bot,hound,swisp,ugolem' && types(M.veitvetCenter) === 'hound,swisp,vguard' && !M.veitvetRoad.encounter && !M.osloRoad.encounter,
+        types(M.veitvet) + ' / ' + types(M.veitvetUnder) + ' / ' + types(M.veitvetCenter));
+      T.check('the guards are mostly met in the centre; golems only below the town; the beast and SANDRA never at random',
+        Math.max(...zones(M.veitvetCenter).map((z) => (z.table.find((e) => e[0] === 'vguard') || [0, 0])[1])) > Math.max(...zones(M.veitvet).map((z) => (z.table.find((e) => e[0] === 'vguard') || [0, 0])[1]))
+        && Object.values(g.MAPS).every((m) => m === M.veitvetUnder || !(m.encounter && m.encounter.zones || []).some((z) => z.table.some((e) => e[0] === 'ugolem')))
+        && Object.values(g.MAPS).every((m) => !(m.encounter && (m.encounter.zones || [m.encounter]) || []).some((z) => (z.table || []).some((e) => e[0] === 'beast' || e[0] === 'sandraBoss'))));
+      T.check('every Veitvet map picks its own battle backdrop', M.veitvet.backdrop === 'veitvet' && M.veitvetUnder.backdrop === 'underground' && M.veitvetCenter.backdrop === 'center' && M.veitvet.encounter.scaleFrom === 13);
+      const ways = { veitvet: [[0, 10], [1, 10], [21, 3], [21, 4], [13, 17], [13, 16], [27, 10], [26, 10]], veitvetUnder: [[2, 16], [2, 15]], veitvetCenter: [[11, 15], [11, 14]] };
+      const near = [];
+      for (const [name, list] of Object.entries(ways)) {
+        const m = M[name];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (inZone(m, x, y) && list.some((p) => Math.abs(p[0] - x) + Math.abs(p[1] - y) <= 3)) near.push(name + ' ' + x + ',' + y);
+      }
+      T.check('no zone within three steps of a way in', near.length === 0, near.join(' '));
+      const safe = [];
+      for (let y = 4; y <= 11; y++) for (let x = 0; x < 28; x++) if (inZone(M.veitvet, x, y)) safe.push('town ' + x + ',' + y);
+      for (const [x0, y0, x1, y1] of [[6, 2, 7, 6], [11, 2, 13, 6], [19, 3, 23, 6], [1, 13, 5, 16]]) for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) if (inZone(M.veitvetUnder, x, y)) safe.push('station ' + x + ',' + y);
+      for (const [x0, y0, x1, y1] of [[7, 2, 13, 5], [1, 5, 5, 8], [0, 11, 21, 15]]) for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) if (inZone(M.veitvetCenter, x, y)) safe.push('centre ' + x + ',' + y);
+      for (let y = 13; y <= 18; y++) for (let x = 1; x <= 15; x++) if (inZone(M.veitvet, x, y)) safe.push('playground ' + x + ',' + y);
+      T.check("the streets and the square, the playground, NOAH's corner, the device's chamber, the breaker room, the way in, the shops, the lobby and SANDRA's stage are all safe", safe.length === 0, safe.slice(0, 12).join(' '));
+      // nothing that matters hides under the HUD, from anywhere within three steps of it
+      const things = [];
+      for (const name of Object.keys(M)) {
+        const m = M[name];
+        things.push(...g.NPCS.filter((n) => n.map === name).map((n) => [n.id, name, n.x, n.y]));
+        things.push(...g.ITEMS.filter((i) => i.map === name).map((i) => [i.id, name, i.x, i.y]));
+        things.push(...Object.keys(m.signs).map((k) => ['sign ' + k, name, ...k.split(',').map(Number)]));
+        things.push(...Object.keys(m.exits).map((k) => ['exit ' + k, name, ...k.split(',').map(Number)]));
+        things.push(...Object.keys(m.gates || {}).map((k) => ['gate ' + k, name, ...k.split(',').map(Number)]));
+      }
+      const hidden = [];
+      for (const [id, map, tx, ty] of things) {
+        const m = g.MAPS[map];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) {
+          if (Math.abs(x - tx) + Math.abs(y - ty) > 3 || !walk(m, x, y, true)) continue;
+          if (hiddenFrom(map, x, y, tx, ty)) hidden.push(id + ' (' + map + ') from ' + x + ',' + y);
+        }
+      }
+      T.check('no person, chest, phone, sign, exit, gate, device or mast of Veitvet is ever under the status panel or the tracker', hidden.length === 0, hidden.slice(0, 12).join('; '));
+      T.check('every chest and the phone stand on open ground, off the paths out', g.ITEMS.filter((i) => M[i.map]).every((i) => walk(g.MAPS[i.map], i.x, i.y, true) && !g.MAPS[i.map].exits[i.x + ',' + i.y]) && g.ITEMS.filter((i) => M[i.map]).length === 5);
+      for (const [name, [sx, sy]] of Object.entries(START)) {
+        const m = M[name], people = new Set(g.NPCS.filter((n) => n.map === name && n.id !== 'beast').map((n) => n.x + ',' + n.y)), seen = new Set([sx + ',' + sy]), todo = [[sx, sy]];
+        while (todo.length) {
+          const [x, y] = todo.pop();
+          for (const [dx, dy] of Object.values(DIRS)) {
+            const k = (x + dx) + ',' + (y + dy);
+            if (!seen.has(k) && !people.has(k) && walk(m, x + dx, y + dy, true)) { seen.add(k); todo.push([x + dx, y + dy]); }
+          }
+        }
+        const cut = [];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (walk(m, x, y, true) && !people.has(x + ',' + y) && !seen.has(x + ',' + y)) cut.push(x + ',' + y);
+        T.check(name + ': the people block nobody in (the beast blocks its side tunnel on purpose)', cut.length === 0, cut.join(' '));
+      }
+      const beastRoom = (() => { const m = M.veitvetUnder, seen = new Set(['2,15']), todo = [[2, 15]]; while (todo.length) { const [x, y] = todo.pop(); for (const [dx, dy] of Object.values(DIRS)) { const k = (x + dx) + ',' + (y + dy); if (!seen.has(k) && k !== '23,14' && walk(m, x + dx, y + dy, true)) { seen.add(k); todo.push([x + dx, y + dy]); } } } return seen; })();
+      T.check('the beast stands in the only way to the SIGNAL BLADE', !beastRoom.has('22,16') && reach('veitvetUnder', 2, 15, true).has('22,16'));
+      // what the HUD and the log say about the new quests, at every stage, must fit
+      const wide = [], keep = JSON.stringify(g.flags);
+      for (const list of [[], ['underSeen'], ['underSeen', 'deviceSeen'], ['underSeen', 'deviceSeen', 'shieldOff'], ${JSON.stringify(ALL_SIGNAL)}]) {
+        for (const k of ${JSON.stringify(ALL_SIGNAL)}) g.flags[k] = list.includes(k);
+        for (const id of ['signal', 'phone']) {
+          const d = g.QUESTS[id];
+          if (d.title.length > 16 || ('NEW QUEST: ' + d.title).length > 28) wide.push(d.title);
+          if (d.progress().length > 15) wide.push(d.progress());
+          if (d.tracker().length > 16) wide.push(d.tracker());
+          if (('SEE ' + d.turnIn + '!').length > 16) wide.push(d.turnIn);
+        }
+      }
+      const restore = JSON.parse(keep); for (const k of Object.keys(g.flags)) delete g.flags[k]; Object.assign(g.flags, restore);
+      T.check('every new quest title, log line and tracker fits', wide.length === 0, wide.join(' | '));
+      const gear = [['weapon', 'sblade'], ['armor', 'padded'], ['armor', 'phones']].map(([k, id]) => (k === 'weapon' ? g.WEAPONS : g.ARMORS)[id]);
+      T.check('new gear names fit inside the status panel (10 letters) and the gear list (14), and what the menu says about them fits in three lines',
+        gear.every((it) => it.name.length <= 10 && (it.full || it.name).length <= 14 && wrap(it.desc, 16).length <= 3), gear.map((it) => it.name + ' / ' + it.full + ': ' + wrap(it.desc, 16).join('/')).join(' | '));
+      T.check('the new gear: signal blade ATK +7 tuned x1.25; padded jacket DEF +5 taking 30 percent off big hits; headphones DEF +2 taking 35 percent off signal blows',
+        JSON.stringify([g.WEAPONS.sblade.atk, g.WEAPONS.sblade.tuned, !!g.WEAPONS.sblade.heavy, !!g.WEAPONS.sblade.nimble, g.ARMORS.padded.def, g.ARMORS.padded.padded, !!g.ARMORS.padded.resist, !!g.ARMORS.padded.insulated, g.ARMORS.phones.def, g.ARMORS.phones.resist, !!g.ARMORS.phones.insulated])
+          === '[7,1.25,false,false,5,0.3,false,false,2,0.35,false]');
+      T.check('the old gear is as it was', JSON.stringify(['none', 'iron', 'crystal', 'axe', 'bat', 'wrench', 'blade'].map((k) => [g.WEAPONS[k].atk, !!g.WEAPONS[k].heavy, !!g.WEAPONS[k].nimble, !!g.WEAPONS[k].keen, !!g.WEAPONS[k].tuned])) === '[[0,false,false,false,false],[3,false,false,false,false],[7,false,false,false,false],[2,true,false,false,false],[9,false,false,false,false],[8,true,false,false,false],[7,false,true,true,false]]'
+        && JSON.stringify(['none', 'vest', 'light', 'sneakers', 'rvest', 'insulated', 'factory'].map((k) => [g.ARMORS[k].def, !!g.ARMORS[k].nimble, g.ARMORS[k].insulated || 0, !!g.ARMORS[k].padded, !!g.ARMORS[k].resist])) === '[[0,false,0,false,false],[2,false,0,false,false],[1,true,0,false,false],[3,true,0,false,false],[4,false,0,false,false],[3,false,0.4,false,false],[6,false,0,false,false]]');
+      T.check('the Grorud enemies and NABILAH are as they were, and only Veitvet ones are driven by the signal', JSON.stringify(['rust', 'guard', 'scrap', 'hulk', 'pwisp', 'sentinel', 'nabilah'].map((k) => [g.ENEMIES[k].hp, g.ENEMIES[k].atk, g.ENEMIES[k].def, g.ENEMIES[k].xp]))
+        === '[[48,27,5,30],[64,28,8,38],[70,32,15,50],[120,33,16,85],[44,30,5,40],[96,31,11,60],[250,30,10,190]]' && Object.keys(g.ENEMIES).filter((k) => g.ENEMIES[k].signal).join() === 'bot,hound,swisp,beast,sandraBoss'
+        && Object.keys(g.ENEMIES).filter((k) => g.ENEMIES[k].shock).join() === 'pwisp');
+      T.check('six chapters: Veitvet ends with VEITVET SIGNAL, and Oslo S comes next without a quest', JSON.stringify(g.CHAPTERS.slice(4)) === '[{"name":"VEITVET","quest":"signal"},{"name":"OSLO S","quest":null}]' && g.CHAPTERS.length === 6);
+      T.check('eighteen quests, the new two last', g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab,trouble,ball,wisp,power,bag,yard,signal,phone', g.QUEST_ORDER.join());
+      T.check('no OSAKA anywhere', !/OSAKA/i.test(JSON.stringify(Object.values(g.MAPS).map((m) => [m.name, m.signs]))));
+    }`,
+  },
+  { // THE VEITVET SIGNAL from MINA's first word to the device going dark, in the order the story suggests
+    name: 'veitvet-signal', save: inVeitvet,
+    run: [
+      `async (T, g) => {
+        ${VV}
+        await T.continueGame();
+        calm();
+        const track = () => g.QUESTS.signal.tracker();
+        T.place('veitvet', 4, 10, 'up');
+        T.shot('mina');
+        const offer = await hear('mina-offer');
+        T.check('MINA asks about the hum, points down to the station, and notices the crystal', /hum/.test(offer) && /station/.test(offer) && /crystal in your pack/.test(offer), offer);
+        T.check('VEITVET SIGNAL taken, tracked, saved', g.q.signal.s === 1 && g.tracked === 'signal' && saved().q.signal.s === 1 && track() === 'GO UNDERGROUND');
+        await T.frames(20); T.shot('quest-banner');
+        await T.menuShot('log');
+        const hint1 = await hear('mina-hint-1');
+        T.check('asked again, she says where the stairs are', /stairs/.test(hint1), hint1);
+        T.place('veitvet', 13, 16, 'down');
+        await T.step('down');
+        await T.until(() => g.player.map === 'veitvetUnder', 'the station');
+        await T.frames(60);
+        T.check('down in the station: the log moves on', g.flags.underSeen === true && track() === 'FIND THE SOURCE' && g.QUESTS.signal.progress() === 'IN THE TUNNEL');
+        T.place('veitvetUnder', 12, 5, 'up'); await T.frames(20); T.shot('shield');
+        const field = await hear('shield');
+        T.check('the shield: it blocks the way, and its cables run east', /shield/.test(field) && /east/.test(field) && g.flags.deviceSeen === true && saved().flags.deviceSeen === true && track() === 'FIND THE SWITCH', field);
+        await T.step('up');
+        T.check('the shield cannot be walked through', g.player.y === 5);
+        T.place('veitvetUnder', 21, 4, 'up'); await T.frames(20); T.shot('breaker');
+        const pull = await hear('breaker');
+        T.check('the breaker: pulled once, the shield goes dark, saved', /CLUNK/.test(pull) && g.flags.shieldOff === true && saved().flags.shieldOff === true && track() === 'SIGNAL DEVICE', pull);
+        T.shot('breaker-down');
+        const again = await hear();
+        T.check('pulled again: nothing more happens', /lever is down/.test(again) && g.flags.shieldOff === true, again);
+        T.place('veitvetUnder', 12, 5, 'up');
+        await T.step('up', 2);
+        T.check('through where the shield was, into the chamber', g.player.x === 12 && g.player.y === 3, g.player.x + ',' + g.player.y);
+        await T.frames(20); T.shot('device');
+        await T.tap('Space', 3);
+        let i = 0, said = [], lost = false, shotPulse = false;
+        while (g.mode === 'dialog') {
+          if (++i > 20) throw new Error('never ended');
+          await T.frames(150);
+          said.push(g.dlg.pages[g.dlg.page].join(' '));
+          if (g.dlg.pages[g.dlg.page].join(' ') === 'SIGNAL LOST...') { lost = g.flags.signalOff === true; }
+          T.shot('device-p' + i);
+          await T.tap('Space', 3);
+          if (!shotPulse && g.pulseT > 0) { for (let f = 0; f < 4 && !(Math.floor(g.pulseT / 6) % 2 === 0); f++) await T.frames(1); shotPulse = true; T.shot('signal-pulse'); }
+        }
+        const all = said.join(' | ');
+        T.check('SIGNAL LOST... and then SOURCE MOVED., each on its own', said.includes('SIGNAL LOST...') && said.includes('SOURCE MOVED.') && said.indexOf('SIGNAL LOST...') < said.indexOf('SOURCE MOVED.') && lost, all);
+        T.check('the screen pulsed and the device is off for good, saved', shotPulse && g.flags.signalOff === true && saved().flags.signalOff === true);
+        T.check('the device and its relays have gone dark, and the centre doors are open', g.MAPS.veitvetUnder.gates['12,2'].open === 'ü' && g.MAPS.veitvet.gates['21,3'].open === 'å' && ['11,2', '13,2'].every((k) => g.flags[g.MAPS.veitvetUnder.gates[k].flag]));
+        T.check('the log points at SANDRA in the centre', track() === 'SANDRA: CENTER' && g.QUESTS.signal.progress() === 'IN THE CENTER' && g.q.signal.s === 1);
+        await T.frames(80); T.shot('device-dead');
+        const dead = await hear();
+        T.check('the device again: dead, nothing more', /dead/.test(dead) && g.mode === 'world', dead);
+        T.state('device-off');
+      }`,
+      `async (T, g) => {
+        ${VV}
+        await T.continueGame();
+        calm();
+        T.check('CONTINUE: the device stays dead, the shield down, the doors open', g.flags.signalOff === true && g.flags.shieldOff === true && g.player.map === 'veitvetUnder');
+        T.place('veitvet', 4, 10, 'up');
+        const hint = await hear('mina-sandra');
+        T.check('MINA now names SANDRA and the centre', /SANDRA/.test(hint) && /CENTER/.test(hint), hint);
+        T.place('veitvet', 21, 4, 'up'); await T.frames(20); T.shot('center-open');
+        await T.step('up');
+        await T.until(() => g.player.map === 'veitvetCenter', 'the centre');
+        await T.frames(20); T.shot('center');
+        await T.frames(40);
+        T.check('through the open doors into VEITVET CENTER, autosaved', g.player.x === 11 && g.player.y === 14 && saved().player.map === 'veitvetCenter');
+        T.place('veitvetCenter', 10, 6, 'up'); await T.frames(20); T.shot('stage');
+        T.check('SANDRA is there to be seen on her stage, with her masts buzzing', g.NPCS.some((n) => n.id === 'sandra' && n.x === 10 && n.y === 3) && !g.flags.sandraBeaten);
+        T.place('veitvetCenter', 11, 14, 'down');
+        await T.step('down');
+        await T.until(() => g.player.map === 'veitvet', 'back out');
+        await T.frames(60);
+        T.check('and out again', g.player.x === 21 && g.player.y === 4 && g.player.dir === 'down');
+        T.state('center');
+      }`,
+    ],
+  },
+  { // the other way round: everything found before MINA has asked, and MINA keeping up
+    name: 'veitvet-signal-any-order', save: moved(chapterFourDone, 'veitvetUnder', 21, 4, 'up'),
+    run: [
+      `async (T, g) => {
+        ${VV}
+        await T.continueGame();
+        calm();
+        T.check('no quest yet, standing at the breaker', g.q.signal.s === 0 && g.tracked === null);
+        await hear();
+        T.check('the breaker can be pulled before anybody has asked, or the device been seen', g.flags.shieldOff === true && !g.flags.deviceSeen && g.q.signal.s === 0);
+        T.place('veitvetUnder', 12, 3, 'up');
+        await hear();
+        T.check('and the device shut down', g.flags.signalOff === true && g.q.signal.s === 0 && g.tracked === null);
+        T.place('veitvet', 4, 10, 'up');
+        const offer = await hear('mina-late');
+        T.check('MINA: the hum stopped, the centre opened, will the hero find out who', /stopped/.test(offer) && /CENTER/.test(offer) && !/old station, down the stairs/.test(offer), offer);
+        T.check('the quest starts right where the story is: SANDRA, in the centre', g.q.signal.s === 1 && g.QUESTS.signal.tracker() === 'SANDRA: CENTER');
+        T.state('caught-up');
+      }`,
+    ],
+  },
+  { // SANDRA beaten before MINA was ever asked: MINA takes it in, gives it back, and the chapter ends, once
+    name: 'veitvet-signal-sandra-first', save: (() => { const d = sandraDone(withSignal(moved(chapterFourDone, 'veitvet', 4, 10, 'up'), ALL_SIGNAL)); d.q.signal = { s: 0 }; d.tracked = null; return d; })(),
+    run: `async (T, g) => {
+      ${VV}
+      await T.continueGame();
+      const said = await hear('mina');
+      T.check('MINA hears the whole story at once: taken, ready and handed in', /was that you/.test(said) && /OSLO S/.test(said) && g.q.signal.s === 3, said);
+      await T.until(() => g.mode === 'victory', 'the chapter screen');
+      await T.frames(120);
+      await T.tap('Space');
+      await T.until(() => g.mode === 'world', 'the world');
+      await T.frames(40);
+      T.check('the east gate is open and the chapter over', g.flags.osloGate === true && g.chapter === 5 && saved().q.signal.s === 3);
+    }`,
+  },
+  { // LOST PHONE the usual way round: asked first, then found, then handed back for the headphones
+    name: 'veitvet-phone', save: moved(inVeitvet, 'veitvet', 8, 15, 'up'),
+    run: [
+      `async (T, g) => {
+        ${VV}
+        await T.continueGame();
+        calm();
+        T.check('ELIAS by the playground, with a mark', g.NPCS.find((n) => n.id === 'elias').news());
+        const offer = await hear('elias-offer');
+        T.check('LOST PHONE taken, tracked', g.q.phone.s === 1 && g.tracked === 'phone' && g.QUESTS.phone.tracker() === 'FIND THE PHONE' && /south-east/.test(offer), offer);
+        T.place('veitvet', 26, 14, 'up'); await T.frames(20); T.shot('phone');
+        await T.step('up');
+        await T.until(() => g.mode === 'dialog', 'finding it');
+        const found = await (async () => { const out = []; while (g.mode === 'dialog') { await T.frames(150); out.push(g.dlg.pages[g.dlg.page].join(' ')); await T.tap('Space', 3); } await T.frames(10); return out.join(' '); })();
+        T.check('the phone: picked up, the quest ready, saved', /Take it back to ELIAS/.test(found) && g.flags.phone === true && g.q.phone.s === 2 && saved().flags.phone === true && saved().q.phone.s === 2, found);
+        await T.step('down'); await T.step('up');
+        T.check('it is not there twice', g.mode === 'world' && g.q.phone.s === 2);
+        T.place('veitvet', 8, 15, 'up');
+        const armors = g.player.armors.slice();
+        const thanks = await hear('elias-thanks');
+        T.check('HEADPHONES, once; LOST PHONE done; the old armour kept', g.player.armors.filter((a) => a === 'phones').length === 1 && armors.every((a) => g.player.armors.includes(a)) && g.q.phone.s === 3 && saved().q.phone.s === 3 && /HEADPHONES/.test(thanks) && /armour/.test(thanks), thanks);
+        T.check('nothing put on by itself', g.player.armor === 'insulated');
+        await hear('elias-after');
+        T.check('nothing twice', g.player.armors.filter((a) => a === 'phones').length === 1 && g.q.phone.s === 3);
+        await T.tap('KeyX', 6); await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
+        T.check('the armour line', g.menuSel === 1);
+        while (g.player.armor !== 'phones') await T.tap('Space', 4);
+        T.shot('headphones-on');
+        await T.tap('ArrowDown', 4); await T.tap('ArrowDown', 4); await T.tap('Space', 6);
+        T.check('saved by hand with them on', g.menuNote && g.menuNote.text === 'SAVED!' && saved().player.armor === 'phones');
+        await T.tap('KeyX', 6);
+        T.state('phone-done');
+      }`,
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: headphones on and kept, the phone gone for good', g.player.armor === 'phones' && g.q.phone.s === 3 && g.flags.phone === true && !g.ITEMS.some((i) => i.id === 'phone' && !g.flags.phone));
+        await T.menuShot('status');
+      },
+    ],
+  },
+  { // LOST PHONE the other way round: the phone found first, ELIAS takes it at once
+    name: 'veitvet-phone-early', save: moved(inVeitvet, 'veitvet', 26, 14, 'up'),
+    run: `async (T, g) => {
+      ${VV}
+      await T.continueGame();
+      calm();
+      await T.step('up');
+      await T.until(() => g.mode === 'dialog', 'finding it');
+      const found = await (async () => { const out = []; while (g.mode === 'dialog') { await T.frames(150); T.shot('early-p' + (out.length + 1)); out.push(g.dlg.pages[g.dlg.page].join(' ')); await T.tap('Space', 3); } await T.frames(10); return out.join(' '); })();
+      T.check('found before anybody asked: the early lines, kept, the quest not started', /must be missing this/.test(found) && g.flags.phone === true && g.q.phone.s === 0 && saved().flags.phone === true, found);
+      T.place('veitvet', 8, 15, 'up');
+      const said = await hear('elias');
+      T.check('ELIAS: found before he even asked; taken, ready and done in one go; HEADPHONES once', /before I even asked/.test(said) && g.q.phone.s === 3 && g.player.armors.filter((a) => a === 'phones').length === 1, said);
+      await hear();
+      T.check('and nothing more', g.player.armors.filter((a) => a === 'phones').length === 1 && g.q.phone.s === 3);
+    }`,
+  },
+  { // MARIANNE, before the device, after it, and after SANDRA
+    name: 'veitvet-marianne', save: moved(inVeitvet, 'veitvet', 7, 6, 'up'),
+    run: `async (T, g) => {
+      ${VV}
+      await T.continueGame();
+      T.shot('marianne');
+      const one = await hear('before');
+      g.flags.signalOff = true;
+      const two = await hear('after-device');
+      g.flags.sandraBeaten = true;
+      const three = await hear('after-sandra');
+      T.check('before the device: bots, hounds, the hum, and the golems below (the wrench noticed)', /STREET BOTS/.test(one) && /crouch/.test(one) && /hum/.test(one) && /wrench/.test(one), one);
+      T.check('after the device: the hum is gone, and SANDRA on the stage', /hum is gone/.test(two) && /SANDRA/.test(two) && /block/.test(two), two);
+      T.check('after SANDRA: peace and quiet, and the road to OSLO S', /quiet/.test(three) && /OSLO S/.test(three), three);
+      T.check('three different talks, no quest, nothing given', one !== two && two !== three && g.q.signal.s === 0 && g.player.gold === 1100 && !g.NPCS.find((n) => n.id === 'marianne').news);
+    }`,
+  },
+  { // NOAH, stuck in the station: pulled free once, a small reward once, and up in the square afterwards
+    name: 'veitvet-noah', save: (() => { const d = moved(chapterFourDone, 'veitvetUnder', 7, 4, 'up'); d.player.herbs = 2; return d; })(),
+    run: [
+      `async (T, g) => {
+        ${VV}
+        await T.continueGame();
+        calm();
+        T.check('NOAH is stuck in his corner', g.NPCS.find((n) => n.id === 'noah').visible() && !g.NPCS.find((n) => n.id === 'noah2').visible());
+        T.shot('noah');
+        const said = await hear('noah');
+        T.check('pulled free: 60 gold and the herbs refilled, once; and a tip about the breaker', g.flags.noahHelped === true && g.player.gold === 1160 && g.player.herbs === 7 && saved().flags.noahHelped === true && /breaker/.test(said), said);
+        T.check('he is gone from the station, and stands in the square', !g.NPCS.find((n) => n.id === 'noah').visible() && g.NPCS.find((n) => n.id === 'noah2').visible());
+        await T.tap('Space', 3);
+        T.check('nobody left to pull', g.mode === 'world');
+        T.place('veitvet', 19, 9, 'up');
+        await hear('noah-square');
+        T.check('in the square he only talks', g.player.gold === 1160);
+      }`,
+      async (T, g) => {
+        await T.continueGame();
+        g.player.herbs = 1;
+        T.place('veitvetUnder', 7, 4, 'up');
+        await T.tap('Space', 3);
+        T.check('CONTINUE: NOAH stays rescued, the reward is not given again', g.mode === 'world' && g.player.gold === 1160 && g.player.herbs === 1);
+      },
+    ],
+  },
+  { // the SIGNAL BEAST in the side tunnel: run from it and it stays; beat it and the SIGNAL BLADE is there to take
+    name: 'veitvet-beast', save: moved(chapterFourDone, 'veitvetUnder', 23, 13, 'down'),
+    run: [
+      `async (T, g) => {
+        ${VV}
+        ${WATCH}
+        await T.continueGame();
+        calm();
+        T.shot('beast');
+        await hear('beast');
+        await T.untilBattle();
+        let b = g.battle;
+        T.check('the SIGNAL BEAST: 140 HP, ATK 34 and 10 percent more while the signal runs, DEF 11, no boss', b.type === 'beast' && b.max === 140 && b.atk === 37 && b.def === 11 && b.xp === 110 && !b.boss && b.boosted, JSON.stringify([b.max, b.atk, b.def, b.xp, b.boosted]));
+        T.shot('battle');
+        await T.fight(() => 2);
+        T.check('got away: it still blocks the tunnel', g.mode === 'world' && g.NPCS.find((n) => n.id === 'beast').visible() && !g.flags.beastBeaten && g.stats.won === 130);
+        g.player.hp = g.player.maxhp;
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') { await T.frames(150); await T.tap('Space', 3); }
+        await T.untilBattle();
+        b = g.battle;
+        const { turns, seen } = await watchFight(55, [['howl', /howls/], ['defeated', /fizzles/]]);
+        T.check('beaten: it howls (a signal blow) every third turn, and it is gone for good', seen.howl >= 1 && seen.defeated === 1 && g.flags.beastBeaten === true && !g.NPCS.find((n) => n.id === 'beast').visible() && g.stats.won === 131, JSON.stringify(seen) + ' ' + turns);
+        T.place('veitvetUnder', 23, 15, 'down');
+        await T.step('down'); await T.step('left');
+        await T.until(() => g.mode === 'dialog', 'the chest');
+        const chest = await (async () => { const out = []; while (g.mode === 'dialog') { await T.frames(150); T.shot('chest-p' + (out.length + 1)); out.push(g.dlg.pages[g.dlg.page].join(' ')); await T.tap('Space', 3); } await T.frames(10); return out.join(' '); })();
+        T.check('the SIGNAL BLADE, under its full name, once', /SIGNAL BLADE/.test(chest) && g.player.weapons.filter((w) => w === 'sblade').length === 1 && g.flags.chestSblade === true, chest);
+        T.state('blade');
+      }`,
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: the beast stays beaten, the blade kept, the chest empty', g.flags.beastBeaten === true && !g.NPCS.find((n) => n.id === 'beast').visible() && g.player.weapons.includes('sblade') && g.flags.chestSblade === true);
+      },
+    ],
+  },
+  { // the other chests, the gear menu with Veitvet's gear in it, and keeping it all over a save
+    name: 'veitvet-chests', save: (() => { const d = withSignal(moved(chapterFourDone, 'veitvet', 1, 17, 'down'), ALL_SIGNAL); d.player.weapons.push('sblade'); d.player.armors.push('phones'); return d; })(),
+    run: [
+      `async (T, g) => {
+        ${VV}
+        await T.continueGame();
+        calm();
+        const take = async (map, x, y, dir) => {
+          const from = { left: [1, 0], right: [-1, 0], up: [0, 1], down: [0, -1] }[dir];
+          T.place(map, x + from[0], y + from[1], dir);
+          await T.step(dir);
+          await T.until(() => g.mode === 'dialog', 'a chest');
+          const out = []; while (g.mode === 'dialog') { await T.frames(150); out.push(g.dlg.pages[g.dlg.page].join(' ')); await T.tap('Space', 3); } await T.frames(10);
+          return out.join(' ');
+        };
+        const gold = g.player.gold;
+        const a = await take('veitvet', 1, 18, 'down');
+        T.check('behind the playground: 90 gold', /90 gold/.test(a) && g.player.gold === gold + 90, a);
+        const b = await take('veitvetCenter', 1, 6, 'left');
+        T.check('in the closed shop: the PADDED JACKET under its full name', /PADDED JACKET/.test(b) && g.player.armors.filter((x) => x === 'padded').length === 1, b);
+        const c = await take('veitvetCenter', 19, 6, 'right');
+        T.check('in the east wing: 120 gold', /120 gold/.test(c) && g.player.gold === gold + 210, c);
+        T.check('all saved', ['chestVeitvet', 'chestPadded', 'chestCenter'].every((k) => saved().flags[k] === true));
+        T.place('veitvetCenter', 2, 6, 'left'); await T.step('left');
+        T.check('an opened chest is gone', g.mode === 'world' && g.player.gold === gold + 210);
+        await T.tap('KeyX', 6);
+        await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
+        T.check('the armour line: seven armours, five shown with arrows', g.menuSel === 1 && g.player.armors.length === 7);
+        T.shot('armours-insulated');
+        const seen = [];
+        for (let i = 0; i < 7; i++) { await T.tap('Space', 4); seen.push(g.player.armor); if (g.player.armor === 'padded') T.shot('armours-padded'); if (g.player.armor === 'phones') T.shot('armours-phones'); }
+        T.check('round the whole list and back, in table order', seen.join() === 'factory,padded,phones,none,vest,sneakers,insulated', seen.join());
+        while (g.player.armor !== 'padded') await T.tap('Space', 4);
+        await T.tap('ArrowUp', 4);
+        T.check('the weapon line: six weapons', g.menuSel === 0 && g.player.weapons.length === 6);
+        while (g.player.weapon !== 'sblade') await T.tap('Space', 4);
+        T.shot('weapons-sblade');
+        await T.tap('ArrowDown', 4); await T.tap('ArrowDown', 4); await T.tap('ArrowDown', 4);
+        await T.tap('Space', 6);
+        T.check('saved by hand', g.menuNote && g.menuNote.text === 'SAVED!');
+        T.shot('status');
+        await T.tap('KeyX', 6);
+      }`,
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: signal blade and padded jacket on, every weapon and armour kept', g.player.weapon === 'sblade' && g.player.armor === 'padded' && g.player.weapons.length === 6 && g.player.armors.length === 7);
+        T.check('ATK 28 + 7, DEF 12 + 5', g.player.atk + g.WEAPONS.sblade.atk === 35 && g.player.def + g.ARMORS.padded.def === 17);
+        T.check('no chest comes back', ['chestVeitvet', 'chestPadded', 'chestCenter'].every((k) => g.flags[k] === true));
+        await T.menuShot('status');
+      },
+    ],
+  },
+  { // each of Veitvet's monsters, met for certain on a chosen tile; the signal's 10 percent, before and after; the gear
+    name: 'veitvet-enemies', save: (() => { const d = JSON.parse(JSON.stringify(inVeitvet)); d.player.weapons.push('sblade'); d.player.armors.push('padded', 'phones'); return d; })(),
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      const stats = (b) => JSON.stringify([b.max, b.atk, b.def, b.xp]);
+      const full = () => { g.player.hp = g.player.maxhp; };
+      const wear = (w, a) => { g.player.weapon = w; g.player.armor = a; full(); };
+      // hero LV12: ATK 28, DEF 12. The signal is live.
+      wear('wrench', 'insulated');
+      await meet(3, 8, 'right', 0, 'veitvetUnder');
+      let b = g.battle;
+      T.check('a street bot in the tunnel, the underground behind it: ATK 29 plus 10 percent while the signal runs', b.type === 'bot' && b.name === 'STREET BOT' && stats(b) === '[50,32,6,36]' && b.boosted && b.backdrop === 'underground', b.type + ' ' + stats(b));
+      const bite = g.player.maxhp - g.player.hp;
+      T.check('quick: it nipped first (32 + 0..2 against DEF 15)', bite >= 17 && bite <= 19 && b.turn === 0, bite);
+      T.shot('bot-boosted');
+      T.check('the wrench: 28 + 8 + 1 - 6 = 31', await swing() === 31);
+      await T.fight(cautious);
+      wear('blade', 'insulated');
+      await meet(3, 8, 'right', 0, 'veitvetUnder');
+      T.check('with the QUICK BLADE it gets no opening nip', g.player.hp === g.player.maxhp && g.battle.type === 'bot');
+      await T.fight(cautious);
+      wear('wrench', 'padded');
+      await meet(3, 8, 'right', 0.5, 'veitvetUnder');
+      b = g.battle;
+      T.check('a shadow hound: ATK 32 plus 10 percent, waits for the hero', b.type === 'hound' && stats(b) === '[52,35,5,40]' && b.boosted && g.player.hp === g.player.maxhp, stats(b));
+      T.shot('hound');
+      let crouched = false, pounced = false, softened = false, last = '';
+      while (g.mode === 'battle') {
+        await T.until(() => g.mode !== 'battle' || b.phase === 'menu', 'menu');
+        if (g.mode !== 'battle') break;
+        if (b.charged && !crouched) { crouched = true; T.shot('hound-crouch'); }
+        g.player.hp = g.player.maxhp;
+        if (!pounced) b.hp = b.max; // (kept alive until it has pounced)
+        while (b.menu !== 0) await T.tap('ArrowDown', 1);
+        await T.tap('Space', 1);
+        await T.until(() => g.mode !== 'battle' || b.phase !== 'menu', 'start');
+        while (g.mode === 'battle' && b.phase !== 'menu') { if (b.msg !== last) { last = b.msg; if (/POUNCES/.test(b.msg)) pounced = true; if (/softens the blow/.test(b.msg)) softened = true; } await T.frames(1); }
+      }
+      await T.frames(70);
+      T.check('it crouches low before it pounces, and the PADDED JACKET softens the pounce', crouched && pounced && softened);
+      wear('wrench', 'insulated');
+      await meet(3, 8, 'right', 0.9, 'veitvetUnder');
+      b = g.battle;
+      const zap1 = g.player.maxhp - g.player.hp;
+      T.check('a signal wisp: quick, ATK 31 plus 10 percent; its nip is a signal blow, and the insulated vest is no help (34..36 - 15)', b.type === 'swisp' && stats(b) === '[46,34,6,42]' && zap1 >= 19 && zap1 <= 21, stats(b) + ' ' + zap1);
+      T.shot('swisp');
+      await T.fight(cautious);
+      wear('wrench', 'phones');
+      await meet(3, 8, 'right', 0.9, 'veitvetUnder');
+      const zap2 = g.player.maxhp - g.player.hp;
+      T.check('in the HEADPHONES its nip is muffled: (34..36 - 14) less 35 percent', zap2 >= 13 && zap2 <= 14, zap2);
+      await T.until(() => /muffle/.test(g.battle.msg) || g.battle.phase === 'menu', 'the headphones line');
+      T.check('and the headphones said so', g.battle.resistSaid === true);
+      T.shot('swisp-headphones');
+      await T.fight(cautious);
+      wear('wrench', 'insulated');
+      await meet(15, 8, 'right', 0.5, 'veitvetUnder');
+      b = g.battle;
+      T.check('an underground golem in the east tunnel: armoured, not driven by the signal', b.type === 'ugolem' && b.name === 'UNDERGROUND GOLEM' && stats(b) === '[84,34,17,58]' && !b.boosted, stats(b));
+      T.shot('ugolem');
+      T.check('the heavy wrench straight through its armour: 37', await swing() === 37);
+      const hp = g.player.hp;
+      await T.until(() => b.phase === 'menu', 'menu');
+      T.check('on its first turn it only gathers grit', g.player.hp === hp && b.turn === 1);
+      await T.fight(cautious);
+      wear('bat', 'insulated');
+      await meet(15, 8, 'right', 0.5, 'veitvetUnder');
+      T.check("MARCUS' bat against its armour: 21", await swing() === 21);
+      await T.fight(cautious);
+      wear('sblade', 'insulated');
+      await meet(15, 8, 'right', 0.5, 'veitvetUnder');
+      T.check('the SIGNAL BLADE is no help against it: 28 + 7 + 1 - 17 = 19', await swing() === 19);
+      await T.fight(cautious);
+      wear('wrench', 'insulated');
+      await meet(9, 7, 'down', 0, 'veitvetCenter');
+      b = g.battle;
+      T.check('a Veitvet guard in the centre, the centre behind it', b.type === 'vguard' && stats(b) === '[74,31,10,46]' && !b.boosted && b.backdrop === 'center', stats(b));
+      T.shot('vguard');
+      T.check('the wrench: 27', await swing() === 27);
+      await T.fight(cautious);
+      wear('wrench', 'insulated');
+      await meet(20, 15, 'down', 0, 'veitvet');
+      T.check('a street bot on the lawn, Veitvet behind it', g.battle.type === 'bot' && g.battle.backdrop === 'veitvet');
+      T.shot('bot-lawn');
+      await T.fight(cautious);
+      // the device is off: the signal's 10 percent is gone
+      g.flags.signalOff = true;
+      wear('sblade', 'insulated');
+      await meet(3, 8, 'right', 0, 'veitvetUnder');
+      b = g.battle;
+      T.check('the device off: the street bot is back to ATK 29, no hum', b.type === 'bot' && stats(b) === '[50,29,6,36]' && !b.boosted, stats(b));
+      T.shot('bot-calm');
+      T.check('the SIGNAL BLADE cuts it deeper: (28 + 7 + 1 - 6) x 1.25 = 38', await swing() === 38);
+      await T.until(() => /hums and cuts deep/.test(b.msg) || b.phase === 'menu', 'the blade line');
+      T.check('and says so', /hums and cuts deep/.test(b.msg));
+      T.shot('sblade-hum');
+      await T.fight(cautious);
+      await meet(3, 8, 'right', 0.5, 'veitvetUnder');
+      T.check('the hound back to ATK 32', g.battle.type === 'hound' && stats(g.battle) === '[52,32,5,40]' && !g.battle.boosted);
+      await T.fight(cautious);
+      await meet(3, 8, 'right', 0.9, 'veitvetUnder');
+      T.check('the wisp back to ATK 31', g.battle.type === 'swisp' && stats(g.battle) === '[46,31,6,42]' && !g.battle.boosted);
+      await T.fight(cautious);
+      // nothing outside Veitvet cares about the signal
+      wear('wrench', 'insulated');
+      for (const off of [false, true]) {
+        g.flags.signalOff = off;
+        await meet(5, 15, 'down', 0, 'grorudHeights');
+        T.check('a Grorud rust rat is the same with the signal ' + (off ? 'off' : 'on'), g.battle.type === 'rust' && stats(g.battle) === '[48,27,5,30]' && !g.battle.boosted);
+        await T.fight(cautious);
+      }
+      T.state('after');
+    }`,
+  },
+  { // back to MINA: the chapter ends, the east gate opens, and the road to Oslo S stops at a barricade
+    name: 'veitvet-chapter', save: (() => { const d = sandraDone(withSignal(moved(chapterFourDone, 'veitvet', 4, 10, 'up'), ALL_SIGNAL)); d.q.phone = { s: 1 }; return d; })(),
+    run: [
+      `async (T, g) => {
+        ${VV}
+        await T.continueGame();
+        calm();
+        T.check('ready to report, Chapter 5, the east gate shut', g.q.signal.s === 2 && g.chapter === 4 && !g.storyDone && g.NPCS.find((n) => n.id === 'mina').news() && !g.flags.osloGate);
+        let spoke = false, said = [];
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') {
+          await T.frames(150);
+          said.push(g.dlg.pages[g.dlg.page].join(' '));
+          if (g.dlg.name === 'MICHAEL') { if (!spoke) T.shot('hero-speaks'); spoke = true; } else T.shot('mina-p' + said.length);
+          await T.tap('Space', 3);
+        }
+        T.check("the hero answers under the hero's own name; MINA sees the four fragments and points to OSLO S", spoke && /four/.test(said.join(' ')) && /OSLO S/.test(said.join(' ')), said.join(' | '));
+        await T.until(() => g.mode === 'victory', 'the chapter screen');
+        await T.frames(120);
+        T.shot('chapter-complete');
+        T.check('VEITVET SIGNAL is done and saved, and the east gate opened with it', g.q.signal.s === 3 && saved().q.signal.s === 3 && g.flags.osloGate === true && saved().flags.osloGate === true);
+        await T.tap('Space');
+        await T.until(() => g.mode === 'world', 'the world');
+        await T.frames(40);
+        T.check('Chapter 6 now: Oslo S, and the story is not over', g.chapter === 5 && !g.storyDone && g.CHAPTERS[5].name === 'OSLO S' && g.player.map === 'veitvet');
+        T.check('LOST PHONE is still being looked for, and is tracked again', g.q.phone.s === 1 && g.tracked === 'phone');
+        const flags = JSON.stringify(g.flags), gold = g.player.gold;
+        await T.talk('mina-after-1'); await T.talk('mina-after-2');
+        T.check('no second chapter screen, nothing given twice', g.mode === 'world' && JSON.stringify(g.flags) === flags && g.player.gold === gold);
+        T.place('veitvet', 26, 10, 'right'); await T.frames(20); T.shot('east-gate-open');
+        await T.step('right');
+        await T.until(() => g.player.map === 'osloRoad', 'the road to Oslo S');
+        await T.frames(20);
+        T.shot('road');
+        await T.frames(40);
+        T.check('onto the ROAD TO OSLO S, autosaved', g.player.x === 1 && g.player.y === 5 && saved().player.map === 'osloRoad');
+        await T.step('right', 12);
+        T.check('along the road', g.player.x === 13 && g.player.y === 5, g.player.x + ',' + g.player.y);
+        await T.step('right');
+        T.check('the barricade stops the hero', g.player.x === 13 && g.player.map === 'osloRoad');
+        const end = await hear('barricade');
+        T.check('TO BE CONTINUED, and never Osaka', /TO BE CONTINUED/.test(end) && /OSLO S/.test(end) && !/OSAKA/i.test(end) && g.mode === 'world', end);
+        g.player.dir = 'up';
+        await T.talk('sign');
+        T.check('no victory screen, no new map', g.mode === 'world' && Object.keys(g.MAPS).length === 18 && !g.storyDone);
+        T.shot('barricade');
+        for (const [x, y, d] of [[13, 4, 'right'], [13, 6, 'right'], [14, 4, 'right'], [14, 6, 'right']]) {
+          T.place('osloRoad', x, y, d); await T.step(d);
+        }
+        T.check('there is no way round it', g.player.map === 'osloRoad' && g.player.x <= 14);
+        await T.tap('KeyX', 6);
+        await T.tap('ArrowUp', 4);
+        T.check('ITEMS: four fragments', g.menuSel === 3);
+        T.shot('items');
+        await T.tap('KeyX', 6);
+        T.place('osloRoad', 1, 5, 'left');
+        await T.step('left');
+        await T.until(() => g.player.map === 'veitvet', 'back to town');
+        await T.frames(60);
+        T.check('back through the east gate', g.player.x === 26 && g.player.y === 10 && g.player.dir === 'left');
+        T.place('osloRoad', 12, 5, 'right');
+        await T.tap('KeyX', 6); await T.tap('Space', 6); await T.tap('KeyX', 6);
+        T.state('chapter-done');
+      }`,
+      `async (T, g) => {
+        ${VV}
+        await T.continueGame();
+        T.check('CONTINUE on the road to Oslo S: chapter, gate and everything from before', g.player.map === 'osloRoad' && g.chapter === 5 && g.q.signal.s === 3 && g.flags.osloGate === true
+          && ['fragment1', 'fragment2', 'fragment3', 'fragment4', 'signalOff', 'sandraBeaten', 'veitvetGate', 'factoryKey', 'nabilahBeaten'].every((k) => g.flags[k] === true));
+        T.shot('continued');
+        T.place('veitvetCenter', 10, 4, 'up');
+        const said = await hear('sandra-later');
+        T.check('SANDRA stays beaten: no battle, nothing more', g.mode === 'world' && g.stats.won === 130 && /OSLO S|speakers|MINA/.test(said), said);
+        T.state('later');
+      }`,
+    ],
+  },
+  { // the on-screen buttons: along the road, MINA's offer, the log, the armour, and down the station stairs
+    name: 'veitvet-touch', save: withHero(chapterFourDone, 'alexandra'),
+    run: `async (T, g) => {
+      await T.continueGame();
+      for (const m of ['veitvet', 'veitvetUnder']) g.MAPS[m].encounter.chance = 0;
+      for (let i = 0; i < 3 && g.player.map === 'veitvetRoad'; i++) await T.touch('right', 20);
+      await T.until(() => g.player.map === 'veitvet', 'Veitvet');
+      await T.frames(60);
+      T.check('the D-pad walks into Veitvet', g.player.x === 1 && g.player.y === 10);
+      T.place('veitvet', 4, 10, 'up');
+      await T.touch('a');
+      T.check('A talks to MINA', g.mode === 'dialog' && g.dlg.name === 'MINA', g.mode);
+      for (let i = 0; g.mode === 'dialog' && i < 12; i++) { await T.frames(150); await T.touch('a', 3); }
+      T.check('the quest is taken', g.q.signal.s === 1 && g.mode === 'world');
+      await T.touch('b');
+      T.check('B opens the log on the page of the new quest', g.mode === 'menu' && g.menuPage === 3, g.menuPage);
+      T.shot('log');
+      await T.touch('up'); await T.touch('up');
+      await T.touch('a');
+      T.check('A changes the armour', g.player.armor === 'factory', g.player.armor);
+      await T.touch('b');
+      T.place('veitvet', 13, 16, 'down');
+      await T.touch('down', 30);
+      await T.until(() => g.player.map === 'veitvetUnder', 'the station');
+      await T.frames(60);
+      T.check('the D-pad goes down the stairs', g.player.x === 2 && g.player.y === 15);
+    }`,
+  },
+  { // a save on what was open road in 1G and is a block wall now wakes the hero on the nearest open ground
+    name: 'veitvet-settle', save: moved(chapterFourDone, 'veitvetRoad', 12, 1, 'up'),
+    run: `async (T, g) => {
+      await T.continueGame();
+      const m = g.MAPS.veitvetRoad;
+      T.check('off the wall, onto open ground next to it', g.player.map === 'veitvetRoad' && !g.SOLID.has(m.rows[g.player.y][g.player.x]) && Math.abs(g.player.x - 12) + Math.abs(g.player.y - 1) <= 2, g.player.x + ',' + g.player.y);
+    }`,
+  },
+];
+// A save exactly as the published 1G game (commit 5a8fcda) wrote it, byte for byte: made by playing that version
+// from TOBIAS' hand-in, through the chapter screen and the east gate, along the road to the barricade (which 1G
+// kept solid, "TO BE CONTINUED"), and saving by hand in front of it. It has no Veitvet quest.
+const REAL_1G_SAVE = {"v":1,"player":{"map":"veitvetRoad","x":12,"y":5,"dir":"right","moving":false,"fx":12,"fy":5,"tx":12,"ty":5,"t":0,"lvl":12,"hp":104,"maxhp":112,"atk":28,"def":12,"xp":388,"next":1021,"herbs":5,"maxHerbs":7,"gold":1214,"weapon":"wrench","armor":"insulated","weapons":["none","crystal","bat","wrench","blade"],"armors":["none","vest","sneakers","insulated","factory"],"shards":0,"glowcaps":0,"sickle":true,"sinceBattle":3,"hero":"celine"},"q":{"slimes":{"s":3,"n":3},"biscuit":{"s":3},"glowcap":{"s":3},"king":{"s":3},"shards":{"s":3},"road":{"s":3,"n":3},"cart":{"s":3},"under":{"s":3},"mohsin":{"s":3},"kebab":{"s":3},"trouble":{"s":3,"c":3,"r":3,"b":2},"ball":{"s":3},"wisp":{"s":3},"power":{"s":3},"bag":{"s":3},"yard":{"s":3,"n":2}},"flags":{"vines":true,"metBram":true,"shard1":true,"shard2":true,"fragment1":true,"redKey":true,"redGate":true,"tunnelOpen":true,"northOpen":true,"mohsinBeaten":true,"fragment2":true,"blueKey":true,"blueGate":true,"kebab":true,"marcusBeaten":true,"marcusBat":true,"ball":true,"wispFragment":true,"chestPouch":true,"grorudGate":true,"metNadia":true,"cell1":true,"bag":true,"chestWrench":true,"chestBlade":true,"cell2":true,"cell3":true,"worksOpen":true,"chestArmor":true,"nabilahBeaten":true,"fragment3":true,"factoryKey":true,"veitvetGate":true},"stats":{"won":131,"slimes":17,"steps":7372},"tracked":null};
+const real1gScenario = {
+  name: 'veitvet-real-1g-save', save: REAL_1G_SAVE,
+  run: [
+    async (T, g) => {
+      const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+      await T.continueGame();
+      const p = g.player;
+      T.check('CONTINUE: where the barricade stood, Chapter 5, nothing of Veitvet started, everything from 1G there', p.map === 'veitvetRoad' && p.x === 12 && p.y === 5 && g.chapter === 4
+        && g.q.signal.s === 0 && g.q.phone.s === 0 && p.hero === 'celine' && p.lvl === 12 && p.xp === 388 && p.gold === 1214 && p.herbs === 5 && p.hp === 104);
+      T.shot('road');
+      await T.tap('Space', 6);
+      T.check('A where the barricade was: no 1G line any more', g.mode === 'world');
+      await T.step('right', 3);
+      await T.until(() => g.player.map === 'veitvet', 'Veitvet');
+      await T.frames(60);
+      T.check('straight on into VEITVET', p.x === 1 && p.y === 10 && p.dir === 'right');
+      const d = saved();
+      T.check('autosaved with everything the 1G save had: quests, fragments 1-3, bosses, gates, gear', d.player.map === 'veitvet' && T.questsKept(d.q, REAL.q) && Object.keys(REAL.flags).every((k) => d.flags[k] === REAL.flags[k])
+        && JSON.stringify(d.player.weapons) === JSON.stringify(REAL.player.weapons) && JSON.stringify(d.player.armors) === JSON.stringify(REAL.player.armors) && d.player.weapon === 'wrench' && d.player.armor === 'insulated'
+        && d.player.hero === 'celine' && d.player.lvl === 12 && d.player.xp === 388 && d.player.gold === 1214 && d.player.herbs === 5 && d.player.maxHerbs === 7
+        && ['fragment1', 'fragment2', 'fragment3', 'mohsinBeaten', 'marcusBeaten', 'nabilahBeaten', 'redGate', 'blueGate', 'grorudGate', 'worksOpen', 'veitvetGate'].every((k) => d.flags[k] === true));
+    },
+    async (T, g) => {
+      await T.continueGame();
+      T.check('CONTINUE in Veitvet', g.player.map === 'veitvet' && g.player.x === 1 && g.player.y === 10);
+      T.place('veitvet', 1, 10, 'left');
+      await T.touch('left', 30);
+      await T.until(() => g.player.map === 'veitvetRoad', 'the road');
+      await T.frames(60);
+      T.check('back along the road with the D-pad', g.player.x === 14 && g.player.y === 5);
+      T.place('veitvetRoad', 1, 5, 'left');
+      await T.step('left');
+      await T.until(() => g.player.map === 'grorudTown', 'Grorud');
+      await T.frames(60);
+      T.check('and all the way back to Grorud through the open east gate', g.player.x === 24 && g.player.y === 9 && g.flags.veitvetGate === true);
+    },
+  ].map((f) => `(${f})`.replace(/REAL/g, JSON.stringify(REAL_1G_SAVE))),
+};
+// Saves from every stage of Veitvet, loaded one after another: each one carries on exactly where it was.
+const VEITVET_STAGES = (() => {
+  const s = (name, fix, check) => ({ name, fix, check });
+  const phoneDone = (() => { const d = JSON.parse(JSON.stringify(moved(inVeitvet, 'veitvet', 8, 15, 'up'))); d.q.phone = { s: 3 }; d.flags.phone = true; d.player.armors = [...d.player.armors, 'phones']; d.player.armor = 'phones'; return d; })();
+  const chapterOver = (() => { const d = sandraDone(withSignal(moved(chapterFourDone, 'veitvet', 4, 10, 'up'), ALL_SIGNAL)); d.q.signal = { s: 3 }; d.flags.osloGate = true; d.tracked = null; return d; })();
+  return [
+    s('just arrived in Veitvet', inVeitvet, "g.q.signal.s === 0 && g.NPCS.find((n) => n.id === 'mina').news()"),
+    s("MINA's quest taken", withSignal(inVeitvet, []), "g.q.signal.s === 1 && g.QUESTS.signal.tracker() === 'GO UNDERGROUND'"),
+    s('the phone found before ELIAS asked', (() => { const d = JSON.parse(JSON.stringify(moved(inVeitvet, 'veitvet', 26, 13, 'up'))); d.flags.phone = true; return d; })(), "g.q.phone.s === 0 && !g.ITEMS.some((i) => i.id === 'phone' && !g.flags.phone) && g.NPCS.find((n) => n.id === 'elias').news()"),
+    s('LOST PHONE done, the headphones worn', phoneDone, "g.player.armor === 'phones' && g.q.phone.s === 3 && !g.NPCS.find((n) => n.id === 'elias').news()"),
+    s('down in the station', withSignal(moved(chapterFourDone, 'veitvetUnder', 5, 10, 'up'), ['underSeen']), "g.QUESTS.signal.tracker() === 'FIND THE SOURCE' && g.player.map === 'veitvetUnder'"),
+    s('the shield down, in front of the device', withSignal(moved(chapterFourDone, 'veitvetUnder', 12, 3, 'up'), ['underSeen', 'deviceSeen', 'shieldOff']), "!g.flags.signalOff && g.QUESTS.signal.tracker() === 'SIGNAL DEVICE'"),
+    s('the device shut down', withSignal(moved(chapterFourDone, 'veitvetUnder', 12, 3, 'up'), ALL_SIGNAL), "g.flags.signalOff && g.QUESTS.signal.tracker() === 'SANDRA: CENTER'"),
+    s('inside VEITVET CENTER', withSignal(moved(chapterFourDone, 'veitvetCenter', 11, 13, 'up'), ALL_SIGNAL), "g.player.map === 'veitvetCenter' && !g.flags.sandraBeaten"),
+    s('in front of SANDRA', atSandra, "!g.flags.sandraBeaten && g.q.signal.s === 1 && g.player.y === 4"),
+    s('SANDRA beaten, fragment 4 in the pack', sandraDone(atSandra), "g.q.signal.s === 2 && g.flags.fragment4 && g.chapter === 4"),
+    s('back from MINA, the chapter over', chapterOver, "g.chapter === 5 && g.flags.osloGate && g.q.signal.s === 3"),
+    s('out on the road to Oslo S', moved(chapterOver, 'osloRoad', 13, 5, 'right'), "g.player.map === 'osloRoad' && g.chapter === 5"),
+  ];
+})();
+const veitvetStages = {
+  name: 'veitvet-saves', save: VEITVET_STAGES[0].fix,
+  run: VEITVET_STAGES.map((st, i) => `async (T, g) => {
+    const KEY = 'turnip-vale-save-v1', before = JSON.parse(localStorage.getItem(KEY)), next = ${JSON.stringify(VEITVET_STAGES[i + 1] ? VEITVET_STAGES[i + 1].fix : null)};
+    await T.continueGame();
+    const p = g.player, b = before.player;
+    T.check(${JSON.stringify(st.name)} + ': carries on where it was saved', g.mode === 'world' && p.map === b.map && p.x === b.x && p.y === b.y && p.dir === b.dir
+      && T.questsKept(g.q, before.q) && JSON.stringify(g.flags) === JSON.stringify(before.flags) && p.weapon === b.weapon && p.armor === b.armor
+      && JSON.stringify(p.weapons) === JSON.stringify(b.weapons) && JSON.stringify(p.armors) === JSON.stringify(b.armors) && p.gold === b.gold && p.herbs === b.herbs && p.lvl === b.lvl && p.xp === b.xp, p.map + ' ' + p.x + ',' + p.y);
+    T.check(${JSON.stringify(st.name)} + ': the world agrees with the save', ${st.check});
+    if (${i} === 0 || ${i} === ${VEITVET_STAGES.length - 1}) T.shot('stage-${i + 1}');
+    if (next) localStorage.setItem(KEY, JSON.stringify(next));
+  }`),
+};
+// Measured with the fixed dice and a careful player (an herb below 55 HP, or when a warned FEEDBACK would be too much).
+// NABILAH for comparison: 13 turns and 3 herbs at level 11 with the Grorud gear; 9 and 1 at level 13.
+//   LV13 wrench + padded jacket 15 turns, 3 herbs | wrench + headphones 13, 2 | wrench + insulated vest (no Veitvet gear) 16, 4
+//   LV13 signal blade + padded 11, 2 | signal blade + headphones 11, 2 | bat + factory armour 14, 3
+//   LV12 bat + Tough Vest, no extras 15, 4 (of 6) | LV11 wrench + insulated 20, 7 (of 7) | LV15 blade + headphones 8, 0
+// The limits leave two turns and one herb of room, as NABILAH's tests do.
+const sandraBossScenarios = [
+  { name: 'veitvet-sandra', save: atLevel(atSandraIn('wrench', 'padded'), 13, { maxhp: 118, hp: 118 }), run: sandraFight(atLevel(atSandraIn('wrench', 'padded'), 13), { turns: 17, herbs: 4, talk: true }) },
+  { name: 'veitvet-sandra-celine', save: withHero(atLevel(atSandraIn('wrench', 'padded'), 13, { maxhp: 118, hp: 118 }), 'celine'), run: sandraFight(atLevel(atSandraIn('wrench', 'padded'), 13), { turns: 17, herbs: 4 }), sameAs: { beaten: 'veitvet-sandra__beaten', balance: 'veitvet-sandra__balance' } },
+  { // the signal blade and the headphones
+    name: 'veitvet-sandra-blade-phones', save: atLevel(atSandraIn('sblade', 'phones'), 13, { maxhp: 118, hp: 118 }), run: sandraFight(atLevel(atSandraIn('sblade', 'phones'), 13), { turns: 13, herbs: 3 }),
+  },
+  { // the headphones alone, with the wrench
+    name: 'veitvet-sandra-phones', save: atLevel(atSandraIn('wrench', 'phones'), 13, { maxhp: 118, hp: 118 }), run: sandraFight(atLevel(atSandraIn('wrench', 'phones'), 13), { turns: 15, herbs: 3 }),
+  },
+  { // the signal blade alone, with the padded jacket
+    name: 'veitvet-sandra-blade', save: atLevel(atSandraIn('sblade', 'padded'), 13, { maxhp: 118, hp: 118 }), run: sandraFight(atLevel(atSandraIn('sblade', 'padded'), 13), { turns: 13, herbs: 3 }),
+  },
+  { // the best physical defence, nothing against the signal: MARCUS' bat and the factory armour
+    name: 'veitvet-sandra-factory', save: atLevel(atSandraIn('bat', 'factory'), 13, { maxhp: 118, hp: 118 }), run: sandraFight(atLevel(atSandraIn('bat', 'factory'), 13), { turns: 16, herbs: 4 }),
+  },
+  { // no Veitvet gear at all: the wrench and the insulated vest from Grorud
+    name: 'veitvet-sandra-no-veitvet-gear', save: atLevel(atSandraIn('wrench', 'insulated'), 13, { maxhp: 118, hp: 118 }), run: sandraFight(atLevel(atSandraIn('wrench', 'insulated'), 13), { turns: 18, herbs: 5 }),
+  },
+  { // the weakest sensible hero after Grorud: level 12, no optional bonus from earlier chapters, the bat and the Tough Vest, six herbs
+    name: 'veitvet-sandra-modest',
+    save: (() => { const d = dressed(atSandra, 'bat', 'vest'); Object.assign(d.player, level(12), { maxhp: 96, hp: 96, herbs: 6, maxHerbs: 6, weapons: ['none', 'crystal', 'bat'], armors: ['none', 'vest'] }); return d; })(),
+    run: sandraFight((() => { const d = dressed(atSandra, 'bat', 'vest'); Object.assign(d.player, level(12)); return d; })(), { turns: 17, herbs: 5, heal: 50 }),
+  },
+  { // arriving a level early (11), with the Grorud gear
+    name: 'veitvet-sandra-level-11', save: atLevel(atSandraIn('wrench', 'insulated'), 11, { maxhp: 106, hp: 106 }), run: sandraFight(atLevel(atSandraIn('wrench', 'insulated'), 11), { turns: 22, herbs: 7 }),
+  },
+  { // arriving strong (15), with the best Veitvet has to give
+    name: 'veitvet-sandra-level-15', save: atLevel(atSandraIn('sblade', 'phones'), 15, { maxhp: 130, hp: 130 }), run: sandraFight(atLevel(atSandraIn('sblade', 'phones'), 15), { turns: 10, herbs: 1, deep: false }),
+  },
+  { // one measured blow with each weapon, and running away leaves her unbeaten, gives nothing and leaves no spell behind
+    name: 'veitvet-sandra-weapons', save: (() => { const d = atSandraIn('wrench', 'insulated'); d.player.weapons.push('sblade'); return d; })(),
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      const dealt = {};
+      for (const w of ['bat', 'wrench', 'blade', 'sblade']) {
+        g.player.weapon = w; g.player.hp = g.player.maxhp;
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') { await T.frames(150); await T.tap('Space', 3); }
+        await T.untilBattle();
+        dealt[w] = await swing();
+        g.battle.weak = { amt: 8, left: 3 }; g.battle.soft = { amt: 6, left: 3 };
+        await T.fight(() => 2);
+        T.check('got away: unbeaten, nothing handed over', g.mode === 'world' && !g.flags.sandraBeaten && !g.flags.fragment4 && g.q.signal.s === 1 && g.stats.won === 130, g.mode);
+        T.check('and the hero is just as strong as before', g.battle === null && g.player.atk === 28 && g.player.def === 12);
+      }
+      // hero ATK 28; +9 / +8 / +7 / +7; +1 from the dice; less her DEF 11; the signal blade x1.25 (she is all signal)
+      T.check('bat 27, wrench 26, quick blade 25, signal blade 31', dealt.bat === 27 && dealt.wrench === 26 && dealt.blade === 25 && dealt.sblade === 31, JSON.stringify(dealt));
+    }`,
+  },
+  { // closed in the middle of the hand-over: she finishes it next time, once
+    name: 'veitvet-sandra-handover-interrupted', save: { ...atSandra, flags: { ...atSandra.flags, sandraBeaten: true } },
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        T.check('beaten, nothing handed over yet', g.flags.sandraBeaten === true && !g.flags.fragment4 && g.q.signal.s === 1);
+        await T.talk('handover');
+        T.check('no second fight: the fragment, once', g.stats.won === 130 && g.flags.fragment4 === true && g.q.signal.s === 2 && g.mode === 'world');
+        await T.talk('after');
+        T.check('still once', g.q.signal.s === 2 && g.stats.won === 130);
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: the fragment kept, the quest ready', g.flags.fragment4 === true && g.q.signal.s === 2);
+        await T.talk();
+        T.check('and she gives nothing more', g.mode === 'world' && g.stats.won === 130);
+      },
+    ],
+  },
+  { // beaten by her: carried home with nothing lost, and she waits for another try
+    name: 'veitvet-sandra-defeat',
+    save: (() => { const d = JSON.parse(JSON.stringify(atSandra)); Object.assign(d.player, level(1), { hp: 5, herbs: 0 }); return d; })(),
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') { await T.frames(150); await T.tap('Space', 3); }
+        await T.untilBattle();
+        await T.fight();
+        await T.until(() => g.mode === 'dialog', 'being carried home');
+        await T.dialog();
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('in the village, patched up, saved there', g.player.map === 'village' && g.player.hp === g.player.maxhp && d.player.map === 'village');
+        T.check('SANDRA unbeaten, nothing handed over; the device, the shield and the open doors all kept', !d.flags.sandraBeaten && !d.flags.fragment4 && d.q.signal.s === 1
+          && ['signalOff', 'shieldOff', 'underSeen'].every((k) => d.flags[k] === true));
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.place('veitvetCenter', 10, 4, 'up');
+        await T.tap('Space', 3);
+        T.check('SANDRA is waiting for another try', g.mode === 'dialog' && g.dlg.name === 'SANDRA', g.mode);
+      },
+    ],
+  },
+];
 export const SCENARIOS = [
   {
     name: 'title',
@@ -5349,6 +6388,10 @@ export const SCENARIOS = [
   ...nabilahScenarios,
   stageScenario,
   real1fScenario,
+  ...veitvetScenarios,
+  ...sandraBossScenarios,
+  veitvetStages,
+  real1gScenario,
   ...manualSaveScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,

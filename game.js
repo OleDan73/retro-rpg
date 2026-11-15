@@ -710,12 +710,178 @@
     circle(g, 11, 10, 2.6, 0); circle(g, 11, 10, 1.4, 7);
     R(g, 5, 12, 3, 1, 9); P(g, 12, 13, 6);
   });
+  // ---- Veitvet: the blocks and the playground, the underground below, and the old shopping centre.
+  // (Every plain letter is taken by now, so Veitvet's tiles use the letters around them.)
+  function savePillar(g) { // a glowing info pillar: Veitvet's save point (drawn over whatever floor it stands on)
+    R(g, 4, 13, 8, 3, 0); R(g, 5, 14, 6, 1, 3);
+    R(g, 5, 2, 6, 12, 0); R(g, 6, 3, 4, 10, 10); R(g, 6, 3, 1, 10, 15);
+    R(g, 6, 4, 4, 4, 13); R(g, 7, 5, 2, 1, 15); R(g, 7, 6, 1, 1, 8);
+    P(g, 8, 10, 14); R(g, 7, 11, 3, 1, 14);
+    R(g, 7, 1, 2, 1, 13);
+  }
+  TILE['Ø'] = mk(16, 16, (g) => { g.drawImage(TILE['p'], 0, 0); savePillar(g); });
+  TILE['ø'] = mk(16, 16, (g) => { // stairs down into the underpass
+    g.drawImage(TILE['p'], 0, 0);
+    R(g, 1, 0, 14, 16, 0);
+    for (let i = 0; i < 6; i++) R(g, 2, 1 + Math.round(i * 2.5), 12, 2, [10, 7, 7, 3, 3, 1][i]);
+    R(g, 1, 0, 1, 16, 10); R(g, 14, 0, 1, 16, 10); R(g, 2, 0, 12, 1, 14);
+  });
+  TILE['Æ'] = mk(16, 16, (g) => { // the glass front of VEITVET CENTER
+    R(g, 0, 0, 16, 16, 3);
+    R(g, 1, 2, 6, 13, 8); R(g, 9, 2, 6, 13, 8);
+    R(g, 1, 2, 6, 6, 13); R(g, 9, 2, 6, 6, 13);
+    for (let i = 0; i < 4; i++) { P(g, 2 + i, 6 - i, 15); P(g, 10 + i, 7 - i, 15); }
+    R(g, 0, 0, 16, 2, 10); R(g, 0, 15, 16, 1, 0);
+  });
+  TILE['Å'] = mk(16, 16, (g) => { // its doors, shuttered
+    g.drawImage(TILE['Æ'], 0, 0);
+    R(g, 1, 2, 14, 14, 0); R(g, 2, 3, 12, 13, 10);
+    for (let y = 4; y < 16; y += 2) R(g, 2, y, 12, 1, 7);
+    R(g, 6, 13, 4, 2, 6);
+  });
+  TILE['å'] = mk(16, 16, (g) => { // its doors, open: a dark doorway with a mat (walkable)
+    g.drawImage(TILE['Æ'], 0, 0);
+    R(g, 1, 2, 14, 14, 0); R(g, 3, 3, 10, 13, 2);
+    R(g, 1, 3, 2, 13, 13); R(g, 13, 3, 2, 13, 13);
+    R(g, 4, 13, 8, 3, 6); R(g, 4, 13, 8, 1, 17);
+  });
+  TILE['æ'] = mk(16, 16, (g) => { // a swing
+    grass(g, 21);
+    R(g, 1, 1, 14, 2, 4); R(g, 1, 1, 14, 1, 9);
+    for (const x of [1, 13]) { R(g, x, 1, 2, 14, 4); R(g, x, 1, 1, 14, 9); }
+    R(g, 6, 3, 1, 8, 10); R(g, 9, 3, 1, 8, 10);
+    R(g, 5, 11, 6, 2, 6); R(g, 5, 11, 6, 1, 16);
+  });
+  TILE['0'] = mk(16, 16, (g) => { // a slide
+    grass(g, 23);
+    R(g, 2, 2, 2, 13, 10); R(g, 5, 2, 2, 13, 10); for (let y = 4; y < 14; y += 3) R(g, 2, y, 5, 1, 10);
+    for (let i = 0; i < 11; i++) R(g, 6 + Math.round(i * 0.8), 2 + i, 3, 2, i < 1 ? 16 : 6);
+    R(g, 2, 1, 6, 2, 6);
+  });
+  function tunnelWall(g) { // white tiles gone grey
+    R(g, 0, 0, 16, 16, 10);
+    for (let y = 0; y < 16; y += 4) R(g, 0, y, 16, 1, 7);
+    for (let y = 0; y < 16; y += 4) for (let x = (y / 4) % 2 ? 2 : 0; x < 16; x += 4) R(g, x, y, 1, 4, 7);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) if (hash(x + 61, y + 17) < 0.06) P(g, x, y, 3);
+    R(g, 0, 12, 16, 4, 3); R(g, 0, 12, 16, 1, 1); R(g, 0, 15, 16, 1, 0);
+  }
+  TILE['Ä'] = mk(16, 16, (g) => tunnelWall(g));
+  function platform(g) { // the underground floor: worn concrete
+    R(g, 0, 0, 16, 16, 3);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
+      const h = hash(x + 33, y + 71);
+      if (h < 0.05) P(g, x, y, 7); else if (h > 0.97) P(g, x, y, 1);
+    }
+    R(g, 0, 0, 16, 1, 1);
+  }
+  TILE['ä'] = mk(16, 16, (g) => platform(g));
+  TILE['ö'] = mk(16, 16, (g) => { // the old tracks
+    R(g, 0, 0, 16, 16, 1);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) if (hash(x + 5, y + 91) < 0.08) P(g, x, y, 3);
+    for (let x = 1; x < 16; x += 5) R(g, x, 0, 3, 16, 4);
+    R(g, 0, 3, 16, 2, 10); R(g, 0, 3, 16, 1, 15); R(g, 0, 11, 16, 2, 10); R(g, 0, 11, 16, 1, 15);
+  });
+  TILE['þ'] = mk(16, 16, (g) => { // stairs up, out of the underground
+    platform(g);
+    R(g, 1, 0, 14, 16, 0);
+    for (let i = 0; i < 6; i++) R(g, 2, 13 - Math.round(i * 2.5), 12, 2, [3, 3, 7, 7, 10, 15][i]);
+    R(g, 1, 0, 1, 16, 10); R(g, 14, 0, 1, 16, 10);
+  });
+  TILE['Ð'] = mk(16, 16, (g) => { platform(g); savePillar(g); });
+  // The SIGNAL DEVICE: a cabinet of antennas and lights. Live it blinks; shut down it is dead grey.
+  const signalDevice = (f, live) => mk(16, 16, (g) => {
+    tunnelWall(g);
+    R(g, 2, 4, 12, 12, 0); R(g, 3, 5, 10, 10, live ? 2 : 3); R(g, 3, 5, 10, 1, live ? 8 : 7);
+    R(g, 5, 0, 1, 5, 0); R(g, 10, 1, 1, 4, 0); P(g, 5, 0, live ? (f ? 16 : 15) : 7); P(g, 10, 1, live ? (f ? 15 : 16) : 7);
+    for (let i = 0; i < 4; i++) P(g, 4 + i * 2, 7, live ? ((i + f) % 2 ? 16 : 13) : 1);
+    R(g, 5, 9, 6, 3, live ? 13 : 1); if (live) { R(g, 6, 10, 4, 1, f ? 16 : 15); }
+    R(g, 4, 13, 8, 1, live ? 17 : 1);
+  });
+  const deviceLive = [0, 1].map((f) => signalDevice(f, true));
+  TILE['Ü'] = deviceLive[0];
+  TILE['ü'] = signalDevice(0, false);
+  // A relay antenna beside the device: rings pulse out of it while the signal is on.
+  const relay = (f, live) => mk(16, 16, (g) => {
+    tunnelWall(g);
+    R(g, 7, 4, 2, 12, 0); R(g, 7, 4, 1, 12, 7); R(g, 5, 14, 6, 2, 0);
+    circle(g, 8, 4, 2.4, 0); circle(g, 8, 4, 1.4, live ? (f ? 16 : 15) : 3);
+    if (live) {
+      const r = f ? [[3, 2], [3, 6], [13, 2], [13, 6]] : [[4, 1], [4, 7], [12, 1], [12, 7], [2, 4], [14, 4]];
+      for (const [x, y] of r) P(g, x, y, 16);
+    }
+  });
+  const relayLive = [0, 1].map((f) => relay(f, true));
+  TILE['Ÿ'] = relayLive[0];
+  TILE['ÿ'] = relay(0, false);
+  // The shield in front of the device's chamber: crackling bars of signal across the floor.
+  const shield = [0, 1].map((f) => mk(16, 16, (g) => {
+    platform(g);
+    for (let x = 1 + f; x < 16; x += 3) for (let y = 0; y < 16; y++) if ((y + x * 3 + f * 5) % 7 < 5) P(g, x, y, (y + f) % 3 ? 16 : 15);
+    R(g, 0, 0, 16, 1, 17); R(g, 0, 15, 16, 1, 17);
+  }));
+  TILE['ß'] = shield[0];
+  const breaker = (on) => mk(16, 16, (g) => { // the breaker for the shield: lever up while the power runs
+    tunnelWall(g);
+    R(g, 2, 2, 12, 13, 0); R(g, 3, 3, 10, 11, 7); R(g, 3, 3, 10, 1, 10);
+    R(g, 7, 5, 2, 7, 0);
+    if (on) { R(g, 6, 3, 4, 3, 6); R(g, 7, 3, 2, 1, 15); } else { R(g, 6, 10, 4, 3, 6); R(g, 7, 12, 2, 1, 1); }
+    P(g, 4, 12, on ? 11 : 6); P(g, 11, 12, on ? 11 : 6);
+    R(g, 4, 5, 2, 1, 14); R(g, 10, 5, 2, 1, 14);
+  });
+  TILE['§'] = breaker(true);
+  TILE['¶'] = breaker(false);
+  function mallFloor(g) { // the centre's floor: big pale tiles
+    R(g, 0, 0, 16, 16, 15);
+    R(g, 0, 0, 8, 8, 12); R(g, 8, 8, 8, 8, 12);
+    R(g, 0, 0, 16, 1, 10); R(g, 0, 0, 1, 16, 10);
+    P(g, 3, 11, 10); P(g, 12, 4, 10);
+  }
+  TILE['Ë'] = mk(16, 16, (g) => mallFloor(g));
+  TILE['È'] = mk(16, 16, (g) => { // the centre's walls
+    R(g, 0, 0, 16, 16, 12); R(g, 0, 0, 16, 2, 15);
+    R(g, 0, 6, 16, 1, 4); R(g, 0, 12, 16, 4, 4); R(g, 0, 12, 16, 1, 9); R(g, 0, 15, 16, 1, 1);
+    P(g, 4, 9, 9); P(g, 11, 3, 9);
+  });
+  TILE['Ê'] = mk(16, 16, (g) => { // a closed shop: the shutter is down
+    R(g, 0, 0, 16, 16, 12);
+    R(g, 0, 0, 16, 4, 2); R(g, 2, 1, 12, 2, 13); R(g, 3, 1, 3, 2, 8); R(g, 9, 1, 2, 2, 14);
+    R(g, 1, 4, 14, 12, 7); for (let y = 5; y < 16; y += 2) R(g, 1, y, 14, 1, 10);
+    R(g, 6, 13, 4, 1, 0);
+  });
+  TILE['Ì'] = mk(16, 16, (g) => { // a planter with a little tree
+    mallFloor(g);
+    R(g, 2, 9, 12, 7, 0); R(g, 3, 10, 10, 5, 4); R(g, 3, 10, 10, 1, 9);
+    ellipse(g, 8, 6, 5.4, 5, 0); ellipse(g, 8, 6, 4.4, 4, 5); ellipse(g, 7, 5, 2.6, 2.2, 11);
+  });
+  function stageFloor(g) { // the stage: dark boards
+    R(g, 0, 0, 16, 16, 1);
+    for (let y = 0; y < 16; y += 4) { R(g, 0, y, 16, 1, 0); R(g, (y * 5) % 16, y + 1, 1, 3, 0); }
+    for (let y = 2; y < 16; y += 4) P(g, (y * 7) % 16, y, 17);
+  }
+  TILE['Í'] = mk(16, 16, (g) => stageFloor(g));
+  TILE['Ñ'] = mk(16, 16, (g) => { // a tall speaker stack
+    stageFloor(g);
+    R(g, 2, 0, 12, 16, 0); R(g, 3, 1, 10, 14, 3);
+    for (const [cy, r] of [[4.5, 2.6], [11, 3.6]]) { circle(g, 8, cy, r, 0); circle(g, 8, cy, r - 1.2, 1); circle(g, 8, cy, 0.9, 10); }
+  });
+  // SANDRA's signal masts on the stage: live they blink and buzz; once she is beaten they go dark.
+  const mast = (f, live) => mk(16, 16, (g) => {
+    stageFloor(g);
+    R(g, 7, 3, 2, 13, 0); R(g, 7, 3, 1, 13, 10); R(g, 4, 14, 8, 2, 0);
+    for (const y of [6, 10]) R(g, 5, y, 6, 1, 0);
+    circle(g, 8, 2.5, 2.2, 0); P(g, 8, 2, live ? (f ? 16 : 15) : 3); P(g, 7, 2, live ? 16 : 3);
+    if (live) for (const [x, y] of f ? [[3, 1], [13, 1], [2, 4], [14, 4]] : [[4, 0], [12, 0], [3, 3], [13, 3]]) P(g, x, y, 16);
+  });
+  const mastLive = [0, 1].map((f) => mast(f, true));
+  TILE['Ò'] = mastLive[0];
+  TILE['ò'] = mast(0, false);
   // Tiles drawn with more than one frame in the world (besides water and flowers).
-  const ANIM_TILES = { '!': coil };
+  const ANIM_TILES = { '!': coil, 'Ü': deviceLive, 'Ÿ': relayLive, 'ß': shield, 'Ò': mastLive };
   const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x', 'K',
     'G', 'A', 'B', 'd', 'h', 'l', 'n', 'M', 'J', 'Q', 'W', '1', '2', '3', '4', 'w', 'Y', 'z', 'N', 'i', 'I',
     '7', '8', '9', 'v', 'f', '5', '6',
-    '^', '>', '&', '$', '<', '|', '[', '+', '@', '*', '{', '}', '!', '%']);
+    '^', '>', '&', '$', '<', '|', '[', '+', '@', '*', '{', '}', '!', '%',
+    'Ø', 'Æ', 'Å', 'æ', '0', 'Ä', 'Ð', 'Ü', 'ü', 'Ÿ', 'ÿ', 'ß', '§', '¶', 'È', 'Ê', 'Ì', 'Ñ', 'Ò', 'ò']);
 
   // ---------------------------------------------------------------- characters
   function personSprite(o, dir, frame) {
@@ -1102,6 +1268,100 @@
     R(g, 3, 7, 10, 7, 16); R(g, 3, 7, 10, 1, 15); R(g, 12, 8, 1, 6, 17); R(g, 3, 13, 10, 1, 17);
     R(g, 7, 9, 3, 2, 14); P(g, 7, 10, 0); P(g, 9, 9, 0); P(g, 8, 8, 15); P(g, 10, 8, 15); // a little bee
   }));
+  // ---- Veitvet's people
+  SPR.mina = buildChar({ hair: 1, skin: 19, shirt: 11, shirt2: 5, pants: 2, belt: 0, ponytail: 14 });
+  SPR.elias = buildChar({ hair: 14, shirt: 6, shirt2: 1, pants: 8, slim: true });
+  SPR.marianne = buildChar({ hair: 4, shirt: 16, shirt2: 17, skirt: 17, hem: 1, longHair: true, bow: 13 });
+  SPR.noah = buildChar({ hair: 0, skin: 19, shirt: 9, shirt2: 4, pants: 3, belt: 0 });
+  // SANDRA: a long purple coat, big headphones and an antenna rig on her back. In battle she stands facing the
+  // hero, one pixel lower (so her head clears the name box); in SIGNAL OVERLOAD the coat turns pink and her
+  // signal crackles all around her.
+  const SANDRA_LOOK = { hair: 6, shirt: 17, shirt2: 1, pants: 0, longHair: true, belt: 13 };
+  const sandraRig = (g, f, oy) => {
+    R(g, 3, 2 + oy, 1, 4, 0); R(g, 12, 2 + oy, 1, 4, 0); R(g, 3, 1 + oy, 10, 1, 0); // headphones
+    R(g, 2, 3 + oy, 2, 3, 13); R(g, 12, 3 + oy, 2, 3, 13);
+    R(g, 13, 0, 1, 8 + oy, 0); P(g, 13, 0, f ? 16 : 15); // the antenna
+  };
+  SPR.sandra = (() => {
+    const plain = buildChar(SANDRA_LOOK), s = {};
+    for (const [k, img] of Object.entries(plain)) s[k] = k.startsWith('up') ? img : mk(16, 16, (g) => { g.drawImage(img, 0, 0); sandraRig(g, +k.slice(-1), 0); });
+    return s;
+  })();
+  const sandraBattle = (overload) => [0, 1].map((f) => mk(16, 16, (g) => {
+    const look = overload ? { ...SANDRA_LOOK, shirt: 16, shirt2: 17 } : SANDRA_LOOK;
+    g.drawImage(buildChar(look)['down' + f], 0, 1);
+    sandraRig(g, f, 1);
+    R(g, 1, 7 + f, 2, 5, 0); R(g, 1, 8 + f, 1, 3, 10); P(g, 1, 7 + f, 16); // the microphone in her hand
+    if (overload) for (const [x, y] of f ? [[0, 1], [15, 4], [1, 13], [14, 12], [6, 0]] : [[1, 3], [14, 1], [0, 10], [15, 13], [10, 0]]) { P(g, x, y, 16); P(g, x + (x < 8 ? 1 : -1), y, 15); }
+  }));
+  ENEMY_SPR.sandraBoss = sandraBattle(false);
+  ENEMY_SPR.sandra2 = sandraBattle(true);
+  // ---- Veitvet's monsters
+  // The street bot: a boxy little robot on one wheel, with a traffic-light eye and a whip antenna.
+  ENEMY_SPR.bot = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    R(g, 4, 3 + o, 8, 8, 13); R(g, 4, 3 + o, 8, 1, 15); R(g, 11, 4 + o, 1, 7, 8);
+    R(g, 5, 5 + o, 6, 3, 0); P(g, 6, 6 + o, f ? 11 : 6); P(g, 8, 6 + o, 14); P(g, 9, 6 + o, f ? 6 : 11);
+    R(g, 6, 9 + o, 4, 1, 8);
+    R(g, 10, 0, 1, 3 + o, 0); P(g, 10, 0, 16);
+    R(g, 2, 6 + o, 2, 3, 10); R(g, 12, 6 + o, 2, 3, 10);
+    circle(g, 8, 13, 2.6, 0); circle(g, 8, 13, 1.4, 7); R(g, 7, 11, 2, 1, 3);
+  })));
+  // The shadow hound: a lean black dog with a glowing pink eye and spiky fur.
+  ENEMY_SPR.hound = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    ellipse(g, 7, 9 + o, 5.4, 3, 1);
+    ellipse(g, 12, 6 + o, 3, 2.6, 1); R(g, 13, 7 + o, 3, 2, 1); P(g, 15, 7 + o, 0); // head and snout
+    R(g, 11, 2 + o, 2, 3, 1); P(g, 11, 2 + o, 0); // ear
+    P(g, 13, 5 + o, 16); P(g, 14, 5 + o, 15); // eye
+    R(g, 13, 9 + o, 2, 1, 15); // teeth
+    for (const [x, y] of [[3, 6], [5, 5], [7, 5], [9, 5]]) P(g, x, y + o, 0); // spiky back
+    for (let i = 0; i < 3; i++) P(g, 1 - (i ? 1 : 0), 7 + i + o, 1); // tail
+    if (f) { R(g, 3, 12, 2, 3, 1); R(g, 9, 12, 2, 3, 1); } else { R(g, 4, 12, 2, 3, 1); R(g, 8, 12, 2, 3, 1); }
+  })));
+  // The signal wisp: not a flame but a pulse: a pink core with rings of signal around it.
+  ENEMY_SPR.swisp = [0, 1].map((f) => mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    circle(g, 8, 7 + o, 3, 17); circle(g, 8, 7 + o, 2, 16); P(g, 7, 6 + o, 15);
+    P(g, 7, 7 + o, 0); P(g, 9, 7 + o, 0);
+    const ring = (r, c) => { for (let a = 0; a < 24; a++) { const t = a / 24 * Math.PI * 2; if (Math.abs(Math.cos(t)) > 0.55) P(g, Math.round(8 + Math.cos(t) * r), Math.round(7 + o + Math.sin(t) * r), c); } };
+    ring(f ? 5 : 4.4, 13); ring(f ? 7 : 6.4, f ? 16 : 8);
+    for (const [x, y] of f ? [[8, 12], [7, 13], [8, 14]] : [[8, 11], [9, 12], [8, 13], [7, 14]]) P(g, x, y, 16);
+  }));
+  // The underground golem: a slab of tunnel wall that got up, tiles and all, with a rail for an arm.
+  ENEMY_SPR.ugolem = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    R(g, 3, 3, 10, 11, 10); for (let y = 3; y < 14; y += 3) R(g, 3, y, 10, 1, 7); for (const x of [6, 9]) R(g, x, 3, 1, 11, 7);
+    R(g, 12, 4, 1, 10, 3); R(g, 3, 3, 10, 1, 15);
+    R(g, 5, 5, 2, 1, 0); R(g, 9, 5, 2, 1, 0); P(g, 6, 5, 6); P(g, 9, 5, 6);
+    R(g, 4, 1, 3, 2, 3); R(g, 10, 1, 2, 2, 3); // broken top
+    R(g, 0, 5 + o, 3, 7, 3); R(g, 0, 5 + o, 3, 1, 10);
+    R(g, 13, 4 + o, 2, 9, 10); R(g, 15, 4 + o, 1, 9, 15); // the rail
+    R(g, 4, 14, 3, 2, 3); R(g, 9, 14, 3, 2, 3);
+    P(g, 8, 10, 3); P(g, 5, 11, 3);
+  })));
+  // The Veitvet guard: a big security guard in navy, cap pulled low, torch in hand.
+  ENEMY_SPR.vguard = [0, 1].map((f) => mk(16, 16, (g) => {
+    g.drawImage(buildChar({ hair: 0, shirt: 2, shirt2: 0, pants: 0, belt: 14 })['down' + f], 0, 1);
+    R(g, 4, 1, 8, 2, 2); R(g, 4, 3, 9, 1, 0); P(g, 7, 2, 14); // cap
+    R(g, 12, 8 + f, 3, 2, 0); R(g, 13, 8 + f, 2, 1, 10); P(g, 15, 8 + f, 14); // torch
+  }));
+  // The signal beast: a hulking hound of static, antennas sprouting from its back.
+  const beastSprite = (f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    ellipse(g, 7, 9 + o, 6.4, 4, 17); ellipse(g, 7, 10 + o, 5, 2.4, 1);
+    ellipse(g, 12.5, 7 + o, 3.4, 3, 17); R(g, 13, 8 + o, 3, 3, 17); R(g, 13, 10 + o, 3, 1, 15);
+    P(g, 13, 6 + o, 15); P(g, 14, 6 + o, 16);
+    for (const [x, h] of [[3, 4], [6, 6], [9, 4]]) { R(g, x, 6 + o - h, 1, h, 0); P(g, x, 6 + o - h, f ? 16 : 15); }
+    if (f) { R(g, 2, 12, 2, 4, 17); R(g, 9, 12, 2, 4, 17); } else { R(g, 3, 12, 2, 4, 17); R(g, 8, 12, 2, 4, 17); }
+    for (const [x, y] of [[4, 9], [8, 8], [6, 11]]) P(g, x, y + o, 16);
+  }));
+  ENEMY_SPR.beast = [0, 1].map(beastSprite);
+  SPR.beast = buildStatic(ENEMY_SPR.beast[0], ENEMY_SPR.beast[1]);
+  const PHONE_SPR = outlined(mk(16, 16, (g) => {
+    R(g, 5, 4, 6, 10, 0); R(g, 6, 5, 4, 7, 13); R(g, 6, 5, 4, 1, 15); P(g, 8, 13, 10);
+    R(g, 7, 7, 2, 2, 16); // a heart sticker on the screen
+  }));
 
   // name, base stats, gold range, battle intro
   // A boss also has a `boss` block. The battle engine asks it how the fight works, so the engine
@@ -1121,6 +1381,7 @@
   //   armored    its defence only counts against weapons that are not `heavy`
   //   quick      it strikes once before the hero's first move, unless the hero's armour or weapon is `nimble`
   //   shock      its blows are electric (see enemyHit)
+  //   signal     it is driven by the SIGNAL (see Veitvet below); signalHit: its blows are signal blows
   //   turn(b)    its whole turn in place of a plain attack, as for a boss
   //   defeated   line shown when it is beaten
   //   won(b)     called (and awaited) at the end of a battle it lost, after the rewards
@@ -1190,6 +1451,9 @@
   //   nimble   `quick` enemies do not get their opening strike against this armour, or this weapon
   //   keen     the weapon lands a critical hit twice as often
   //   insulated  the armour takes this share (0..1) off every electric blow
+  //   tuned    the weapon's blows are multiplied by this against `signal` enemies (hum: the line said once a fight)
+  //   padded   the armour takes this share off every big physical blow (one stronger than a plain attack)
+  //   resist   the armour takes this share off every signal blow, and blunts SANDRA's JAM and DISTORTION
   //   swing    battle line for an attack (default: 'You swing your sword!')
   //   name     for the status panel: at most 10 letters fit inside it; `full` is the name in the gear list and
   //            in messages, if it differs (at most 14 letters)
@@ -1422,6 +1686,128 @@
       after: () => nabilahHandover(),
     },
   };
+  // ---- Veitvet. A shade tougher again than Grorud. An enemy marked `signal` is driven by the SIGNAL: while the
+  // device under Veitvet is live (until the signalOff flag) an ordinary one hits 10% harder, and the SIGNAL BLADE
+  // cuts it deeper. `signalHit` makes its plain blows signal blows (see enemyHit).
+  ENEMIES.bot = { name: 'STREET BOT', hp: 50, atk: 29, def: 6, xp: 36, gold: [13, 17], intro: 'whirs out!', quick: true, signal: true };
+  // Two bites, then it crouches low (a warning), then it pounces: a big blow.
+  ENEMIES.hound = {
+    name: 'SHADOW HOUND', hp: 52, atk: 32, def: 5, xp: 40, gold: [15, 20], intro: 'bares its teeth!', signal: true,
+    async turn(b) {
+      if (b.charged) {
+        b.charged = false;
+        await msg(`The ${b.name} POUNCES!`, 100);
+        await enemyHit(1.6);
+      } else if (b.turn % 3 === 0) {
+        b.charged = true;
+        await msg(`The ${b.name} crouches low...`, 600);
+      } else {
+        await msg(`The ${b.name} bites!`, 100);
+        await enemyHit(1);
+      }
+    },
+  };
+  // Quick, and every blow is a signal blow; every third turn it lets out a piercing whine.
+  ENEMIES.swisp = {
+    name: 'SIGNAL WISP', hp: 46, atk: 31, def: 6, xp: 42, gold: [16, 22], intro: 'pulses into view!', quick: true, signal: true, signalHit: true,
+    async turn(b) {
+      if (b.turn % 3 === 0) {
+        await msg(`The ${b.name} lets out a piercing whine!`, 100);
+        await enemyHit(1.35);
+        return;
+      }
+      await msg(`The ${b.name} buzzes into you!`, 100);
+      await enemyHit(1);
+    },
+  };
+  // Armoured and heavy: it gathers itself, strikes, then hurls a chunk of tunnel. Over and over.
+  ENEMIES.ugolem = {
+    name: 'UNDERGROUND GOLEM', hp: 84, atk: 34, def: 17, xp: 58, gold: [24, 32], intro: 'tears itself off the wall!', armored: true,
+    async turn(b) {
+      const step = b.turn % 3;
+      if (step === 1) { await msg('The GOLEM grinds and gathers grit...', 500); return; }
+      if (step === 2) { await msg(`${b.name} swings a rail!`, 100); await enemyHit(1); return; }
+      await msg('The GOLEM hurls a chunk of tunnel!', 100);
+      await enemyHit(1.4);
+    },
+  };
+  ENEMIES.vguard = { name: 'VEITVET GUARD', hp: 74, atk: 31, def: 10, xp: 46, gold: [18, 24], intro: 'steps out of the shadows!' };
+  // The big one under Veitvet, met once: it guards a side tunnel. No boss: it can be run from.
+  ENEMIES.beast = {
+    name: 'SIGNAL BEAST', hp: 140, atk: 34, def: 11, xp: 110, gold: [60, 60], intro: 'rises, crackling!', signal: true,
+    async turn(b) {
+      if (b.turn % 3 === 0) {
+        await msg('The SIGNAL BEAST howls! The air warps!', 100);
+        await enemyHit(1.35, false, true);
+        return;
+      }
+      await msg(`The ${b.name} slashes!`, 100);
+      await enemyHit(1);
+    },
+    defeated: 'The SIGNAL BEAST fizzles into static!',
+    async won() { flags.beastBeaten = true; },
+  };
+  // The most tactical fight so far. Her own rig feeds her, so the device under Veitvet makes no difference
+  // to her. Phase 1: a swing of the mic stand, a SIGNAL PULSE, a look, a STATIC BURST (electric). At half HP,
+  // once: SIGNAL OVERLOAD. From then on: SIGNAL JAM (the hero's ATK drops for a while), a swing, DISTORTION
+  // (the hero's DEF drops for a while), a warning, and FEEDBACK: a huge signal blow. HEADPHONES shorten and
+  // soften the JAM and the DISTORTION and take a share off every signal blow.
+  ENEMIES.sandraBoss = {
+    name: 'SANDRA', hp: 290, atk: 31, def: 11, xp: 230, gold: [220, 220], intro: 'taps the microphone!', signal: true,
+    boss: {
+      flash: 16,
+      named: true,
+      async turn(b) {
+        if (!b.overload && b.hp <= b.max / 2) {
+          b.overload = true; b.look = 'sandra2'; b.step = 0; b.def = Math.max(0, b.def - 2); b.glitch = 40;
+          SFX.overload();
+          await msg('SANDRA ACTIVATES SIGNAL OVERLOAD!', 900);
+          await msg('The air warps and hisses around her!', 700);
+        }
+        const resist = !!ARMORS[player.armor].resist;
+        if (b.charged) {
+          b.charged = false;
+          await msg('FEEDBACK!!', 100);
+          await enemyHit(2, false, true);
+        } else if (b.overload) {
+          const step = ++b.step % 5;
+          if (step === 1) {
+            await msg('SIGNAL JAM!', 100);
+            await enemyHit(0.8, false, true);
+            if (player.hp > 0) await heroFx('weak', resist ? 4 : 8, resist ? 2 : 3, 'Your ATK drops!');
+          } else if (step === 2) {
+            await msg('SANDRA swings her mic stand!', 100);
+            await enemyHit(1.1);
+          } else if (step === 3) {
+            await msg('DISTORTION!', 100);
+            await enemyHit(0.7, false, true);
+            if (player.hp > 0) await heroFx('soft', resist ? 3 : 6, resist ? 2 : 3, 'Your DEF drops!');
+          } else if (step === 4) {
+            b.charged = true;
+            SFX.charge();
+            await msg('SANDRA aims her speakers. A shrill whine...', 900);
+          } else {
+            await msg('SANDRA hurls a wave of noise!', 100);
+            await enemyHit(1.2, false, true);
+          }
+        } else if (b.turn % 4 === 1) {
+          await msg('SANDRA swings her mic stand!', 100);
+          await enemyHit(1);
+        } else if (b.turn % 4 === 2) {
+          await msg('SIGNAL PULSE!', 100);
+          await enemyHit(1.1, false, true);
+        } else if (b.turn % 4 === 3) {
+          await msg('SANDRA adjusts her antenna and watches you.', 700);
+        } else {
+          await msg('Her speakers crackle! STATIC BURST!', 100);
+          await enemyHit(1.2, true);
+        }
+      },
+      defeated: '"...Okay. Signal lost." Her rig sputters out.',
+      flag: 'sandraBeaten',
+      after: () => sandraHandover(),
+    },
+  };
   const WEAPONS = {
     none: { name: 'STICK', atk: 0, desc: 'Better than nothing.' },
     iron: { name: 'IRON SWORD', atk: 3, desc: 'Sturdy and sharp. Good against anything.' },
@@ -1433,6 +1819,10 @@
       smash: 'The wrench cracks right through its armour!', desc: 'Hits hard. Cracks scrap armour.',
     },
     blade: { name: 'Q. BLADE', full: 'QUICK BLADE', atk: 7, nimble: true, keen: true, swing: 'You flick the quick blade!', desc: 'More crits. Quick foes never go first.' },
+    sblade: {
+      name: 'SIG. BLADE', full: 'SIGNAL BLADE', atk: 7, tuned: 1.25, swing: 'You swing the signal blade!',
+      hum: 'The SIGNAL BLADE hums and cuts deep!', desc: 'Cuts deeper into anything driven by SIGNAL.',
+    },
   };
   const ARMORS = {
     none: { name: 'TUNIC', def: 0, desc: 'Plain cloth.' },
@@ -1442,6 +1832,9 @@
     rvest: { name: 'REINF. VEST', def: 4, desc: 'Steel plates sewn in. Very solid.' },
     insulated: { name: 'INSUL VEST', full: 'INSULATED VEST', def: 3, insulated: 0.4, desc: 'Rubber-lined. Softens electric shocks.' },
     factory: { name: 'FACT ARMOR', full: 'FACTORY ARMOR', def: 6, desc: 'Thick steel plates. No help with shocks.' },
+    padded: { name: 'PADDED JKT', full: 'PADDED JACKET', def: 5, padded: 0.3, desc: 'Thick and puffy. Softens big hits.' },
+    // (worn in place of armour: Michael's Quest has no slot for anything else)
+    phones: { name: 'HEADPHONES', def: 2, resist: 0.35, desc: 'Blocks out the SIGNAL. Weakens its tricks.' },
   };
 
   // ---------------------------------------------------------------- maps
@@ -1463,6 +1856,7 @@
   //                butterflies   list of [x, y, colour, phase] anchor points in pixels
   //   lighting   dimEdges: 0..1 darkens the edges of the screen by that much
   //              shade: 0..1 darkens the ground (not the people, things or monsters on it) by that much
+  //   onEnter()  called each time the hero walks in (before the game saves itself), e.g. to note a place as found
   // A sign is a list of lines, or a function that shows whatever fits the moment.
   const ENCOUNTER_DEFAULTS = { minSteps: 3, chance: 0.13, scaleFrom: 1 };
   const MAPS = {
@@ -1978,35 +2372,220 @@
     backdrop: 'factory',
     lighting: { dimEdges: 0.35 },
   };
-  // Where the east gate of Grorud leads: a stretch of road and a barricade. To be continued...
+  // Where the east gate of Grorud leads: a stretch of country road that turns into Veitvet's first street.
   MAPS.veitvetRoad = {
     name: 'ROAD TO VEITVET',
     rows: [
-      'TTTTTTTTTTTTTTTT',
-      'T...,....T...TTT',
-      'T.T.....;....TTT',
-      'T.....T......TTT',
-      'T..;........STTT',
-      '=============JTT',
-      'T.......,....TTT',
-      'T.T.......T..TTT',
-      'T....;.......TTT',
-      'TTTTTTTTTTTTTTTT',
+      'TTTTTTTTTTTT7777',
+      'T...,....T..8888',
+      'T.T.....;...8988',
+      'T.....T.....hhhh',
+      'T..;........Sppl',
+      '============pppp',
+      'T.......,...lpph',
+      'T.T.......T.hhhh',
+      'T....;......hhhh',
+      'TTTTTTTTTTTThhhh',
     ],
-    exits: { '0,5': { map: 'grorudTown', x: 24, y: 9, dir: 'left' } },
-    signs: {
-      '12,4': ['ROAD TO VEITVET.', 'The road beyond is still being built.'],
-      '13,5': ['The road to VEITVET is closed off for now.', 'TO BE CONTINUED...'],
+    exits: {
+      '0,5': { map: 'grorudTown', x: 24, y: 9, dir: 'left' },
+      '15,5': { map: 'veitvet', x: 1, y: 10, dir: 'right' },
     },
+    signs: { '12,4': ['ROAD TO VEITVET.', 'EAST: VEITVET. WEST: GRORUD.'] },
     encounter: null,
     backdrop: 'heights',
   };
-  // A power post: rest in its glow (HP back to full, herbs not) and save.
-  function savePoint() {
+  // ---- Chapter 5: Veitvet. Blocks, a playground and the old shopping centre; under the town, the closed
+  // station where the SIGNAL DEVICE hums. Shutting it down opens the centre, where SANDRA waits on the stage.
+  // East of town the road to Oslo S begins, and ends at a barricade: Oslo S is not built yet.
+  MAPS.veitvet = {
+    name: 'VEITVET',
+    rows: [
+      'TTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+      'T7777777T7777777TAAAAAAAAAAT',
+      'T8889888T8898888TÆÆÆÆÆÆÆÆÆÆT',
+      'T8888888T8888888hÆÆÆÆÅÆÆÆÆÆT',
+      'T...=......=....hpppppppppS#',
+      'T.;.=...n..=..l.hppppppplpp#',
+      'Tpppppppppppppppppppppppppp#',
+      'T..p......pppppppp.........#',
+      'T..p.....lpppØppppl...;....#',
+      'T..p......pppppppp.........#',
+      'pppppppppppppppppppppppppppG',
+      'T.,p......pppppppp.....,...#',
+      'Thhphhhhhhhhh=hhhhhh.hhhhhh#',
+      'Tf.p.f.......=n.......h....#',
+      'Tfæp.f......h=h...;...h.T..#',
+      'Tf..........h=h.T.....h....#',
+      'Tf.æ0f..;...h=S.......h.T..#',
+      'Tffffff.....hø.,..T...h...;#',
+      'T.;.....T...hhh.......,....#',
+      'TTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+    ],
+    exits: {
+      '0,10': { map: 'veitvetRoad', x: 14, y: 5, dir: 'left' },
+      '21,3': { map: 'veitvetCenter', x: 11, y: 14, dir: 'up' }, // the centre's doors; shut until the device is off
+      '13,17': { map: 'veitvetUnder', x: 2, y: 15, dir: 'up' }, // the stairs down to the old station
+      '27,10': { map: 'osloRoad', x: 1, y: 5, dir: 'right' }, // the east gate; MINA has it opened when the chapter ends
+    },
+    signs: {
+      '26,4': ['VEITVET CENTER.', 'SHOPS - CAFE - STAGE.'],
+      '14,16': ['VEITVET STATION. OUT OF SERVICE.', 'Somebody has scratched underneath: IT HUMS AT NIGHT.'],
+      '13,8': () => savePoint(PILLAR),
+    },
+    // The streets, the square, the playground and every way in are safe; the lawn to the south-east is not.
+    encounter: {
+      chance: 0.1, minSteps: 4, scaleFrom: 13,
+      zones: [{ at: [17, 14, 26, 18], table: [['bot', 0.45], ['hound', 0.35], ['vguard', 0.2]] }],
+    },
+    backdrop: 'veitvet',
+    ambient: { butterflies: [[56, 232, 14, 1.3]] },
+  };
+  MAPS.veitvetUnder = {
+    name: 'VEITVET UNDERGROUND',
+    rows: [
+      'ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ',
+      'ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ',
+      'ÄÄÄÄÄÄääÄÄÄŸÜŸÄÄÄÄÄÄÄÄÄÄÄÄ',
+      'ÄÄÄÄÄÄääÄÄÄäääÄÄÄÄÄää§ääÄÄ',
+      'ÄÄÄÄÄÄääÄÄÄÄßÄÄÄÄÄÄäääääÄÄ',
+      'ÄÄÄÄÄÄääÄÄÄÄäÄÄÄÄÄÄäääääÄÄ',
+      'ÄÄÄÄÄÄäÄÄÄÄÄäÄÄÄÄÄÄÄÄäÄÄÄÄ',
+      'ÄääääääääääääääääääääääääÄ',
+      'ÄööööööööööööööööööööööööÄ',
+      'ÄööööööööööööööööööööööööÄ',
+      'ÄääääääääääääääääääääääääÄ',
+      'ÄÄÄäÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄäÄÄÄÄ',
+      'ÄÄÄäÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄäÄÄÄÄ',
+      'ÄäääääÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄääääÄ',
+      'ÄäÐäääÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄäÄÄ',
+      'ÄäääääÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄäÄÄ',
+      'ÄÄþÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄäääÄ',
+      'ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ',
+    ],
+    exits: { '2,16': { map: 'veitvet', x: 13, y: 16, dir: 'up' } },
+    signs: {
+      '2,14': () => savePoint(PILLAR),
+      '12,2': () => deviceSign(),
+      '21,3': () => breakerSign(),
+    },
+    // The way in, the device's chamber, the breaker room and NOAH's corner are safe; the tunnel is not.
+    encounter: {
+      chance: 0.11, minSteps: 4, scaleFrom: 13,
+      zones: [
+        { at: [1, 7, 11, 10], table: [['bot', 0.4], ['hound', 0.35], ['swisp', 0.25]] }, // the tunnel, west
+        { at: [13, 7, 24, 10], table: [['swisp', 0.35], ['ugolem', 0.35], ['hound', 0.3]] }, // the tunnel, east
+        { at: [21, 11, 24, 13], table: [['ugolem', 0.5], ['swisp', 0.5]] }, // the side tunnel
+      ],
+    },
+    backdrop: 'underground',
+    lighting: { dimEdges: 0.45 },
+    onEnter: () => { flags.underSeen = true; },
+  };
+  MAPS.veitvetCenter = {
+    name: 'VEITVET CENTER',
+    rows: [
+      'ÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈ',
+      'ÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈ',
+      'ÈÈÈÈÈÈÈÑÒÍÍÍÒÑÈÈÈÈÈÈÈÈ',
+      'ÈÈÈÈÈÈÈÑÍÍÍÍÍÑÈÈÈÈÈÈÈÈ',
+      'ÈÈÈÈÈÈÈÌÍÍÍÍÍÌÈÈÈÈÈÈÈÈ',
+      'ÈÊÊÊÈÈÈÌÌËËËÌÌÈÈÈÊÊÊÊÈ',
+      'ÈËËËÊÈËËËËËËËËËËÈËËËËÈ',
+      'ÈËËËËËËËÌËËËËÌËËËËËËËÈ',
+      'ÈËËËÊÈËËËËËËËËËËÈÊÊÊËÈ',
+      'ÈÈÈÈÈÈËËËËÌËËËËËÈÈÈÈËÈ',
+      'ÈÊÊÊÊÈËËÌËËËËÌËËÊÊÊÊËÈ',
+      'ÈËËËËËËËËËËËËËËËËËËËËÈ',
+      'ÈÊÊÊÊÈËËËËËËËËËËÈÊÊÊÊÈ',
+      'ÈÈÈÈÈÈËËÌËËËËÌËËÈÈÈÈÈÈ',
+      'ÈÈÈÈÈÈËËËËËËËËËËÈÈÈÈÈÈ',
+      'ÈÈÈÈÈÈÈÈÈÈÈåÈÈÈÈÈÈÈÈÈÈ',
+    ],
+    exits: { '11,15': { map: 'veitvet', x: 21, y: 4, dir: 'down' } },
+    signs: {},
+    // The lobby, the cross corridor, the shops and SANDRA's stage are safe; the hall and the east wing are not.
+    encounter: {
+      chance: 0.1, minSteps: 4, scaleFrom: 13,
+      zones: [
+        { at: [6, 6, 15, 10], table: [['vguard', 0.45], ['swisp', 0.3], ['hound', 0.25]] }, // the hall
+        { at: [17, 6, 20, 10], table: [['vguard', 0.5], ['hound', 0.5]] }, // the east wing
+      ],
+    },
+    backdrop: 'center',
+  };
+  // Where Veitvet's east gate leads: the road toward the city, and a barricade. To be continued...
+  MAPS.osloRoad = {
+    name: 'ROAD TO OSLO S',
+    rows: [
+      'TTTTTTTTTTTTTTTT',
+      'T7777..T...7777T',
+      'T8988......8898T',
+      'T....;..,......T',
+      'T.l.......l..S.T',
+      'ppppppppppppppJT',
+      'T.l.......l....T',
+      'T...,..T...;...T',
+      'T.T.........T..T',
+      'TTTTTTTTTTTTTTTT',
+    ],
+    exits: { '0,5': { map: 'veitvet', x: 26, y: 10, dir: 'left' } },
+    signs: {
+      '13,4': ['ROAD TO OSLO S.', 'CITY CENTRE: STRAIGHT AHEAD.'],
+      '14,5': ['The road to OSLO S is closed off for now.', 'TO BE CONTINUED...'],
+    },
+    encounter: null,
+    backdrop: 'veitvet',
+  };
+  // A power post (or, in Veitvet, an info pillar): rest in its glow (HP back to full, herbs not) and save.
+  const PILLAR = 'A glowing info pillar. Its screen says: REST HERE. You sit down for a moment.';
+  function savePoint(line = 'A humming power post. You rest a moment in its warm glow.') {
     player.hp = player.maxhp;
     SFX.heal();
     const ok = saveGame();
-    say('', ['A humming power post. You rest a moment in its warm glow.', ok ? 'HP restored. Game saved!' : 'HP restored. (The game could not be saved!)']);
+    say('', [line, ok ? 'HP restored. Game saved!' : 'HP restored. (The game could not be saved!)']);
+  }
+  // The breaker in the side room under Veitvet feeds the shield around the SIGNAL DEVICE. Pulling it, once,
+  // takes the shield down for good. It can be pulled before anybody has asked, or before the device is found.
+  function breakerSign() {
+    if (flags.shieldOff) { say('', ['The lever is down. Somewhere to the west, the shield stays dark.']); return; }
+    say('', ['A big breaker box, humming. Thick cables run from it, west along the tunnel.', 'You heave the lever down...'], () => {
+      flags.shieldOff = true;
+      SFX.cut();
+      saveGame();
+      say('', ['CLUNK! Far to the west, a crackling sound dies away.']);
+    });
+  }
+  // The SIGNAL DEVICE itself, behind the shield: shutting it down, exactly once, opens VEITVET CENTER.
+  function deviceSign() {
+    if (flags.signalOff) { say('', ['The SIGNAL DEVICE is dead. Just a box of wires now.']); return; }
+    say('', ['A cabinet of antennas and blinking lights: the SIGNAL DEVICE.', 'It buzzes right through your teeth.', 'You yank its cables out, one by one...'], () => {
+      flags.signalOff = true;
+      pulseT = 70;
+      SFX.signalLost();
+      saveGame();
+      say('', ['SIGNAL LOST...'], () => say('', ['SOURCE MOVED.'], () => say(hero().name, [
+        'Moved? Then this box was only passing the signal on...',
+        'Far above, something heavy clicks open. VEITVET CENTER?',
+      ])));
+    });
+  }
+  // After the fight SANDRA hands over the fragment, exactly once. This runs by itself when the won battle ends,
+  // and again from SANDRA if the game was closed before it finished.
+  function sandraHandover() {
+    const H = hero().name;
+    say('SANDRA', ['Fine. FINE. My show is over.'], () => say(H, ['NABILAH said the trail led to VEITVET. Why the signal?'],
+      () => say('SANDRA', [
+        'I was only LISTENING. Something started singing, so I turned it up.',
+        'Take it. It has been humming in my rig for weeks.',
+        '(Got CRYSTAL FRAGMENT 4!)',
+      ], () => {
+        flags.fragment4 = true;
+        markReady('signal');
+        SFX.quest();
+        saveGame();
+        say('', ['THE FOUR FRAGMENTS BEGIN TO GLOW...', 'THE CRYSTAL IS REACTING TO SOMETHING IN CENTRAL OSLO.'], () => say('SANDRA', ['Central OSLO. OSLO S, if you ask me.', 'Go and tell MINA. She worries.']));
+      })));
   }
   function terminalSign() {
     if (flags.worksOpen) say('', ['The terminal hums happily. Three POWER CELLS glow in their slots.']);
@@ -2108,6 +2687,16 @@
     { id: 'chestWrench', map: 'grorudHeights', x: 28, y: 17, chest: true, weapon: 'wrench' },
     { id: 'chestBlade', map: 'grorudTown', x: 1, y: 16, chest: true, weapon: 'blade' },
     { id: 'chestArmor', map: 'grorudWorks', x: 22, y: 11, chest: true, armor: 'factory' },
+    // ---- Veitvet
+    {
+      id: 'phone', map: 'veitvet', x: 26, y: 13, quest: 'phone', always: true, spr: PHONE_SPR,
+      found: ['A phone with a heart sticker. ELIAS is on the lock screen.', 'Take it back to ELIAS!'],
+      early: ['A phone with a heart sticker. ELIAS is on the lock screen.', 'Somebody in VEITVET must be missing this.'],
+    },
+    { id: 'chestVeitvet', map: 'veitvet', x: 1, y: 18, chest: true, gold: 90 },
+    { id: 'chestSblade', map: 'veitvetUnder', x: 22, y: 16, chest: true, weapon: 'sblade' },
+    { id: 'chestPadded', map: 'veitvetCenter', x: 1, y: 6, chest: true, armor: 'padded' },
+    { id: 'chestCenter', map: 'veitvetCenter', x: 19, y: 6, chest: true, gold: 120 },
   ];
 
   // ---------------------------------------------------------------- gates
@@ -2190,6 +2779,41 @@
       opened: ['The FACTORY KEY turns with a screech. The ROAD TO VEITVET is open!'],
       sfx: 'pickup',
     },
+    // Veitvet. VEITVET CENTER's doors, the SIGNAL DEVICE and its two relays all change together (the signalOff
+    // flag) when the hero shuts the device down; the shield and its breaker together (shieldOff) when the hero
+    // pulls the breaker; SANDRA's masts (sandraBeaten) when she is beaten. Nobody opens these by hand.
+    {
+      map: 'veitvet', x: 21, y: 3, closed: 'Å', open: 'å', flag: 'signalOff',
+      needs: () => false,
+      locked: () => (flags.underSeen
+        ? ['The shutters of VEITVET CENTER are down. Something buzzes behind them.', 'It hums in time with the tunnel below.']
+        : ['The shutters of VEITVET CENTER are down. Something buzzes behind them.']),
+      opened: [],
+    },
+    { map: 'veitvetUnder', x: 12, y: 2, closed: 'Ü', open: 'ü', flag: 'signalOff', needs: () => false, locked: [], opened: [] },
+    ...[11, 13].map((x) => ({
+      map: 'veitvetUnder', x, y: 2, closed: 'Ÿ', open: 'ÿ', flag: 'signalOff', needs: () => false,
+      locked: ['A relay antenna, buzzing with SIGNAL. It is wired to the cabinet beside it.'], opened: [],
+    })),
+    {
+      map: 'veitvetUnder', x: 12, y: 4, closed: 'ß', open: 'ä', flag: 'shieldOff', needs: () => false,
+      locked: () => { // (finding it moves the quest log on, so it is saved at once)
+        if (!flags.deviceSeen) { flags.deviceSeen = true; saveGame(); }
+        return ['A crackling shield of SIGNAL blocks the way. Something blinks behind it.', 'Thick cables run from the shield, east along the tunnel.'];
+      },
+      opened: [],
+    },
+    { map: 'veitvetUnder', x: 21, y: 3, closed: '§', open: '¶', flag: 'shieldOff', needs: () => false, locked: [], opened: [] },
+    ...[8, 12].map((x) => ({
+      map: 'veitvetCenter', x, y: 2, closed: 'Ò', open: 'ò', flag: 'sandraBeaten', needs: () => false,
+      locked: ["One of SANDRA's signal masts. It buzzes like an angry wasp."], opened: [],
+    })),
+    { // Veitvet's east gate, the road to Oslo S. MINA has it opened (the osloGate flag) when the chapter ends.
+      map: 'veitvet', x: 27, y: 10, closed: 'G', open: 'L', flag: 'osloGate',
+      needs: () => false,
+      locked: ['A gate in the east wall. A sign on it says: OSLO S.', 'It is locked.'],
+      opened: [],
+    },
   ];
   for (const gate of GATES) (MAPS[gate.map].gates ||= {})[`${gate.x},${gate.y}`] = gate;
   const gateAt = (m, x, y) => m.gates?.[`${x},${y}`];
@@ -2252,6 +2876,15 @@
       title: "JOAN'S YARD", turnIn: 'JOAN', state: { n: 0 },
       tracker: () => `GOLEMS ${q.yard.n}/${YARD_GOLEMS}`, progress: () => `${q.yard.n}/${YARD_GOLEMS} GOLEMS`,
     },
+    // ---- Veitvet. MINA's signal leads down into the station, back up into the centre and to SANDRA, and turning
+    // in ends the chapter. Every step is a saved flag (underSeen, deviceSeen, shieldOff, signalOff, sandraBeaten),
+    // so the hero can find things in any order and the log always names the next thing to do.
+    signal: {
+      title: 'VEITVET SIGNAL', turnIn: 'MINA',
+      tracker: () => (flags.signalOff ? 'SANDRA: CENTER' : flags.shieldOff ? 'SIGNAL DEVICE' : flags.deviceSeen ? 'FIND THE SWITCH' : flags.underSeen ? 'FIND THE SOURCE' : 'GO UNDERGROUND'),
+      progress: () => (flags.signalOff ? 'IN THE CENTER' : flags.shieldOff ? 'SHUT IT DOWN' : flags.deviceSeen ? 'CUT ITS POWER' : flags.underSeen ? 'IN THE TUNNEL' : 'UNDER VEITVET'),
+    },
+    phone: { title: 'LOST PHONE', turnIn: 'ELIAS', tracker: () => 'FIND THE PHONE', progress: () => 'SOUTH-EAST' },
   };
   const YARD_GOLEMS = 2; // how many scrap golems JOAN's yard asks for
   const cells = () => ['cell1', 'cell2', 'cell3'].filter((k) => flags[k] === true).length;
@@ -2292,7 +2925,8 @@
     { name: 'STOVNER', quest: 'mohsin' },
     { name: 'AMMERUD', quest: 'trouble' },
     { name: 'GRORUD', quest: 'power' },
-    { name: 'VEITVET', quest: null }, // unlocked by finishing Grorud; nothing of it is built yet
+    { name: 'VEITVET', quest: 'signal' },
+    { name: 'OSLO S', quest: null }, // unlocked by finishing Veitvet; nothing of it is built yet
   ];
   const chapterDone = (c) => c.quest != null && q[c.quest]?.s === 3;
   // Crystal Fragments and keys are kept as saved flags (fragment1, redKey, ...), set once and never unset.
@@ -2332,6 +2966,7 @@
   let dlg = null, battle = null, fade = null, encounter = null, banner = null, victory = null, shop = null, menuOpen = null;
   let lastBump = -99, shroomStreak = 0, savedT = 0;
   let powerT = 0; // frames left of the flicker when the power comes back on in Grorud (never saved)
+  let pulseT = 0; // frames left of the pink pulse when the SIGNAL DEVICE is shut down in Veitvet (never saved)
   const title = { sel: 0, hasSave: false };
 
   // ---------------------------------------------------------------- quests
@@ -3093,6 +3728,174 @@
         }
       },
     },
+    // ---- Veitvet
+    {
+      id: 'mina', map: 'veitvet', x: 4, y: 9, dir: 'down', home: 'down', spr: SPR.mina,
+      news: () => q.signal.s === 0 || q.signal.s === 2,
+      talk() {
+        const N = 'MINA', H = hero().name, s = q.signal.s;
+        const turnIn = () => say(H, ['SANDRA had a CRYSTAL FRAGMENT. Now all four of them are glowing.'], () => say(N, [
+          'Four! Look at them shine... as if they were pointing somewhere. Toward the city.',
+          'Toward OSLO S. Whatever broke the Crystal, the answer is waiting there.',
+          'I will have the east gate opened for you. Thank you, from all of VEITVET.',
+        ], () => {
+          flags.osloGate = true;
+          complete('signal');
+          endChapter('signal');
+        }));
+        if (s === 0 && flags.fragment4) {
+          say(N, [`You must be ${H}. The hum is gone... was that you? All of it?`], () => { accept('signal'); markReady('signal'); turnIn(); });
+        } else if (s === 0) {
+          say(N, [
+            `You must be ${H}. I am MINA. Welcome to VEITVET.`,
+            ...(flags.signalOff
+              ? ['The hum under the town stopped this morning. Was that you?', 'Then the noise has moved. The doors of VEITVET CENTER slid open by themselves.', 'Somebody is behind this. Will you find out who?']
+              : ['Can you hear that hum? It has been coming up through the ground for weeks.', 'It makes the bots and the hounds mean, and it gets into your head.',
+                'It comes from the old station: down the stairs, south of the square.', 'Will you find out what it is?']),
+            ...(fragments() ? ['And... the crystal in your pack is humming along with it. Strange.'] : []),
+          ], () => accept('signal'));
+        } else if (s === 1 && !flags.signalOff) {
+          if (!flags.underSeen) say(N, ['The stairs to the old station are south of the square, by the playground.', 'Be careful down there.']);
+          else if (flags.shieldOff) say(N, ['The shield is down? Then shut that thing off before it starts up again!']);
+          else if (flags.deviceSeen) say(N, ['A shield? Then something must be feeding it power. Follow the cables!']);
+          else say(N, ['It must be somewhere along the tunnel. Look for blinking lights.']);
+        } else if (s === 1) {
+          say(N, ['SOURCE MOVED? Then the CENTER: its doors opened when the hum stopped.', 'SANDRA runs the stage in there. Nobody has seen her come out for weeks.', 'If anybody is behind this noise, it is her.']);
+        } else if (s === 2) {
+          turnIn();
+        } else {
+          say(N, [pick([
+            'The east gate is open. OSLO S is that way.',
+            'VEITVET is so quiet now. I can hear the birds again.',
+            `Four fragments, ${H}. Only one place left to go.`,
+          ])]);
+        }
+      },
+    },
+    {
+      id: 'elias', map: 'veitvet', x: 8, y: 14, dir: 'down', home: 'down', spr: SPR.elias,
+      news: () => q.phone.s === 0 || q.phone.s === 2,
+      talk() {
+        const N = 'ELIAS', H = hero().name;
+        const thanks = () => say(N, [
+          'My phone! Three hundred unread messages. Ugh.',
+          'Take these. They block out noise like nothing else. (Got HEADPHONES!)',
+          'Put them on in the menu. They go where your armour goes, so choose well!',
+        ], () => {
+          own('armor', 'phones');
+          complete('phone');
+        });
+        if (q.phone.s === 0 && flags.phone) {
+          say(N, [`Hey, ${H}, that is MY phone! You found it before I even asked!`], () => { accept('phone'); markReady('phone'); thanks(); });
+        } else if (q.phone.s === 0) {
+          say(N, [
+            'I am ELIAS. A SHADOW HOUND chased me, and I dropped my phone!',
+            'It is somewhere south-east, behind the hedges. Could you look for it? Please?',
+          ], () => accept('phone'));
+        } else if (q.phone.s === 1) {
+          say(N, ['South-east, behind the hedges. Go round the bottom: there is a gap.']);
+        } else if (q.phone.s === 2) {
+          thanks();
+        } else {
+          say(N, [pick([
+            'The headphones are great, right? Total silence.',
+            'I finally beat my high score. Thanks to you.',
+            'Mind the hounds on that lawn.',
+          ])]);
+        }
+      },
+    },
+    {
+      id: 'marianne', map: 'veitvet', x: 7, y: 5, dir: 'down', home: 'down', spr: SPR.marianne,
+      // Never a quest: what she has seen of the town, which changes as the story goes on.
+      talk() {
+        const N = 'MARIANNE';
+        if (flags.sandraBeaten) {
+          say(N, [
+            'Peace and quiet at last! I almost miss the hum. Almost.',
+            'SANDRA came by the bakery this morning and said sorry. With a cake!',
+            'They say the road east goes all the way to OSLO S. Mind how you go, love.',
+          ]);
+        } else if (flags.signalOff) {
+          say(N, [
+            'The hum is gone! My radio works again. Well, it plays one song. Over and over.',
+            'The bots and hounds seem calmer too. Not friendly. Calmer.',
+            'But the centre flickers like a disco. SANDRA is up on that stage.',
+            'Her noise gets inside your head. Anything that blocks it out, wear it!',
+          ]);
+        } else {
+          say(N, [
+            'Hello, love. I am MARIANNE.', 'Mind the STREET BOTS: they nip before you can blink.',
+            'SHADOW HOUNDS crouch low before they pounce. When you see that, get ready!',
+            'And that hum makes the whole lot of them meaner. My radio only plays static.',
+            owns('weapon', 'wrench')
+              ? 'Old tunnel golems lurk in the station. Your wrench should crack them.'
+              : 'Old tunnel golems lurk in the station. You want something heavy for those.',
+          ]);
+        }
+      },
+    },
+    { // stuck in the underground until the hero pulls him free; then he goes home, and stands in the square
+      id: 'noah', map: 'veitvetUnder', x: 7, y: 3, dir: 'down', home: 'down', spr: SPR.noah,
+      visible: () => !flags.noahHelped,
+      talk() {
+        const N = 'NOAH';
+        const tip = flags.signalOff ? ['Did you shut that humming thing off? The tunnel feels so much lighter.']
+          : flags.shieldOff ? ['The shield by the humming cabinet just went dark. Go and switch it off!']
+            : ['I saw the thing that hums: a cabinet behind a shield, north of the tracks.', 'A breaker in the east room feeds the shield. Pull it, and the shield goes down.'];
+        say(N, ['Thank goodness, a person! I am NOAH. My jacket is stuck in this old gate.', 'I have been down here since lunch. Could you give it a pull?'],
+          () => say('', ['You grab the jacket and heave. RRRIP! NOAH tumbles free.'], () => say(N, [
+            'Free! Thanks! Here, take this. (Got 60 gold! Your herbs are refilled!)',
+            ...tip,
+            'I am getting out of here. See you up top!',
+          ], () => {
+            if (!flags.noahHelped) {
+              flags.noahHelped = true;
+              player.gold += 60; player.herbs = player.maxHerbs;
+              SFX.pickup();
+            }
+            saveGame();
+          })));
+      },
+    },
+    {
+      id: 'noah2', map: 'veitvet', x: 19, y: 8, dir: 'down', home: 'down', spr: SPR.noah,
+      visible: () => flags.noahHelped === true,
+      talk() {
+        say('NOAH', [flags.signalOff ? 'The hum is gone. Tonight I am going to sleep for a week.' : 'That breaker in the room east of the shield. Pull it!',
+          pick(['Thanks again for pulling me out. I owe you one.', 'I am never taking a shortcut through the station again.', 'My jacket has a hole now. Worth it.'])]);
+      },
+    },
+    { // the beast in the side tunnel guards the SIGNAL BLADE; it is there until it is beaten
+      id: 'beast', map: 'veitvetUnder', x: 23, y: 14, dir: 'down', home: 'down', spr: SPR.beast, anim: true,
+      visible: () => !flags.beastBeaten,
+      talk() {
+        say('', ['A huge beast of static fills the side tunnel, crackling.', 'Behind it, something glints in the dark...'], () => {
+          encounter = { t: 0, type: 'beast' }; SFX.encounter();
+        });
+      },
+    },
+    { // she waits on her stage at the back of the centre; beaten, she stays and only talks
+      id: 'sandra', map: 'veitvetCenter', x: 10, y: 3, dir: 'down', home: 'down', spr: SPR.sandra,
+      talk() {
+        const N = 'SANDRA', H = hero().name;
+        if (!flags.sandraBeaten) {
+          say(N, ['Well, well. The one who pulled the plug on my relay.', 'Do you know how long it took me to wire up the whole of VEITVET?'],
+            () => say(H, ['Why are you doing this? The whole town can hear it!'], () => say(N, [
+              'Because something out there is singing. And I want to hear it LOUDER.',
+              'Let us see how you handle a little FEEDBACK!',
+            ], () => { encounter = { t: 0, type: 'sandraBoss' }; SFX.encounter(); })));
+        } else if (!flags.fragment4) {
+          sandraHandover();
+        } else {
+          say(N, [pick([
+            'OSLO S. That is where the song comes from. Go.',
+            'I am keeping the speakers. For a quiet show. Very quiet.',
+            'Tell MINA I am sorry about the noise.',
+          ])]);
+        }
+      },
+    },
   ];
   const npcVisible = (n) => !n.visible || n.visible();
   const npcAt = (map, x, y) => NPCS.find((n) => n.map === map && n.x === x && n.y === y && npcVisible(n));
@@ -3227,6 +4030,9 @@
     faint: () => seq([440, 392, 349, 294, 262], 0.16, { vol: 0.14, type: 'triangle', len: 0.2 }),
     zap: () => { noise(0.18, { vol: 0.35, freq: 6000 }); tone(1800, 0.12, { to: 200, vol: 0.12, type: 'sawtooth' }); },
     power: () => { tone(80, 0.9, { to: 640, vol: 0.14, type: 'sawtooth' }); seq([0, 0, 0, 0, 523, 659, 784, 1047], 0.1, { vol: 0.12, type: 'triangle', len: 0.16 }); },
+    signal: () => { tone(900, 0.08, { to: 1400, vol: 0.08 }); tone(1400, 0.08, { to: 700, vol: 0.08, delay: 0.08 }); tone(700, 0.1, { to: 1200, vol: 0.08, delay: 0.16 }); noise(0.2, { vol: 0.15, freq: 4000 }); },
+    overload: () => { tone(200, 0.8, { to: 1600, vol: 0.14, type: 'sawtooth' }); seq([1047, 0, 1047, 0, 1047, 1319], 0.08, { vol: 0.1, len: 0.06 }); noise(0.5, { vol: 0.2, freq: 5000, delay: 0.3 }); },
+    signalLost: () => { tone(1200, 1, { to: 60, vol: 0.14, type: 'sawtooth' }); seq([784, 0, 659, 0, 523, 0, 392], 0.12, { vol: 0.1, type: 'triangle', len: 0.1 }); },
     victory: () => {
       seq([523, 523, 523, 659, 0, 587, 659, 0, 784, 1047], 0.12, { vol: 0.13, len: 0.14 });
       seq([262, 0, 330, 0, 392, 0, 330, 0, 392, 523], 0.12, { vol: 0.1, type: 'triangle', len: 0.2 });
@@ -3591,6 +4397,7 @@
   function enterMap(name, x, y, dir) {
     Object.assign(player, { map: name, x, y, fx: x, fy: y, tx: x, ty: y, dir, moving: false, t: 0 });
     showBanner(MAPS[name].name);
+    MAPS[name].onEnter?.();
     saveGame();
   }
   function onStep() {
@@ -3658,7 +4465,7 @@
   }
   // ---------------------------------------------------------------- living world (visual only, never saved)
   const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram', 'johanne', 'basil', 'dot', 'gus', 'selma', 'emil', 'astrid', 'nadia', 'leif',
-    'tobias', 'nawal', 'honey', 'joan']);
+    'tobias', 'nawal', 'honey', 'joan', 'mina', 'elias', 'marianne', 'noah2']);
   const faceToward = (dx, dy) => (Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
   // Villagers glance around now and then; they face the hero when the hero is right next to them,
   // and a villager with a "!" notices the hero from two tiles away.
@@ -3810,6 +4617,7 @@
       ctx.globalAlpha = 1;
     }
     if (powerT > 0 && Math.floor(powerT / 5) % 2 === 0) { ctx.globalAlpha = 0.35; R(ctx, 0, 0, W, H, 14); ctx.globalAlpha = 1; }
+    if (pulseT > 0 && Math.floor(pulseT / 6) % 2 === 0) { ctx.globalAlpha = 0.3 + (pulseT % 12) / 40; R(ctx, 0, 0, W, H, 16); ctx.globalAlpha = 1; }
   }
   function drawHud() {
     box(2, 2, 92, 30);
@@ -3849,9 +4657,11 @@
     const scaleFrom = m.encounter?.scaleFrom ?? ENCOUNTER_DEFAULTS.scaleFrom;
     const L = e.boss ? 0 : Math.max(0, player.lvl - scaleFrom);
     const hp = e.hp + L * 3;
+    // An ordinary enemy driven by the SIGNAL hits 10% harder while the device under Veitvet is live.
+    const boosted = !!e.signal && !e.boss && !flags.signalOff;
     battle = {
-      type, name: e.name, boss: !!e.boss, hp, max: hp, shownHp: hp,
-      atk: e.atk + L, def: e.def + Math.floor(L / 2), xp: e.xp + L * 2, gold: rand(...e.gold),
+      type, name: e.name, boss: !!e.boss, hp, max: hp, shownHp: hp, boosted,
+      atk: boosted ? Math.round((e.atk + L) * 1.1) : e.atk + L, def: e.def + Math.floor(L / 2), xp: e.xp + L * 2, gold: rand(...e.gold),
       backdrop: m.backdrop || 'woods', turn: 0, charged: false, wobbled: false,
       menu: 0, phase: 'busy', msg: '', shown: 0, floats: [], shake: 0, flash: 0, lunge: 0, dying: 0, gone: false,
       playerShownHp: player.hp,
@@ -3869,8 +4679,9 @@
   function toMenu() { battle.phase = 'menu'; battle.msg = 'What will you do?'; battle.shown = 99; }
   async function runIntro(intro) {
     await wait(350);
-    const article = ENEMIES[battle.type].boss?.named ? '' : battle.boss ? 'The ' : 'A ';
+    const article = ENEMIES[battle.type].boss?.named ? '' : battle.boss ? 'The ' : /^[AEIOU]/.test(battle.name) ? 'An ' : 'A ';
     await msg(`${article}${battle.name} ${intro}`, 700);
+    if (battle.boosted) await msg('The SIGNAL hums around it. It looks stronger!', 600);
     if (ENEMIES[battle.type].quick) {
       if (ARMORS[player.armor].nimble || WEAPONS[player.weapon].nimble) await msg('It darts at you, but you step lightly aside!', 500);
       else {
@@ -3890,7 +4701,9 @@
       const smash = armored && !!weapon.heavy;
       await msg(weapon.swing || 'You swing your sword!', 150);
       const crit = Math.random() < (weapon.keen ? 0.24 : 0.12);
-      let dmg = Math.max(1, atk() + rand(0, 2) - (smash ? 0 : battle.def));
+      let dmg = Math.max(1, atk() - (battle.weak?.amt || 0) + rand(0, 2) - (smash ? 0 : battle.def));
+      const tuned = weapon.tuned && ENEMIES[battle.type].signal;
+      if (tuned) dmg = Math.round(dmg * weapon.tuned);
       if (crit) dmg = Math.floor(dmg * 1.8);
       battle.hp = Math.max(0, battle.hp - dmg);
       battle.flash = 24;
@@ -3902,6 +4715,7 @@
         battle.armorSaid = true;
         await msg(smash ? weapon.smash || 'The axe smashes right through its armour!' : 'Its armour turns most of the blow!', 500);
       }
+      if (tuned && !battle.tunedSaid) { battle.tunedSaid = true; await msg(weapon.hum, 500); } // the same, for the signal blade
     } else if (choice === 1) {
       if (player.herbs <= 0) { await msg('No herbs left!', 500); return toMenu(); }
       if (player.hp >= player.maxhp) { await msg('Your HP is already full!', 500); return toMenu(); }
@@ -3924,26 +4738,43 @@
     await enemyTurn();
   }
   // One blow at the hero. An electric blow (`shock`, by default whatever the enemy's own `shock` says)
-  // flashes yellow, and insulated armour takes its share off what gets through the defence.
-  async function enemyHit(mult, shock = !!ENEMIES[battle.type].shock) {
+  // flashes yellow, and insulated armour takes its share off what gets through the defence. A signal blow
+  // (`signal`, by default the enemy's own `signalHit`) warps the screen pink, and resisting armour takes its
+  // share off. Padded armour takes its share off a big physical blow. DISTORTION (battle.soft) lowers the
+  // hero's defence while it lasts.
+  async function enemyHit(mult, shock = !!ENEMIES[battle.type].shock, signal = !shock && !!ENEMIES[battle.type].signalHit) {
     battle.lunge = 12;
     await wait(150);
-    let dmg = Math.max(1, Math.round((battle.atk + rand(0, 2)) * mult) - def());
-    const insulated = shock ? ARMORS[player.armor].insulated || 0 : 0;
-    if (insulated) dmg = Math.max(1, Math.round(dmg * (1 - insulated)));
+    let dmg = Math.max(1, Math.round((battle.atk + rand(0, 2)) * mult) - Math.max(0, def() - (battle.soft?.amt || 0)));
+    const armor = ARMORS[player.armor];
+    const off = shock ? armor.insulated || 0 : signal ? armor.resist || 0 : mult > 1 ? armor.padded || 0 : 0;
+    if (off) dmg = Math.max(1, Math.round(dmg * (1 - off)));
     player.hp = Math.max(0, player.hp - dmg);
     battle.shake = mult > 1 ? 24 : 14;
-    if (shock) { battle.zap = 18; SFX.zap(); } else if (mult > 1) SFX.slam(); else SFX.hurt();
-    float(196, 58, `${dmg}`, shock ? 14 : 6);
+    if (shock) { battle.zap = 18; SFX.zap(); } else if (signal) { battle.glitch = 18; SFX.signal(); } else if (mult > 1) SFX.slam(); else SFX.hurt();
+    float(196, 58, `${dmg}`, shock ? 14 : signal ? 16 : 6);
     await wait(650);
-    if (insulated && !battle.insulatedSaid && player.hp > 0) { // said once per fight, so the hero learns what it does
-      battle.insulatedSaid = true;
-      await msg('Your INSULATED VEST soaks up the shock!', 500);
+    const said = shock ? 'insulatedSaid' : signal ? 'resistSaid' : 'paddedSaid';
+    if (off && !battle[said] && player.hp > 0) { // said once per fight, so the hero learns what it does
+      battle[said] = true;
+      await msg(shock ? `Your ${armor.full || armor.name} soaks up the shock!` : signal ? `Your ${armor.full || armor.name} muffle the noise!` : `Your ${armor.full || armor.name} softens the blow!`, 500);
     }
+  }
+  // A spell on the hero that lasts for a few turns: 'weak' (SIGNAL JAM: less ATK) or 'soft' (DISTORTION: less
+  // DEF). It lives on the battle itself, so it can never outlast the fight, whether that is won, lost or run from.
+  async function heroFx(kind, amt, turns, line) {
+    battle[kind] = { amt, left: turns };
+    battle.glitch = 24;
+    SFX.signal();
+    await msg(`${line} (-${amt})`, 600);
   }
   async function enemyTurn() {
     const b = battle;
     b.turn++;
+    // Spells on the hero wear off: each lasts for the number of the hero's moves it was cast for.
+    for (const [kind, what] of [['weak', 'ATK'], ['soft', 'DEF']]) {
+      if (b[kind] && --b[kind].left <= 0) { b[kind] = null; await msg(`Your head clears. ${what} back to normal!`, 500); }
+    }
     const boss = ENEMIES[b.type].boss;
     const special = (boss && boss.turn) || ENEMIES[b.type].turn;
     if (special) await special(b);
@@ -4055,6 +4886,7 @@
     if (b.lunge > 0) b.lunge--;
     if (b.dying > 0) b.dying--;
     if (b.zap > 0) b.zap--;
+    if (b.glitch > 0) b.glitch--;
     b.shownHp += (b.hp - b.shownHp) * 0.15;
     b.playerShownHp += (player.hp - b.playerShownHp) * 0.15;
     for (const f of b.floats) f.t++;
@@ -4115,6 +4947,46 @@
       for (let y = 62; y < 104; y += 2) for (let x = 0; x < W; x += 2) if (hash(x + 11, y) < 0.03) P(ctx, x, y, 7);
       for (let x = 0; x < W; x += 8) { R(ctx, x, 96, 4, 3, 14); R(ctx, x + 4, 96, 4, 3, 0); }
     },
+    veitvet() { // dusk in Veitvet: the blocks, the lit sign of the centre, and wet paving underfoot
+      R(ctx, 0, 0, W, 60, 17); R(ctx, 0, 0, W, 26, 2);
+      for (let i = 0; i < 6; i++) { const x = (i * 47 + 9) % W, y = (i * 7) % 20; P(ctx, x, y, Math.floor((tick + i * 19) / 30) % 4 ? 13 : 15); }
+      for (const [x, top, w] of [[0, 18, 30], [34, 26, 24], [176, 22, 26], [206, 14, 34]]) {
+        R(ctx, x, top, w, 60 - top, 0); R(ctx, x + 1, top + 1, w - 2, 59 - top, 3);
+        for (let y = top + 4; y < 56; y += 6) for (let wx = x + 3; wx < x + w - 3; wx += 5) R(ctx, wx, y, 2, 3, hash(wx, y) < 0.4 ? 14 : 1);
+      }
+      R(ctx, 70, 30, 96, 30, 0); R(ctx, 71, 31, 94, 29, 12); R(ctx, 71, 31, 94, 2, 15); // the centre
+      for (let x = 74; x < 162; x += 11) R(ctx, x, 42, 8, 18, 8);
+      R(ctx, 92, 34, 52, 6, 0); R(ctx, 94, 35, 48, 4, Math.floor(tick / 40) % 2 ? 16 : 13);
+      R(ctx, 0, 60, W, 44, 3);
+      for (let y = 62; y < 104; y += 2) for (let x = 0; x < W; x += 2) if (hash(x + 29, y) < 0.04) P(ctx, x, y, y % 4 ? 7 : 8);
+      for (let x = 10; x < W; x += 40) R(ctx, x, 82, 18, 1, 10);
+    },
+    underground() { // the closed station: grimy tiles, a dead sign, and the tracks running off into the dark
+      R(ctx, 0, 0, W, 60, 10);
+      for (let y = 0; y < 60; y += 6) R(ctx, 0, y, W, 1, 7);
+      for (let y = 0; y < 60; y += 6) for (let x = (y / 6) % 2 ? 3 : 0; x < W; x += 6) R(ctx, x, y, 1, 6, 7);
+      for (let y = 0; y < 60; y++) for (let x = 0; x < W; x += 2) if (hash(x + 3, y + 77) < 0.03) P(ctx, x, y, 3);
+      R(ctx, 0, 0, W, 6, 1);
+      R(ctx, 84, 12, 72, 14, 0); R(ctx, 85, 13, 70, 12, 2); // the station sign
+      for (let i = 0; i < 7; i++) R(ctx, 92 + i * 9, 17, 6, 3, Math.floor((tick + i * 23) / 50) % 5 ? 13 : 3);
+      ctx.globalAlpha = 0.45; R(ctx, 0, 0, W, 60, 0); ctx.globalAlpha = 1;
+      R(ctx, 0, 60, W, 44, 1);
+      for (let x = 0; x < W; x += 12) R(ctx, x, 70, 6, 34, 4);
+      R(ctx, 0, 74, W, 2, 10); R(ctx, 0, 74, W, 1, 15); R(ctx, 0, 94, W, 2, 10); R(ctx, 0, 94, W, 1, 15);
+      R(ctx, 0, 60, W, 4, 3); for (let x = 0; x < W; x += 8) R(ctx, x, 60, 4, 2, 14);
+    },
+    center() { // inside VEITVET CENTER: shut shops, hanging lights, a polished floor
+      R(ctx, 0, 0, W, 60, 12);
+      R(ctx, 0, 0, W, 8, 15); R(ctx, 0, 8, W, 1, 4);
+      for (let x = 6; x < W; x += 58) { // shop fronts with their shutters down
+        R(ctx, x, 20, 48, 40, 0); R(ctx, x + 1, 21, 46, 6, 2); R(ctx, x + 4, 22, 12, 4, [13, 14, 16, 11][(x / 58) | 0]);
+        R(ctx, x + 1, 27, 46, 33, 7); for (let y = 29; y < 60; y += 3) R(ctx, x + 1, y, 46, 1, 10);
+      }
+      for (let i = 0; i < 6; i++) { const x = 18 + i * 40; R(ctx, x, 8, 1, 6, 0); R(ctx, x - 3, 14, 7, 2, Math.floor((tick + i * 15) / 20) % 3 ? 16 : 14); }
+      R(ctx, 0, 60, W, 44, 15);
+      for (let y = 60; y < 104; y += 11) for (let x = (y % 22 ? 0 : 11); x < W; x += 22) R(ctx, x, y, 11, 11, 12);
+      R(ctx, 0, 60, W, 1, 10);
+    },
     blocks() { // evening over Ammerud: tall blocks with lit windows, and asphalt underfoot
       R(ctx, 0, 0, W, 60, 2);
       for (let i = 0; i < 8; i++) { const x = (i * 41 + 17) % W, y = (i * 11) % 22; P(ctx, x, y, Math.floor((tick + i * 13) / 30) % 4 ? 13 : 15); }
@@ -4160,6 +5032,20 @@
         }
       }
     }
+    if (b.glitch > 0 && Math.floor(b.glitch / 3) % 2 === 0) { // a signal blow: the picture warps, in pink bands
+      ctx.globalAlpha = 0.25; R(ctx, 0, 0, W, 104, 16); ctx.globalAlpha = 1;
+      for (let i = 0; i < 6; i++) {
+        const y = (i * 17 + b.glitch * 7) % 100, x = (i * 53 + b.glitch * 13) % W;
+        R(ctx, x, y, 30 + (i * 11) % 40, 2, i % 2 ? 16 : 15);
+      }
+    }
+    if (b.boosted && !b.gone) { // the signal around an enemy it drives: little pulsing rings
+      const r = 2 + (Math.floor(tick / 10) % 3) * 3;
+      for (let a = 0; a < 16; a++) {
+        const t = a / 16 * Math.PI * 2;
+        if (Math.abs(Math.cos(t)) > 0.5) P(ctx, Math.round(64 + Math.cos(t) * (26 + r)), Math.round(60 + Math.sin(t) * (10 + r)), 16);
+      }
+    }
     box(4, 4, Math.max(104, b.name.length * 8 + 8), 28); // a long name widens the box to the right
     text(b.name, 10, 9, b.boss ? 14 : 15);
     bar(10, 21, 92, b.shownHp, b.max);
@@ -4169,6 +5055,13 @@
     text(`LV${player.lvl}`, 202, 69, 15);
     text(`HP${player.hp}/${player.maxhp}`, 138 - wide, 79);
     bar(138 - wide, 91, 92 + wide, b.playerShownHp, player.maxhp);
+    // Spells on the hero, over the panel: what they took and how many moves they have left.
+    const spells = [['weak', 'ATK'], ['soft', 'DEF']].filter(([k]) => b[k]);
+    spells.forEach(([k, what], i) => {
+      const s = `${what}-${b[k].amt} ${b[k].left}`, w = s.length * 8 + 8, x = 236 - w;
+      box(x, 48 - i * 14, w, 14);
+      text(s, x + 4, 51 - i * 14, 16);
+    });
     ctx.restore();
     box(0, 104, 80, 56);
     const opts = ['ATTACK', `HEAL ${player.herbs}`, 'RUN'];
@@ -4287,6 +5180,7 @@
   function update() {
     tick++;
     if (powerT > 0) powerT--;
+    if (pulseT > 0) pulseT--;
     if (fade) {
       fade.t++;
       if (!fade.fired && fade.t >= fade.dur / 2) { fade.fired = true; fade.mid?.(); }
@@ -4371,5 +5265,6 @@
     get menuPage() { return menuPage; }, get menuNote() { return menuNote; }, get tracked() { return tracked; },
     get q() { return q; }, get flags() { return flags; }, get stats() { return stats; },
     get mode() { return mode; }, get battle() { return battle; }, get shop() { return shop; }, get powerT() { return powerT; },
+    get pulseT() { return pulseT; },
   };
 })();

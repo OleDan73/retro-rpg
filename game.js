@@ -499,8 +499,82 @@
   [['1', 0, 0], ['2', 16, 0], ['3', 0, 16], ['4', 16, 16]].forEach(([ch, x, y]) => {
     TILE[ch] = mk(16, 16, (g) => g.drawImage(fountain, -x, -y));
   });
+  // ---- Ammerud: pale concrete blocks with orange balconies, a kiosk, and the basketball court
+  TILE['7'] = mk(16, 16, (g) => { // gravel roof
+    R(g, 0, 0, 16, 16, 3);
+    for (let y = 3; y < 13; y++) for (let x = 0; x < 16; x++) if (hash(x + 13, y + 91) < 0.12) P(g, x, y, 7);
+    R(g, 0, 0, 16, 2, 0); R(g, 0, 2, 16, 1, 10);
+    R(g, 0, 13, 16, 1, 7); R(g, 0, 14, 16, 2, 0);
+  });
+  function concreteWall(g) {
+    R(g, 0, 0, 16, 16, 12);
+    for (let y = 0; y < 16; y++) for (let x = 1; x < 15; x++) if (hash(x + 5, y + 37) < 0.05) P(g, x, y, 10);
+    R(g, 0, 0, 1, 16, 7); R(g, 15, 0, 1, 16, 7);
+    R(g, 1, 15, 14, 1, 4);
+  }
+  TILE['8'] = mk(16, 16, (g) => { // block wall: a window over a balcony
+    concreteWall(g);
+    R(g, 3, 1, 10, 8, 0); R(g, 4, 2, 8, 6, 2);
+    R(g, 4, 2, 8, 1, 13); R(g, 4, 3, 2, 2, 13); R(g, 8, 2, 1, 6, 0);
+    R(g, 2, 9, 12, 5, 0); R(g, 3, 10, 10, 3, 9); R(g, 3, 10, 10, 1, 14);
+    for (const x of [5, 8, 11]) R(g, x, 11, 1, 2, 4);
+  });
+  TILE['9'] = mk(16, 16, (g) => { // block entrance
+    concreteWall(g);
+    R(g, 2, 1, 12, 2, 9); R(g, 2, 3, 12, 1, 4);
+    R(g, 4, 4, 8, 12, 0); R(g, 5, 5, 6, 11, 4);
+    R(g, 6, 6, 4, 5, 13); R(g, 6, 6, 4, 1, 15); R(g, 8, 6, 1, 5, 0);
+    P(g, 10, 12, 14);
+  });
+  TILE['v'] = mk(16, 16, (g) => { // kiosk window under a striped awning
+    concreteWall(g);
+    for (let x = 0; x < 16; x++) R(g, x, 0, 1, 4, Math.floor(x / 2) % 2 ? 15 : 6);
+    R(g, 0, 4, 16, 1, 0);
+    R(g, 2, 6, 12, 7, 0); R(g, 3, 7, 10, 5, 13); R(g, 3, 7, 10, 1, 15);
+    for (const [x, c] of [[4, 6], [6, 14], [8, 11], [10, 16], [11, 9]]) R(g, x, 10, 1, 2, c);
+    R(g, 1, 13, 14, 2, 4); R(g, 1, 13, 14, 1, 9);
+  });
+  TILE['f'] = mk(16, 16, (g) => { // chain-link fence
+    grass(g, 14);
+    for (let y = 2; y < 15; y++) for (let x = 0; x < 16; x++) if ((x + y) % 4 === 0 || (x - y + 64) % 4 === 0) P(g, x, y, 10);
+    R(g, 0, 1, 16, 1, 3); R(g, 0, 2, 16, 1, 10);
+    R(g, 0, 1, 2, 15, 3); R(g, 14, 1, 2, 15, 3); R(g, 0, 1, 1, 15, 10); R(g, 14, 1, 1, 15, 10);
+    R(g, 0, 15, 16, 1, 5);
+  });
+  function court(g) {
+    R(g, 0, 0, 16, 16, 8);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
+      const h = hash(x + 29, y + 47);
+      if (h < 0.02) P(g, x, y, 2); else if (h > 0.985) P(g, x, y, 13);
+    }
+  }
+  TILE['a'] = mk(16, 16, (g) => court(g));
+  TILE['j'] = mk(16, 16, (g) => { court(g); R(g, 7, 0, 2, 16, 15); }); // halfway line
+  TILE['y'] = mk(16, 16, (g) => { // centre circle
+    court(g);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
+      const d = Math.hypot(x + 0.5 - 8, y + 0.5 - 8);
+      if (d > 5.6 && d <= 7) P(g, x, y, 15);
+    }
+    R(g, 7, 0, 2, 16, 15);
+  });
+  TILE['Z'] = mk(16, 16, (g) => { // the painted key under a hoop
+    R(g, 0, 0, 16, 16, 6);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) if (hash(x + 3, y + 67) < 0.05) P(g, x, y, 1);
+    R(g, 0, 0, 1, 16, 15); R(g, 15, 0, 1, 16, 15);
+  });
+  TILE['5'] = mk(16, 16, (g) => { // hoop on its post, facing right
+    court(g);
+    R(g, 0, 15, 6, 1, 2);
+    R(g, 1, 2, 3, 14, 0); R(g, 2, 3, 1, 13, 10);
+    R(g, 3, 1, 4, 11, 0); R(g, 4, 2, 2, 9, 15); R(g, 4, 5, 2, 3, 6);
+    R(g, 6, 6, 7, 2, 0); R(g, 7, 6, 5, 1, 9);
+    for (let y = 8; y < 12; y++) for (let x = 7 + (y % 2); x < 12; x += 2) P(g, x, y, 15);
+  });
+  TILE['6'] = flip(TILE['5']);
   const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x', 'K',
-    'G', 'A', 'B', 'd', 'h', 'l', 'n', 'M', 'J', 'Q', 'W', '1', '2', '3', '4', 'w', 'Y', 'z', 'N', 'i', 'I']);
+    'G', 'A', 'B', 'd', 'h', 'l', 'n', 'M', 'J', 'Q', 'W', '1', '2', '3', '4', 'w', 'Y', 'z', 'N', 'i', 'I',
+    '7', '8', '9', 'v', 'f', '5', '6']);
 
   // ---------------------------------------------------------------- characters
   function personSprite(o, dir, frame) {
@@ -719,17 +793,19 @@
       R(g, x, top + o, 2, h, 13); R(g, x, top + o, 1, h - 1, 15); P(g, x + 1, top + o + h - 1, 8);
     }
   }));
-  ENEMY_SPR.rat = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+  // A rat in the given colours: fur, belly, pink (tail, ear, feet), eye, nose.
+  const ratSprite = (f, [fur, belly, pink, eye, nose]) => outlined(mk(16, 16, (g) => {
     const o = f ? 1 : 0;
-    for (const [x, y] of [[3, 11], [2, 10], [1, 9], [0, 8], [0, 7], [1, 6]]) P(g, x, y + o, 12); // tail
-    ellipse(g, 7.5, 10.5 + o, 5, 3.4, 7);
-    ellipse(g, 7.5, 12 + o, 4, 1.6, 3);
-    ellipse(g, 12, 9 + o, 3, 2.6, 7);
-    R(g, 10, 5 + o, 2, 2, 7); P(g, 10, 5 + o, 12); // ear
-    P(g, 13, 8 + o, 0); P(g, 15, 9 + o, 16); // eye, nose
+    for (const [x, y] of [[3, 11], [2, 10], [1, 9], [0, 8], [0, 7], [1, 6]]) P(g, x, y + o, pink); // tail
+    ellipse(g, 7.5, 10.5 + o, 5, 3.4, fur);
+    ellipse(g, 7.5, 12 + o, 4, 1.6, belly);
+    ellipse(g, 12, 9 + o, 3, 2.6, fur);
+    R(g, 10, 5 + o, 2, 2, fur); P(g, 10, 5 + o, pink); // ear
+    P(g, 13, 8 + o, eye); P(g, 15, 9 + o, nose); // eye, nose
     R(g, 13, 11 + o, 1, 2, 15); // one big tooth
-    if (f) { R(g, 4, 14, 2, 1, 12); R(g, 10, 14, 2, 1, 12); } else { R(g, 5, 14, 2, 1, 12); R(g, 9, 14, 2, 1, 12); }
-  })));
+    if (f) { R(g, 4, 14, 2, 1, pink); R(g, 10, 14, 2, 1, pink); } else { R(g, 5, 14, 2, 1, pink); R(g, 9, 14, 2, 1, pink); }
+  }));
+  ENEMY_SPR.rat = [0, 1].map((f) => ratSprite(f, [7, 3, 12, 0, 16]));
   ENEMY_SPR.golem = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
     const o = f ? 1 : 0;
     R(g, 3, 5, 10, 9, 7); R(g, 3, 5, 10, 1, 10); R(g, 12, 6, 1, 8, 3);
@@ -753,6 +829,65 @@
     P(g, 7, 7, 15); P(g, 8, 6, 15); R(g, 9, 8, 2, 1, 8); P(g, 8, 10, 8);
     if (f) { P(g, 12, 4, 15); P(g, 12, 3, 15); P(g, 11, 4, 15); } else { P(g, 4, 6, 15); }
   })));
+  // ---- Ammerud's people
+  SPR.selma = buildChar({ hair: 1, shirt: 5, shirt2: 0, pants: 2, longHair: true });
+  SPR.nadia = buildChar({ hair: 0, skin: 19, shirt: 13, shirt2: 8, pants: 2, apron: 9, belt: 0, longHair: true });
+  SPR.leif = buildChar({ hair: 15, shirt: 7, shirt2: 3, pants: 3, beard: 15 });
+  SPR.astrid = buildChar({ hair: 10, shirt: 17, shirt2: 1, skirt: 2, hem: 0, longHair: true });
+  SPR.emil = buildChar({ hair: 4, skin: 19, shirt: 11, shirt2: 5, pants: 8, slim: true });
+  // MARCUS: a basketball jersey and a battered bat. In battle he stands facing the hero, one pixel lower
+  // (so his head clears the name box); in his second phase the jersey turns red and the bat comes up.
+  const MARCUS_LOOK = { hair: 18, skin: 4, shirt: 9, shirt2: 4, pants: 2, belt: 0 };
+  SPR.marcus = buildChar(MARCUS_LOOK);
+  const marcusBattle = (look, raised) => [0, 1].map((f) => mk(16, 16, (g) => {
+    g.drawImage(buildChar(look)['down' + f], 0, 1);
+    R(g, 5, 8, 6, 1, 15); // jersey trim
+    if (raised) { R(g, 12, 0, 3, 9, 0); R(g, 13, 1, 1, 7, 9); R(g, 13, 7 + f, 1, 2, 4); P(g, 13, 1, 14); }
+    else { R(g, 12, 6 + f, 3, 9, 0); R(g, 13, 7 + f, 1, 7, 9); R(g, 13, 7 + f, 1, 2, 4); P(g, 13, 13 + f, 14); }
+  }));
+  ENEMY_SPR.marcus = marcusBattle(MARCUS_LOOK, false);
+  ENEMY_SPR.marcus2 = marcusBattle({ ...MARCUS_LOOK, shirt: 6, shirt2: 1 }, true);
+  // ---- Ammerud's monsters
+  ENEMY_SPR.shadow = [0, 1].map((f) => ratSprite(f, [1, 0, 3, 6, 6]));
+  // A crawling slab of concrete with rebar sticking out of its back.
+  ENEMY_SPR.crawler = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    for (const x of [3, 6, 9, 12]) { R(g, x - (f ? 1 : 0), 12, 1, 3, 3); P(g, x - (f ? 2 : -1), 14, 3); }
+    R(g, 2, 7 + o, 12, 6 - o, 7); R(g, 2, 7 + o, 12, 1, 10); R(g, 13, 8 + o, 1, 5 - o, 3);
+    R(g, 3, 6 + o, 10, 1, 7);
+    for (const [x, y] of [[5, 9], [6, 10], [10, 9], [9, 11]]) P(g, x, y + o, 3); // cracks
+    for (const [x, h] of [[5, 4], [9, 5]]) { R(g, x, 6 + o - h, 1, h, 4); P(g, x, 6 + o - h, 9); } // rebar
+    R(g, 11, 9 + o, 1, 1, 14); R(g, 13, 9 + o, 1, 1, 14);
+  })));
+  // A whole little apartment block on stubby legs, and in a temper.
+  ENEMY_SPR.brute = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    R(g, 3, 1 + o, 10, 12, 12); R(g, 3, 1 + o, 10, 1, 15); R(g, 12, 2 + o, 1, 11, 7);
+    R(g, 2, 0 + o, 12, 2, 3);
+    R(g, 4, 3 + o, 2, 1, 0); R(g, 10, 3 + o, 2, 1, 0); P(g, 5, 4 + o, 6); P(g, 10, 4 + o, 6); // angry eyes
+    for (const y of [6, 9]) for (const x of [4, 7, 10]) { R(g, x, y + o, 2, 2, 2); P(g, x, y + o, 13); }
+    R(g, 0, 5 + o, 3, 5, 12); R(g, 13, 5 + o, 3, 5, 12); R(g, 0, 9 + o, 3, 1, 7); R(g, 13, 9 + o, 3, 1, 7);
+    R(g, 4, 13, 3, 3, 3); R(g, 9, 13, 3, 3, 3);
+    R(g, 3, 12 + o, 10, 1, 9);
+  })));
+  // A cold blue light with a trailing tail. No outline: it glows.
+  const wispSprite = (f, core, glow) => mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    ellipse(g, 8, 7 + o, 5, 5, glow);
+    ellipse(g, 8, 7 + o, 3.4, 3.4, core);
+    ellipse(g, 7.4, 6.4 + o, 1.6, 1.6, 15);
+    for (const [x, y] of f ? [[6, 12], [7, 13], [8, 14], [9, 15]] : [[9, 12], [8, 13], [7, 14], [6, 15]]) P(g, x, y, glow);
+    P(g, 6, 7 + o, 2); P(g, 10, 7 + o, 2);
+  });
+  ENEMY_SPR.wisp = [0, 1].map((f) => wispSprite(f, 13, 8));
+  ENEMY_SPR.glowwisp = [0, 1].map((f) => wispSprite(f, 15, 13));
+  SPR.glowwisp = buildStatic(ENEMY_SPR.glowwisp[0], ENEMY_SPR.glowwisp[1]);
+  const BALL_SPR = outlined(mk(16, 16, (g) => {
+    circle(g, 8, 10, 4.6, 9);
+    R(g, 4, 10, 9, 1, 4); R(g, 8, 6, 1, 9, 4);
+    P(g, 5, 7, 4); P(g, 5, 13, 4); P(g, 11, 7, 4); P(g, 11, 13, 4);
+    P(g, 6, 8, 14);
+  }));
 
   // name, base stats, gold range, battle intro
   // A boss also has a `boss` block. The battle engine asks it how the fight works, so the engine
@@ -773,6 +908,7 @@
   //   quick      it strikes once before the hero's first move, unless the hero's armour is `nimble`
   //   turn(b)    its whole turn in place of a plain attack, as for a boss
   //   defeated   line shown when it is beaten
+  //   won(b)     called (and awaited) at the end of a battle it lost, after the rewards
   const ENEMIES = {
     slime: { name: 'SLIME', hp: 12, atk: 4, def: 0, xp: 5, gold: [3, 5], intro: 'oozes out!' },
     shroom: { name: 'SHROOMLET', hp: 16, atk: 5, def: 1, xp: 7, gold: [4, 6], intro: 'pops up!' },
@@ -893,16 +1029,96 @@
       after: () => mohsinHandover(),
     },
   };
+  // ---- Ammerud
+  ENEMIES.crawler = { name: 'CONCRETE CRAWLER', hp: 58, atk: 25, def: 7, xp: 34, gold: [14, 18], intro: 'scrapes out!' };
+  ENEMIES.shadow = { name: 'SHADOW RAT', hp: 40, atk: 29, def: 4, xp: 32, gold: [12, 16], intro: 'darts out!', quick: true };
+  ENEMIES.brute = {
+    name: 'BLOCK BRUTE', hp: 84, atk: 25, def: 12, xp: 48, gold: [20, 26], intro: 'stomps up!', armored: true,
+    // Heavy: every third turn it stops to crack its knuckles.
+    async turn(b) {
+      if (b.turn % 3 === 0) { await msg('The BLOCK BRUTE cracks its knuckles...', 500); return; }
+      await msg(`${b.name} slams into you!`, 100);
+      await enemyHit(1);
+    },
+  };
+  // Every third turn a cold light washes over the hero: a harder blow.
+  async function wispTurn(b) {
+    if (b.turn % 3 === 0) {
+      await msg(`The ${b.name} flares cold and blue!`, 100);
+      await enemyHit(1.4);
+      return;
+    }
+    await msg(`${b.name} drifts into you!`, 100);
+    await enemyHit(1);
+  }
+  ENEMIES.wisp = { name: 'FOREST WISP', hp: 50, atk: 27, def: 6, xp: 40, gold: [16, 22], intro: 'flickers into view!', turn: wispTurn };
+  // The one on the dark path, met once for THE DARK PATH: tougher than any wanderer, but no boss.
+  ENEMIES.glowwisp = {
+    name: 'GLOWING WISP', hp: 110, atk: 28, def: 8, xp: 90, gold: [40, 40], intro: 'blazes up!', turn: wispTurn,
+    defeated: 'The GLOWING WISP gutters out. Something small drops to the path.',
+    async won() {
+      if (q.wisp.s !== 1 || flags.wispFragment) return;
+      flags.wispFragment = true;
+      markReady('wisp');
+      SFX.pickup();
+      await msg('You got the WISP FRAGMENT! Show ASTRID!', 1000);
+    },
+  };
+  ENEMIES.marcus = {
+    name: 'MARCUS', hp: 180, atk: 26, def: 9, xp: 150, gold: [150, 150], intro: 'spins his bat!',
+    boss: {
+      flash: 9,
+      named: true,
+      // Phase 1: a swing, a feint, a grin. Below half HP, once: "Okay. That's enough." From then on his
+      // jersey is red and he swings harder, and every third turn he winds up for a POWER SLAM.
+      async turn(b) {
+        if (!b.angry && b.hp <= b.max / 2) {
+          b.angry = true; b.look = 'marcus2'; b.step = 0;
+          SFX.charge();
+          await msg('MARCUS: "Okay. That\'s enough."', 900);
+        }
+        if (b.charged) {
+          b.charged = false;
+          await msg('POWER SLAM!!', 100);
+          await enemyHit(2);
+        } else if (b.angry) {
+          b.step++;
+          if (b.step % 3 === 0) {
+            b.charged = true;
+            SFX.charge();
+            await msg('MARCUS lifts the bat high over his head...', 900);
+          } else {
+            await msg('MARCUS swings hard!', 100);
+            await enemyHit(1.1);
+          }
+        } else if (b.turn % 3 === 1) {
+          await msg('MARCUS swings his bat!', 100);
+          await enemyHit(1);
+        } else if (b.turn % 3 === 2) {
+          await msg('MARCUS fakes left... and swings right!', 100);
+          await enemyHit(1.3);
+        } else {
+          await msg('MARCUS spins the bat and grins.', 700);
+        }
+      },
+      defeated: 'MARCUS drops to one knee. "Alright. ALRIGHT."',
+      flag: 'marcusBeaten',
+      after: () => marcusHandover(),
+    },
+  };
   const WEAPONS = {
     none: { name: 'STICK', atk: 0, desc: 'Better than nothing.' },
     iron: { name: 'IRON SWORD', atk: 3, desc: 'Sturdy and sharp. Good against anything.' },
     crystal: { name: 'CRYSTAL SWD', atk: 7, desc: 'Very sharp. The best blade around.' },
     axe: { name: 'HEAVY AXE', atk: 2, heavy: true, swing: 'You swing your axe!', desc: 'Smashes through armour. Clumsy otherwise.' },
+    bat: { name: "MARCUS' BAT", atk: 9, swing: 'You swing the bat!', desc: 'Heavy, battered and surprisingly effective.' },
   };
   const ARMORS = {
     none: { name: 'TUNIC', def: 0, desc: 'Plain cloth.' },
     vest: { name: 'TOUGH VEST', def: 2, desc: 'Padded leather. Solid protection.' },
     light: { name: 'LIGHT VEST', def: 1, nimble: true, desc: 'Quick enemies cannot strike you first.' },
+    sneakers: { name: 'SNEAKERS', def: 3, nimble: true, desc: 'Fresh kicks. Quick foes never strike first.' },
+    rvest: { name: 'REINF. VEST', def: 4, desc: 'Steel plates sewn in. Very solid.' },
   };
 
   // ---------------------------------------------------------------- maps
@@ -923,6 +1139,7 @@
   //                chimneySmoke  {}: smoke rises from chimney tiles; forge: 'x,y' marks the smithy's chimney
   //                butterflies   list of [x, y, colour, phase] anchor points in pixels
   //   lighting   dimEdges: 0..1 darkens the edges of the screen by that much
+  //              shade: 0..1 darkens the ground (not the people, things or monsters on it) by that much
   // A sign is a list of lines, or a function that shows whatever fits the moment.
   const ENCOUNTER_DEFAULTS = { minSteps: 3, chance: 0.13, scaleFrom: 1 };
   const MAPS = {
@@ -1024,7 +1241,7 @@
       lighting: { dimEdges: 0.35 },
     },
     // ---- Chapter 2: Stovner. A safe town with roads out in every direction, and the open land north of it.
-    // Still closed: the west gate, the road north past the barricade, and the caved-in end of the tunnel.
+    // The west gate (opened by the Blue Key) leads to Ammerud. Still closed: the caved-in end of the tunnel.
     stovner: {
       name: 'STOVNER',
       rows: [
@@ -1049,6 +1266,7 @@
       ],
       exits: {
         '25,9': { map: 'village', x: 1, y: 7, dir: 'right' },
+        '0,9': { map: 'ammerud', x: 28, y: 10, dir: 'left' }, // the west gate; shut until the Blue Key opens it
         '12,0': { map: 'stovnerOuter', x: 14, y: 18, dir: 'up' },
         '13,0': { map: 'stovnerOuter', x: 15, y: 18, dir: 'up' },
         '12,16': { map: 'tunnel', x: 9, y: 1, dir: 'down' }, // the tunnel mouths; barred until JOHANNE has them opened
@@ -1227,6 +1445,109 @@
     encounter: null,
     backdrop: 'cave',
   };
+  // ---- Chapter 3: Ammerud. Blocks to the north, the little square with the kiosk in the middle, the
+  // basketball court to the south-west and the park to the south-east. The dark path leaves to the west;
+  // the south gate is the road to Grorud, which is not built yet.
+  MAPS.ammerud = {
+    name: 'AMMERUD',
+    rows: [
+      'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+      'T.,..T......;.......T.....,..T',
+      'T.777777..777777..777777..T..T',
+      'T.888888..888888..888888.....T',
+      'T.889888..888988..888898..;..T',
+      'T...=........=........=......T',
+      'T..========================..T',
+      'T.......=.lpp777pppl..T...;..T',
+      'T.......=.pppv9vpppp.........T',
+      '==========pppppppppp........ST',
+      'TS........pppppppppp==========',
+      'T.,.......pnpppppppp..;......T',
+      'T......=..lppppppppl.T.......T',
+      'Tffffffaffffff.=.hhh.hhhhhhhhT',
+      'Tfaaaaajaaaaaf.=........,..T.T',
+      'TfaZaaajaaaZaf.=......~~~~.T.T',
+      'Tf5ZaaayaaaZ6f.=...,..~~~~...T',
+      'TfaZaaajaaaZaf.=.T....~~~....T',
+      'Tfaaaaajaaaaaf.=.;.....T.....T',
+      'Tfffffffffffff.=...T.....T...T',
+      'T.,...;........=.....,....;..T',
+      'TTTTTTTTTTTTTT#G#TTTTTTTTTTTTT',
+    ],
+    exits: {
+      '29,10': { map: 'stovner', x: 1, y: 9, dir: 'right' },
+      '0,9': { map: 'darkPath', x: 14, y: 10, dir: 'left' },
+    },
+    signs: {
+      '28,9': ['WELCOME TO AMMERUD.', 'EAST: STOVNER.'],
+      '1,10': ['WEST: THE DARK PATH.', 'Somebody has scratched underneath: NOT AFTER DARK.'],
+    },
+    // The square, the court, the paths and the way in are safe; the lawns by the blocks and the park are not.
+    encounter: {
+      chance: 0.1, minSteps: 4, scaleFrom: 11,
+      zones: [
+        { at: [1, 1, 28, 5], table: [['crawler', 0.45], ['brute', 0.3], ['shadow', 0.25]] }, // around the blocks
+        { at: [17, 14, 28, 20], table: [['shadow', 0.45], ['crawler', 0.35], ['brute', 0.2]] }, // the park
+      ],
+    },
+    backdrop: 'blocks',
+    ambient: { ripples: true, butterflies: [[392, 280, 14, 0.7]] },
+  };
+  // The dark path west of Ammerud: pines, a black pond, and something glowing.
+  MAPS.darkPath = {
+    name: 'DARK PATH',
+    rows: [
+      'PPPPPPPPPPPPPPPP',
+      'PPPPPPPPPPPPPPPP',
+      'PPPPPPPPPgggPPPP',
+      'PPPPPPPPgg=gPPPP',
+      'PPPgggPPPg=gPPPP',
+      'PPgggggPPg=ggPPP',
+      'PPgg~~ggPg=gPPPP',
+      'PPg~~~gg===gPPPP',
+      'PPgg~gggPPg=gPPP',
+      'PPPggmgPPgg=gPPP',
+      'PPPPggPPPg======',
+      'PPPPPPPPgg=gPPPP',
+      'PPPPPPPgg=ggPPPP',
+      'PPPPPPPg==gPPPPP',
+      'PPPPPPPgggmPPPPP',
+      'PPPPPPPPPPPPPPPP',
+    ],
+    exits: { '15,10': { map: 'ammerud', x: 1, y: 9, dir: 'right' } },
+    signs: {},
+    encounter: {
+      chance: 0.1, minSteps: 4, scaleFrom: 11,
+      zones: [
+        { at: [8, 2, 12, 6], table: [['wisp', 0.5], ['shadow', 0.25], ['crawler', 0.25]] }, // up the path
+        { at: [2, 4, 7, 9], table: [['wisp', 0.6], ['shadow', 0.4]] }, // the clearing by the pond
+        { at: [7, 11, 11, 14], table: [['wisp', 0.5], ['crawler', 0.5]] }, // the hollow to the south
+      ],
+    },
+    backdrop: 'woods',
+    lighting: { dimEdges: 0.45, shade: 0.35 },
+  };
+  // After the fight MARCUS hands over his bat, exactly once, and sends the hero on to Grorud. This runs by
+  // itself when the won battle ends, and again from MARCUS if the game was closed before it finished.
+  function marcusHandover() {
+    const H = hero().name;
+    say('MARCUS', ['Okay. You hit harder than you look.'], () => say(H, ['MOHSIN said you would know why the Crystal was broken.'],
+      () => say('MARCUS', [
+        'MOHSIN talks too much.',
+        'The answer is not in AMMERUD. Go south, to GRORUD. Ask there.',
+        'And take this. You earned it.',
+        "(Got MARCUS' BAT! ATK +9!)",
+      ], () => {
+        if (!flags.marcusBat) {
+          flags.marcusBat = true;
+          own('weapon', 'bat');
+          player.weapon = 'bat';
+        }
+        markReady('trouble');
+        SFX.quest();
+        saveGame();
+      })));
+  }
   // After the fight MOHSIN hands over the fragment and the key, exactly once. This runs by itself when
   // the won battle ends, and again from MOHSIN if the game was closed before it finished.
   function mohsinHandover() {
@@ -1255,6 +1576,10 @@
     { id: 'kebab', map: 'stovnerOuter', x: 6, y: 10, quest: 'kebab', found: ['A kebab, lying in the grass. There are tiny tooth marks in the foil.', 'Still warm. Best not to ask. Take it back to BASIL!'] },
     { id: 'chestAxe', map: 'stovnerOuter', x: 27, y: 1, chest: true, weapon: 'axe' },
     { id: 'chestVest', map: 'stovnerOuter', x: 9, y: 1, chest: true, armor: 'light' }, // clear of the status panel
+    // ---- Ammerud (a quest item may have its own `spr`; a chest may hold `gold`, or a bigger herb `pouch`)
+    { id: 'ball', map: 'ammerud', x: 27, y: 19, quest: 'ball', spr: BALL_SPR, found: ['A basketball, stuck under a bush. EMIL is written on it in marker.', 'Take it back to EMIL!'] },
+    { id: 'chestGold', map: 'ammerud', x: 27, y: 3, chest: true, gold: 80 },
+    { id: 'chestPouch', map: 'darkPath', x: 8, y: 14, chest: true, pouch: true },
   ];
 
   // ---------------------------------------------------------------- gates
@@ -1303,13 +1628,20 @@
         : ['A barricade blocks the road north.']),
       opened: [],
     })),
-    { // Stovner's west gate, toward Ammerud. The Blue Key unlocks it; the road behind it is not built yet.
-      map: 'stovner', x: 0, y: 9, closed: 'G', open: 'N', flag: 'blueGate',
+    { // Stovner's west gate, toward Ammerud. The Blue Key unlocks it; the open gate is the town's west exit.
+      map: 'stovner', x: 0, y: 9, closed: 'G', open: 'L', flag: 'blueGate',
       needs: () => flags.blueKey,
       locked: ['The west gate is shut tight.'],
       opened: ['The BLUE KEY turns in the west gate. The road to AMMERUD is open!'],
-      beyond: ['The west gate stands open. The road to AMMERUD lies beyond.'],
       sfx: 'pickup',
+    },
+    { // Ammerud's south gate, toward Grorud. SELMA has it unlocked (the grorudGate flag) when the chapter
+      // ends; the road behind it is not built yet.
+      map: 'ammerud', x: 15, y: 21, closed: 'G', open: 'N', flag: 'grorudGate',
+      needs: () => false,
+      locked: ['A gate in the south wall. A rusty sign on it says GRORUD.', 'It is locked.'],
+      opened: [],
+      beyond: ['The south gate stands open. The road to GRORUD lies beyond.'],
     },
   ];
   for (const gate of GATES) (MAPS[gate.map].gates ||= {})[`${gate.x},${gate.y}`] = gate;
@@ -1352,7 +1684,23 @@
     under: { title: 'UNDER STOVNER', turnIn: 'JOHANNE', tracker: () => 'INTO THE TUNNEL', progress: () => 'SOUTH OF TOWN' },
     mohsin: { title: 'FIND MOHSIN', turnIn: 'JOHANNE', tracker: () => 'FIND MOHSIN', progress: () => 'UP THE ROAD' },
     kebab: { title: 'MISSING KEBAB', turnIn: 'BASIL', tracker: () => 'FIND THE KEBAB', progress: () => 'BY THE LAKE' },
+    // ---- Ammerud. SELMA's hunt brings out MARCUS and ends the chapter; EMIL's ball and ASTRID's path
+    // stand apart. (The hunt's counts: c crawlers, r shadow rats, b brutes; see HUNT.)
+    trouble: {
+      title: 'AMMERUD TROUBLE', turnIn: 'SELMA', state: { c: 0, r: 0, b: 0 },
+      tracker: () => (huntDone() ? 'MARCUS: COURT' : huntLine()), progress: () => (huntDone() ? 'AT THE COURT' : huntLine()),
+    },
+    ball: { title: 'LOST BASKETBALL', turnIn: 'EMIL', tracker: () => 'FIND THE BALL', progress: () => 'IN THE PARK' },
+    wisp: { title: 'THE DARK PATH', turnIn: 'ASTRID', tracker: () => 'THE DARK PATH', progress: () => 'WEST OF TOWN' },
   };
+  // What AMMERUD TROUBLE asks for: which enemy, which saved count, how many, and its name in messages.
+  const HUNT = [
+    { type: 'crawler', k: 'c', n: 3, name: 'CRAWLERS' },
+    { type: 'shadow', k: 'r', n: 3, name: 'SHADOW RATS' },
+    { type: 'brute', k: 'b', n: 2, name: 'BRUTES' },
+  ];
+  const huntDone = () => HUNT.every((h) => q.trouble[h.k] >= h.n);
+  const huntLine = () => HUNT.map((h) => `${h.k.toUpperCase()}${Math.min(q.trouble[h.k], h.n)}/${h.n}`).join(' ');
   const QUEST_ORDER = Object.keys(QUESTS);
   const QUESTS_PER_PAGE = 5; // how many fit on one page of the quest log
 
@@ -1380,7 +1728,8 @@
   const CHAPTERS = [
     { name: 'VESTLI', quest: 'king' },
     { name: 'STOVNER', quest: 'mohsin' },
-    { name: 'AMMERUD', quest: null }, // unlocked by finishing Stovner; nothing of it is built yet
+    { name: 'AMMERUD', quest: 'trouble' },
+    { name: 'GRORUD', quest: null }, // unlocked by finishing Ammerud; nothing of it is built yet
   ];
   const chapterDone = (c) => c.quest != null && q[c.quest]?.s === 3;
   // Crystal Fragments and keys are kept as saved flags (fragment1, redKey, ...), set once and never unset.
@@ -1866,6 +2215,157 @@
         }
       },
     },
+    // ---- Ammerud
+    {
+      id: 'selma', map: 'ammerud', x: 25, y: 9, dir: 'down', home: 'down', spr: SPR.selma,
+      news: () => q.trouble.s === 0 || q.trouble.s === 2,
+      talk() {
+        const N = 'SELMA', H = hero().name;
+        if (q.trouble.s === 0) {
+          say(N, ["New face. Through the STOVNER gate, too. You're looking for MARCUS?"], () => say(H, ['I am. MOHSIN sent me.'],
+            () => say(N, [
+              'Everyone is looking for MARCUS, until they actually find him.',
+              'He runs AMMERUD, and he does not wait around for challengers.',
+              'Cause enough trouble for his monsters and he will come to you.',
+              'Beat 3 CONCRETE CRAWLERS, 3 SHADOW RATS and 2 BLOCK BRUTES. Then try the basketball court.',
+            ], () => accept('trouble'))));
+        } else if (q.trouble.s === 1 && !huntDone()) {
+          say(N, [
+            `So far: ${HUNT.map((h) => `${h.name} ${Math.min(q.trouble[h.k], h.n)}/${h.n}`).join(', ')}.`,
+            'They hang around the blocks up north, and in the park.',
+          ]);
+        } else if (q.trouble.s === 1) {
+          say(N, ['That was loud enough. MARCUS will have heard.', 'Go to the basketball court, south-west of the square.']);
+        } else if (q.trouble.s === 2) {
+          say(N, ['You beat MARCUS? On his own court?'], () => say(H, ['He said the answer is in GRORUD.'], () => say(N, [
+            'Then AMMERUD owes you one. I will have the south gate unlocked.',
+            'GRORUD is past it. Whatever you are looking for, I hope it is there.',
+          ], () => {
+            flags.grorudGate = true;
+            complete('trouble');
+            endChapter('trouble');
+          })));
+        } else {
+          say(N, [pick([
+            'The south gate is open. GRORUD is that way.',
+            'Even the crawlers seem calmer now.',
+            'MARCUS still plays every evening. He just loses more.',
+          ])]);
+        }
+      },
+    },
+    {
+      id: 'emil', map: 'ammerud', x: 8, y: 12, dir: 'down', home: 'down', spr: SPR.emil,
+      news: () => q.ball.s === 0 || q.ball.s === 2,
+      talk() {
+        const N = 'EMIL';
+        if (q.ball.s === 0) {
+          say(N, [
+            'My basketball is gone! One shot, it hit the rim, and it just... kept going.',
+            'Over the fence and into the park. I am not going in there. There are RATS.',
+            'Could you find it? Please?',
+          ], () => accept('ball'));
+        } else if (q.ball.s === 1) {
+          say(N, ['It is orange, it is round, and it has my name on it. The park is past the hedge, east of here.']);
+        } else if (q.ball.s === 2) {
+          say(N, [
+            'MY BALL! You found it!',
+            "Here, take these. They were my big brother's. They make you SO fast. (Got AMMERUD SNEAKERS!)",
+            'Put them on in the menu!',
+          ], () => {
+            own('armor', 'sneakers');
+            complete('ball');
+          });
+        } else {
+          say(N, [pick([
+            'Watch this! ...okay, do not watch that one.',
+            'One day I am going to beat MARCUS at one-on-one.',
+            'Nice sneakers. They suit you.',
+          ])]);
+        }
+      },
+    },
+    {
+      id: 'astrid', map: 'ammerud', x: 6, y: 8, dir: 'down', home: 'down', spr: SPR.astrid,
+      news: () => q.wisp.s === 0 || q.wisp.s === 2,
+      talk() {
+        const N = 'ASTRID';
+        if (q.wisp.s === 0) {
+          say(N, [
+            'I have walked my dog on the path west of here every day for thirty years.',
+            'Last night something was glowing out there. Blue, by the black pond. My dog will not go near it.',
+            'Would you have a look? Carefully, dear.',
+          ], () => accept('wisp'));
+        } else if (q.wisp.s === 1) {
+          say(N, ['The path starts just west of here. The light was by the pond, deep in the trees.']);
+        } else if (q.wisp.s === 2) {
+          say(N, [
+            'You found the light? And it left this behind?',
+            'A fragment, glowing like that... I have never seen the like. Keep it safe.',
+            'Thank you, dear. Here, for your trouble. (Got 50 gold!)',
+          ], () => {
+            player.gold += 50;
+            complete('wisp');
+          });
+        } else {
+          say(N, [pick([
+            'My dog walks the path again. Mostly.',
+            'Keep that fragment safe. I have a feeling it matters.',
+            'Thirty years, and I have never seen a light like that.',
+          ])]);
+        }
+      },
+    },
+    {
+      id: 'nadia', map: 'ammerud', x: 14, y: 9, dir: 'down', home: 'down', spr: SPR.nadia,
+      talk() {
+        const chat = flags.metNadia ? pick([
+          'Back again? Have a look.',
+          'Herbs, vests and gossip. Only two of those are for sale.',
+        ]) : "Welcome to NADIA'S KIOSK! Herbs, snacks, and a vest or two.";
+        say('NADIA', [chat], () => { flags.metNadia = true; openShop('nadia'); });
+      },
+    },
+    {
+      id: 'leif', map: 'ammerud', x: 12, y: 11, dir: 'left', home: 'left', spr: SPR.leif,
+      talk() {
+        const N = 'LEIF';
+        if (flags.marcusBeaten) {
+          say(N, [pick([
+            'MARCUS lost? On his own court? I saw nothing. As usual.',
+            'Forty years on this bench. Best seat in AMMERUD.',
+          ])]);
+        } else say(hero().name, ['Have you seen MARCUS?'], () => say(N, ['MARCUS?', 'Nope.', "I didn't see anything."]));
+      },
+    },
+    { // he only turns up at the court once AMMERUD TROUBLE has made enough noise; beaten, he stays and talks
+      id: 'marcus', map: 'ammerud', x: 7, y: 16, dir: 'down', home: 'down', spr: SPR.marcus,
+      visible: () => flags.marcusBeaten === true || (q.trouble.s === 1 && huntDone()),
+      talk() {
+        const N = 'MARCUS', H = hero().name;
+        if (!flags.marcusBeaten) {
+          say(N, ["So you're the one causing trouble in AMMERUD."], () => say(H, ["I'm looking for MARCUS."],
+            () => say(N, ['Then you found him.'], () => { encounter = { t: 0, type: 'marcus' }; SFX.encounter(); })));
+        } else if (!flags.marcusBat) {
+          marcusHandover();
+        } else {
+          say(N, [pick([
+            'GRORUD is south, through the gate. Go on.',
+            'Keep the bat. I have another one. Somewhere.',
+            'Next time, I win.',
+          ])]);
+        }
+      },
+    },
+    { // the light ASTRID saw, by the black pond; there only while THE DARK PATH is running and unsolved
+      id: 'glowwisp', map: 'darkPath', x: 4, y: 5, dir: 'down', home: 'down', spr: SPR.glowwisp, anim: true,
+      visible: () => q.wisp.s === 1 && !flags.wispFragment,
+      talk() {
+        say('', ['A cold blue light hangs over the black pond.', 'It flares up as you come close!'], () => {
+          encounter = { t: 0, type: 'glowwisp' }; SFX.encounter();
+        });
+      },
+    },
   ];
   const npcVisible = (n) => !n.visible || n.visible();
   const npcAt = (map, x, y) => NPCS.find((n) => n.map === map && n.x === x && n.y === y && npcVisible(n));
@@ -2145,41 +2645,65 @@
   }
 
   // ---------------------------------------------------------------- shop
-  const SHOP = [
-    { id: 'herb', name: 'HERB', price: 8, desc: () => `Heals in battle. Have ${player.herbs}/${player.maxHerbs}.` },
-    { id: 'iron', name: 'IRON SWORD', price: 40, desc: () => 'ATK +3. Sturdy and sharp.' },
-    { id: 'vest', name: 'TOUGH VEST', price: 35, desc: () => 'DEF +2. Padded leather.' },
-    { id: 'exit', name: 'LEAVE', price: 0, desc: () => 'Come back anytime!' },
-  ];
-  const shopOwned = (item) => (item.id === 'iron' && (owns('weapon', 'iron') || owns('weapon', 'crystal')))
-    || (item.id === 'vest' && owns('armor', 'vest'));
-  function openShop() { shop = { sel: 0, note: '', noteT: 0 }; mode = 'shop'; }
+  // Each shop has a title and a list of wares. A ware that is gear (`kind` and `gear`) is owned and worn
+  // once bought; `better` lists gear that makes it pointless to buy. Herbs, the pouch and LEAVE are
+  // handled by id.
+  const HERB_WARE = { id: 'herb', name: 'HERB', price: 8, desc: () => `Heals in battle. Have ${player.herbs}/${player.maxHerbs}.` };
+  const LEAVE_WARE = { id: 'exit', name: 'LEAVE', price: 0, desc: () => 'Come back anytime!' };
+  const SHOPS = {
+    bram: {
+      title: "BRAM'S FORGE",
+      wares: [
+        HERB_WARE,
+        { id: 'iron', name: 'IRON SWORD', price: 40, kind: 'weapon', gear: 'iron', better: ['crystal'], desc: () => 'ATK +3. Sturdy and sharp.' },
+        { id: 'vest', name: 'TOUGH VEST', price: 35, kind: 'armor', gear: 'vest', desc: () => 'DEF +2. Padded leather.' },
+        LEAVE_WARE,
+      ],
+    },
+    nadia: {
+      title: "NADIA'S KIOSK",
+      wares: [
+        HERB_WARE,
+        { id: 'pouch', name: 'HERB POUCH+1', price: 90, desc: () => `Holds one more herb. Yours holds ${player.maxHerbs}.` },
+        { id: 'rvest', name: 'REINF. VEST', price: 160, kind: 'armor', gear: 'rvest', desc: () => 'DEF +4. Steel plates sewn in.' },
+        LEAVE_WARE,
+      ],
+    },
+  };
+  const shopWares = () => SHOPS[shop.id].wares;
+  const shopOwned = (item) => (item.gear && (owns(item.kind, item.gear) || (item.better || []).some((id) => owns(item.kind, id))))
+    || (item.id === 'pouch' && flags.pouchBought === true);
+  function openShop(id = 'bram') { shop = { id, sel: 0, note: '', noteT: 0 }; mode = 'shop'; }
   function buy(item) {
     const note = (t, ok) => { shop.note = t; shop.noteT = 120; ok ? SFX.coin() : SFX.deny(); };
     if (item.id === 'exit') { mode = 'world'; shop = null; SFX.move(); return; }
     if (item.id === 'herb' && player.herbs >= player.maxHerbs) return note('Your pouch is full!');
-    if (shopOwned(item)) return note(item.id === 'iron' ? 'You have a better blade.' : 'You already wear one.');
+    if (shopOwned(item)) {
+      return note(item.kind === 'weapon' ? 'You have a better blade.' : item.kind ? 'You already wear one.' : 'Sold out!');
+    }
     if (player.gold < item.price) return note('Not enough gold!');
     player.gold -= item.price;
     if (item.id === 'herb') player.herbs++;
-    if (item.id === 'iron') { own('weapon', 'iron'); player.weapon = 'iron'; }
-    if (item.id === 'vest') { own('armor', 'vest'); player.armor = 'vest'; }
+    if (item.id === 'pouch') { flags.pouchBought = true; player.maxHerbs++; player.herbs++; }
+    if (item.gear) { own(item.kind, item.gear); player[item.kind] = item.gear; }
     note(`Bought ${item.name}!`, true);
     saveGame();
   }
   function updateShop() {
+    const wares = shopWares();
     if (shop.noteT > 0) shop.noteT--;
-    if (navPressed === 'up') { shop.sel = (shop.sel + SHOP.length - 1) % SHOP.length; SFX.move(); }
-    if (navPressed === 'down') { shop.sel = (shop.sel + 1) % SHOP.length; SFX.move(); }
-    if (aPressed) buy(SHOP[shop.sel]);
+    if (navPressed === 'up') { shop.sel = (shop.sel + wares.length - 1) % wares.length; SFX.move(); }
+    if (navPressed === 'down') { shop.sel = (shop.sel + 1) % wares.length; SFX.move(); }
+    if (aPressed) buy(wares[shop.sel]);
     else if (bPressed) { mode = 'world'; shop = null; SFX.move(); }
   }
   function drawShop() {
+    const wares = shopWares();
     box(20, 10, 200, 96);
-    text("BRAM'S FORGE", 30, 18, 14);
+    text(SHOPS[shop.id].title, 30, 18, 14);
     rtext(`${player.gold}G`, 210, 18, 14);
     R(ctx, 28, 29, 184, 1, 8);
-    SHOP.forEach((it, i) => {
+    wares.forEach((it, i) => {
       const y = 36 + i * 15;
       const owned = shopOwned(it);
       text(it.name, 42, y, owned ? 7 : 15);
@@ -2187,12 +2711,24 @@
       if (shop.sel === i && Math.floor(tick / 16) % 3) cursor(30, y);
     });
     box(4, 108, 232, 48);
-    const msg = shop.noteT > 0 ? shop.note : SHOP[shop.sel].desc();
+    const msg = shop.noteT > 0 ? shop.note : wares[shop.sel].desc();
     wrap(msg, 27).forEach((l, i) => text(l, 12, 117 + i * 11));
   }
 
   // ---------------------------------------------------------------- status menu
-  // menuSel is the line the cursor is on: 0 weapon, 1 armour, 2 SAVE.
+  // menuSel is the line the cursor is on: 0 weapon, 1 armour, 2 SAVE, 3 ITEMS.
+  // Story items are shown as icons on the line above SAVE. Once the hero carries one that has something
+  // to say about itself (a `desc`), that line becomes ITEMS and the cursor can stop on it to read them.
+  const KEY_ITEMS = [
+    { name: () => 'OLD SICKLE', has: () => player.sickle },
+    { name: () => `CRYSTAL FRAG x${fragments()}`, has: () => fragments() > 0 },
+    { name: () => 'RED KEY', has: () => flags.redKey },
+    { name: () => 'BLUE KEY', has: () => flags.blueKey },
+    { name: () => 'WISP FRAGMENT', has: () => flags.wispFragment, desc: 'A strange fragment glowing with faint blue light.' },
+  ];
+  const keyItems = () => KEY_ITEMS.filter((i) => i.has());
+  const menuLines = () => (keyItems().some((i) => i.desc) ? [0, 1, 3, 2] : [0, 1, 2]); // top to bottom
+  const MENU_Y = { 0: 110, 1: 122, 3: 134, 2: 146 };
   let menuPage = 0, menuNote = null, menuSel = 2;
   function openMenu() {
     mode = 'menu'; menuOpen = true; menuNote = null; menuSel = 2;
@@ -2203,7 +2739,8 @@
   function updateMenu() {
     const pages = questPages();
     if (navPressed === 'up' || navPressed === 'down') { // up and down move the cursor
-      const to = clamp(menuSel + (navPressed === 'up' ? -1 : 1), 0, 2);
+      const lines = menuLines(), at = lines.indexOf(menuSel);
+      const to = lines[clamp((at < 0 ? lines.length - 1 : at) + (navPressed === 'up' ? -1 : 1), 0, lines.length - 1)];
       if (to !== menuSel) { menuSel = to; menuNote = null; SFX.move(); }
     } else if (pages > 1 && navPressed) { // left and right turn the pages of the quest log
       const step = navPressed === 'left' ? -1 : 1;
@@ -2237,8 +2774,9 @@
     lines.forEach(([s, c], i) => text(s, 10, 24 + i * 12, c));
     text(WEAPONS[player.weapon].name, 10, 110, menuSel === 0 ? 15 : 10);
     text(ARMORS[player.armor].name, 10, 122, menuSel === 1 ? 15 : 10);
-    cursor(5, [110, 122, 146][menuSel]);
-    if (player.sickle) text('SICKLE', 10, 134, 10);
+    cursor(5, MENU_Y[menuSel]);
+    if (menuLines().includes(3)) text('ITEMS', 10, 134, menuSel === 3 ? 15 : 10);
+    else if (player.sickle) text('SICKLE', 10, 134, 10);
     // Story items share the sickle's line: a crystal with the number of fragments, and each key.
     if (fragments()) {
       ['..f.....', '.fd8....', 'fdd8....', 'fddd8...', '.fdd8...', '..fd8...', '...d....'].forEach((row, y) => {
@@ -2259,6 +2797,15 @@
     if (menuNote) text(menuNote.text, 10, 146, menuNote.c);
     else text(isTouch ? 'A:SAVE' : 'SPACE:SAVE', 10, 146, menuSel === 2 ? 14 : 7);
     box(96, 2, 142, 156);
+    if (menuSel === 3) { // the story items, and what the ones with a description look like
+      const items = keyItems();
+      text('KEY ITEMS', 104, 9, 14);
+      items.forEach((it, i) => text(it.name(), 104, 24 + i * 11, 15));
+      const read = items.filter((it) => it.desc).pop();
+      if (read) wrap(read.desc, 16).forEach((l, i) => text(l, 104, 24 + items.length * 11 + 8 + i * 11, 13));
+      if (Math.floor(tick / 30) % 2) rtext('X:BACK', 232, 146, 7);
+      return;
+    }
     if (menuSel < 2) { // the cursor is on the weapon or armour: show what the hero owns in place of the quests
       const kind = menuSel === 0 ? 'weapon' : 'armor', table = gearTable(kind), list = ownedGear(kind), worn = table[player[kind]];
       text(kind === 'weapon' ? 'WEAPONS' : 'ARMOUR', 104, 9, 14);
@@ -2325,12 +2872,20 @@
       return;
     }
     if (item && item.chest) {
-      const kind = item.weapon ? 'weapon' : 'armor', id = item[kind];
       flags[item.id] = true;
-      own(kind, id);
       SFX.pickup();
       held.length = 0;
-      say('', [`You open the chest. Inside is a ${gearTable(kind)[id].name}!`, 'Pick it in the menu to use it.'], saveGame);
+      if (item.gold) {
+        player.gold += item.gold;
+        say('', [`You open the chest. Inside are ${item.gold} gold!`], saveGame);
+      } else if (item.pouch) {
+        player.maxHerbs++; player.herbs = player.maxHerbs;
+        say('', ['You open the chest. Inside is a bigger herb pouch, full of fresh herbs!', `(Herb pouch: ${player.maxHerbs} max!)`], saveGame);
+      } else {
+        const kind = item.weapon ? 'weapon' : 'armor', id = item[kind];
+        own(kind, id);
+        say('', [`You open the chest. Inside is a ${gearTable(kind)[id].name}!`, 'Pick it in the menu to use it.'], saveGame);
+      }
       return;
     }
     if (item) {
@@ -2354,7 +2909,7 @@
     }
   }
   // ---------------------------------------------------------------- living world (visual only, never saved)
-  const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram', 'johanne', 'basil', 'dot', 'gus']);
+  const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram', 'johanne', 'basil', 'dot', 'gus', 'selma', 'emil', 'astrid', 'nadia', 'leif']);
   const faceToward = (dx, dy) => (Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
   // Villagers glance around now and then; they face the hero when the hero is right next to them,
   // and a villager with a "!" notices the hero from two tiles away.
@@ -2476,9 +3031,10 @@
         ctx.drawImage(img, tx * TS - camX, ty * TS - camY);
       }
     }
+    if (m.lighting?.shade) { ctx.globalAlpha = m.lighting.shade; R(ctx, 0, 0, W, H, 0); ctx.globalAlpha = 1; }
     for (const it of ITEMS) {
       if (it.map !== player.map || !itemThere(it)) continue;
-      if (it.quest) { ctx.drawImage(KEBAB_SPR, it.x * TS - camX, it.y * TS - camY); continue; }
+      if (it.quest) { ctx.drawImage(it.spr || KEBAB_SPR, it.x * TS - camX, it.y * TS - camY); continue; }
       if (it.chest) { ctx.drawImage(CHEST_SPR[Math.floor(tick / 30) % 2], it.x * TS - camX, it.y * TS - camY); continue; }
       const bob = Math.floor(tick / 20) % 2;
       ctx.drawImage(SHARD_SPR[Math.floor(tick / 15) % 2], it.x * TS - camX, it.y * TS - camY - bob);
@@ -2682,12 +3238,21 @@
         await msg('The roads feel safer already! Tell JOHANNE!', 1000);
       } else await msg(`Monsters off the road: ${q.road.n}/3`, 700);
     }
+    const hunt = HUNT.find((h) => h.type === b.type);
+    if (hunt && q.trouble.s === 1 && q.trouble[hunt.k] < hunt.n) {
+      q.trouble[hunt.k]++;
+      if (huntDone()) {
+        SFX.quest();
+        await msg('That should get MARCUS\'s attention! Try the basketball court.', 1000);
+      } else await msg(`${hunt.name}: ${q.trouble[hunt.k]}/${hunt.n}`, 700);
+    }
     if (b.type === 'shroom' && q.glowcap.s === 1 && Math.random() < 0.6) {
       player.glowcaps++;
       SFX.pickup();
       await msg(`It dropped a GLOWCAP! (${player.glowcaps}/3)`, 900);
       if (player.glowcaps >= 3) { markReady('glowcap'); await msg('That is enough glowcaps for Wren!', 900); }
     }
+    if (ENEMIES[b.type].won) await ENEMIES[b.type].won(b);
     if (boss) {
       if (boss.quest) markReady(boss.quest);
       if (boss.aftermath) await msg(boss.aftermath, 1000);
@@ -2751,6 +3316,19 @@
       R(ctx, 0, 60, W, 44, 5);
       for (let y = 62; y < 104; y += 3) for (let x = 0; x < W; x += 2) if (hash(x, y) < 0.04) { P(ctx, x, y, 11); P(ctx, x, y - 1, 11); }
     },
+    blocks() { // evening over Ammerud: tall blocks with lit windows, and asphalt underfoot
+      R(ctx, 0, 0, W, 60, 2);
+      for (let i = 0; i < 8; i++) { const x = (i * 41 + 17) % W, y = (i * 11) % 22; P(ctx, x, y, Math.floor((tick + i * 13) / 30) % 4 ? 13 : 15); }
+      for (const [x, top, w] of [[0, 24, 34], [40, 14, 30], [78, 30, 26], [140, 18, 34], [182, 26, 22], [210, 12, 30]]) {
+        R(ctx, x, top, w, 60 - top, 0); R(ctx, x + 1, top + 1, w - 2, 59 - top, 1);
+        for (let y = top + 4; y < 56; y += 6) for (let wx = x + 3; wx < x + w - 3; wx += 5) {
+          R(ctx, wx, y, 2, 3, hash(wx, y) < 0.35 ? 14 : 3);
+        }
+      }
+      R(ctx, 0, 60, W, 44, 3);
+      for (let y = 62; y < 104; y += 2) for (let x = 0; x < W; x += 2) if (hash(x + 7, y) < 0.04) P(ctx, x, y, 7);
+      R(ctx, 0, 96, W, 1, 7);
+    },
   };
   function drawBattle() {
     const b = battle;
@@ -2769,10 +3347,10 @@
         const lx = b.lunge > 0 ? Math.round(Math.sin((12 - b.lunge) / 12 * Math.PI) * 14) : 0;
         const sink = b.dying > 0 ? Math.round((40 - b.dying) / 3) : 0;
         const puff = b.charged ? 8 + (Math.floor(tick / 6) % 2) * 2 : 0;
-        ctx.drawImage(ENEMY_SPR[b.type][frame], ex + lx - puff / 2, ey + sink - puff, size + puff, size - sink + puff);
+        ctx.drawImage(ENEMY_SPR[b.look || b.type][frame], ex + lx - puff / 2, ey + sink - puff, size + puff, size - sink + puff);
       }
     }
-    box(4, 4, 104, 28);
+    box(4, 4, Math.max(104, b.name.length * 8 + 8), 28); // a long name widens the box to the right
     text(b.name, 10, 9, b.boss ? 14 : 15);
     bar(10, 21, 92, b.shownHp, b.max);
     const wide = Math.max(0, hero().name.length - 7) * 8; // longer names widen the panel to the left

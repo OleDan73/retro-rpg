@@ -3,7 +3,7 @@
  * Strategy: precache the app shell on install; then network-first for same-origin
  * requests (so a new deploy shows up as soon as you're online), falling back to the
  * cache when offline. Bump VERSION when the list of files changes. */
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = `turnip-vale-${VERSION}`;
 const SHELL = [
   './',
@@ -39,7 +39,10 @@ self.addEventListener('fetch', (event) => {
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
     try {
-      const res = await fetch(req);
+      // Ask the server every time (cache: 'no-cache' revalidates), so the browser's own HTTP cache can
+      // never hand back an old game.js after a new version is out. (A navigation request cannot be
+      // copied with new options, and the page itself is not the problem, so it is fetched as it is.)
+      const res = await fetch(req.mode === 'navigate' ? req : new Request(req, { cache: 'no-cache' }));
       if (res.ok) cache.put(req, res.clone());
       return res;
     } catch (err) {

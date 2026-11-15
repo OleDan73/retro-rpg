@@ -1,4 +1,3102 @@
 {
+ "ammerud-arrive__arrived": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 28,
+   "y": 10,
+   "dir": "left",
+   "moving": false,
+   "fx": 28,
+   "fy": 10,
+   "tx": 28,
+   "ty": 10,
+   "t": 0,
+   "lvl": 10,
+   "hp": 100,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 0,
+   "next": 454,
+   "herbs": 6,
+   "maxHerbs": 6,
+   "gold": 520,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2910
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 28,
+    "y": 10,
+    "dir": "left",
+    "moving": false,
+    "fx": 28,
+    "fy": 10,
+    "tx": 28,
+    "ty": 10,
+    "t": 0,
+    "lvl": 10,
+    "hp": 100,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 0,
+    "next": 454,
+    "herbs": 6,
+    "maxHerbs": 6,
+    "gold": 520,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2910
+   },
+   "tracked": null
+  }
+ },
+ "ammerud-ball__done": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 20,
+   "y": 15,
+   "dir": "down",
+   "moving": false,
+   "fx": 20,
+   "fy": 14,
+   "tx": 20,
+   "ty": 15,
+   "t": 0,
+   "lvl": 10,
+   "hp": 84,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 32,
+   "next": 454,
+   "herbs": 6,
+   "maxHerbs": 6,
+   "gold": 532,
+   "weapon": "crystal",
+   "armor": "sneakers",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "sneakers"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 3
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "ball": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2903
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 20,
+    "y": 15,
+    "dir": "down",
+    "moving": false,
+    "fx": 20,
+    "fy": 15,
+    "tx": 20,
+    "ty": 15,
+    "t": 0,
+    "lvl": 10,
+    "hp": 84,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 32,
+    "next": 454,
+    "herbs": 6,
+    "maxHerbs": 6,
+    "gold": 532,
+    "weapon": "crystal",
+    "armor": "sneakers",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "sneakers"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 3
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "ball": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2903
+   },
+   "tracked": null
+  }
+ },
+ "ammerud-chapter__chapter-done": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 15,
+   "y": 20,
+   "dir": "down",
+   "moving": false,
+   "fx": 15,
+   "fy": 20,
+   "tx": 15,
+   "ty": 20,
+   "t": 0,
+   "lvl": 10,
+   "hp": 100,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 0,
+   "next": 454,
+   "herbs": 6,
+   "maxHerbs": 6,
+   "gold": 520,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "bat"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 3,
+    "c": 3,
+    "r": 3,
+    "b": 2
+   },
+   "ball": {
+    "s": 1
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "marcusBeaten": true,
+   "marcusBat": true,
+   "grorudGate": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 15,
+    "y": 20,
+    "dir": "down",
+    "moving": false,
+    "fx": 15,
+    "fy": 20,
+    "tx": 15,
+    "ty": 20,
+    "t": 0,
+    "lvl": 10,
+    "hp": 100,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 0,
+    "next": 454,
+    "herbs": 6,
+    "maxHerbs": 6,
+    "gold": 520,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "bat"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 3,
+     "c": 3,
+     "r": 3,
+     "b": 2
+    },
+    "ball": {
+     "s": 1
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "marcusBeaten": true,
+    "marcusBat": true,
+    "grorudGate": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": "ball"
+  }
+ },
+ "ammerud-chapter__wandered": {
+  "mode": "world",
+  "player": {
+   "map": "stovner",
+   "x": 16,
+   "y": 9,
+   "dir": "up",
+   "moving": false,
+   "fx": 16,
+   "fy": 9,
+   "tx": 16,
+   "ty": 9,
+   "t": 0,
+   "lvl": 10,
+   "hp": 100,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 0,
+   "next": 454,
+   "herbs": 6,
+   "maxHerbs": 6,
+   "gold": 520,
+   "weapon": "bat",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "bat"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 3,
+    "c": 3,
+    "r": 3,
+    "b": 2
+   },
+   "ball": {
+    "s": 1
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "marcusBeaten": true,
+   "marcusBat": true,
+   "grorudGate": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2901
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "stovner",
+    "x": 1,
+    "y": 9,
+    "dir": "right",
+    "moving": false,
+    "fx": 1,
+    "fy": 9,
+    "tx": 1,
+    "ty": 9,
+    "t": 0,
+    "lvl": 10,
+    "hp": 100,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 0,
+    "next": 454,
+    "herbs": 6,
+    "maxHerbs": 6,
+    "gold": 520,
+    "weapon": "bat",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "bat"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 3,
+     "c": 3,
+     "r": 3,
+     "b": 2
+    },
+    "ball": {
+     "s": 1
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "marcusBeaten": true,
+    "marcusBat": true,
+    "grorudGate": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2901
+   },
+   "tracked": "ball"
+  }
+ },
+ "ammerud-chests__after": {
+  "mode": "world",
+  "player": {
+   "map": "darkPath",
+   "x": 8,
+   "y": 14,
+   "dir": "down",
+   "moving": false,
+   "fx": 8,
+   "fy": 14,
+   "tx": 8,
+   "ty": 14,
+   "t": 0,
+   "lvl": 10,
+   "hp": 100,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 0,
+   "next": 454,
+   "herbs": 7,
+   "maxHerbs": 7,
+   "gold": 600,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 2,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "chestGold": true,
+   "chestPouch": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2904
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "darkPath",
+    "x": 8,
+    "y": 14,
+    "dir": "down",
+    "moving": false,
+    "fx": 8,
+    "fy": 14,
+    "tx": 8,
+    "ty": 14,
+    "t": 0,
+    "lvl": 10,
+    "hp": 100,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 0,
+    "next": 454,
+    "herbs": 7,
+    "maxHerbs": 7,
+    "gold": 600,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 2,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "chestGold": true,
+    "chestPouch": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2904
+   },
+   "tracked": null
+  }
+ },
+ "ammerud-enemies__after": {
+  "mode": "world",
+  "player": {
+   "map": "darkPath",
+   "x": 10,
+   "y": 4,
+   "dir": "up",
+   "moving": false,
+   "fx": 10,
+   "fy": 5,
+   "tx": 10,
+   "ty": 4,
+   "t": 0,
+   "lvl": 10,
+   "hp": 83,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 186,
+   "next": 454,
+   "herbs": 6,
+   "maxHerbs": 6,
+   "gold": 597,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "axe"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "sneakers"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true
+  },
+  "stats": {
+   "won": 57,
+   "slimes": 17,
+   "steps": 2905
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "darkPath",
+    "x": 10,
+    "y": 4,
+    "dir": "up",
+    "moving": false,
+    "fx": 10,
+    "fy": 4,
+    "tx": 10,
+    "ty": 4,
+    "t": 0,
+    "lvl": 10,
+    "hp": 83,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 186,
+    "next": 454,
+    "herbs": 6,
+    "maxHerbs": 6,
+    "gold": 597,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "axe"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "sneakers"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true
+   },
+   "stats": {
+    "won": 57,
+    "slimes": 17,
+    "steps": 2905
+   },
+   "tracked": null
+  }
+ },
+ "ammerud-marcus-alexandra__beaten": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 7,
+   "y": 15,
+   "dir": "down",
+   "moving": false,
+   "fx": 7,
+   "fy": 15,
+   "tx": 7,
+   "ty": 15,
+   "t": 0,
+   "lvl": 10,
+   "hp": 58,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 150,
+   "next": 454,
+   "herbs": 3,
+   "maxHerbs": 6,
+   "gold": 670,
+   "weapon": "bat",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "bat"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "alexandra"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 2,
+    "c": 3,
+    "r": 3,
+    "b": 2
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "marcusBeaten": true,
+   "marcusBat": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 7,
+    "y": 15,
+    "dir": "down",
+    "moving": false,
+    "fx": 7,
+    "fy": 15,
+    "tx": 7,
+    "ty": 15,
+    "t": 0,
+    "lvl": 10,
+    "hp": 58,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 150,
+    "next": 454,
+    "herbs": 3,
+    "maxHerbs": 6,
+    "gold": 670,
+    "weapon": "bat",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "bat"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "alexandra"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 2,
+     "c": 3,
+     "r": 3,
+     "b": 2
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "marcusBeaten": true,
+    "marcusBat": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": "trouble"
+  }
+ },
+ "ammerud-marcus-celine__beaten": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 7,
+   "y": 15,
+   "dir": "down",
+   "moving": false,
+   "fx": 7,
+   "fy": 15,
+   "tx": 7,
+   "ty": 15,
+   "t": 0,
+   "lvl": 10,
+   "hp": 58,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 150,
+   "next": 454,
+   "herbs": 3,
+   "maxHerbs": 6,
+   "gold": 670,
+   "weapon": "bat",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "bat"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "celine"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 2,
+    "c": 3,
+    "r": 3,
+    "b": 2
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "marcusBeaten": true,
+   "marcusBat": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 7,
+    "y": 15,
+    "dir": "down",
+    "moving": false,
+    "fx": 7,
+    "fy": 15,
+    "tx": 7,
+    "ty": 15,
+    "t": 0,
+    "lvl": 10,
+    "hp": 58,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 150,
+    "next": 454,
+    "herbs": 3,
+    "maxHerbs": 6,
+    "gold": 670,
+    "weapon": "bat",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "bat"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "celine"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 2,
+     "c": 3,
+     "r": 3,
+     "b": 2
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "marcusBeaten": true,
+    "marcusBat": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": "trouble"
+  }
+ },
+ "ammerud-marcus-light-vest__beaten": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 7,
+   "y": 15,
+   "dir": "down",
+   "moving": false,
+   "fx": 7,
+   "fy": 15,
+   "tx": 7,
+   "ty": 15,
+   "t": 0,
+   "lvl": 10,
+   "hp": 54,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 150,
+   "next": 454,
+   "herbs": 3,
+   "maxHerbs": 6,
+   "gold": 670,
+   "weapon": "bat",
+   "armor": "light",
+   "weapons": [
+    "none",
+    "crystal",
+    "bat"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "light"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 2,
+    "c": 3,
+    "r": 3,
+    "b": 2
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "marcusBeaten": true,
+   "marcusBat": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 7,
+    "y": 15,
+    "dir": "down",
+    "moving": false,
+    "fx": 7,
+    "fy": 15,
+    "tx": 7,
+    "ty": 15,
+    "t": 0,
+    "lvl": 10,
+    "hp": 54,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 150,
+    "next": 454,
+    "herbs": 3,
+    "maxHerbs": 6,
+    "gold": 670,
+    "weapon": "bat",
+    "armor": "light",
+    "weapons": [
+     "none",
+     "crystal",
+     "bat"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "light"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 2,
+     "c": 3,
+     "r": 3,
+     "b": 2
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "marcusBeaten": true,
+    "marcusBat": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": "trouble"
+  }
+ },
+ "ammerud-marcus-modest__beaten": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 7,
+   "y": 15,
+   "dir": "down",
+   "moving": false,
+   "fx": 7,
+   "fy": 15,
+   "tx": 7,
+   "ty": 15,
+   "t": 0,
+   "lvl": 9,
+   "hp": 69,
+   "maxhp": 94,
+   "atk": 22,
+   "def": 9,
+   "xp": 150,
+   "next": 303,
+   "herbs": 0,
+   "maxHerbs": 6,
+   "gold": 670,
+   "weapon": "bat",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "iron",
+    "bat"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 2,
+    "c": 3,
+    "r": 3,
+    "b": 2
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "marcusBeaten": true,
+   "marcusBat": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 7,
+    "y": 15,
+    "dir": "down",
+    "moving": false,
+    "fx": 7,
+    "fy": 15,
+    "tx": 7,
+    "ty": 15,
+    "t": 0,
+    "lvl": 9,
+    "hp": 69,
+    "maxhp": 94,
+    "atk": 22,
+    "def": 9,
+    "xp": 150,
+    "next": 303,
+    "herbs": 0,
+    "maxHerbs": 6,
+    "gold": 670,
+    "weapon": "bat",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "iron",
+     "bat"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 2,
+     "c": 3,
+     "r": 3,
+     "b": 2
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "marcusBeaten": true,
+    "marcusBat": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": "trouble"
+  }
+ },
+ "ammerud-marcus-mohammed__beaten": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 7,
+   "y": 15,
+   "dir": "down",
+   "moving": false,
+   "fx": 7,
+   "fy": 15,
+   "tx": 7,
+   "ty": 15,
+   "t": 0,
+   "lvl": 10,
+   "hp": 58,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 150,
+   "next": 454,
+   "herbs": 3,
+   "maxHerbs": 6,
+   "gold": 670,
+   "weapon": "bat",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "bat"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "mohammed"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 2,
+    "c": 3,
+    "r": 3,
+    "b": 2
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "marcusBeaten": true,
+   "marcusBat": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 7,
+    "y": 15,
+    "dir": "down",
+    "moving": false,
+    "fx": 7,
+    "fy": 15,
+    "tx": 7,
+    "ty": 15,
+    "t": 0,
+    "lvl": 10,
+    "hp": 58,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 150,
+    "next": 454,
+    "herbs": 3,
+    "maxHerbs": 6,
+    "gold": 670,
+    "weapon": "bat",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "bat"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "mohammed"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 2,
+     "c": 3,
+     "r": 3,
+     "b": 2
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "marcusBeaten": true,
+    "marcusBat": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": "trouble"
+  }
+ },
+ "ammerud-marcus__beaten": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 7,
+   "y": 15,
+   "dir": "down",
+   "moving": false,
+   "fx": 7,
+   "fy": 15,
+   "tx": 7,
+   "ty": 15,
+   "t": 0,
+   "lvl": 10,
+   "hp": 58,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 150,
+   "next": 454,
+   "herbs": 3,
+   "maxHerbs": 6,
+   "gold": 670,
+   "weapon": "bat",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal",
+    "bat"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 2,
+    "c": 3,
+    "r": 3,
+    "b": 2
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "marcusBeaten": true,
+   "marcusBat": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 7,
+    "y": 15,
+    "dir": "down",
+    "moving": false,
+    "fx": 7,
+    "fy": 15,
+    "tx": 7,
+    "ty": 15,
+    "t": 0,
+    "lvl": 10,
+    "hp": 58,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 150,
+    "next": 454,
+    "herbs": 3,
+    "maxHerbs": 6,
+    "gold": 670,
+    "weapon": "bat",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal",
+     "bat"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 2,
+     "c": 3,
+     "r": 3,
+     "b": 2
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "marcusBeaten": true,
+    "marcusBat": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": "trouble"
+  }
+ },
+ "ammerud-shop__after": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 14,
+   "y": 10,
+   "dir": "up",
+   "moving": false,
+   "fx": 14,
+   "fy": 10,
+   "tx": 14,
+   "ty": 10,
+   "t": 0,
+   "lvl": 10,
+   "hp": 100,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 0,
+   "next": 454,
+   "herbs": 7,
+   "maxHerbs": 7,
+   "gold": 270,
+   "weapon": "crystal",
+   "armor": "rvest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest",
+    "rvest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "metNadia": true,
+   "pouchBought": true
+  },
+  "stats": {
+   "won": 52,
+   "slimes": 17,
+   "steps": 2900
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 14,
+    "y": 10,
+    "dir": "up",
+    "moving": false,
+    "fx": 14,
+    "fy": 10,
+    "tx": 14,
+    "ty": 10,
+    "t": 0,
+    "lvl": 10,
+    "hp": 100,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 0,
+    "next": 454,
+    "herbs": 7,
+    "maxHerbs": 7,
+    "gold": 270,
+    "weapon": "crystal",
+    "armor": "rvest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest",
+     "rvest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "metNadia": true,
+    "pouchBought": true
+   },
+   "stats": {
+    "won": 52,
+    "slimes": 17,
+    "steps": 2900
+   },
+   "tracked": null
+  }
+ },
+ "ammerud-wisp__done": {
+  "mode": "world",
+  "player": {
+   "map": "ammerud",
+   "x": 6,
+   "y": 9,
+   "dir": "up",
+   "moving": false,
+   "fx": 6,
+   "fy": 9,
+   "tx": 6,
+   "ty": 9,
+   "t": 0,
+   "lvl": 10,
+   "hp": 63,
+   "maxhp": 100,
+   "atk": 24,
+   "def": 10,
+   "xp": 90,
+   "next": 454,
+   "herbs": 5,
+   "maxHerbs": 6,
+   "gold": 610,
+   "weapon": "crystal",
+   "armor": "vest",
+   "weapons": [
+    "none",
+    "crystal"
+   ],
+   "armors": [
+    "none",
+    "vest"
+   ],
+   "shards": 0,
+   "glowcaps": 0,
+   "sickle": true,
+   "sinceBattle": 0,
+   "hero": "michael"
+  },
+  "q": {
+   "slimes": {
+    "s": 3,
+    "n": 3
+   },
+   "biscuit": {
+    "s": 3
+   },
+   "glowcap": {
+    "s": 3
+   },
+   "king": {
+    "s": 3
+   },
+   "shards": {
+    "s": 3
+   },
+   "road": {
+    "s": 3,
+    "n": 3
+   },
+   "cart": {
+    "s": 3
+   },
+   "under": {
+    "s": 3
+   },
+   "mohsin": {
+    "s": 3
+   },
+   "kebab": {
+    "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 3
+   }
+  },
+  "flags": {
+   "vines": true,
+   "metBram": true,
+   "shard1": true,
+   "shard2": true,
+   "fragment1": true,
+   "redKey": true,
+   "redGate": true,
+   "tunnelOpen": true,
+   "northOpen": true,
+   "mohsinBeaten": true,
+   "fragment2": true,
+   "blueKey": true,
+   "blueGate": true,
+   "kebab": true,
+   "wispFragment": true
+  },
+  "stats": {
+   "won": 53,
+   "slimes": 17,
+   "steps": 2906
+  },
+  "battle": null,
+  "save": {
+   "v": 1,
+   "player": {
+    "map": "ammerud",
+    "x": 6,
+    "y": 9,
+    "dir": "up",
+    "moving": false,
+    "fx": 6,
+    "fy": 9,
+    "tx": 6,
+    "ty": 9,
+    "t": 0,
+    "lvl": 10,
+    "hp": 63,
+    "maxhp": 100,
+    "atk": 24,
+    "def": 10,
+    "xp": 90,
+    "next": 454,
+    "herbs": 5,
+    "maxHerbs": 6,
+    "gold": 610,
+    "weapon": "crystal",
+    "armor": "vest",
+    "weapons": [
+     "none",
+     "crystal"
+    ],
+    "armors": [
+     "none",
+     "vest"
+    ],
+    "shards": 0,
+    "glowcaps": 0,
+    "sickle": true,
+    "sinceBattle": 0,
+    "hero": "michael"
+   },
+   "q": {
+    "slimes": {
+     "s": 3,
+     "n": 3
+    },
+    "biscuit": {
+     "s": 3
+    },
+    "glowcap": {
+     "s": 3
+    },
+    "king": {
+     "s": 3
+    },
+    "shards": {
+     "s": 3
+    },
+    "road": {
+     "s": 3,
+     "n": 3
+    },
+    "cart": {
+     "s": 3
+    },
+    "under": {
+     "s": 3
+    },
+    "mohsin": {
+     "s": 3
+    },
+    "kebab": {
+     "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 3
+    }
+   },
+   "flags": {
+    "vines": true,
+    "metBram": true,
+    "shard1": true,
+    "shard2": true,
+    "fragment1": true,
+    "redKey": true,
+    "redGate": true,
+    "tunnelOpen": true,
+    "northOpen": true,
+    "mohsinBeaten": true,
+    "fragment2": true,
+    "blueKey": true,
+    "blueGate": true,
+    "kebab": true,
+    "wispFragment": true
+   },
+   "stats": {
+    "won": 53,
+    "slimes": 17,
+    "steps": 2906
+   },
+   "tracked": null
+  }
+ },
  "battle-detail-woods__end": {
   "mode": "world",
   "player": {
@@ -67,6 +3165,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -145,6 +3255,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -1303,6 +4425,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -1382,6 +4516,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -1466,6 +4612,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -1620,6 +4778,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -1702,6 +4872,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -1789,6 +4971,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -1873,6 +5067,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -1960,6 +5166,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -2043,6 +5261,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -2128,6 +5358,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -2205,6 +5447,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -2288,6 +5542,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -2370,6 +5636,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -2455,6 +5733,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -2609,6 +5899,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -2695,6 +5997,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -2785,6 +6099,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -2871,6 +6197,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -2961,6 +6299,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -3047,6 +6397,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -3137,6 +6499,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -3223,6 +6597,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -3313,6 +6699,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -3399,6 +6797,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -3489,6 +6899,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -3573,6 +6995,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -3661,6 +7095,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -3747,6 +7193,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -3836,6 +7294,18 @@
     "s": 3
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -3930,6 +7400,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -3960,7 +7442,7 @@
    "map": "stovner",
    "x": 1,
    "y": 9,
-   "dir": "left",
+   "dir": "right",
    "moving": false,
    "fx": 1,
    "fy": 9,
@@ -4025,6 +7507,18 @@
    },
    "kebab": {
     "s": 1
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -4045,7 +7539,7 @@
   "stats": {
    "won": 52,
    "slimes": 17,
-   "steps": 2900
+   "steps": 2902
   },
   "battle": null,
   "save": {
@@ -4054,7 +7548,7 @@
     "map": "stovner",
     "x": 1,
     "y": 9,
-    "dir": "left",
+    "dir": "right",
     "moving": false,
     "fx": 1,
     "fy": 9,
@@ -4119,6 +7613,18 @@
     },
     "kebab": {
      "s": 1
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -4139,7 +7645,7 @@
    "stats": {
     "won": 52,
     "slimes": 17,
-    "steps": 2900
+    "steps": 2902
    },
    "tracked": "kebab"
   }
@@ -4216,6 +7722,18 @@
    },
    "kebab": {
     "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -4238,7 +7756,7 @@
   "stats": {
    "won": 52,
    "slimes": 17,
-   "steps": 2903
+   "steps": 2905
   },
   "battle": null,
   "save": {
@@ -4313,6 +7831,18 @@
     },
     "kebab": {
      "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -4335,7 +7865,7 @@
    "stats": {
     "won": 52,
     "slimes": 17,
-    "steps": 2903
+    "steps": 2905
    },
    "tracked": null
   }
@@ -7571,6 +11101,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -7650,6 +11192,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -8030,6 +11584,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -8109,6 +11675,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -8816,6 +12394,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -8898,6 +12488,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -8982,6 +12584,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -9059,6 +12673,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -9139,6 +12765,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -9276,6 +12914,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -9428,6 +13078,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -9520,6 +13182,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -9603,6 +13277,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -9696,6 +13382,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -9779,6 +13477,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -9872,6 +13582,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -9955,6 +13677,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -10048,6 +13782,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -10131,6 +13877,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -10224,6 +13982,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -10307,6 +14077,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -10400,6 +14182,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -10483,6 +14277,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -10576,6 +14382,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -10659,6 +14477,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -10752,6 +14582,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -10835,6 +14677,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -10928,6 +14782,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -11011,6 +14877,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -11104,6 +14982,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -11187,6 +15077,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -11280,6 +15182,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -11363,6 +15277,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -11456,6 +15382,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -11539,6 +15477,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -11632,6 +15582,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -11715,6 +15677,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -11808,6 +15782,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -11891,6 +15877,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -11984,6 +15982,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -12068,6 +16078,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -12149,6 +16171,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -12233,6 +16267,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -12381,6 +16427,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -12471,6 +16529,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -12552,6 +16622,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -12643,6 +16725,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -12724,6 +16818,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -12815,6 +16921,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -12896,6 +17014,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -12987,6 +17117,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -13068,6 +17210,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -13159,6 +17313,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -13240,6 +17406,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -13331,6 +17509,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -13412,6 +17602,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -13503,6 +17705,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -13584,6 +17798,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -13675,6 +17901,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -13756,6 +17994,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -13847,6 +18097,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -13929,6 +18191,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -14008,6 +18282,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -14090,6 +18376,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -14238,6 +18536,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -14328,6 +18638,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -14409,6 +18731,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -14500,6 +18834,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -14581,6 +18927,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -14672,6 +19030,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -14753,6 +19123,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -14844,6 +19226,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -14925,6 +19319,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -15016,6 +19422,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -15097,6 +19515,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -15188,6 +19618,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -15269,6 +19711,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -15360,6 +19814,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -15441,6 +19907,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -15532,6 +20010,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -15613,6 +20103,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -15704,6 +20206,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -15785,6 +20299,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -15876,6 +20402,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -15957,6 +20495,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -16048,6 +20598,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -16129,6 +20691,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -16220,6 +20794,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -16301,6 +20887,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -16392,6 +20990,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {},
@@ -16474,6 +21084,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -16553,6 +21175,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -16635,6 +21269,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -16783,6 +21429,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -16867,6 +21525,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -16956,6 +21626,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -17042,6 +21724,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -17127,6 +21821,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    },
    "kebab1": {
@@ -17216,6 +21922,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -17310,6 +22028,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -17398,6 +22128,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -17491,6 +22233,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -17578,6 +22332,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -17672,6 +22438,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -17760,6 +22538,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -17852,6 +22642,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -17938,6 +22740,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -18032,6 +22846,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -18118,6 +22944,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -18203,6 +23041,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -18292,6 +23142,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -18384,6 +23246,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -18472,6 +23346,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -18565,6 +23451,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -18652,6 +23550,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -18742,6 +23652,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -18828,6 +23750,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -18918,6 +23852,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -19006,6 +23952,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -19098,6 +24056,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -19186,6 +24156,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -19278,6 +24260,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -19366,6 +24360,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -19457,6 +24463,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -19612,6 +24630,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -19694,6 +24724,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -19778,6 +24820,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -19855,6 +24909,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -19936,6 +25002,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -20013,6 +25091,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -20094,6 +25184,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -20171,6 +25273,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -20253,6 +25367,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -20341,6 +25467,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -20428,6 +25566,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -20505,6 +25655,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -20587,6 +25749,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -20742,6 +25916,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -20824,6 +26010,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -20908,6 +26106,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -20985,6 +26195,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -21066,6 +26288,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -21143,6 +26377,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -21224,6 +26470,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -21301,6 +26559,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -21383,6 +26653,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -21471,6 +26753,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -21558,6 +26852,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -21635,6 +26941,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -21717,6 +27035,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -21872,6 +27202,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -21954,6 +27296,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -22038,6 +27392,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -22115,6 +27481,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -22196,6 +27574,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -22273,6 +27663,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -22354,6 +27756,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -22431,6 +27845,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -22513,6 +27939,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -22601,6 +28039,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -22688,6 +28138,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -22765,6 +28227,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -22847,6 +28321,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -23002,6 +28488,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -23084,6 +28582,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -23168,6 +28678,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -23245,6 +28767,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -23326,6 +28860,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -23403,6 +28949,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -23484,6 +29042,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -23561,6 +29131,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -23643,6 +29225,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -23731,6 +29325,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -23818,6 +29424,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -23895,6 +29513,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -23977,6 +29607,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -24132,6 +29774,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -24214,6 +29868,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -24299,6 +29965,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -24386,6 +30064,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -24475,6 +30165,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -24619,6 +30321,18 @@
    },
    "kebab": {
     "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -24709,6 +30423,18 @@
     },
     "kebab": {
      "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -24801,6 +30527,18 @@
    },
    "kebab": {
     "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -24891,6 +30629,18 @@
     },
     "kebab": {
      "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -24983,6 +30733,18 @@
    },
    "kebab": {
     "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -25072,6 +30834,18 @@
     },
     "kebab": {
      "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -25163,6 +30937,18 @@
    },
    "kebab": {
     "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -25252,6 +31038,18 @@
     },
     "kebab": {
      "s": 3
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -25343,6 +31141,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -25427,6 +31237,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -25515,6 +31337,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -25599,6 +31433,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -25687,6 +31533,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -25771,6 +31629,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -25859,6 +31729,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -25943,6 +31825,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -26031,6 +31925,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -26117,6 +32023,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -26206,6 +32124,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -26290,6 +32220,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -26380,6 +32322,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -26464,6 +32418,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -26553,6 +32519,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -26630,6 +32608,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -26711,6 +32701,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -26788,6 +32790,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -26870,6 +32884,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -26955,6 +32981,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -27043,6 +33081,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -27127,6 +33177,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -27215,6 +33277,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -27299,6 +33373,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -27387,6 +33473,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -27471,6 +33569,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -27558,6 +33668,18 @@
     "s": 2
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -27651,6 +33773,18 @@
      "s": 2
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -27748,6 +33882,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -27841,6 +33987,18 @@
      "s": 2
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -27937,6 +34095,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -28029,6 +34199,18 @@
      "s": 2
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -28124,6 +34306,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -28208,6 +34402,18 @@
      "s": 1
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -28296,6 +34502,18 @@
     "s": 2
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -28389,6 +34607,18 @@
      "s": 2
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -28486,6 +34716,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -28579,6 +34821,18 @@
      "s": 2
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -28675,6 +34929,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -28765,6 +35031,18 @@
      "s": 2
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -28859,6 +35137,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -28951,6 +35241,18 @@
      "s": 2
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -29051,6 +35353,18 @@
    },
    "kebab": {
     "s": 3
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    },
    "kebab1": {
     "s": 1,
@@ -29153,6 +35467,18 @@
     "kebab": {
      "s": 3
     },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
+    },
     "kebab1": {
      "s": 1,
      "found": 2
@@ -29251,6 +35577,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -29340,6 +35678,18 @@
      "s": 1
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -29433,6 +35783,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -29522,6 +35884,18 @@
      "s": 1
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -29615,6 +35989,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -29704,6 +36090,18 @@
      "s": 1
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -29796,6 +36194,18 @@
     "s": 2
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -29890,6 +36300,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -29983,6 +36405,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -30060,6 +36494,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -30141,6 +36587,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -30218,6 +36676,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -30300,6 +36770,18 @@
     "s": 1
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -30391,6 +36873,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -30481,6 +36975,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -30558,6 +37064,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -30639,6 +37157,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -30716,6 +37246,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -30796,6 +37338,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -30934,6 +37488,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -31069,6 +37635,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -31146,6 +37724,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -31227,6 +37817,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -31304,6 +37906,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -31384,6 +37998,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -31508,6 +38134,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -31588,6 +38226,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -31672,6 +38322,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -31754,6 +38416,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -31842,6 +38516,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -31926,6 +38612,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -32012,6 +38710,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -32089,6 +38799,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -32169,6 +38891,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -32306,6 +39040,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -32440,6 +39186,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -32576,6 +39334,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -32710,6 +39480,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -32846,6 +39628,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -32980,6 +39774,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -33116,6 +39922,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -33250,6 +40068,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -33386,6 +40216,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -33520,6 +40362,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -33656,6 +40510,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -33790,6 +40656,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -33926,6 +40804,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -34060,6 +40950,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -34196,6 +41098,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -34330,6 +41244,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -34468,6 +41394,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -34556,6 +41494,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -34648,6 +41598,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -34736,6 +41698,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -34828,6 +41802,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -34915,6 +41901,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -35006,6 +42004,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -35093,6 +42103,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -35186,6 +42208,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -35277,6 +42311,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -35372,6 +42418,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -35464,6 +42522,18 @@
     },
     "kebab": {
      "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
+     "s": 0
     }
    },
    "flags": {
@@ -35555,6 +42625,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -35638,6 +42720,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -35725,6 +42819,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -35808,6 +42914,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -35896,6 +43014,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -35983,6 +43113,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -36074,6 +43216,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -36161,6 +43315,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -36252,6 +43418,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -36339,6 +43517,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -36430,6 +43620,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -36515,6 +43717,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -36604,6 +43818,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -36691,6 +43917,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -36783,6 +44021,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -36871,6 +44121,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -36962,6 +44224,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -37049,6 +44323,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -37140,6 +44426,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -37227,6 +44525,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -37318,6 +44628,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -37403,6 +44725,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -37492,6 +44826,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -37579,6 +44925,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -37670,6 +45028,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -37757,6 +45127,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -37848,6 +45230,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -37935,6 +45329,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -38026,6 +45432,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -38114,6 +45532,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -38207,6 +45637,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -38295,6 +45737,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -38387,6 +45841,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -38475,6 +45941,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -38567,6 +46045,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -38655,6 +46145,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -38747,6 +46249,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -38835,6 +46349,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -38926,6 +46452,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -39013,6 +46551,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -39105,6 +46655,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -39195,6 +46757,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -39291,6 +46865,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -39381,6 +46967,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -39477,6 +47075,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -39567,6 +47177,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -39663,6 +47285,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -39753,6 +47387,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -39849,6 +47495,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -39939,6 +47597,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -40035,6 +47705,18 @@
    "kebab": {
     "s": 0
    },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
+   },
    "kebab1": {
     "s": 1,
     "found": 2
@@ -40125,6 +47807,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     },
     "kebab1": {
@@ -40221,6 +47915,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -40310,6 +48016,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -40403,6 +48121,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -40492,6 +48222,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -40584,6 +48326,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -40671,6 +48425,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -40762,6 +48528,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -40849,6 +48627,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -40940,6 +48730,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -41027,6 +48829,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -41118,6 +48932,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -41206,6 +49032,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -41298,6 +49136,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -41384,6 +49234,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -41472,6 +49334,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -41551,6 +49425,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -41634,6 +49520,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -41713,6 +49611,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -41795,6 +49705,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -41931,6 +49853,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -42065,6 +49999,18 @@
     "s": 0
    },
    "kebab": {
+    "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
     "s": 0
    }
   },
@@ -42201,6 +50147,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -42280,6 +50238,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -42363,6 +50333,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {
@@ -42442,6 +50424,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -42525,6 +50519,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -42602,6 +50608,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -42683,6 +50701,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -42760,6 +50790,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -42841,6 +50883,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -42918,6 +50972,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -42999,6 +51065,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -43076,6 +51154,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },
@@ -43157,6 +51247,18 @@
    },
    "kebab": {
     "s": 0
+   },
+   "trouble": {
+    "s": 0,
+    "c": 0,
+    "r": 0,
+    "b": 0
+   },
+   "ball": {
+    "s": 0
+   },
+   "wisp": {
+    "s": 0
    }
   },
   "flags": {},
@@ -43234,6 +51336,18 @@
      "s": 0
     },
     "kebab": {
+     "s": 0
+    },
+    "trouble": {
+     "s": 0,
+     "c": 0,
+     "r": 0,
+     "b": 0
+    },
+    "ball": {
+     "s": 0
+    },
+    "wisp": {
      "s": 0
     }
    },

@@ -761,7 +761,7 @@ const chapterScenarios = [
     name: 'chapter-fresh', save: FIX.fresh,
     run: async (T, g) => {
       await T.continueGame();
-      T.check('three chapters defined: Vestli, Stovner, then Ammerud without a boss quest', JSON.stringify(g.CHAPTERS) === '[{"name":"VESTLI","quest":"king"},{"name":"STOVNER","quest":"mohsin"},{"name":"AMMERUD","quest":null}]', JSON.stringify(g.CHAPTERS));
+      T.check('four chapters defined: Vestli, Stovner, Ammerud, then Grorud without a boss quest', JSON.stringify(g.CHAPTERS) === '[{"name":"VESTLI","quest":"king"},{"name":"STOVNER","quest":"mohsin"},{"name":"AMMERUD","quest":"trouble"},{"name":"GRORUD","quest":null}]', JSON.stringify(g.CHAPTERS));
       T.check('a new game is in chapter 1', g.chapter === 0 && !g.storyDone, g.chapter);
       T.check('no fragment, key or open gate', !g.flags.fragment1 && !g.flags.redKey && !g.flags.redGate);
       T.check('nothing in the game uses a quest called null', !('null' in g.q) && !g.QUEST_ORDER.includes('null'));
@@ -1313,8 +1313,8 @@ const stovnerScenarios = [
       };
       T.check('gate shut: its tile cannot be reached', !reach('village', 8, 7, false).has('0,7'));
       T.check('gate open: it can', reach('village', 8, 7, true).has('0,7'));
-      const starts = { village: [8, 7], forest: [1, 7], cave: [1, 7], stovner: [24, 9], stovnerOuter: [14, 18], tunnel: [9, 1], northRoad: [5, 18], shrine: [6, 11] };
-      T.check('eight maps', Object.keys(g.MAPS).sort().join() === Object.keys(starts).sort().join(), Object.keys(g.MAPS).join());
+      const starts = { village: [8, 7], forest: [1, 7], cave: [1, 7], stovner: [24, 9], stovnerOuter: [14, 18], tunnel: [9, 1], northRoad: [5, 18], shrine: [6, 11], ammerud: [28, 10], darkPath: [14, 10] };
+      T.check('ten maps', Object.keys(g.MAPS).sort().join() === Object.keys(starts).sort().join(), Object.keys(g.MAPS).join());
       for (const [name, [sx, sy]] of Object.entries(starts)) {
         const m = g.MAPS[name], seen = reach(name, sx, sy, true);
         const edge = [...seen].filter((k) => { const [x, y] = k.split(',').map(Number); return x === 0 || y === 0 || x === m.w - 1 || y === m.h - 1; });
@@ -1344,7 +1344,7 @@ const stovnerScenarios = [
       T.check('north road: two zones of Stovner enemies, none within three steps of either end', nz.length === 2
         && nz.every((z) => z.table.every((e) => ['golem', 'rat', 'blue'].includes(e[0])) && Math.abs(z.table.reduce((n, e) => n + e[1], 0) - 1) < 1e-9)
         && [[5, 18], [6, 18], [6, 1], [7, 1]].every((p) => nz.every((z) => Math.max(z.at[0] - p[0], p[0] - z.at[2], 0) + Math.max(z.at[1] - p[1], p[1] - z.at[3], 0) >= 3)));
-      T.check('the west gate, open or shut, cannot be walked through', !reach('stovner', 24, 9, true).has('0,9') && !reach('stovner', 24, 9, false).has('0,9') && g.SOLID.has('N') && g.SOLID.has('G'));
+      T.check('the west gate: shut, it cannot be reached; open, it is the way to Ammerud', reach('stovner', 24, 9, true).has('0,9') && !reach('stovner', 24, 9, false).has('0,9') && g.SOLID.has('G') && g.MAPS.stovner.exits['0,9'].map === 'ammerud');
       T.check('the outer zones are as they were', JSON.stringify(g.MAPS.stovnerOuter.encounter.zones.map((z) => z.at)) === '[[1,1,9,2],[10,3,20,4],[16,5,28,11],[9,6,13,11],[1,13,9,18],[18,13,28,17]]');
       // every line of the quest log and every tracker must fit its box
       const wide = [];
@@ -1375,7 +1375,7 @@ const stovnerScenarios = [
       let danger = 0, open = 0;
       for (let y = 0; y < outer.h; y++) for (let x = 0; x < outer.w; x++) if (walk(outer, x, y, true)) { open++; if (inZone(x, y)) danger++; }
       T.check('between a third and two thirds of the open ground is dangerous', danger / open > 0.33 && danger / open < 0.67, danger + ' of ' + open);
-      T.check('both chests stand on open ground', g.ITEMS.filter((i) => i.chest).length === 2 && g.ITEMS.filter((i) => i.chest).every((i) => walk(g.MAPS[i.map], i.x, i.y, true) && !g.MAPS[i.map].exits[i.x + ',' + i.y]));
+      T.check('both chests stand on open ground', g.ITEMS.filter((i) => i.chest && i.map === 'stovnerOuter').length === 2 && g.ITEMS.filter((i) => i.chest && i.map === 'stovnerOuter').every((i) => walk(g.MAPS[i.map], i.x, i.y, true) && !g.MAPS[i.map].exits[i.x + ',' + i.y]));
       T.check('the old enemies are as they were', JSON.stringify(['slime', 'shroom', 'bat', 'gloop', 'king'].map((k) => [g.ENEMIES[k].hp, g.ENEMIES[k].atk, g.ENEMIES[k].def, g.ENEMIES[k].xp, g.ENEMIES[k].gold]))
         === '[[12,4,0,5,[3,5]],[16,5,1,7,[4,6]],[26,11,2,12,[6,9]],[36,13,3,15,[8,11]],[140,15,5,80,[100,100]]]');
       T.check('the old gear is as it was', JSON.stringify([g.WEAPONS.none.atk, g.WEAPONS.iron.atk, g.WEAPONS.crystal.atk, g.ARMORS.none.def, g.ARMORS.vest.def]) === '[0,3,7,0,2]'
@@ -1403,7 +1403,7 @@ const stovnerScenarios = [
       T.check('the people of the town block nobody in', cut.length === 0, cut.join(' '));
       T.check('the old Stovner maps are as they were', g.MAPS.stovner.rows.join('').length === 26 * 18 && g.MAPS.stovnerOuter.rows.join('').length === 30 * 20
         && g.MAPS.stovner.rows[16] === '#.,......;.#QQ#....;....T#' && g.MAPS.stovnerOuter.rows[9] === 'T.~~~..=......==.......W..=..T');
-      T.check('Stovner ends with FIND MOHSIN, and Ammerud has no quests', g.CHAPTERS.length === 3 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === 'mohsin' && g.CHAPTERS[2].quest === null && g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab', g.QUEST_ORDER.join());
+      T.check('Stovner ends with FIND MOHSIN, Ammerud with AMMERUD TROUBLE, and Grorud has no quests', g.CHAPTERS.length === 4 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === 'mohsin' && g.CHAPTERS[2].quest === 'trouble' && g.CHAPTERS[3].quest === null && g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab,trouble,ball,wisp', g.QUEST_ORDER.join());
     },
   },
 ];
@@ -2100,7 +2100,7 @@ const questScenarios = [
       T.check('Æ is a letter of the game font, as wide as any other', ae === m && ae === 8 && c.measureText('Æ').width !== 8, ae + ' ' + m + ' ' + c.measureText('Æ').width);
       const here = g.NPCS.filter((n) => n.map === 'stovner').map((n) => n.id + ' ' + n.x + ',' + n.y).join('; ');
       T.check('four people in the town', here === 'johanne 16,8; basil 20,10; dot 7,10; gus 10,16', here);
-      T.check('nobody new anywhere else but LÆRER HEIDI in the tunnel and MOHSIN in the shrine', g.NPCS.filter((n) => !['village', 'forest', 'cave', 'stovner'].includes(n.map)).map((n) => n.id + '@' + n.map).join() === 'heidi@tunnel,heidi2@tunnel,mohsin@shrine'
+      T.check('nobody new anywhere else but LÆRER HEIDI in the tunnel and MOHSIN in the shrine', g.NPCS.filter((n) => !['village', 'forest', 'cave', 'stovner', 'ammerud', 'darkPath'].includes(n.map)).map((n) => n.id + '@' + n.map).join() === 'heidi@tunnel,heidi2@tunnel,mohsin@shrine'
         && g.NPCS.filter((n) => n.map === 'village').length === 5 && g.NPCS.filter((n) => n.map === 'stovnerOuter').length === 0);
       // JOHANNE must not sit under the status panel (2..93 across, 2..31 down) from the roads that lead to her
       const town = g.MAPS.stovner, hidden = [];
@@ -2927,7 +2927,7 @@ const mohsinScenarios = [
         await T.until(() => g.mode === 'world', 'the world');
         await T.frames(40);
         T.check('back beside JOHANNE in Stovner', g.player.map === 'stovner' && g.player.x === 16 && g.player.y === 9 && g.mode === 'world');
-        T.check('Chapter 3 now, and the story is not over', g.chapter === 2 && g.storyDone === false && g.CHAPTERS[2].name === 'AMMERUD' && g.CHAPTERS[2].quest === null);
+        T.check('Chapter 3 now, and the story is not over', g.chapter === 2 && g.storyDone === false && g.CHAPTERS[2].name === 'AMMERUD' && g.CHAPTERS[2].quest === 'trouble');
         T.check('the kebab quest is still running and is tracked again', g.q.kebab.s === 1 && g.tracked === 'kebab');
         T.shot('after');
         const flags = JSON.stringify(g.flags), gold = g.player.gold;
@@ -2938,9 +2938,17 @@ const mohsinScenarios = [
         await T.talk('unlock');
         T.check('the BLUE KEY opens the west gate, saved', g.flags.blueGate === true && saved().flags.blueGate === true && g.flags.blueKey === true);
         T.shot('west-gate-open');
-        await T.talk('beyond');
+        await T.tap('Space', 6);
+        T.check('the open gate has nothing more to say', g.mode === 'world');
         await T.step('left');
-        T.check('the road beyond is not built: no way through, no other map', g.player.x === 1 && g.player.y === 9 && g.player.map === 'stovner' && Object.keys(g.MAPS).length === 8);
+        await T.until(() => g.player.map === 'ammerud', 'Ammerud');
+        await T.frames(60);
+        T.check('the road beyond leads to AMMERUD, autosaved', g.player.x === 28 && g.player.y === 10 && g.player.dir === 'left' && saved().player.map === 'ammerud', g.player.x + ',' + g.player.y);
+        T.shot('ammerud');
+        await T.step('right');
+        await T.until(() => g.player.map === 'stovner', 'Stovner');
+        await T.frames(60);
+        T.check('and back through the west gate', g.player.x === 1 && g.player.y === 9 && g.player.dir === 'right', g.player.x + ',' + g.player.y);
         T.check('the Red Key and the Red Gate are as they were', g.flags.redKey === true && g.flags.redGate === true);
         await T.tap('KeyX', 6);
         T.check('ten quests known: the log opens on the second page, where the kebab is', g.menuPage === 1 && g.menuSel === 2);
@@ -2957,7 +2965,7 @@ const mohsinScenarios = [
         await T.continueGame();
         T.check('CONTINUE: chapter, fragments, keys and gates', g.chapter === 2 && g.q.mohsin.s === 3 && ['fragment1', 'fragment2', 'redKey', 'blueKey', 'redGate', 'blueGate', 'northOpen', 'tunnelOpen', 'mohsinBeaten'].every((k) => g.flags[k] === true));
         T.shot('continued');
-        await T.talk('gate-still-open');
+        T.check('the west gate is still open', g.flags.blueGate === true && g.player.map === 'stovner' && g.player.x === 1);
         // the kebab, after the chapter
         T.place('stovnerOuter', 7, 10, 'left');
         await T.step('left');
@@ -3049,6 +3057,845 @@ const mohsinScenarios = [
       await T.touch('a');
       T.check('saved by touch', g.menuNote && g.menuNote.text === 'SAVED!');
       await T.touch('b');
+    },
+  },
+];
+
+// AMMERUD (Expansion 1F): Chapter 3. SELMA's AMMERUD TROUBLE brings MARCUS out at the basketball court,
+// EMIL has lost his basketball, ASTRID has seen a light on the dark path, and NADIA keeps the kiosk.
+// A save from the end of Expansion 1E: Chapter 2 finished, the west gate unlocked, the hero at level 10,
+// standing just inside the gate, and nothing of Ammerud in the file at all.
+const chapterTwoDone = (() => {
+  const d = JSON.parse(JSON.stringify(mohsinReady(chainDone)));
+  d.q.mohsin = { s: 3 }; d.q.kebab = { s: 3 }; d.tracked = null;
+  Object.assign(d.flags, { blueGate: true, kebab: true });
+  Object.assign(d.player, level(10), { maxhp: 100, hp: 100, gold: 520, map: 'stovner', x: 1, y: 9, fx: 1, fy: 9, tx: 1, ty: 9, dir: 'left' });
+  return d;
+})();
+const inAmmerud = moved(chapterTwoDone, 'ammerud', 28, 10, 'left');
+const withTrouble = (fix, c, r, b) => ({ ...fix, q: { ...fix.q, trouble: { s: 1, c, r, b } }, tracked: 'trouble' });
+const atMarcus = withTrouble(moved(chapterTwoDone, 'ammerud', 7, 15, 'down'), 3, 3, 2);
+const marcusDone = (fix) => {
+  const d = JSON.parse(JSON.stringify(fix));
+  d.q.trouble = { s: 2, c: 3, r: 3, b: 2 }; d.tracked = 'trouble';
+  Object.assign(d.flags, { marcusBeaten: true, marcusBat: true });
+  Object.assign(d.player, { weapon: 'bat', weapons: ['none', 'crystal', 'bat'] });
+  return d;
+};
+// Fights the battle that is on, eating an herb below HEAL HP, and photographs the first time each pattern
+// shows up in a battle message. Returns { turns, seen } where seen[name] counts the messages.
+const WATCH = `
+  const watchFight = async (heal, shots, onFrame) => {
+    const b = g.battle, seen = {};
+    let turns = 0, last = '';
+    while (g.mode === 'battle') {
+      await T.until(() => g.mode !== 'battle' || b.phase === 'menu', 'the battle menu');
+      if (g.mode !== 'battle') break;
+      if (++turns > 40) throw new Error('the fight never ended');
+      const want = g.player.hp < heal && g.player.herbs > 0 ? 1 : 0;
+      while (b.menu !== want) await T.tap('ArrowDown', 1);
+      await T.tap('Space', 1);
+      await T.until(() => g.mode !== 'battle' || b.phase !== 'menu', 'the action to start');
+      while (g.mode === 'battle' && b.phase !== 'menu') {
+        if (b.msg !== last && b.shown >= b.msg.length) {
+          last = b.msg;
+          for (const [k, re] of shots) if (re.test(b.msg)) { if (!seen[k]) T.shot(k); seen[k] = (seen[k] || 0) + 1; }
+        }
+        if (onFrame) onFrame();
+        await T.frames(1);
+      }
+    }
+    await T.frames(70);
+    return { turns, seen };
+  };
+`;
+// The whole meeting with MARCUS: the talk, the fight, the hand-over of the bat, and nothing twice.
+const MARCUS = `async (T, g) => {
+  ${MEET}
+  ${WATCH}
+  await T.continueGame();
+  const gold = g.player.gold, xp = g.player.xp, won = g.stats.won, herbs = g.player.herbs, maxhp = g.player.maxhp, weapons = g.player.weapons.slice();
+  T.check('MARCUS waits on the centre circle', g.NPCS.find((n) => n.id === 'marcus').visible() && g.player.x === 7 && g.player.y === 15);
+  T.shot('court');
+  await T.tap('KeyX', 6); await T.tap('Space', 6);
+  T.check('SAVED! in front of MARCUS', g.menuNote && g.menuNote.text === 'SAVED!' && saved().player.map === 'ammerud');
+  await T.tap('KeyX', 6);
+  await T.frames(120);
+  T.check('standing there starts nothing', g.mode === 'world');
+  await T.talk(BEFORE);
+  await T.untilBattle();
+  const b = g.battle;
+  T.check('MARCUS: 180 HP, ATK 26, DEF 9, a boss', b.type === 'marcus' && b.name === 'MARCUS' && b.boss === true && b.max === 180 && b.atk === 26 && b.def === 9 && b.xp === 150, JSON.stringify([b.max, b.atk, b.def, b.xp]));
+  T.check('he lets the hero move first', b.turn === 0 && g.player.hp === maxhp);
+  T.shot('battle');
+  let angryAt = null, red = false;
+  const { turns, seen } = await watchFight(HEAL, [['feint', /fakes left/], ['grin', /grins/], ['enough', /That's enough/], ['windup', /lifts the bat/], ['slam', /POWER SLAM/], ['defeated', /ALRIGHT/]],
+    () => { if (b.angry && angryAt === null) { angryAt = b.hp; red = b.look === 'marcus2'; } });
+  T.check('in his second phase the jersey turns red', red);
+  T.check('the whole pattern was seen', seen.feint >= 1 && seen.grin >= 1 && seen.windup >= 1 && seen.slam >= 1, JSON.stringify(seen));
+  T.check('"Okay. That\\'s enough." exactly once, at half HP or below', seen.enough === 1 && angryAt !== null && angryAt <= 90, JSON.stringify(seen) + ' ' + angryAt);
+  T.check('every POWER SLAM was warned of first', seen.slam <= seen.windup, JSON.stringify(seen));
+  T.check('beaten', seen.defeated === 1 && g.stats.won === won + 1 && g.player.hp > 0, g.mode + ' ' + g.player.hp);
+  await T.until(() => g.mode === 'dialog', 'MARCUS to speak');
+  T.check('beaten is saved before anything is handed over', saved().flags.marcusBeaten === true && !saved().flags.marcusBat && !saved().player.weapons.includes('bat') && saved().q.trouble.s === 1);
+  T.check('nothing yet', !g.flags.marcusBat && !g.player.weapons.includes('bat') && g.q.trouble.s === 1 && g.dlg.name === 'MARCUS');
+  await T.dialog(HANDOVER);
+  T.check("MARCUS' BAT: owned and worn, saved", g.player.weapon === 'bat' && g.player.weapons.filter((w) => w === 'bat').length === 1 && g.flags.marcusBat === true
+    && saved().player.weapon === 'bat' && saved().player.weapons.includes('bat'));
+  T.check('every weapon owned before is kept', weapons.every((w) => g.player.weapons.includes(w)), JSON.stringify(g.player.weapons));
+  T.check('the quest is ready for SELMA, and the chapter is not over', g.q.trouble.s === 2 && g.tracked === 'trouble' && saved().q.trouble.s === 2 && g.chapter === 2 && g.mode === 'world');
+  T.check('150 XP and 150 gold', g.player.xp + (g.player.lvl > 10 ? 454 : 0) === xp + 150 && g.player.gold === gold + 150, g.player.xp + ' ' + (g.player.gold - gold));
+  T.check('a fair fight', turns <= LIMIT[0] && herbs - g.player.herbs <= LIMIT[1], turns + ' turns, ' + (herbs - g.player.herbs) + ' herbs, ' + g.player.hp + ' HP left');
+  T.shot('tracker');
+  await T.menuShot('status');
+  const flags = JSON.stringify(g.flags);
+  await T.talk(AFTER1); await T.talk(AFTER2);
+  T.check('he only talks now, and gives nothing twice', g.mode === 'world' && g.stats.won === won + 1 && JSON.stringify(g.flags) === flags && g.player.weapons.filter((w) => w === 'bat').length === 1);
+  T.state('beaten');
+}`;
+const marcusFight = (turns, herbs, heal = 50, talk = false) => MARCUS.replace(/LIMIT/g, `[${turns}, ${herbs}]`).replace('HEAL', String(heal))
+  .replace('BEFORE', talk ? "'before'" : '').replace('HANDOVER', talk ? "'handover'" : '').replace('AFTER1', talk ? "'after'" : '').replace('AFTER2', talk ? "'after-2'" : '');
+// HUD rectangles on the 240x160 screen: the status panel, and the widest possible quest tracker.
+const HUD_CHECK = `
+  const HUD = [[2, 2, 94, 32], [98, 2, 238, 18]];
+  const hiddenFrom = (mapName, px, py, tx, ty) => {
+    const m = g.MAPS[mapName];
+    const camX = Math.max(0, Math.min(px * 16 + 8 - 120, m.w * 16 - 240)), camY = Math.max(0, Math.min(py * 16 + 8 - 80, m.h * 16 - 160));
+    const sx = tx * 16 - camX, sy = ty * 16 - camY;
+    return HUD.some(([x0, y0, x1, y1]) => sx < x1 && sx + 16 > x0 && sy < y1 && sy + 16 > y0);
+  };
+`;
+const ammerudScenarios = [
+  { // a save from the end of 1E: through the west gate, into Ammerud, around the square, and back
+    name: 'ammerud-arrive', save: chapterTwoDone,
+    run: [
+      async (T, g) => {
+        const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+        T.check('the save knows nothing of Ammerud', saved().q.trouble === undefined && saved().q.ball === undefined && saved().q.wisp === undefined);
+        await T.continueGame();
+        T.check('it loads in Chapter 3 with every Ammerud quest unstarted', g.chapter === 2 && ['trouble', 'ball', 'wisp'].every((id) => g.q[id].s === 0)
+          && JSON.stringify(g.q.trouble) === '{"s":0,"c":0,"r":0,"b":0}');
+        await T.step('left');
+        await T.until(() => g.player.map === 'ammerud', 'Ammerud');
+        await T.frames(20);
+        T.shot('arriving');
+        await T.frames(40);
+        T.check('through the west gate into AMMERUD, autosaved', g.player.x === 28 && g.player.y === 10 && g.player.dir === 'left' && saved().player.map === 'ammerud', g.player.x + ',' + g.player.y);
+        await T.frames(120);
+        T.check('no bouncing back, and nothing happens by itself', g.mode === 'world' && g.player.map === 'ammerud' && g.player.x === 28);
+        const here = g.NPCS.filter((n) => n.map === 'ammerud').map((n) => n.id + ' ' + n.x + ',' + n.y).join('; ');
+        T.check('six people in Ammerud', here === 'selma 25,9; emil 8,12; astrid 6,8; nadia 14,9; leif 12,11; marcus 7,16', here);
+        const news = g.NPCS.filter((n) => n.map === 'ammerud' && n.news && n.news()).map((n) => n.id).join();
+        T.check('SELMA, EMIL and ASTRID have a mark; NADIA and LEIF do not; MARCUS is nowhere to be seen', news === 'selma,emil,astrid' && !g.NPCS.find((n) => n.id === 'marcus').visible(), news);
+        await T.step('up');
+        await T.talk('sign');
+        await T.step('left', 3);
+        T.shot('selma');
+        await T.step('left', 4);
+        T.shot('square');
+        T.place('ammerud', 13, 11, 'left');
+        await T.talk('leif');
+        T.check('LEIF saw nothing', g.mode === 'world');
+        T.place('ammerud', 7, 14, 'down');
+        await T.frames(20);
+        T.shot('court');
+        T.place('ammerud', 1, 9, 'down');
+        await T.talk('dark-path-sign');
+        T.place('ammerud', 15, 20, 'down');
+        await T.frames(20);
+        T.shot('south-gate');
+        await T.talk('south-gate');
+        await T.step('down');
+        T.check('the south gate is shut', g.player.y === 20 && g.player.map === 'ammerud' && !g.flags.grorudGate);
+        T.check('nothing was started, given or saved by looking around', ['trouble', 'ball', 'wisp'].every((id) => g.q[id].s === 0) && g.player.gold === 520 && !g.flags.metNadia);
+        T.place('ammerud', 28, 10, 'right');
+        await T.step('right');
+        await T.until(() => g.player.map === 'stovner', 'Stovner');
+        await T.frames(60);
+        T.check('back to Stovner through the west gate', g.player.x === 1 && g.player.y === 9 && g.player.dir === 'right', g.player.x + ',' + g.player.y);
+        await T.step('left');
+        await T.until(() => g.player.map === 'ammerud', 'Ammerud');
+        await T.frames(60);
+        T.state('arrived');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE in Ammerud', g.player.map === 'ammerud' && g.player.x === 28 && g.player.y === 10 && g.chapter === 2 && g.mode === 'world');
+        T.shot('continued');
+      },
+    ],
+  },
+  { // a 1E save that finished the chapter but never tried the west gate: the Blue Key opens it, and the way is through
+    name: 'ammerud-gate-unlock', save: { ...chapterTwoDone, flags: { ...chapterTwoDone.flags, blueGate: false } },
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('left');
+      T.check('shut until it is opened', g.player.map === 'stovner' && g.player.x === 1);
+      await T.talk('unlock');
+      T.check('the BLUE KEY opens it', g.flags.blueGate === true && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).flags.blueGate === true);
+      await T.step('left');
+      await T.until(() => g.player.map === 'ammerud', 'Ammerud');
+      await T.frames(60);
+      T.check('and the road leads to AMMERUD', g.player.x === 28 && g.player.y === 10);
+    },
+  },
+  { // the maps themselves: open ground, edges, exits, monsters, and what the status panel might hide
+    name: 'ammerud-map-audit', save: inAmmerud,
+    run: `async (T, g) => {
+      ${HUD_CHECK}
+      await T.continueGame();
+      const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+      const tile = (m, x, y, open) => { const gate = m.gates && m.gates[x + ',' + y]; return gate ? (open ? gate.open : gate.closed) : m.rows[y][x]; };
+      const walk = (m, x, y, open) => x >= 0 && y >= 0 && x < m.w && y < m.h && !g.SOLID.has(tile(m, x, y, open));
+      const reach = (name, sx, sy, open) => {
+        const m = g.MAPS[name], seen = new Set([sx + ',' + sy]), todo = [[sx, sy]];
+        while (todo.length) {
+          const [x, y] = todo.pop();
+          if (m.exits[x + ',' + y]) continue;
+          for (const [dx, dy] of Object.values(DIRS)) {
+            const k = (x + dx) + ',' + (y + dy);
+            if (!seen.has(k) && walk(m, x + dx, y + dy, open)) { seen.add(k); todo.push([x + dx, y + dy]); }
+          }
+        }
+        return seen;
+      };
+      const am = g.MAPS.ammerud, dp = g.MAPS.darkPath;
+      T.check('Ammerud is 30 by 22 and the dark path 16 by 16', am.w === 30 && am.h === 22 && dp.w === 16 && dp.h === 16 && am.rows.every((r) => r.length === 30) && dp.rows.every((r) => r.length === 16));
+      for (const [name, sx, sy] of [['ammerud', 28, 10], ['darkPath', 14, 10]]) {
+        const m = g.MAPS[name], seen = reach(name, sx, sy, true), out = [];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (walk(m, x, y, true) && !seen.has(x + ',' + y)) out.push(x + ',' + y);
+        T.check(name + ': all open ground can be reached', out.length === 0, out.join(' '));
+      }
+      T.check('Ammerud leads to Stovner and the dark path; the dark path only back', JSON.stringify(Object.values(am.exits).map((e) => e.map)) === '["stovner","darkPath"]' && JSON.stringify(Object.values(dp.exits).map((e) => e.map)) === '["ammerud"]');
+      T.check('the south gate, open or shut, cannot be walked through', !reach('ammerud', 28, 10, true).has('15,21') && !reach('ammerud', 28, 10, false).has('15,21') && tile(am, 15, 21, false) === 'G' && tile(am, 15, 21, true) === 'N');
+      // monsters
+      const inZone = (m, x, y) => m.encounter.zones.find((z) => x >= z.at[0] && y >= z.at[1] && x <= z.at[2] && y <= z.at[3]);
+      const ok = (m) => m.encounter.zones.every((z) => z.at[0] >= 0 && z.at[1] >= 0 && z.at[2] < m.w && z.at[3] < m.h && z.table.every((e) => g.ENEMIES[e[0]] && !g.ENEMIES[e[0]].boss) && Math.abs(z.table.reduce((n, e) => n + e[1], 0) - 1) < 1e-9);
+      T.check('every zone lies inside its map, its monsters exist, none is a boss, the odds add up', ok(am) && ok(dp));
+      const types = (m) => [...new Set(m.encounter.zones.flatMap((z) => z.table.map((e) => e[0])))].sort().join();
+      T.check('Ammerud: crawlers, shadow rats and brutes; the dark path: wisps, rats and crawlers', types(am) === 'brute,crawler,shadow' && types(dp) === 'crawler,shadow,wisp', types(am) + ' / ' + types(dp));
+      T.check('every monster AMMERUD TROUBLE asks for turns up in every zone of Ammerud, at least one time in five', am.encounter.zones.every((z) => ['crawler', 'shadow', 'brute'].every((t) => z.table.some((e) => e[0] === t && e[1] >= 0.2))));
+      T.check('the glowing wisp is never met at random', [am, dp].every((m) => m.encounter.zones.every((z) => z.table.every((e) => e[0] !== 'glowwisp'))));
+      const near = [];
+      for (const [m, ways] of [[am, [[28, 10], [29, 10], [0, 9], [1, 9]]], [dp, [[14, 10], [15, 10]]]]) {
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (inZone(m, x, y) && ways.some((p) => Math.abs(p[0] - x) + Math.abs(p[1] - y) <= 3)) near.push(m.name + ' ' + x + ',' + y);
+      }
+      T.check('no zone within three steps of a way in', near.length === 0, near.join(' '));
+      const court = [];
+      for (let y = 13; y <= 19; y++) for (let x = 1; x <= 13; x++) if (inZone(am, x, y)) court.push(x + ',' + y);
+      for (let y = 7; y <= 12; y++) for (let x = 10; x <= 19; x++) if (inZone(am, x, y)) court.push(x + ',' + y);
+      T.check('the court and the square are safe', court.length === 0, court.join(' '));
+      // the court
+      T.check('the court: hoops at both ends, keys, the halfway line, the centre circle, a fence with a way in', am.rows[16].slice(2, 13) === '5ZaaayaaaZ6' && am.rows[13][7] === 'a'
+        && ['5', '6', 'f'].every((c) => g.SOLID.has(c)) && ['a', 'j', 'y', 'Z'].every((c) => !g.SOLID.has(c)));
+      // nothing that matters hides under the HUD, from anywhere within three steps of it
+      const things = [
+        ...g.NPCS.filter((n) => n.map === 'ammerud' || n.map === 'darkPath').map((n) => [n.id, n.map, n.x, n.y]),
+        ...g.ITEMS.filter((i) => i.map === 'ammerud' || i.map === 'darkPath').map((i) => [i.id, i.map, i.x, i.y]),
+        ...Object.keys(am.signs).map((k) => ['sign ' + k, 'ammerud', ...k.split(',').map(Number)]),
+        ...Object.keys(am.exits).map((k) => ['exit ' + k, 'ammerud', ...k.split(',').map(Number)]),
+        ...Object.keys(dp.exits).map((k) => ['exit ' + k, 'darkPath', ...k.split(',').map(Number)]),
+        ['south gate', 'ammerud', 15, 21],
+      ];
+      const hidden = [];
+      for (const [id, map, tx, ty] of things) {
+        const m = g.MAPS[map];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) {
+          if (Math.abs(x - tx) + Math.abs(y - ty) > 3 || !walk(m, x, y, true)) continue;
+          if (hiddenFrom(map, x, y, tx, ty)) hidden.push(id + ' from ' + x + ',' + y);
+        }
+      }
+      T.check('no person, item, chest, sign, exit or gate of Ammerud is ever under the status panel or the tracker', hidden.length === 0, hidden.slice(0, 12).join('; '));
+      T.check('every chest and item stands on open ground, off the paths out', g.ITEMS.filter((i) => i.map === 'ammerud' || i.map === 'darkPath').every((i) => walk(g.MAPS[i.map], i.x, i.y, true) && !g.MAPS[i.map].exits[i.x + ',' + i.y]));
+      // nobody walls anybody in
+      for (const [name, sx, sy] of [['ammerud', 28, 10], ['darkPath', 14, 10]]) {
+        const m = g.MAPS[name], people = new Set(g.NPCS.filter((n) => n.map === name).map((n) => n.x + ',' + n.y)), seen = new Set([sx + ',' + sy]), todo = [[sx, sy]];
+        while (todo.length) {
+          const [x, y] = todo.pop();
+          for (const [dx, dy] of Object.values(DIRS)) {
+            const k = (x + dx) + ',' + (y + dy);
+            if (!seen.has(k) && !people.has(k) && walk(m, x + dx, y + dy, true)) { seen.add(k); todo.push([x + dx, y + dy]); }
+          }
+        }
+        const cut = [];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (walk(m, x, y, true) && !people.has(x + ',' + y) && !seen.has(x + ',' + y)) cut.push(x + ',' + y);
+        T.check(name + ': the people block nobody in', cut.length === 0, cut.join(' '));
+      }
+      // what the HUD and the log say about the new quests, at every stage, must fit
+      const wide = [], keep = JSON.stringify(g.q.trouble);
+      for (const [c, r, b] of [[0, 0, 0], [2, 1, 2], [3, 3, 1], [3, 3, 2]]) {
+        Object.assign(g.q.trouble, { c, r, b });
+        for (const id of ['trouble', 'ball', 'wisp']) {
+          const d = g.QUESTS[id];
+          if (d.title.length > 16 || ('NEW QUEST: ' + d.title).length > 28) wide.push(d.title);
+          if (d.progress().length > 15) wide.push(d.progress());
+          if (d.tracker().length > 16) wide.push(d.tracker());
+          if (('SEE ' + d.turnIn + '!').length > 16) wide.push(d.turnIn);
+        }
+      }
+      Object.assign(g.q.trouble, JSON.parse(keep));
+      T.check('every new quest title, log line and tracker fits', wide.length === 0, wide.join(' | '));
+      T.check('new gear names fit the status panel', ['bat'].every((k) => g.WEAPONS[k].name.length <= 11) && ['sneakers', 'rvest'].every((k) => g.ARMORS[k].name.length <= 11));
+      T.check('the old gear is as it was', JSON.stringify(['none', 'iron', 'crystal', 'axe'].map((k) => g.WEAPONS[k].atk)) === '[0,3,7,2]' && JSON.stringify(['none', 'vest', 'light'].map((k) => g.ARMORS[k].def)) === '[0,2,1]');
+      T.check('the Stovner enemies and bosses are as they were', JSON.stringify(['blue', 'rat', 'golem', 'glint', 'heidi', 'mohsin'].map((k) => [g.ENEMIES[k].hp, g.ENEMIES[k].atk, g.ENEMIES[k].def, g.ENEMIES[k].xp]))
+        === '[[44,19,5,22],[34,17,3,20],[44,22,16,34],[72,22,8,60],[100,20,14,70],[125,23,6,110]]');
+    }`,
+  },
+  { // each of Ammerud's monsters, met for certain on a chosen tile; what the gear does against them
+    name: 'ammerud-enemies', save: inAmmerud,
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      const want = { crawler: [58, 25, 7, 34], shadow: [40, 29, 4, 32], brute: [84, 25, 12, 48], wisp: [50, 27, 6, 40] };
+      const stats = (b) => JSON.stringify([b.max, b.atk, b.def, b.xp]);
+      // the crawler, on the lawn between the blocks
+      await meet(9, 4, 'down', 0, 'ammerud');
+      let b = g.battle;
+      T.check('a concrete crawler, by its full name', b.type === 'crawler' && b.name === 'CONCRETE CRAWLER' && stats(b) === JSON.stringify(want.crawler) && !b.boss, b.type + ' ' + stats(b));
+      T.check('it waits for the hero', g.player.hp === 100 && b.turn === 0);
+      T.shot('crawler');
+      T.check('crystal sword: 25', await swing() === 25);
+      await T.fight(cautious);
+      T.check('beaten, and still in Ammerud with nothing counted for an unstarted quest', g.mode === 'world' && g.player.map === 'ammerud' && g.q.trouble.c === 0 && g.stats.won === 53);
+      // the brute, armoured: the axe smashes through, the sword does not
+      g.player.hp = 100;
+      await meet(9, 4, 'down', 0.5, 'ammerud');
+      b = g.battle;
+      T.check('a block brute', b.type === 'brute' && b.name === 'BLOCK BRUTE' && stats(b) === JSON.stringify(want.brute), b.type + ' ' + stats(b));
+      T.shot('brute');
+      T.check('crystal sword against its armour: 20', await swing() === 20);
+      await T.until(() => b.phase === 'menu', 'the battle menu');
+      g.player.weapons.push('axe'); g.player.weapon = 'axe';
+      T.check('the heavy axe through its armour: 27', await swing() === 27);
+      await T.fight(cautious);
+      g.player.weapon = 'crystal';
+      // the shadow rat, quick: it bites first in the Tough Vest, not in sneakers
+      g.player.hp = 100;
+      await meet(20, 15, 'down', 0, 'ammerud');
+      b = g.battle;
+      T.check('a shadow rat', b.type === 'shadow' && b.name === 'SHADOW RAT' && stats(b) === JSON.stringify(want.shadow), b.type + ' ' + stats(b));
+      const bite = 100 - g.player.hp;
+      T.check('quick: it bit before the hero could move, and hard', bite >= 17 && bite <= 19 && b.turn === 0, bite);
+      T.shot('shadow');
+      await T.fight(cautious);
+      g.player.armors.push('sneakers'); g.player.armor = 'sneakers'; g.player.hp = 100;
+      await meet(20, 15, 'down', 0, 'ammerud');
+      T.check('in sneakers it gets no opening bite', g.player.hp === 100 && g.battle.type === 'shadow', g.player.hp);
+      await T.fight(cautious);
+      g.player.armor = 'vest';
+      // the wisp, only on the dark path
+      g.player.hp = 100;
+      await meet(10, 4, 'up', 0, 'darkPath');
+      b = g.battle;
+      T.check('a forest wisp, with the dark path behind it', b.type === 'wisp' && b.name === 'FOREST WISP' && stats(b) === JSON.stringify(want.wisp) && b.backdrop === 'woods', b.type + ' ' + stats(b));
+      T.shot('wisp');
+      await T.fight(cautious);
+      T.check('all beaten', g.stats.won === 57 && g.mode === 'world' && g.player.map === 'darkPath', g.stats.won);
+      T.state('after');
+    }`,
+  },
+  { // SELMA's quest from the offer to MARCUS turning up, with reloads along the way
+    name: 'ammerud-trouble', save: moved(chapterTwoDone, 'ammerud', 25, 10, 'up'),
+    run: [
+      `async (T, g) => {
+        ${MEET}
+        await T.continueGame();
+        await T.talk('offer');
+        T.check('accepted, tracked and saved', g.q.trouble.s === 1 && g.tracked === 'trouble' && saved().q.trouble.s === 1 && JSON.stringify(saved().q.trouble) === '{"s":1,"c":0,"r":0,"b":0}');
+        T.check('MARCUS is not at the court yet', !g.NPCS.find((n) => n.id === 'marcus').visible());
+        T.shot('tracker');
+        await T.tap('KeyX', 6);
+        T.check('the log opens on the page of the new quest', g.menuPage === 2, g.menuPage);
+        T.shot('log');
+        await T.tap('KeyX', 6);
+        await T.talk('progress');
+        T.check('talking again changes nothing', g.q.trouble.s === 1 && g.mode === 'world');
+        for (let i = 1; i <= 2; i++) {
+          g.player.hp = g.player.maxhp;
+          await meet(9, 4, 'down', 0, 'ammerud');
+          await T.fight(cautious);
+          T.check('crawler ' + i + ' counted and saved', g.q.trouble.c === i && saved().q.trouble.c === i, g.q.trouble.c);
+        }
+        T.shot('two-crawlers');
+      }`,
+      `async (T, g) => {
+        ${MEET}
+        ${WATCH}
+        await T.continueGame();
+        T.check('CONTINUE: two crawlers, nothing else', JSON.stringify(g.q.trouble) === '{"s":1,"c":2,"r":0,"b":0}', JSON.stringify(g.q.trouble));
+        const fight = async (x, y, dir, v, type) => {
+          g.player.hp = g.player.maxhp;
+          await meet(x, y, dir, v, 'ammerud');
+          T.check('a ' + type, g.battle.type === type, g.battle.type);
+          return watchFight(30, [['last', /attention/]]);
+        };
+        await fight(9, 4, 'down', 0, 'crawler');
+        await fight(9, 4, 'down', 0, 'crawler');
+        T.check('a fourth crawler does not count', g.q.trouble.c === 3, g.q.trouble.c);
+        for (let i = 0; i < 3; i++) await fight(20, 15, 'down', 0, 'shadow');
+        await fight(9, 4, 'down', 0.5, 'brute');
+        T.check('everything but one brute: still no MARCUS', JSON.stringify(g.q.trouble) === '{"s":1,"c":3,"r":3,"b":1}' && !g.NPCS.find((n) => n.id === 'marcus').visible(), JSON.stringify(g.q.trouble));
+        const { seen } = await fight(9, 4, 'down', 0.5, 'brute');
+        T.check('the last one says so', seen.last === 1);
+        T.check('all counted and saved, the quest still running', JSON.stringify(g.q.trouble) === '{"s":1,"c":3,"r":3,"b":2}' && JSON.stringify(saved().q.trouble) === '{"s":1,"c":3,"r":3,"b":2}');
+        T.check('MARCUS has turned up at the court', g.NPCS.find((n) => n.id === 'marcus').visible() && !g.flags.marcusBeaten);
+        T.shot('tracker-done');
+        T.place('ammerud', 25, 10, 'up');
+        await T.talk('selma-court');
+        T.check('SELMA sends the hero to the court, nothing else changes', g.q.trouble.s === 1 && g.mode === 'world');
+      }`,
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: MARCUS is still at the court', g.NPCS.find((n) => n.id === 'marcus').visible() && g.q.trouble.s === 1);
+        T.place('ammerud', 7, 14, 'down');
+        await T.frames(20);
+        T.shot('marcus-waits');
+      },
+    ],
+  },
+  { // no MARCUS before the quest, nor halfway through it
+    name: 'ammerud-marcus-not-early', save: moved(inAmmerud, 'ammerud', 7, 15, 'down'),
+    run: [[0, 0, 0, 0], [1, 3, 3, 1], [1, 2, 3, 2]].map(([s, c, r, b], i, all) => `async (T, g) => {
+      const KEY = 'turnip-vale-save-v1', next = ${JSON.stringify(all[i + 1] || null)};
+      await T.continueGame();
+      T.check('quest at ${s} with ${c}/${r}/${b}: MARCUS is not there', g.q.trouble.s === ${s} && g.q.trouble.c === ${c} && !g.NPCS.find((n) => n.id === 'marcus').visible());
+      await T.tap('Space', 6);
+      T.check('nobody on the centre circle to talk to', g.mode === 'world');
+      await T.step('down');
+      T.check('the centre circle is free to walk on', g.player.y === 16 && g.mode === 'world');
+      await T.step('up');
+      if (${i} === 0) T.shot('empty-court');
+      if (next) { const d = JSON.parse(localStorage.getItem(KEY)); d.q.trouble = { s: next[0], c: next[1], r: next[2], b: next[3] }; Object.assign(d.player, { x: 7, y: 15, fx: 7, fy: 15, tx: 7, ty: 15, dir: 'down' }); localStorage.setItem(KEY, JSON.stringify(d)); }
+    }`),
+  },
+  { name: 'ammerud-marcus', save: atMarcus, run: marcusFight(13, 4, 50, true) },
+  ...['mohammed', 'celine', 'alexandra'].map((id) => ({
+    name: `ammerud-marcus-${id}`, save: withHero(atMarcus, id), run: marcusFight(13, 4), sameAs: { beaten: 'ammerud-marcus__beaten' },
+  })),
+  { name: 'ammerud-marcus-light-vest', save: gear(atMarcus, 'crystal', 'light'), run: marcusFight(13, 4) },
+  { // level 9, the Iron Sword and the Tough Vest: the hardest sensible way to do it
+    name: 'ammerud-marcus-modest',
+    save: (() => { const d = gear(atMarcus, 'iron', 'vest'); Object.assign(d.player, level(9), { maxhp: 94, hp: 94, weapons: ['none', 'iron'] }); return d; })(),
+    run: marcusFight(18, 6, 55),
+  },
+  { // one measured blow with each weapon, and running away leaves him unbeaten
+    name: 'ammerud-marcus-weapons', save: atMarcus,
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      const dealt = {};
+      g.player.weapons.push('axe', 'bat');
+      for (const w of ['crystal', 'axe', 'bat']) {
+        g.player.weapon = w; g.player.hp = g.player.maxhp;
+        await T.talk();
+        await T.untilBattle();
+        dealt[w] = await swing();
+        await T.fight(() => 2);
+        T.check('got away: he is unbeaten and nothing was handed over', g.mode === 'world' && !g.flags.marcusBeaten && !g.flags.marcusBat && g.q.trouble.s === 1 && g.stats.won === 52, g.mode);
+      }
+      // hero ATK 24; +7 / +2 / +9; +1 from the dice; less his DEF 9
+      T.check('crystal 23, axe 18, bat 25', dealt.crystal === 23 && dealt.axe === 18 && dealt.bat === 25, JSON.stringify(dealt));
+    }`,
+  },
+  { // closed in the middle of the hand-over: he finishes it next time, once
+    name: 'ammerud-marcus-handover-interrupted', save: { ...atMarcus, flags: { ...atMarcus.flags, marcusBeaten: true } },
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        T.check('beaten, no bat yet', g.flags.marcusBeaten === true && !g.flags.marcusBat && !g.player.weapons.includes('bat') && g.q.trouble.s === 1);
+        await T.talk('handover');
+        T.check('no second fight: the bat, once', g.stats.won === 52 && g.player.weapons.filter((w) => w === 'bat').length === 1 && g.player.weapon === 'bat' && g.q.trouble.s === 2 && g.mode === 'world');
+        await T.talk('after');
+        T.check('still once', g.player.weapons.filter((w) => w === 'bat').length === 1);
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: the bat is owned and worn, once', g.player.weapon === 'bat' && g.player.weapons.filter((w) => w === 'bat').length === 1 && g.flags.marcusBat === true && g.q.trouble.s === 2);
+        await T.talk();
+        T.check('and he gives nothing more', g.player.weapons.length === 3 && g.mode === 'world');
+      },
+    ],
+  },
+  { // beaten by him: carried home with nothing, and he waits for another try
+    name: 'ammerud-marcus-defeat',
+    save: (() => { const d = JSON.parse(JSON.stringify(atMarcus)); Object.assign(d.player, level(1), { hp: 5, herbs: 0 }); return d; })(),
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') { await T.frames(150); await T.tap('Space', 3); }
+        await T.untilBattle();
+        await T.fight();
+        await T.until(() => g.mode === 'dialog', 'being carried home');
+        await T.dialog();
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('in the village, patched up, saved there', g.player.map === 'village' && g.player.hp === g.player.maxhp && d.player.map === 'village');
+        T.check('no bat, MARCUS unbeaten, the quest and its counts as they were', !d.flags.marcusBeaten && !d.flags.marcusBat && !d.player.weapons.includes('bat') && JSON.stringify(d.q.trouble) === '{"s":1,"c":3,"r":3,"b":2}');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.place('ammerud', 7, 15, 'down');
+        await T.tap('Space', 3);
+        T.check('MARCUS is waiting for another try', g.mode === 'dialog' && g.dlg.name === 'MARCUS', g.mode);
+      },
+    ],
+  },
+  { // back to SELMA with EMIL's ball still to find: the chapter ends, the south gate opens, Grorud is next
+    name: 'ammerud-chapter', save: { ...marcusDone(moved(chapterTwoDone, 'ammerud', 25, 10, 'up')), q: { ...marcusDone(chapterTwoDone).q, ball: { s: 1 } } },
+    run: [
+      async (T, g) => {
+        const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+        await T.continueGame();
+        T.check('ready to report, Chapter 3', g.q.trouble.s === 2 && g.chapter === 2 && !g.storyDone && g.NPCS.find((n) => n.id === 'selma').news());
+        let spoke = false;
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') {
+          await T.frames(150);
+          if (g.dlg.name === 'MICHAEL') { if (!spoke) T.shot('hero-speaks'); spoke = true; }
+          await T.tap('Space', 3);
+        }
+        T.check('the hero answers under the hero\'s own name', spoke);
+        await T.until(() => g.mode === 'victory', 'the chapter screen');
+        await T.frames(120);
+        T.shot('chapter-complete');
+        T.check('AMMERUD TROUBLE is done, the south gate unlocked, both saved', g.q.trouble.s === 3 && saved().q.trouble.s === 3 && g.flags.grorudGate === true && saved().flags.grorudGate === true);
+        await T.tap('Space');
+        await T.until(() => g.mode === 'world', 'the world');
+        await T.frames(40);
+        T.check('Chapter 4 now, Grorud next, and the story is not over', g.chapter === 3 && !g.storyDone && g.CHAPTERS[3].name === 'GRORUD' && g.player.map === 'ammerud');
+        T.check('the ball is still being looked for, and is tracked again', g.q.ball.s === 1 && g.tracked === 'ball');
+        const flags = JSON.stringify(g.flags), gold = g.player.gold;
+        await T.talk('selma-after-1'); await T.talk('selma-after-2');
+        T.check('no second chapter screen, nothing given twice', g.mode === 'world' && JSON.stringify(g.flags) === flags && g.player.gold === gold);
+        T.place('ammerud', 15, 20, 'down');
+        await T.frames(20);
+        T.shot('south-gate-open');
+        await T.talk('beyond');
+        await T.step('down');
+        T.check('the road to Grorud is not built: no way through, no other map', g.player.y === 20 && g.player.map === 'ammerud' && Object.keys(g.MAPS).length === 10);
+        // switch away from the bat and save by hand
+        await T.tap('KeyX', 6);
+        await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
+        T.check('the cursor reaches the weapon line', g.menuSel === 0);
+        T.shot('weapons');
+        await T.tap('Space', 4); await T.tap('Space', 4);
+        T.check('the bat, the stick, then the crystal sword', g.player.weapon === 'crystal' && JSON.stringify(g.player.weapons) === '["none","crystal","bat"]', g.player.weapon);
+        await T.tap('ArrowDown', 4); await T.tap('ArrowDown', 4);
+        await T.tap('Space', 6);
+        T.check('SAVED! with the crystal sword in hand', g.menuNote && g.menuNote.text === 'SAVED!' && saved().player.weapon === 'crystal');
+        await T.tap('KeyX', 6);
+        T.state('chapter-done');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: chapter, gate, bat, and everything from before', g.chapter === 3 && g.q.trouble.s === 3 && g.player.weapon === 'crystal' && g.player.weapons.includes('bat')
+          && ['fragment1', 'fragment2', 'redKey', 'blueKey', 'redGate', 'blueGate', 'marcusBeaten', 'marcusBat', 'grorudGate'].every((k) => g.flags[k] === true));
+        await T.tap('KeyX', 6);
+        await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4); await T.tap('Space', 4);
+        T.check('the bat can be worn again', g.player.weapon === 'bat');
+        await T.tap('KeyX', 6);
+        await T.tap('KeyX', 6);
+        T.check('twelve quests known: the log opens on page 3, where the ball is', g.menuPage === 2, g.menuPage);
+        await T.tap('ArrowRight', 6);
+        T.check('and turns over to page 1', g.menuPage === 0, g.menuPage);
+        await T.tap('KeyX', 6);
+        T.place('ammerud', 7, 15, 'down');
+        await T.frames(20);
+        T.check('in the world beside MARCUS', g.mode === 'world' && g.NPCS.find((n) => n.id === 'marcus').visible(), g.mode);
+        await T.talk('marcus-later');
+        T.check('MARCUS stays at the court and stays beaten', g.mode === 'world' && g.NPCS.find((n) => n.id === 'marcus').visible() && g.player.weapons.filter((w) => w === 'bat').length === 1);
+        T.place('ammerud', 28, 10, 'right');
+        await T.step('right');
+        await T.until(() => g.player.map === 'stovner', 'Stovner');
+        await T.frames(60);
+        T.place('stovner', 16, 9, 'up');
+        await T.talk('johanne');
+        T.check('Stovner is still a walk away, and JOHANNE has nothing new', g.mode === 'world' && g.q.mohsin.s === 3);
+        T.state('wandered');
+      },
+    ],
+  },
+  { // EMIL's ball, with a reload after finding it and after handing it back
+    name: 'ammerud-ball', save: moved(inAmmerud, 'ammerud', 8, 11, 'down'),
+    run: [
+      async (T, g) => {
+        const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+        await T.continueGame();
+        g.MAPS.ammerud.encounter.chance = 0; // (only in this run of the game: no monsters while walking about)
+        T.place('ammerud', 26, 19, 'right');
+        await T.step('right');
+        T.check('no ball lies about before EMIL asks', g.mode === 'world' && g.player.x === 27 && !g.flags.ball);
+        T.place('ammerud', 8, 11, 'down');
+        await T.frames(20);
+        T.shot('emil');
+        await T.talk('offer');
+        T.check('accepted and saved', g.q.ball.s === 1 && saved().q.ball.s === 1 && g.tracked === 'ball');
+        await T.talk('hint');
+        T.place('ammerud', 26, 19, 'right');
+        await T.frames(20);
+        T.shot('ball');
+        await T.step('right');
+        T.check('found by walking onto it', g.mode === 'dialog' && g.player.x === 27 && g.player.y === 19, g.mode);
+        await T.dialog('found');
+        T.check('ready and saved', g.q.ball.s === 2 && g.flags.ball === true && saved().q.ball.s === 2 && saved().flags.ball === true);
+        await T.step('left'); await T.step('right');
+        T.check('only one ball', g.mode === 'world');
+        T.shot('ball-gone');
+      },
+      async (T, g) => {
+        const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+        await T.continueGame();
+        T.check('CONTINUE: the ball is carried, not lying in the park', g.q.ball.s === 2 && !g.ITEMS.some((i) => i.id === 'ball' && !g.flags.ball));
+        T.place('ammerud', 8, 11, 'down');
+        await T.talk('return');
+        T.check('SNEAKERS owned once, not put on by themselves, quest done and saved', g.player.armors.filter((a) => a === 'sneakers').length === 1 && g.player.armor === 'vest' && g.q.ball.s === 3
+          && saved().q.ball.s === 3 && saved().player.armors.includes('sneakers'));
+        await T.talk('after'); await T.talk('after-2');
+        T.check('no second pair', g.player.armors.filter((a) => a === 'sneakers').length === 1);
+        await T.tap('KeyX', 6);
+        await T.tap('ArrowUp', 4);
+        await T.tap('Space', 4);
+        T.check('put on from the menu', g.player.armor === 'sneakers', g.player.armor);
+        T.shot('sneakers');
+        await T.tap('ArrowDown', 4); await T.tap('Space', 6); await T.tap('KeyX', 6);
+      },
+      `async (T, g) => {
+        ${MEET}
+        await T.continueGame();
+        T.check('CONTINUE in sneakers', g.player.armor === 'sneakers' && g.q.ball.s === 3 && g.flags.ball === true);
+        await meet(20, 15, 'down', 0, 'ammerud');
+        T.check('a shadow rat gets no opening bite', g.battle.type === 'shadow' && g.player.hp === g.player.maxhp);
+        await T.fight(cautious);
+        T.state('done');
+      }`,
+    ],
+  },
+  { // ASTRID's light on the dark path, the glowing wisp, and the WISP FRAGMENT
+    name: 'ammerud-wisp', save: moved(inAmmerud, 'ammerud', 6, 9, 'up'),
+    run: [
+      `async (T, g) => {
+        ${MEET}
+        ${WATCH}
+        await T.continueGame();
+        const wisp = () => g.NPCS.find((n) => n.id === 'glowwisp');
+        T.check('no light on the path before ASTRID asks', !wisp().visible());
+        await T.talk('offer');
+        T.check('accepted and saved', g.q.wisp.s === 1 && saved().q.wisp.s === 1 && g.tracked === 'wisp');
+        g.MAPS.darkPath.encounter.chance = 0; g.MAPS.ammerud.encounter.chance = 0; // (only in this run of the game: no monsters while walking about)
+        await T.step('left', 6);
+        await T.until(() => g.player.map === 'darkPath', 'the dark path');
+        await T.frames(20);
+        T.shot('dark-path');
+        await T.frames(40);
+        T.check('onto the dark path, autosaved', g.player.x === 14 && g.player.y === 10 && saved().player.map === 'darkPath');
+        T.check('the light is there now', wisp().visible());
+        T.place('darkPath', 5, 5, 'left');
+        await T.frames(20);
+        T.shot('the-light');
+        await T.talk('wisp');
+        await T.untilBattle();
+        const b = g.battle;
+        T.check('a glowing wisp: tougher than a wanderer, but no boss', b.type === 'glowwisp' && b.name === 'GLOWING WISP' && !b.boss && b.max === 110 && b.atk === 28 && b.def === 8 && b.xp === 90, JSON.stringify([b.max, b.atk, b.def, b.xp, b.boss]));
+        T.shot('battle');
+        await T.fight(() => 2);
+        T.check('running away: the light stays, no fragment', g.mode === 'world' && wisp().visible() && !g.flags.wispFragment && g.q.wisp.s === 1);
+        g.player.hp = g.player.maxhp;
+        await T.talk();
+        await T.untilBattle();
+        const { turns, seen } = await watchFight(45, [['flare', /flares cold/], ['fragment', /WISP FRAGMENT/]]);
+        T.check('it flared, and was beaten', seen.flare >= 1 && seen.fragment === 1 && g.player.hp > 0, JSON.stringify(seen));
+        await T.frames(70);
+        T.check('the WISP FRAGMENT, once; the quest is ready; all saved', g.flags.wispFragment === true && g.q.wisp.s === 2 && saved().flags.wispFragment === true && saved().q.wisp.s === 2);
+        T.check('the light has gone out', !wisp().visible());
+        T.check('a fair fight', turns <= 8, turns);
+        T.shot('gone');
+        await T.tap('KeyX', 6);
+        T.check('the menu opens on SAVE, with the ITEMS line above it', g.menuSel === 2);
+        T.shot('menu');
+        await T.tap('ArrowUp', 4);
+        T.check('up: ITEMS', g.menuSel === 3);
+        T.shot('items');
+        await T.tap('Space', 4);
+        T.check('nothing to change there', g.menuSel === 3 && g.player.weapon === 'crystal' && g.player.armor === 'vest');
+        await T.tap('ArrowUp', 4);
+        T.check('up again: the armour', g.menuSel === 1);
+        await T.tap('ArrowDown', 4); await T.tap('ArrowDown', 4);
+        T.check('and back down to SAVE', g.menuSel === 2);
+        await T.tap('Space', 6);
+        await T.tap('KeyX', 6);
+      }`,
+      async (T, g) => {
+        const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+        await T.continueGame();
+        T.check('CONTINUE: the fragment is kept and the light stays out', g.flags.wispFragment === true && g.q.wisp.s === 2 && !g.NPCS.find((n) => n.id === 'glowwisp').visible());
+        T.place('ammerud', 6, 9, 'up');
+        const gold = g.player.gold;
+        await T.talk('return');
+        T.check('50 gold, quest done, the fragment kept', g.player.gold === gold + 50 && g.q.wisp.s === 3 && g.flags.wispFragment === true && saved().q.wisp.s === 3);
+        await T.talk('after');
+        T.check('no more gold', g.player.gold === gold + 50);
+        T.check('the light never comes back', !g.NPCS.find((n) => n.id === 'glowwisp').visible());
+        T.state('done');
+      },
+    ],
+  },
+  { // NADIA's kiosk: herbs, the bigger pouch once, the reinforced vest once
+    name: 'ammerud-shop', save: moved(inAmmerud, 'ammerud', 14, 10, 'up'),
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.talk('greeting');
+        T.check('the kiosk opens', g.mode === 'shop' && g.shop.id === 'nadia');
+        T.shot('shop');
+        await T.tap('Space', 4);
+        T.check('a full pouch takes no herb', g.player.gold === 520 && g.player.herbs === 6 && g.shop.note === 'Your pouch is full!');
+        await T.tap('ArrowDown', 4); await T.tap('Space', 4);
+        T.check('HERB POUCH+1: 90 gold, one more herb, and one in it', g.player.gold === 430 && g.player.maxHerbs === 7 && g.player.herbs === 7 && g.flags.pouchBought === true);
+        await T.tap('Space', 4);
+        T.check('only once', g.player.gold === 430 && g.player.maxHerbs === 7 && g.shop.note === 'Sold out!');
+        await T.tap('ArrowDown', 4); await T.tap('Space', 4);
+        T.check('REINF. VEST: 160 gold, owned and worn, the Tough Vest kept', g.player.gold === 270 && g.player.armor === 'rvest' && JSON.stringify(g.player.armors) === '["none","vest","rvest"]');
+        await T.tap('Space', 4);
+        T.check('not sold twice', g.player.gold === 270 && g.shop.note === 'You already wear one.');
+        T.shot('bought');
+        await T.tap('ArrowDown', 4); await T.tap('Space', 4);
+        T.check('LEAVE', g.mode === 'world');
+        await T.talk('again');
+        T.check('she knows the hero now, and opens again', g.mode === 'shop' && g.flags.metNadia === true);
+        await T.tap('KeyX', 4);
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: vest worn, pouch bigger, gold spent', g.player.armor === 'rvest' && g.player.maxHerbs === 7 && g.player.gold === 270 && g.flags.pouchBought === true);
+        await T.talk();
+        T.shot('owned');
+        await T.tap('KeyX', 4);
+        T.state('after');
+      },
+    ],
+  },
+  { // the two chests: 80 gold among the blocks, a bigger herb pouch on the dark path; neither comes back
+    name: 'ammerud-chests', save: inAmmerud,
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        g.MAPS.ammerud.encounter.chance = 0; g.MAPS.darkPath.encounter.chance = 0; // (only in this run of the game: no monsters while walking about)
+        T.place('ammerud', 27, 4, 'up');
+        await T.frames(20);
+        T.shot('gold-chest');
+        await T.step('up');
+        await T.dialog('gold');
+        T.check('80 gold', g.player.gold === 600 && g.flags.chestGold === true);
+        await T.step('down'); await T.step('up');
+        T.check('opened once', g.player.gold === 600 && g.mode === 'world');
+        T.place('darkPath', 8, 13, 'down');
+        await T.frames(20);
+        T.shot('pouch-chest');
+        await T.step('down');
+        await T.dialog('pouch');
+        T.check('a bigger pouch, full', g.player.maxHerbs === 7 && g.player.herbs === 7 && g.flags.chestPouch === true);
+        await T.step('up'); await T.step('down');
+        T.check('opened once', g.player.maxHerbs === 7 && g.mode === 'world');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: both opened, nothing back', g.flags.chestGold === true && g.flags.chestPouch === true && g.player.gold === 600 && g.player.maxHerbs === 7
+          && g.ITEMS.filter((i) => i.chest && (i.map === 'ammerud' || i.map === 'darkPath')).every((i) => g.flags[i.id]));
+        T.shot('continued');
+        T.state('after');
+      },
+    ],
+  },
+  { // the on-screen buttons: SELMA's offer, the log, and the ITEMS line
+    name: 'ammerud-touch', save: withHero({ ...moved(inAmmerud, 'ammerud', 25, 10, 'up'), flags: { ...inAmmerud.flags, wispFragment: true }, q: { ...inAmmerud.q, wisp: { s: 2 } } }, 'celine'),
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.touch('a');
+      T.check('A talks to SELMA', g.mode === 'dialog' && g.dlg.name === 'SELMA', g.mode);
+      let presses = 0, spoke = false;
+      while (g.mode === 'dialog') {
+        await T.frames(150);
+        if (g.dlg.name === 'CELINE') { if (!spoke) T.shot('hero-speaks'); spoke = true; }
+        await T.touch('a', 3);
+        if (++presses > 12) throw new Error('the talk never ended');
+      }
+      T.check('the hero answers as CELINE, and the quest is taken', spoke && g.q.trouble.s === 1 && g.mode === 'world');
+      await T.touch('b');
+      T.check('B opens the log on the page of the new quest', g.mode === 'menu' && g.menuPage === 2, g.menuPage);
+      T.shot('log');
+      await T.touch('up');
+      T.check('up: ITEMS', g.menuSel === 3);
+      T.shot('items');
+      await T.touch('down');
+      await T.touch('a');
+      T.check('A on SAVE saves', g.menuNote && g.menuNote.text === 'SAVED!');
+      await T.touch('b');
+      T.check('B closes it', g.mode === 'world');
+    },
+  },
+];
+
+// A save exactly as the published 1E game (commit a74c095) wrote it, byte for byte: made by playing that
+// version from the end of Stovner, turning in to JOHANNE, opening the west gate with the Blue Key (which
+// 1E showed as open but kept solid, "the road to AMMERUD lies beyond") and saving by hand in front of it.
+// It has the 1E fields: hero, weapons, armors, the ten 1E quests and no Ammerud quest, blueGate: true.
+const REAL_1E_SAVE = {"v":1,"player":{"map":"stovner","x":1,"y":9,"dir":"left","moving":false,"fx":1,"fy":9,"tx":1,"ty":9,"t":0,"lvl":10,"hp":100,"maxhp":100,"atk":24,"def":10,"xp":0,"next":454,"herbs":6,"maxHerbs":6,"gold":400,"weapon":"crystal","armor":"light","weapons":["none","crystal","axe"],"armors":["none","vest","light"],"shards":0,"glowcaps":0,"sickle":true,"sinceBattle":2,"hero":"mohammed"},"q":{"slimes":{"s":3,"n":3},"biscuit":{"s":3},"glowcap":{"s":3},"king":{"s":3},"shards":{"s":3},"road":{"s":3,"n":3},"cart":{"s":3},"under":{"s":3},"mohsin":{"s":3},"kebab":{"s":3}},"flags":{"vines":true,"metBram":true,"shard1":true,"shard2":true,"fragment1":true,"redKey":true,"redGate":true,"tunnelOpen":true,"northOpen":true,"mohsinBeaten":true,"fragment2":true,"blueKey":true,"chestAxe":true,"chestVest":true,"kebab":true,"blueGate":true},"stats":{"won":70,"slimes":17,"steps":4000},"tracked":null};
+// The same save from before the gate was opened: the Blue Key is held, the gate is still shut.
+const REAL_1E_SAVE_SHUT = (() => { const d = JSON.parse(JSON.stringify(REAL_1E_SAVE)); delete d.flags.blueGate; return d; })();
+const realGateScenarios = [
+  { // CONTINUE a real 1E save in front of the open west gate: through it, into Ammerud, saved, and back
+    name: 'ammerud-gate-real-1e-save', save: REAL_1E_SAVE,
+    run: [
+      async (T, g) => {
+        const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+        const raw = saved();
+        T.check('the fixture is a 1E save: hero, gear lists, ten quests, no Ammerud quest, gate open', raw.v === 1 && raw.player.hero === 'mohammed' && Array.isArray(raw.player.weapons)
+          && Object.keys(raw.q).join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab' && raw.flags.blueGate === true && raw.flags.blueKey === true && raw.player.x === 1 && raw.player.y === 9);
+        await T.continueGame();
+        const gate = g.MAPS.stovner.gates['0,9'];
+        T.check('CONTINUE: in front of the west gate, which is open and can be walked on', g.player.map === 'stovner' && g.player.x === 1 && g.player.y === 9 && g.player.dir === 'left'
+          && g.flags.blueGate === true && gate.open === 'L' && !g.SOLID.has(gate.open) && g.MAPS.stovner.exits['0,9'].map === 'ammerud');
+        T.shot('gate-open');
+        await T.tap('Space', 6);
+        T.check('the open gate says nothing (1E said "the road to AMMERUD lies beyond" and kept the hero out)', g.mode === 'world');
+        T.keyDown('ArrowLeft'); await T.frames(2); T.keyUp('ArrowLeft');
+        await T.until(() => g.player.x === 0 || g.player.map !== 'stovner', 'the gate tile', 60);
+        T.check('the hero steps onto the gate tile', g.player.x === 0 && g.player.y === 9 && g.player.map === 'stovner', g.player.map + ' ' + g.player.x);
+        await T.until(() => g.player.map === 'ammerud', 'Ammerud', 120);
+        await T.frames(60);
+        T.check('in AMMERUD, just inside, facing west', g.player.x === 28 && g.player.y === 10 && g.player.dir === 'left' && g.mode === 'world', g.player.x + ',' + g.player.y + ' ' + g.player.dir);
+        T.check('autosaved there, with everything from 1E kept', saved().player.map === 'ammerud' && saved().player.x === 28 && saved().player.hero === 'mohammed' && saved().player.armor === 'light'
+          && saved().player.weapons.join() === 'none,crystal,axe' && saved().flags.blueGate === true && saved().q.mohsin.s === 3 && saved().q.trouble.s === 0);
+        T.shot('ammerud');
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE in Ammerud', g.player.map === 'ammerud' && g.player.x === 28 && g.player.y === 10);
+        await T.step('right');
+        await T.until(() => g.player.map === 'stovner', 'Stovner', 120);
+        await T.frames(60);
+        T.check('back to Stovner, inside the west gate, facing east', g.player.x === 1 && g.player.y === 9 && g.player.dir === 'right' && g.mode === 'world', g.player.x + ',' + g.player.y);
+        await T.touch('left', 20);
+        await T.until(() => g.player.map === 'ammerud', 'Ammerud by touch', 120);
+        await T.frames(60);
+        T.check('and through again with the on-screen D-pad', g.player.x === 28 && g.player.y === 10);
+      },
+    ],
+  },
+  { // the same real 1E save before the Blue Key was used: the shut gate still blocks, then opens and lets the hero through
+    name: 'ammerud-gate-real-1e-save-shut', save: REAL_1E_SAVE_SHUT,
+    run: async (T, g) => {
+      await T.continueGame();
+      await T.step('left');
+      await T.frames(60);
+      T.check('shut: the hero stays in Stovner', g.player.map === 'stovner' && g.player.x === 1 && !g.flags.blueGate);
+      T.shot('gate-shut');
+      await T.talk('unlock');
+      T.check('the Blue Key opens it, saved', g.flags.blueGate === true && JSON.parse(localStorage.getItem('turnip-vale-save-v1')).flags.blueGate === true);
+      await T.step('left');
+      await T.until(() => g.player.map === 'ammerud', 'Ammerud', 120);
+      await T.frames(60);
+      T.check('and then the way is through', g.player.x === 28 && g.player.y === 10 && g.player.dir === 'left');
     },
   },
 ];
@@ -3443,6 +4290,8 @@ export const SCENARIOS = [
   ...combatScenarios,
   ...questScenarios,
   ...mohsinScenarios,
+  ...ammerudScenarios,
+  ...realGateScenarios,
   ...manualSaveScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,

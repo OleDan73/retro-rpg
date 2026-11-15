@@ -572,9 +572,150 @@
     for (let y = 8; y < 12; y++) for (let x = 7 + (y % 2); x < 12; x += 2) P(g, x, y, 15);
   });
   TILE['6'] = flip(TILE['5']);
+  // ---- Grorud: green heights with a cliff, old red-brick houses, and the dark factory
+  TILE['^'] = mk(16, 16, (g) => { // a rock ledge: grass on top, a stone face below
+    grass(g, 15);
+    R(g, 0, 5, 16, 11, 7);
+    for (const [x, y, w, h] of [[0, 6, 6, 4], [6, 6, 10, 3], [0, 11, 9, 4], [9, 10, 7, 5]]) {
+      R(g, x, y, w, 1, 10); R(g, x + w - 1, y + 1, 1, h - 1, 3);
+    }
+    R(g, 0, 4, 16, 1, 5); R(g, 0, 15, 16, 1, 3);
+    P(g, 4, 12, 3); P(g, 12, 7, 3);
+  });
+  TILE['>'] = mk(16, 16, (g) => { // stone steps cut into the ledge
+    g.drawImage(TILE['^'], 0, 0);
+    R(g, 2, 4, 12, 12, 3);
+    for (let i = 0; i < 4; i++) { R(g, 3, 5 + i * 3, 10, 2, 10); R(g, 3, 7 + i * 3, 10, 1, 7); }
+  });
+  function brickWall(g) {
+    R(g, 0, 0, 16, 16, 4);
+    for (let r = 0; r < 4; r++) {
+      const y = r * 4;
+      R(g, 0, y + 3, 16, 1, 1);
+      for (let x = (r % 2) * 4; x < 16; x += 8) R(g, x, y, 1, 3, 1);
+      for (let x = (r % 2) * 4 + 1; x < 16; x += 8) R(g, x, y, 3, 1, 6);
+    }
+    R(g, 0, 15, 16, 1, 1);
+  }
+  TILE['&'] = mk(16, 16, (g) => { // red brick with a window
+    brickWall(g);
+    R(g, 3, 3, 10, 9, 0); R(g, 4, 4, 8, 7, 2);
+    R(g, 4, 4, 8, 1, 13); R(g, 4, 5, 2, 2, 13); R(g, 8, 4, 1, 7, 0);
+    R(g, 2, 12, 12, 1, 12);
+  });
+  TILE['$'] = mk(16, 16, (g) => { // red brick door
+    brickWall(g);
+    R(g, 3, 2, 10, 14, 0); R(g, 4, 3, 8, 13, 5);
+    R(g, 5, 4, 6, 4, 13); R(g, 5, 4, 6, 1, 15); R(g, 8, 4, 1, 4, 0);
+    P(g, 10, 10, 14);
+  });
+  TILE['<'] = mk(16, 16, (g) => { // the factory's saw-tooth roof
+    R(g, 0, 0, 16, 16, 3);
+    for (const y0 of [0, 8]) {
+      for (let i = 0; i < 8; i++) R(g, 0, y0 + i, 16 - i * 2, 1, i < 2 ? 10 : 7);
+      R(g, 13, y0 + 1, 3, 6, 13); R(g, 13, y0 + 1, 1, 6, 15); R(g, 0, y0 + 7, 16, 1, 0);
+    }
+  });
+  TILE['|'] = mk(16, 16, (g) => { // the factory's dark brick front, with a pipe
+    R(g, 0, 0, 16, 16, 1);
+    for (let r = 0; r < 4; r++) {
+      const y = r * 4;
+      R(g, 0, y + 3, 16, 1, 0);
+      for (let x = (r % 2) * 4; x < 16; x += 8) R(g, x, y, 1, 3, 0);
+    }
+    R(g, 11, 0, 3, 16, 3); R(g, 11, 0, 1, 16, 10); R(g, 10, 6, 5, 2, 7);
+    R(g, 0, 15, 16, 1, 0);
+  });
+  function worksGate(open) {
+    return mk(16, 16, (g) => {
+      g.drawImage(TILE['|'], 0, 0);
+      R(g, 1, 1, 14, 15, 0);
+      if (open) {
+        R(g, 2, 2, 12, 14, 1); R(g, 3, 5, 10, 11, 0);
+        for (let x = 2; x < 14; x += 4) { R(g, x, 2, 2, 2, 14); R(g, x + 2, 2, 2, 2, 0); }
+        R(g, 7, 0, 2, 1, 11);
+      } else {
+        R(g, 2, 2, 12, 14, 10);
+        for (let y = 4; y < 16; y += 3) R(g, 2, y, 12, 1, 7);
+        for (let x = 2; x < 14; x += 4) { R(g, x, 13, 2, 2, 14); R(g, x + 2, 13, 2, 2, 0); }
+        R(g, 7, 0, 2, 1, 6);
+      }
+    });
+  }
+  TILE['['] = worksGate(false);
+  TILE[']'] = worksGate(true);
+  function terminal(on) { // the power terminal in front of the factory: three slots and a screen
+    return mk(16, 16, (g) => {
+      grass(g, 16);
+      R(g, 3, 1, 10, 14, 0); R(g, 4, 2, 8, 12, 7); R(g, 4, 2, 8, 1, 10);
+      R(g, 5, 3, 6, 4, on ? 13 : 0); if (on) { R(g, 6, 4, 2, 1, 15); R(g, 6, 5, 4, 1, 8); }
+      for (const x of [5, 7, 9]) R(g, x, 9, 2, 3, on ? 14 : 1);
+      P(g, 11, 13, on ? 11 : 6);
+      R(g, 3, 15, 10, 1, 5);
+    });
+  }
+  TILE['+'] = terminal(false);
+  TILE['@'] = terminal(true);
+  TILE['*'] = mk(16, 16, (g) => { // a power post: Grorud's save point
+    g.drawImage(TILE['p'], 0, 0);
+    R(g, 4, 13, 8, 3, 0); R(g, 5, 14, 6, 1, 3);
+    R(g, 6, 5, 4, 9, 0); R(g, 7, 5, 2, 9, 10);
+    circle(g, 8, 4, 3.6, 0); circle(g, 8, 4, 2.6, 13); P(g, 7, 3, 15);
+    P(g, 8, 8, 14); P(g, 7, 9, 14); P(g, 8, 10, 14); P(g, 7, 11, 14); // a little bolt
+  });
+  function metalFloor(g) {
+    R(g, 0, 0, 16, 16, 3);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) if (hash(x + 87, y + 13) < 0.04) P(g, x, y, 7);
+    R(g, 0, 0, 16, 1, 1); R(g, 0, 0, 1, 16, 1);
+    for (const [x, y] of [[2, 2], [13, 2], [2, 13], [13, 13]]) P(g, x, y, 10);
+  }
+  TILE['-'] = mk(16, 16, (g) => metalFloor(g));
+  TILE[':'] = mk(16, 16, (g) => { // hazard stripes on the floor
+    metalFloor(g);
+    for (let x = 0; x < 16; x += 4) { R(g, x, 0, 2, 3, 14); R(g, x + 2, 0, 2, 3, 0); R(g, x, 13, 2, 3, 14); R(g, x + 2, 13, 2, 3, 0); }
+  });
+  TILE['{'] = mk(16, 16, (g) => { // inside wall: dark plates and pipes
+    R(g, 0, 0, 16, 16, 1);
+    R(g, 0, 0, 16, 1, 3); R(g, 7, 0, 1, 16, 0); R(g, 0, 15, 16, 1, 0);
+    R(g, 0, 4, 16, 3, 3); R(g, 0, 4, 16, 1, 10); R(g, 0, 10, 16, 2, 7); R(g, 0, 10, 16, 1, 10);
+    P(g, 3, 8, 6); P(g, 12, 13, 14);
+  });
+  TILE['}'] = mk(16, 16, (g) => { // a machine
+    metalFloor(g);
+    R(g, 1, 2, 14, 13, 0); R(g, 2, 3, 12, 11, 7); R(g, 2, 3, 12, 1, 10); R(g, 13, 4, 1, 10, 3);
+    circle(g, 5.5, 7.5, 2.4, 0); circle(g, 5.5, 7.5, 1.6, 15); P(g, 5, 6, 6);
+    R(g, 9, 6, 3, 1, 11); R(g, 9, 8, 3, 1, 14); R(g, 9, 10, 3, 1, 6);
+    R(g, 3, 11, 10, 2, 3);
+  });
+  const coil = [0, 1].map((f) => mk(16, 16, (g) => { // a crackling coil
+    metalFloor(g);
+    R(g, 4, 12, 8, 3, 0); R(g, 5, 13, 6, 1, 7);
+    R(g, 6, 4, 4, 9, 0); for (let y = 5; y < 12; y += 2) R(g, 6, y, 4, 1, 9);
+    circle(g, 8, 3, 3, 0); circle(g, 8, 3, 2, f ? 15 : 14);
+    if (f) { P(g, 3, 1, 14); P(g, 2, 2, 15); P(g, 13, 4, 14); P(g, 12, 6, 15); }
+    else { P(g, 12, 1, 14); P(g, 13, 2, 15); P(g, 3, 5, 14); P(g, 4, 7, 15); }
+  }));
+  TILE['!'] = coil[0];
+  TILE['('] = mk(16, 16, (g) => { // the heavy door to NABILAH's hall, standing open
+    g.drawImage(TILE['{'], 0, 0);
+    R(g, 1, 1, 14, 15, 0); R(g, 3, 4, 10, 12, 1);
+    for (let x = 1; x < 15; x += 4) { R(g, x, 1, 2, 2, 14); R(g, x + 2, 1, 2, 2, 0); }
+    P(g, 2, 8, 6); P(g, 13, 8, 6);
+  });
+  TILE['%'] = mk(16, 16, (g) => { // a heap of scrap
+    grass(g, 17);
+    R(g, 1, 14, 14, 2, 5);
+    ellipse(g, 8, 11, 7, 4.4, 0); ellipse(g, 8, 11, 6, 3.4, 3);
+    R(g, 3, 8, 5, 3, 10); R(g, 3, 8, 5, 1, 15); R(g, 9, 6, 2, 6, 4); P(g, 9, 6, 9);
+    circle(g, 11, 10, 2.6, 0); circle(g, 11, 10, 1.4, 7);
+    R(g, 5, 12, 3, 1, 9); P(g, 12, 13, 6);
+  });
+  // Tiles drawn with more than one frame in the world (besides water and flowers).
+  const ANIM_TILES = { '!': coil };
   const SOLID = new Set(['T', 'P', '~', '#', 'R', 'H', 'D', 'S', 's', 'V', 'r', 'k', 'C', 'u', 'U', 'F', 'O', 'b', 'x', 'K',
     'G', 'A', 'B', 'd', 'h', 'l', 'n', 'M', 'J', 'Q', 'W', '1', '2', '3', '4', 'w', 'Y', 'z', 'N', 'i', 'I',
-    '7', '8', '9', 'v', 'f', '5', '6']);
+    '7', '8', '9', 'v', 'f', '5', '6',
+    '^', '>', '&', '$', '<', '|', '[', '+', '@', '*', '{', '}', '!', '%']);
 
   // ---------------------------------------------------------------- characters
   function personSprite(o, dir, frame) {
@@ -888,6 +1029,79 @@
     P(g, 5, 7, 4); P(g, 5, 13, 4); P(g, 11, 7, 4); P(g, 11, 13, 4);
     P(g, 6, 8, 14);
   }));
+  // ---- Grorud's people
+  SPR.tobias = buildChar({ hair: 4, shirt: 8, shirt2: 2, pants: 3, belt: 0 });
+  SPR.nawal = buildChar({ hair: 0, shirt: 13, shirt2: 8, pants: 2, longHair: true });
+  SPR.honey = buildChar({ hair: 14, shirt: 9, shirt2: 4, skirt: 9, hem: 4, longHair: true });
+  SPR.joan = buildChar({ hair: 6, shirt: 5, shirt2: 0, pants: 3, apron: 7, belt: 0, ponytail: 6 });
+  // NABILAH: overalls in hi-vis yellow and a giant wrench. In battle she stands facing the hero, one pixel
+  // lower (so her head clears the name box); after the POWER SURGE sparks crackle all around her.
+  const NABILAH_LOOK = { hair: 18, shirt: 14, shirt2: 9, pants: 2, belt: 0, longHair: true };
+  SPR.nabilah = buildChar(NABILAH_LOOK);
+  const nabilahBattle = (surge) => [0, 1].map((f) => mk(16, 16, (g) => {
+    g.drawImage(buildChar(surge ? { ...NABILAH_LOOK, shirt: 13, shirt2: 8 } : NABILAH_LOOK)['down' + f], 0, 1);
+    R(g, 5, 3, 6, 1, 0); P(g, 6, 3, 13); P(g, 9, 3, 13); // goggles pushed up
+    R(g, 12, 3 + f, 2, 11, 0); R(g, 13, 4 + f, 1, 9, 10); R(g, 11, 2 + f, 4, 3, 0); R(g, 12, 3 + f, 2, 1, 7); // the wrench
+    if (surge) for (const [x, y] of f ? [[1, 2], [2, 6], [14, 1], [1, 11], [15, 9]] : [[2, 1], [0, 5], [15, 3], [2, 13], [14, 11]]) { P(g, x, y, 14); P(g, x, y + 1, 15); }
+  }));
+  ENEMY_SPR.nabilah = nabilahBattle(false);
+  ENEMY_SPR.nabilah2 = nabilahBattle(true);
+  // ---- Grorud's monsters
+  // The rust rat: a rat with a wind-up key in its back and a bolt for an ear.
+  ENEMY_SPR.rust = [0, 1].map((f) => mk(16, 16, (g) => {
+    g.drawImage(ratSprite(f, [9, 4, 12, 0, 6]), 0, 0);
+    const o = f ? 1 : 0;
+    R(g, 6, 4 + o, 1, 4, 0); R(g, 4, 3 + o - f, 5, 2, 0); R(g, 5, 3 + o - f, 1, 1, 10); R(g, 7, 3 + o - f, 1, 1, 10); // the key
+    P(g, 11, 5 + o, 10); P(g, 9, 10 + o, 10); P(g, 5, 11 + o, 10); // rivets
+  }));
+  // The guard: a boxy patrol robot with a visor and a shield.
+  ENEMY_SPR.guard = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    R(g, 5, 1 + o, 6, 5, 10); R(g, 5, 1 + o, 6, 1, 15); R(g, 10, 2 + o, 1, 4, 7);
+    R(g, 6, 3 + o, 4, 1, 6); P(g, 7 + f, 3 + o, 16); P(g, 8, 0 + o, 3);
+    R(g, 4, 6, 8, 6, 2); R(g, 4, 6, 8, 1, 8); P(g, 7, 8, 14); P(g, 8, 8, 14);
+    R(g, 12, 6 + o, 2, 5, 10);
+    R(g, 0, 5, 5, 8, 7); R(g, 1, 6, 3, 6, 10); R(g, 2, 7, 1, 4, 14);
+    R(g, 5, 12, 2, 3, 3); R(g, 9, 12, 2, 3, 3); R(g, 4, 15, 3, 1, 0); R(g, 9, 15, 3, 1, 0);
+  })));
+  // A heap of scrap that walks: rusty plates, a tyre for a shoulder, pipes for arms, two glowing eyes.
+  const scrapSprite = (f, [plate, rust, dark], cell) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    R(g, 3, 4, 10, 10, plate); R(g, 3, 4, 10, 1, 15); R(g, 12, 5, 1, 9, dark);
+    R(g, 5, 0, 6, 4, plate); R(g, 5, 0, 6, 1, 15); P(g, 6, 2, 14); P(g, 9, 2, 14);
+    R(g, 4, 7, 3, 2, rust); R(g, 9, 10, 3, 2, rust); P(g, 6, 12, dark); P(g, 8, 6, dark);
+    circle(g, 2.5, 6.5 + o, 2.6, 0); circle(g, 2.5, 6.5 + o, 1.2, dark);
+    R(g, 0, 8 + o, 2, 5, 10); R(g, 14, 5 + o, 2, 7, 10); R(g, 14, 5 + o, 1, 7, 15);
+    R(g, 4, 14, 3, 2, dark); R(g, 9, 14, 3, 2, dark);
+    if (cell) { R(g, 6, 7, 4, 4, 0); R(g, 7, 8, 2, 2, f ? 15 : 13); }
+  }));
+  ENEMY_SPR.scrap = [0, 1].map((f) => scrapSprite(f, [7, 9, 3]));
+  ENEMY_SPR.hulk = [0, 1].map((f) => scrapSprite(f, [4, 6, 1], true));
+  SPR.hulk = buildStatic(ENEMY_SPR.hulk[0], ENEMY_SPR.hulk[1]);
+  // A yellow light with sparks: the power wisp.
+  ENEMY_SPR.pwisp = [0, 1].map((f) => mk(16, 16, (g) => {
+    g.drawImage(wispSprite(f, 14, 9), 0, 0);
+    for (const [x, y] of f ? [[1, 4], [2, 5], [1, 6], [14, 8], [13, 9]] : [[14, 3], [13, 4], [14, 5], [2, 9], [1, 10]]) P(g, x, y, 15);
+  }));
+  // The factory sentinel: a tall robot on three legs with one big red eye.
+  ENEMY_SPR.sentinel = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    const o = f ? 1 : 0;
+    R(g, 4, 1, 8, 9, 10); R(g, 4, 1, 8, 1, 15); R(g, 11, 2, 1, 8, 7);
+    circle(g, 8, 5, 2.8, 0); circle(g, 8, 5, 1.8, f ? 16 : 6); P(g, 7, 4, 15);
+    R(g, 7, 0, 2, 1, 3); P(g, 8, 0, 6);
+    R(g, 5, 10, 6, 2, 3); R(g, 2, 3 + o, 2, 6, 7); R(g, 12, 3 + o, 2, 6, 7); P(g, 2, 9 + o, 14); P(g, 13, 9 + o, 14);
+    R(g, 3, 12, 2, 4, 3); R(g, 7, 12, 2, 4, 3); R(g, 11, 12, 2, 4, 3);
+  })));
+  const CELL_SPR = [0, 1].map((f) => outlined(mk(16, 16, (g) => {
+    R(g, 5, 4, 6, 10, 7); R(g, 5, 4, 6, 1, 10); R(g, 7, 2, 2, 2, 10);
+    R(g, 6, 6, 4, 6, f ? 15 : 13); R(g, 7, 7, 2, 1, 14); R(g, 8, 8, 1, 2, 14); R(g, 7, 10, 1, 1, 14);
+    if (f) { P(g, 3, 5, 14); P(g, 12, 9, 14); }
+  })));
+  const BAG_SPR = outlined(mk(16, 16, (g) => {
+    R(g, 6, 3, 4, 1, 1); R(g, 5, 4, 1, 3, 1); R(g, 10, 4, 1, 3, 1);
+    R(g, 3, 7, 10, 7, 16); R(g, 3, 7, 10, 1, 15); R(g, 12, 8, 1, 6, 17); R(g, 3, 13, 10, 1, 17);
+    R(g, 7, 9, 3, 2, 14); P(g, 7, 10, 0); P(g, 9, 9, 0); P(g, 8, 8, 15); P(g, 10, 8, 15); // a little bee
+  }));
 
   // name, base stats, gold range, battle intro
   // A boss also has a `boss` block. The battle engine asks it how the fight works, so the engine
@@ -905,7 +1119,8 @@
   //   after()    called back in the world once the won battle has faded out and been saved
   // An ordinary enemy may set:
   //   armored    its defence only counts against weapons that are not `heavy`
-  //   quick      it strikes once before the hero's first move, unless the hero's armour is `nimble`
+  //   quick      it strikes once before the hero's first move, unless the hero's armour or weapon is `nimble`
+  //   shock      its blows are electric (see enemyHit)
   //   turn(b)    its whole turn in place of a plain attack, as for a boss
   //   defeated   line shown when it is beaten
   //   won(b)     called (and awaited) at the end of a battle it lost, after the rewards
@@ -971,9 +1186,13 @@
   };
   // The hero keeps every weapon and armour ever gained (player.weapons, player.armors) and wears one of
   // each (player.weapon, player.armor). The menu lists them in the order they are written here.
-  //   heavy    the weapon ignores the defence of `armored` enemies
-  //   nimble   `quick` enemies do not get their opening strike against this armour
+  //   heavy    the weapon ignores the defence of `armored` enemies (smash: the line said when it does)
+  //   nimble   `quick` enemies do not get their opening strike against this armour, or this weapon
+  //   keen     the weapon lands a critical hit twice as often
+  //   insulated  the armour takes this share (0..1) off every electric blow
   //   swing    battle line for an attack (default: 'You swing your sword!')
+  //   name     for the status panel: at most 10 letters fit inside it; `full` is the name in the gear list and
+  //            in messages, if it differs (at most 14 letters)
   //   desc     shown in the menu; at most three lines of 16 letters
   // (defined after the table so that the table above stays in story order)
   ENEMIES.heidi = {
@@ -1106,12 +1325,114 @@
       after: () => marcusHandover(),
     },
   };
+  // ---- Grorud. Every one of these is a shade tougher than its Ammerud counterpart; an electric enemy
+  // sets `shock` (its plain blows are electric) or passes true to enemyHit for a single electric blow.
+  ENEMIES.rust = { name: 'RUST RAT', hp: 48, atk: 27, def: 5, xp: 30, gold: [11, 15], intro: 'clanks out!', quick: true };
+  ENEMIES.guard = { name: 'GRORUD GUARD', hp: 64, atk: 28, def: 8, xp: 38, gold: [16, 21], intro: 'marches up!' };
+  // Slow: it only strikes on every second turn, but hard. Its plates only give way to a heavy weapon.
+  async function scrapTurn(b) {
+    if (b.turn % 2) { await msg(`The ${b.name} creaks and rattles...`, 500); return; }
+    await msg(`${b.name} swings a pipe!`, 100);
+    await enemyHit(1);
+  }
+  ENEMIES.scrap = { name: 'SCRAP GOLEM', hp: 70, atk: 32, def: 15, xp: 50, gold: [22, 30], intro: 'clatters up!', armored: true, turn: scrapTurn };
+  // The big one on the heights, met once: it carries a POWER CELL, and it always drops it.
+  ENEMIES.hulk = {
+    name: 'BIG SCRAP GOLEM', hp: 120, atk: 33, def: 16, xp: 85, gold: [40, 40], intro: 'looms over you!', armored: true, turn: scrapTurn,
+    defeated: 'The BIG SCRAP GOLEM clatters into a heap.',
+    async won() {
+      if (flags.cell2) return;
+      flags.cell2 = true;
+      SFX.pickup();
+      await msg(`A POWER CELL rolls out of the heap! (${cells()}/3)`, 1000);
+    },
+  };
+  // Quick and electric: every blow is a shock, and every third turn a bigger one.
+  ENEMIES.pwisp = {
+    name: 'POWER WISP', hp: 44, atk: 30, def: 5, xp: 40, gold: [16, 22], intro: 'crackles into view!', quick: true, shock: true,
+    async turn(b) {
+      if (b.turn % 3 === 0) {
+        await msg(`The ${b.name} flares! ZZZAP!`, 100);
+        await enemyHit(1.4);
+        return;
+      }
+      await msg(`The ${b.name} zaps you!`, 100);
+      await enemyHit(1);
+    },
+  };
+  // Only inside the Works: armoured, and every third turn it arcs static at the hero.
+  ENEMIES.sentinel = {
+    name: 'FACTORY SENTINEL', hp: 96, atk: 31, def: 11, xp: 60, gold: [28, 36], intro: 'whirs into life!', armored: true,
+    async turn(b) {
+      if (b.turn % 3 === 0) {
+        await msg('The SENTINEL sends out a STATIC ARC!', 100);
+        await enemyHit(1.2, true);
+        return;
+      }
+      await msg(`${b.name} punches!`, 100);
+      await enemyHit(1);
+    },
+  };
+  // Harder than MARCUS for the same hero; the insulated vest takes a clear share of it off, the factory armour
+  // less, and a hero with neither still wins with the herbs a normal journey brings.
+  ENEMIES.nabilah = {
+    name: 'NABILAH', hp: 250, atk: 30, def: 10, xp: 190, gold: [180, 180], intro: 'cracks her knuckles!',
+    boss: {
+      flash: 14,
+      named: true,
+      // Phase 1: a swing of the wrench, a spark, a little tune. At half HP, once: POWER SURGE! From then on
+      // she glows, her guard drops a little, her shocks hit harder, and every third turn she plugs into the
+      // wall and lets go with an OVERLOAD.
+      async turn(b) {
+        if (!b.surge && b.hp <= b.max / 2) {
+          b.surge = true; b.look = 'nabilah2'; b.step = 0; b.def = Math.max(0, b.def - 3); b.zap = 30;
+          SFX.charge();
+          await msg('POWER SURGE!!', 900);
+          await msg('NABILAH crackles with power. Her guard drops!', 700);
+        }
+        if (b.charged) {
+          b.charged = false;
+          await msg('OVERLOAD!!', 100);
+          await enemyHit(2, true);
+        } else if (b.surge) {
+          b.step++;
+          if (b.step % 3 === 0) {
+            b.charged = true;
+            SFX.charge();
+            await msg('NABILAH plugs into the wall. Sparks fly...', 900);
+          } else if (b.step % 3 === 1) {
+            await msg('NABILAH hurls a bolt of lightning!', 100);
+            await enemyHit(1.3, true);
+          } else {
+            await msg('NABILAH swings her giant wrench!', 100);
+            await enemyHit(1.1);
+          }
+        } else if (b.turn % 3 === 1) {
+          await msg('NABILAH swings her giant wrench!', 100);
+          await enemyHit(1);
+        } else if (b.turn % 3 === 2) {
+          await msg('NABILAH flicks a spark at you! ZAP!', 100);
+          await enemyHit(1.2, true);
+        } else {
+          await msg('NABILAH tightens a bolt and hums a tune.', 700);
+        }
+      },
+      defeated: 'NABILAH fizzles and sits down. "Okay... power down."',
+      flag: 'nabilahBeaten',
+      after: () => nabilahHandover(),
+    },
+  };
   const WEAPONS = {
     none: { name: 'STICK', atk: 0, desc: 'Better than nothing.' },
     iron: { name: 'IRON SWORD', atk: 3, desc: 'Sturdy and sharp. Good against anything.' },
     crystal: { name: 'CRYSTAL SWD', atk: 7, desc: 'Very sharp. The best blade around.' },
     axe: { name: 'HEAVY AXE', atk: 2, heavy: true, swing: 'You swing your axe!', desc: 'Smashes through armour. Clumsy otherwise.' },
     bat: { name: "MARCUS' BAT", atk: 9, swing: 'You swing the bat!', desc: 'Heavy, battered and surprisingly effective.' },
+    wrench: {
+      name: 'HVY WRENCH', full: 'HEAVY WRENCH', atk: 8, heavy: true, swing: 'You swing the wrench!',
+      smash: 'The wrench cracks right through its armour!', desc: 'Hits hard. Cracks scrap armour.',
+    },
+    blade: { name: 'Q. BLADE', full: 'QUICK BLADE', atk: 7, nimble: true, keen: true, swing: 'You flick the quick blade!', desc: 'More crits. Quick foes never go first.' },
   };
   const ARMORS = {
     none: { name: 'TUNIC', def: 0, desc: 'Plain cloth.' },
@@ -1119,6 +1440,8 @@
     light: { name: 'LIGHT VEST', def: 1, nimble: true, desc: 'Quick enemies cannot strike you first.' },
     sneakers: { name: 'SNEAKERS', def: 3, nimble: true, desc: 'Fresh kicks. Quick foes never strike first.' },
     rvest: { name: 'REINF. VEST', def: 4, desc: 'Steel plates sewn in. Very solid.' },
+    insulated: { name: 'INSUL VEST', full: 'INSULATED VEST', def: 3, insulated: 0.4, desc: 'Rubber-lined. Softens electric shocks.' },
+    factory: { name: 'FACT ARMOR', full: 'FACTORY ARMOR', def: 6, desc: 'Thick steel plates. No help with shocks.' },
   };
 
   // ---------------------------------------------------------------- maps
@@ -1447,7 +1770,7 @@
   };
   // ---- Chapter 3: Ammerud. Blocks to the north, the little square with the kiosk in the middle, the
   // basketball court to the south-west and the park to the south-east. The dark path leaves to the west;
-  // the south gate is the road to Grorud, which is not built yet.
+  // the south gate is the road to Grorud.
   MAPS.ammerud = {
     name: 'AMMERUD',
     rows: [
@@ -1477,6 +1800,7 @@
     exits: {
       '29,10': { map: 'stovner', x: 1, y: 9, dir: 'right' },
       '0,9': { map: 'darkPath', x: 14, y: 10, dir: 'left' },
+      '15,21': { map: 'grorudHeights', x: 15, y: 3, dir: 'down' }, // the south gate; shut until SELMA has it unlocked
     },
     signs: {
       '28,9': ['WELCOME TO AMMERUD.', 'EAST: STOVNER.'],
@@ -1527,6 +1851,199 @@
     backdrop: 'woods',
     lighting: { dimEdges: 0.45, shade: 0.35 },
   };
+  // ---- Chapter 4: Grorud. Through Ammerud's south gate onto the green heights, down a ledge into the
+  // town, and from the town into the old factory, once the power is back. The east gate of the town is
+  // the road to Veitvet, which ends at a barricade: Veitvet itself is not built yet.
+  MAPS.grorudHeights = {
+    name: 'GRORUD HEIGHTS',
+    rows: [
+      'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+      'TTTTTTTTTTTTTT#N#TTTTTTTTTTTTT', // Ammerud's south wall, seen from this side
+      'T....,..~......=.......T.....T',
+      'T.T.....~......=..........,..T',
+      'T......~~...;..=S....rr......T',
+      'T.rr...~.......=....r..r.....T',
+      'T..r..~~.......=======.......T',
+      'T..r..~......T.......=...;...T',
+      'Trrr.~~..,...........=.......T',
+      'T....~.......;.......=....T..T',
+      'T.T.~~...............=.......T',
+      'T.,.~.....T.....,....=....,..T',
+      'T^^.^^^^^^^^^^^^^^^^^=^^^^^^^T',
+      'T....................=.......T',
+      'T..;.....,...=========...TTT.T',
+      'T.T..........=.............T.T',
+      'T.....;......=.....,....T..T.T',
+      'T..,.........=.............T.T',
+      'T......T.....=....T........TTT',
+      'T............===.............T',
+      'TTTTTTTTTTTTTT==TTTTTTTTTTTTTT',
+    ],
+    exits: {
+      '15,2': { map: 'ammerud', x: 15, y: 20, dir: 'up' },
+      '14,20': { map: 'grorudTown', x: 12, y: 3, dir: 'down' },
+      '15,20': { map: 'grorudTown', x: 13, y: 3, dir: 'down' },
+    },
+    signs: { '16,4': ['GRORUD HEIGHTS.', 'NORTH: AMMERUD. SOUTH: GRORUD.'] },
+    // The path, the middle of the heights and the ways in are safe.
+    encounter: {
+      chance: 0.1, minSteps: 4, scaleFrom: 12,
+      zones: [
+        { at: [1, 2, 7, 11], table: [['rust', 0.5], ['crawler', 0.25], ['guard', 0.25]] }, // west of the stream
+        { at: [22, 2, 28, 11], table: [['guard', 0.45], ['rust', 0.4], ['scrap', 0.15]] }, // the east plateau
+        { at: [1, 13, 11, 18], table: [['rust', 0.55], ['guard', 0.3], ['shadow', 0.15]] }, // below the ledge, west
+        { at: [18, 15, 26, 18], table: [['guard', 0.4], ['rust', 0.35], ['scrap', 0.25]] }, // below the ledge, east
+      ],
+    },
+    backdrop: 'heights',
+    ambient: { butterflies: [[280, 232, 14, 0.9], [96, 280, 15, 2.4]] },
+  };
+  MAPS.grorudTown = {
+    name: 'GRORUD',
+    rows: [
+      'TTTTTTTTTTTTTTTTT<<<<<<<<T',
+      'T^^^7777^^^^>>^^^<<<<<<<<T',
+      'h...&$&&....==...|||[||||h',
+      'h....=.....lppl.S.+.p....h',
+      'h..pppppppppppppppppppp..h',
+      'h..p........pp........p.Th',
+      'h..p777.pppppppppp....p..h',
+      'h.,p&$&.lppppppppl....p..#',
+      'h..p....pppp*ppppp....pS.#',
+      'h..p....pppppppppppppppppG',
+      'h..p.;..lppppppppl....p..#',
+      'h..p........pp........p..#',
+      'h..pppppppppppppppppppp..h',
+      'h..T......,.....fffff.fffh',
+      'h.,......T......f..x...%.h',
+      'h..T............f.%....b.h',
+      'h.....;.........f....x...h',
+      'hhhhhhhhhhhhhhhhhhhhhhhhhh',
+    ],
+    exits: {
+      '12,2': { map: 'grorudHeights', x: 14, y: 19, dir: 'up' },
+      '13,2': { map: 'grorudHeights', x: 15, y: 19, dir: 'up' },
+      '20,2': { map: 'grorudWorks', x: 12, y: 16, dir: 'up' }, // the Works gate; shut until the power is back
+      '25,9': { map: 'veitvetRoad', x: 1, y: 5, dir: 'right' }, // the east gate; locked until the FACTORY KEY opens it
+    },
+    signs: {
+      '16,3': ['WELCOME TO GRORUD.', 'NORTH-EAST: OLD GRORUD WORKS. EAST: ROAD TO VEITVET.'],
+      '23,8': ['EAST: ROAD TO VEITVET.'],
+      '18,3': () => terminalSign(),
+      '12,8': () => savePoint(),
+    },
+    // The square and the streets are safe; the lawn to the south-west and JOAN's yard are not.
+    encounter: {
+      chance: 0.1, minSteps: 4, scaleFrom: 12,
+      zones: [
+        { at: [1, 13, 15, 16], table: [['rust', 0.5], ['guard', 0.5]] }, // the lawn
+        { at: [17, 14, 24, 16], table: [['scrap', 0.55], ['pwisp', 0.25], ['guard', 0.2]] }, // JOAN's yard
+      ],
+    },
+    backdrop: 'blocks',
+  };
+  MAPS.grorudWorks = {
+    name: 'OLD GRORUD WORKS',
+    rows: [
+      '{{{{{{{{{{{{{{{{{{{{{{{{',
+      '{{{{{{{{!------!{{{{{{{{',
+      '{{{{{{{{{------{{{{{{{{{',
+      '{{{{{{{{{------{{{{{{{{{',
+      '{{{{{{{{!------!{{{{{{{{',
+      '{{{{{{{{{{{{({{{{{{{{{{{',
+      '{-----------:----------{',
+      '{-}------------}-------{',
+      '{-----------------{{-{{{',
+      '{-}}--}}--}}--}}-{-----{',
+      '{----------------{--!--{',
+      '{-}}--}}--}}--}}-{-----{',
+      '{----------------{-----{',
+      '{{{{-{{{{------{{{{{{{{{',
+      '{-*----{{------{{{{{{{{{',
+      '{--------------{{{{{{{{{',
+      '{}-----{{---:--{{{{{{{{{',
+      '{{{{{{{{{{{{]{{{{{{{{{{{',
+    ],
+    exits: { '12,17': { map: 'grorudTown', x: 20, y: 3, dir: 'down' } },
+    signs: { '2,14': () => savePoint() },
+    // The way in, the control room and NABILAH's hall are safe.
+    encounter: {
+      chance: 0.1, minSteps: 4, scaleFrom: 12,
+      zones: [
+        { at: [1, 6, 22, 7], table: [['sentinel', 0.45], ['pwisp', 0.35], ['scrap', 0.2]] }, // the long corridor
+        { at: [1, 8, 16, 12], table: [['pwisp', 0.45], ['scrap', 0.3], ['sentinel', 0.25]] }, // the factory floor
+        { at: [18, 8, 22, 12], table: [['pwisp', 0.5], ['scrap', 0.3], ['rust', 0.2]] }, // the side room
+      ],
+    },
+    backdrop: 'factory',
+    lighting: { dimEdges: 0.35 },
+  };
+  // Where the east gate of Grorud leads: a stretch of road and a barricade. To be continued...
+  MAPS.veitvetRoad = {
+    name: 'ROAD TO VEITVET',
+    rows: [
+      'TTTTTTTTTTTTTTTT',
+      'T...,....T...TTT',
+      'T.T.....;....TTT',
+      'T.....T......TTT',
+      'T..;........STTT',
+      '=============JTT',
+      'T.......,....TTT',
+      'T.T.......T..TTT',
+      'T....;.......TTT',
+      'TTTTTTTTTTTTTTTT',
+    ],
+    exits: { '0,5': { map: 'grorudTown', x: 24, y: 9, dir: 'left' } },
+    signs: {
+      '12,4': ['ROAD TO VEITVET.', 'The road beyond is still being built.'],
+      '13,5': ['The road to VEITVET is closed off for now.', 'TO BE CONTINUED...'],
+    },
+    encounter: null,
+    backdrop: 'heights',
+  };
+  // A power post: rest in its glow (HP back to full, herbs not) and save.
+  function savePoint() {
+    player.hp = player.maxhp;
+    SFX.heal();
+    const ok = saveGame();
+    say('', ['A humming power post. You rest a moment in its warm glow.', ok ? 'HP restored. Game saved!' : 'HP restored. (The game could not be saved!)']);
+  }
+  function terminalSign() {
+    if (flags.worksOpen) say('', ['The terminal hums happily. Three POWER CELLS glow in their slots.']);
+    else if (cells() === 3) say('', ['Three empty slots, and you carry three POWER CELLS.', 'TOBIAS knows how to hook them up.']);
+    else say('', ['A dead power terminal with three empty slots.', 'A label says: OLD GRORUD WORKS. NO POWER, NO GATE.']);
+  }
+  // TOBIAS hooks up the three cells, exactly once: the lights come on and the Works gate slides open.
+  function powerOn(then) {
+    say('TOBIAS', ['Three POWER CELLS! Hand them over. Red to red, blue to blue...', 'Stand back!'], () => {
+      if (!flags.worksOpen) flags.worksOpen = true;
+      powerT = 60;
+      SFX.power();
+      saveGame();
+      say('', ['ZZZT... CLUNK! The terminal lights up.', 'With a deep hum, the gate of OLD GRORUD WORKS slides open!'], () => say('TOBIAS', [
+        'We have POWER! Look at that!',
+        'NABILAH is somewhere deep inside the WORKS. She loves her machines more than visitors.',
+        'Be careful in there.',
+      ]));
+    });
+  }
+  // After the fight NABILAH hands over the fragment and the key, exactly once. This runs by itself when the
+  // won battle ends, and again from NABILAH if the game was closed before it finished.
+  function nabilahHandover() {
+    const H = hero().name;
+    say('NABILAH', ['Okay, okay! You win. My poor machines needed a rest anyway.'], () => say(H, ['MARCUS said GRORUD had answers about the Crystal.'],
+      () => say('NABILAH', [
+        'Answers? I only have this. It ran my whole factory, once. Then it went quiet.',
+        'Whatever broke the Crystal, the trail leads east, to VEITVET.',
+        'Take the fragment, and my FACTORY KEY. It opens the east gate of GRORUD.',
+        '(Got CRYSTAL FRAGMENT 3 and the FACTORY KEY!)',
+      ], () => {
+        flags.fragment3 = true; flags.factoryKey = true;
+        markReady('power');
+        SFX.quest();
+        saveGame();
+      })));
+  }
   // After the fight MARCUS hands over his bat, exactly once, and sends the hero on to Grorud. This runs by
   // itself when the won battle ends, and again from MARCUS if the game was closed before it finished.
   function marcusHandover() {
@@ -1580,6 +2097,17 @@
     { id: 'ball', map: 'ammerud', x: 27, y: 19, quest: 'ball', spr: BALL_SPR, found: ['A basketball, stuck under a bush. EMIL is written on it in marker.', 'Take it back to EMIL!'] },
     { id: 'chestGold', map: 'ammerud', x: 27, y: 3, chest: true, gold: 80 },
     { id: 'chestPouch', map: 'darkPath', x: 8, y: 14, chest: true, pouch: true },
+    // ---- Grorud (a `cell` is a POWER CELL; an item marked `always` lies there before its quest is given,
+    // and says its `early` lines if it is found then)
+    { id: 'cell1', map: 'grorudHeights', x: 2, y: 7, cell: true },
+    {
+      id: 'bag', map: 'grorudHeights', x: 5, y: 17, quest: 'bag', always: true, spr: BAG_SPR,
+      found: ['A pink handbag with a little bee on it. HONEY is stitched inside.', 'Take it back to HONEY!'],
+      early: ['A pink handbag with a little bee on it. HONEY is stitched inside.', 'Somebody in GRORUD must be missing this.'],
+    },
+    { id: 'chestWrench', map: 'grorudHeights', x: 28, y: 17, chest: true, weapon: 'wrench' },
+    { id: 'chestBlade', map: 'grorudTown', x: 1, y: 16, chest: true, weapon: 'blade' },
+    { id: 'chestArmor', map: 'grorudWorks', x: 22, y: 11, chest: true, armor: 'factory' },
   ];
 
   // ---------------------------------------------------------------- gates
@@ -1636,12 +2164,31 @@
       sfx: 'pickup',
     },
     { // Ammerud's south gate, toward Grorud. SELMA has it unlocked (the grorudGate flag) when the chapter
-      // ends; the road behind it is not built yet.
-      map: 'ammerud', x: 15, y: 21, closed: 'G', open: 'N', flag: 'grorudGate',
+      // ends; the open gate is the town's south exit.
+      map: 'ammerud', x: 15, y: 21, closed: 'G', open: 'L', flag: 'grorudGate',
       needs: () => false,
       locked: ['A gate in the south wall. A rusty sign on it says GRORUD.', 'It is locked.'],
       opened: [],
-      beyond: ['The south gate stands open. The road to GRORUD lies beyond.'],
+    },
+    // The gate of OLD GRORUD WORKS, and the terminal beside it. Nobody opens these by hand: they come on
+    // together (the worksOpen flag) when TOBIAS hooks up the three POWER CELLS.
+    {
+      map: 'grorudTown', x: 20, y: 2, closed: '[', open: ']', flag: 'worksOpen',
+      needs: () => false,
+      locked: () => (q.power.s === 0
+        ? ['A huge steel gate: OLD GRORUD WORKS.', 'It is shut tight. The power is off.']
+        : ['The gate is dead without power.', `TOBIAS needs three POWER CELLS. You have ${cells()}.`]),
+      opened: [],
+    },
+    { map: 'grorudTown', x: 18, y: 3, closed: '+', open: '@', flag: 'worksOpen', needs: () => false, locked: [], opened: [] },
+    { // Grorud's east gate, the road to Veitvet. NABILAH's FACTORY KEY opens it, once TOBIAS has heard the news.
+      map: 'grorudTown', x: 25, y: 9, closed: 'G', open: 'L', flag: 'veitvetGate',
+      needs: () => flags.factoryKey === true && q.power.s === 3,
+      locked: () => (!flags.factoryKey
+        ? ['A gate in the east wall. A sign on it says: ROAD TO VEITVET.', 'It is locked. The lock is big and greasy.']
+        : ['The FACTORY KEY fits! But TOBIAS will want to hear about NABILAH first.']),
+      opened: ['The FACTORY KEY turns with a screech. The ROAD TO VEITVET is open!'],
+      sfx: 'pickup',
     },
   ];
   for (const gate of GATES) (MAPS[gate.map].gates ||= {})[`${gate.x},${gate.y}`] = gate;
@@ -1692,7 +2239,22 @@
     },
     ball: { title: 'LOST BASKETBALL', turnIn: 'EMIL', tracker: () => 'FIND THE BALL', progress: () => 'IN THE PARK' },
     wisp: { title: 'THE DARK PATH', turnIn: 'ASTRID', tracker: () => 'THE DARK PATH', progress: () => 'WEST OF TOWN' },
+    // ---- Grorud. TOBIAS's three POWER CELLS open the Works, NABILAH waits inside, and turning in ends the
+    // chapter. HONEY's bag and JOAN's yard stand apart (JOAN's reward is the third cell). The cells are
+    // saved flags (cell1..cell3), so a cell can never be counted twice.
+    power: {
+      title: 'POWER TO GRORUD', turnIn: 'TOBIAS',
+      tracker: () => (flags.worksOpen ? 'NABILAH: WORKS' : cells() === 3 ? 'CELLS TO TOBIAS' : `POWER CELLS ${cells()}/3`),
+      progress: () => (flags.worksOpen ? 'IN THE WORKS' : cells() === 3 ? 'TO TOBIAS' : `${cells()}/3 CELLS`),
+    },
+    bag: { title: "HONEY'S BAG", turnIn: 'HONEY', tracker: () => 'FIND THE BAG', progress: () => 'ON THE HEIGHTS' },
+    yard: {
+      title: "JOAN'S YARD", turnIn: 'JOAN', state: { n: 0 },
+      tracker: () => `GOLEMS ${q.yard.n}/${YARD_GOLEMS}`, progress: () => `${q.yard.n}/${YARD_GOLEMS} GOLEMS`,
+    },
   };
+  const YARD_GOLEMS = 2; // how many scrap golems JOAN's yard asks for
+  const cells = () => ['cell1', 'cell2', 'cell3'].filter((k) => flags[k] === true).length;
   // What AMMERUD TROUBLE asks for: which enemy, which saved count, how many, and its name in messages.
   const HUNT = [
     { type: 'crawler', k: 'c', n: 3, name: 'CRAWLERS' },
@@ -1729,7 +2291,8 @@
     { name: 'VESTLI', quest: 'king' },
     { name: 'STOVNER', quest: 'mohsin' },
     { name: 'AMMERUD', quest: 'trouble' },
-    { name: 'GRORUD', quest: null }, // unlocked by finishing Ammerud; nothing of it is built yet
+    { name: 'GRORUD', quest: 'power' },
+    { name: 'VEITVET', quest: null }, // unlocked by finishing Grorud; nothing of it is built yet
   ];
   const chapterDone = (c) => c.quest != null && q[c.quest]?.s === 3;
   // Crystal Fragments and keys are kept as saved flags (fragment1, redKey, ...), set once and never unset.
@@ -1768,6 +2331,7 @@
   let tick = 0;
   let dlg = null, battle = null, fade = null, encounter = null, banner = null, victory = null, shop = null, menuOpen = null;
   let lastBump = -99, shroomStreak = 0, savedT = 0;
+  let powerT = 0; // frames left of the flicker when the power comes back on in Grorud (never saved)
   const title = { sel: 0, hasSave: false };
 
   // ---------------------------------------------------------------- quests
@@ -2366,10 +2930,173 @@
         });
       },
     },
+    // ---- Grorud
+    {
+      id: 'tobias', map: 'grorudTown', x: 19, y: 3, dir: 'down', home: 'down', spr: SPR.tobias,
+      // (NABILAH beaten with the quest still active = a save made mid-hand-over; she finishes it herself)
+      news: () => q.power.s === 0 || q.power.s === 2 || (q.power.s === 1 && cells() === 3 && !flags.worksOpen),
+      talk() {
+        const N = 'TOBIAS', H = hero().name;
+        if (q.power.s === 0) {
+          const have = cells();
+          say(N, [
+            `${H}! Good to see you. You picked a dark day to visit GRORUD.`,
+            'OLD GRORUD WORKS has lost its power, and the big gate will not open without it.',
+            'NABILAH has shut herself in there. If anybody knows about the Crystal, it is her.',
+            'This terminal needs three POWER CELLS. Find them, and I will hook them up.',
+            ...(have ? [`Wait, you already have ${have}? Brilliant!`] : ['NAWAL hears everything in this town. She may know where to look.']),
+          ], () => {
+            accept('power');
+            if (cells() === 3) powerOn();
+          });
+        } else if (q.power.s === 1 && !flags.worksOpen && cells() < 3) {
+          say(N, [`POWER CELLS so far: ${cells()} of 3.`, 'NAWAL by the square may have a hint or two.']);
+        } else if (q.power.s === 1 && !flags.worksOpen) {
+          powerOn();
+        } else if (q.power.s === 1) {
+          say(N, ['The gate is open. NABILAH is somewhere deep inside the WORKS.', 'Come back and tell me everything!']);
+        } else if (q.power.s === 2) {
+          say(N, ['You beat NABILAH? And the lights are still on!'], () => say(H, ['She gave me a CRYSTAL FRAGMENT. She says the trail leads east, to VEITVET.'], () => say(N, [
+            'VEITVET? Then GRORUD is not the end of your road either.',
+            'Use her FACTORY KEY on the east gate of town. And thank you, from all of GRORUD.',
+          ], () => {
+            complete('power');
+            endChapter('power');
+          })));
+        } else {
+          say(N, [pick([
+            'The east gate leads to VEITVET. Go on, then!',
+            'The whole town has power again. My toaster has never been happier.',
+            'NABILAH came out for coffee today. First time in years.',
+          ])]);
+        }
+      },
+    },
+    {
+      id: 'nawal', map: 'grorudTown', x: 10, y: 8, dir: 'down', home: 'down', spr: SPR.nawal,
+      // Hints, never a quest: the first thing still missing, and a word of warning about what lies ahead.
+      talk() {
+        const N = 'NAWAL', H = hero().name;
+        if (flags.nabilahBeaten) {
+          say(N, [pick([
+            `You beat NABILAH? Everybody is talking about it, ${H}.`,
+            'The WORKS are humming again. It sounds like home.',
+            'I heard HONEY telling the bakery all about you.',
+          ])]);
+          return;
+        }
+        const hints = [];
+        if (q.power.s === 0) hints.push(`Hi ${H}! TOBIAS by the terminal has been pacing all morning. Go and talk to him.`);
+        else if (!flags.worksOpen) {
+          if (!flags.cell1) hints.push('One POWER CELL rolled off a cart up on the HEIGHTS. Try the rocks west of the stream, below the ledge.');
+          if (!flags.cell2) hints.push('A BIG SCRAP GOLEM stomps about the east side of the HEIGHTS. Something in its chest glows!');
+          if (!flags.cell3) hints.push('JOAN keeps a spare POWER CELL in her yard, south-east of the square. Ask her.');
+          if (cells() === 3) hints.push('Three cells! Hurry over to TOBIAS.');
+        } else hints.push('In the WORKS the little yellow lights are POWER WISPS. Their zaps sting! Something insulated helps.', 'And NABILAH gets a POWER SURGE when she is cross.');
+        const warn = flags.worksOpen ? [] : [owns('weapon', 'wrench')
+          ? 'That HEAVY WRENCH of yours cracks scrap golems like nuts.'
+          : 'SCRAP GOLEMS have thick armour. A heavy tool cracks it best. I saw one lying about on the HEIGHTS.'];
+        say(N, [...hints.slice(0, 2), ...warn]);
+      },
+    },
+    {
+      id: 'honey', map: 'grorudTown', x: 7, y: 3, dir: 'down', home: 'down', spr: SPR.honey,
+      news: () => q.bag.s === 0 || q.bag.s === 2,
+      talk() {
+        const N = 'HONEY', H = hero().name;
+        const thanks = () => say(N, [
+          'My bag! My lucky pen, my lip balm, my other lucky pen... It is all here!',
+          'Here, take this. My uncle wore it at the WORKS. Lightning slides right off it. (Got INSULATED VEST!)',
+          'Put it on in the menu!',
+        ], () => {
+          own('armor', 'insulated');
+          complete('bag');
+        });
+        if (q.bag.s === 0 && flags.bag) {
+          say(N, [`${H}! Is that... my bag? You found it before I even asked!`], () => { accept('bag'); markReady('bag'); thanks(); });
+        } else if (q.bag.s === 0) {
+          say(N, [
+            `${H}! Oh, have you seen my handbag? Pink, with a little bee on it.`,
+            'A RUST RAT chased me on the HEIGHTS and I dropped it somewhere.',
+            'Could you look for it? Please?',
+          ], () => accept('bag'));
+        } else if (q.bag.s === 1) {
+          say(N, ['It must be on the HEIGHTS, south-west, below the ledge. I ran past the flowers there.']);
+        } else if (q.bag.s === 2) {
+          thanks();
+        } else {
+          say(N, [pick([
+            'I am never walking on the HEIGHTS again. Well. Maybe on Sundays.',
+            'How is the vest? Not too itchy?',
+            `Thank you again, ${H}. You are a star.`,
+          ])]);
+        }
+      },
+    },
+    {
+      id: 'joan', map: 'grorudTown', x: 20, y: 12, dir: 'down', home: 'down', spr: SPR.joan,
+      news: () => q.yard.s === 0 || q.yard.s === 2,
+      talk() {
+        const N = 'JOAN';
+        if (q.yard.s === 0) {
+          say(N, [
+            'Hey! I am JOAN. That is my yard behind me, and SCRAP GOLEMS have moved in.',
+            `My spare POWER CELL is in the shed back there. Beat ${YARD_GOLEMS} of those golems and I can get to it.`,
+            'Mind the armour on them. Hitting them with a sword is like tickling a fridge.',
+          ], () => accept('yard'));
+        } else if (q.yard.s === 1) {
+          say(N, [`${q.yard.n} of ${YARD_GOLEMS} golems so far. They lurk in the yard, through the gap in the fence.`]);
+        } else if (q.yard.s === 2) {
+          say(N, [
+            'The yard is clear! Hang on...',
+            'Here it is. TOBIAS needs it more than my shed does. (Got a POWER CELL!)',
+          ], () => {
+            if (!flags.cell3) flags.cell3 = true;
+            complete('yard');
+          });
+        } else {
+          say(N, [pick([
+            'My yard is all mine again. Just me and the scrap.',
+            'If you see another golem, tell it the yard is full.',
+            'Good luck in the WORKS. Mind NABILAH, she bites. Well, she zaps.',
+          ])]);
+        }
+      },
+    },
+    { // the big golem on the heights carries the second POWER CELL; it is there until it has dropped it
+      id: 'hulk', map: 'grorudHeights', x: 26, y: 4, dir: 'down', home: 'down', spr: SPR.hulk, anim: true,
+      visible: () => !flags.cell2,
+      talk() {
+        say('', ['A huge golem made of scrap metal blocks your way.', 'Something glows inside its chest... a POWER CELL!'], () => {
+          encounter = { t: 0, type: 'hulk' }; SFX.encounter();
+        });
+      },
+    },
+    { // she waits in her hall at the top of the Works; beaten, she stays and only talks
+      id: 'nabilah', map: 'grorudWorks', x: 12, y: 2, dir: 'down', home: 'down', spr: SPR.nabilah,
+      talk() {
+        const N = 'NABILAH', H = hero().name;
+        if (!flags.nabilahBeaten) {
+          say(N, ['Who turned the power back on? Oh! A visitor!', 'Welcome to OLD GRORUD WORKS. Mind the cables. Mind the sparks. Mind ME!'],
+            () => say(H, ['I am looking for answers about the Crystal.'], () => say(N, [
+              'Answers cost extra.',
+              'Let us see if you can handle a little POWER!',
+            ], () => { encounter = { t: 0, type: 'nabilah' }; SFX.encounter(); })));
+        } else if (!flags.factoryKey) {
+          nabilahHandover();
+        } else {
+          say(N, [pick([
+            'The trail leads east, to VEITVET. Off you go.',
+            'My machines are purring again. Thank you for not breaking them. Much.',
+            'Next time, bring snacks.',
+          ])]);
+        }
+      },
+    },
   ];
   const npcVisible = (n) => !n.visible || n.visible();
   const npcAt = (map, x, y) => NPCS.find((n) => n.map === map && n.x === x && n.y === y && npcVisible(n));
-  const itemThere = (i) => !flags[i.id] && (!i.quest || q[i.quest].s === 1);
+  const itemThere = (i) => !flags[i.id] && (!i.quest || i.always || q[i.quest].s === 1);
   const itemAt = (map, x, y) => ITEMS.find((i) => i.map === map && i.x === x && i.y === y && itemThere(i));
   function tileAt(m, x, y) {
     if (x < 0 || y < 0 || x >= m.w || y >= m.h) return '#';
@@ -2498,6 +3225,8 @@
     run: () => seq([700, 560, 440, 330], 0.04, { vol: 0.1 }),
     quest: () => seq([659, 784, 988, 1319], 0.1, { vol: 0.14, type: 'triangle', len: 0.18 }),
     faint: () => seq([440, 392, 349, 294, 262], 0.16, { vol: 0.14, type: 'triangle', len: 0.2 }),
+    zap: () => { noise(0.18, { vol: 0.35, freq: 6000 }); tone(1800, 0.12, { to: 200, vol: 0.12, type: 'sawtooth' }); },
+    power: () => { tone(80, 0.9, { to: 640, vol: 0.14, type: 'sawtooth' }); seq([0, 0, 0, 0, 523, 659, 784, 1047], 0.1, { vol: 0.12, type: 'triangle', len: 0.16 }); },
     victory: () => {
       seq([523, 523, 523, 659, 0, 587, 659, 0, 784, 1047], 0.12, { vol: 0.13, len: 0.14 });
       seq([262, 0, 330, 0, 392, 0, 330, 0, 392, 523], 0.12, { vol: 0.1, type: 'triangle', len: 0.2 });
@@ -2594,6 +3323,8 @@
     R(ctx, x, y, 1, 7, 15); R(ctx, x + 1, y + 1, 1, 5, 15); R(ctx, x + 2, y + 2, 1, 3, 15); R(ctx, x + 3, y + 3, 1, 1, 15);
   }
   function downArrow(x, y) { R(ctx, x, y, 7, 1, 15); R(ctx, x + 1, y + 1, 5, 1, 15); R(ctx, x + 2, y + 2, 3, 1, 15); R(ctx, x + 3, y + 3, 1, 1, 15); }
+  function upArrow(x, y) { R(ctx, x + 3, y, 1, 1, 15); R(ctx, x + 2, y + 1, 3, 1, 15); R(ctx, x + 1, y + 2, 5, 1, 15); R(ctx, x, y + 3, 7, 1, 15); }
+  const GEAR_ROWS = 5; // how many weapons or armours the status screen lists at once
   function bubble(x, y) { // "!" speech bubble
     R(ctx, x, y, 7, 9, 0); R(ctx, x + 1, y + 1, 5, 7, 15);
     R(ctx, x + 3, y + 2, 1, 3, 6); P(ctx, x + 3, y + 6, 6);
@@ -2725,6 +3456,8 @@
     { name: () => 'RED KEY', has: () => flags.redKey },
     { name: () => 'BLUE KEY', has: () => flags.blueKey },
     { name: () => 'WISP FRAGMENT', has: () => flags.wispFragment, desc: 'A strange fragment glowing with faint blue light.' },
+    { name: () => `POWER CELL x${cells()}`, has: () => cells() > 0 && !flags.worksOpen, desc: 'Heavy little batteries. TOBIAS can hook them up.' },
+    { name: () => 'FACTORY KEY', has: () => flags.factoryKey, desc: 'Big and greasy. It opens the east gate of GRORUD.' },
   ];
   const keyItems = () => KEY_ITEMS.filter((i) => i.has());
   const menuLines = () => (keyItems().some((i) => i.desc) ? [0, 1, 3, 2] : [0, 1, 2]); // top to bottom
@@ -2809,11 +3542,15 @@
     if (menuSel < 2) { // the cursor is on the weapon or armour: show what the hero owns in place of the quests
       const kind = menuSel === 0 ? 'weapon' : 'armor', table = gearTable(kind), list = ownedGear(kind), worn = table[player[kind]];
       text(kind === 'weapon' ? 'WEAPONS' : 'ARMOUR', 104, 9, 14);
-      list.forEach((id, i) => {
+      // Five fit; a longer list shows the five around the one being worn, with arrows for the rest.
+      const first = clamp(list.indexOf(player[kind]) - 2, 0, Math.max(0, list.length - GEAR_ROWS));
+      list.slice(first, first + GEAR_ROWS).forEach((id, i) => {
         const on = id === player[kind], y = 24 + i * 12;
-        text(table[id].name, 114, y, on ? 15 : 7);
+        text(table[id].full || table[id].name, 114, y, on ? 15 : 7);
         if (on) cursor(106, y);
       });
+      if (first > 0) upArrow(228, 25);
+      if (first + GEAR_ROWS < list.length) downArrow(228, 74);
       text(kind === 'weapon' ? `ATK +${worn.atk}` : `DEF +${worn.def}`, 104, 80, 13);
       wrap(worn.desc, 16).forEach((l, i) => text(l, 104, 92 + i * 11, 10));
       if (list.length > 1) text(isTouch ? 'A:CHANGE' : 'SPACE:CHANGE', 104, 134, 14);
@@ -2864,11 +3601,22 @@
     if (exit) { fadeOut(() => enterMap(exit.map, exit.x, exit.y, exit.dir)); return; }
     const item = itemAt(player.map, player.x, player.y);
     if (item && item.quest) {
+      const early = q[item.quest].s !== 1;
       flags[item.id] = true;
       markReady(item.quest);
       SFX.pickup();
       held.length = 0;
-      say('', item.found, saveGame);
+      say('', early && item.early ? item.early : item.found, saveGame);
+      return;
+    }
+    if (item && item.cell) {
+      flags[item.id] = true;
+      SFX.pickup();
+      held.length = 0;
+      const n = cells();
+      say('', q.power.s === 0
+        ? ['A POWER CELL, still charged! Somebody in GRORUD must be missing this.']
+        : [`You found a POWER CELL! (${n}/3)`, ...(n === 3 ? ['That makes three. Take them to TOBIAS!'] : [])], saveGame);
       return;
     }
     if (item && item.chest) {
@@ -2882,9 +3630,9 @@
         player.maxHerbs++; player.herbs = player.maxHerbs;
         say('', ['You open the chest. Inside is a bigger herb pouch, full of fresh herbs!', `(Herb pouch: ${player.maxHerbs} max!)`], saveGame);
       } else {
-        const kind = item.weapon ? 'weapon' : 'armor', id = item[kind];
+        const kind = item.weapon ? 'weapon' : 'armor', id = item[kind], gear = gearTable(kind)[id];
         own(kind, id);
-        say('', [`You open the chest. Inside is a ${gearTable(kind)[id].name}!`, 'Pick it in the menu to use it.'], saveGame);
+        say('', [`You open the chest. Inside is a ${gear.full || gear.name}!`, 'Pick it in the menu to use it.'], saveGame);
       }
       return;
     }
@@ -2909,7 +3657,8 @@
     }
   }
   // ---------------------------------------------------------------- living world (visual only, never saved)
-  const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram', 'johanne', 'basil', 'dot', 'gus', 'selma', 'emil', 'astrid', 'nadia', 'leif']);
+  const LOOKERS = new Set(['elder', 'wren', 'pip', 'bram', 'johanne', 'basil', 'dot', 'gus', 'selma', 'emil', 'astrid', 'nadia', 'leif',
+    'tobias', 'nawal', 'honey', 'joan']);
   const faceToward = (dx, dy) => (Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
   // Villagers glance around now and then; they face the hero when the hero is right next to them,
   // and a villager with a "!" notices the hero from two tiles away.
@@ -3027,7 +3776,8 @@
     for (let ty = Math.floor(camY / TS); ty <= Math.floor((camY + H) / TS); ty++) {
       for (let tx = Math.floor(camX / TS); tx <= Math.floor((camX + W) / TS); tx++) {
         const ch = tileAt(m, tx, ty);
-        const img = ch === '~' ? water[(wf + tx + ty) % 2] : FLOWERS[ch] ? FLOWERS[ch][flowerFrame(tx, ty)] : TILE[ch] || TILE['.'];
+        const img = ch === '~' ? water[(wf + tx + ty) % 2] : FLOWERS[ch] ? FLOWERS[ch][flowerFrame(tx, ty)]
+          : ANIM_TILES[ch] ? ANIM_TILES[ch][(Math.floor(tick / 12) + tx) % 2] : TILE[ch] || TILE['.'];
         ctx.drawImage(img, tx * TS - camX, ty * TS - camY);
       }
     }
@@ -3035,6 +3785,7 @@
     for (const it of ITEMS) {
       if (it.map !== player.map || !itemThere(it)) continue;
       if (it.quest) { ctx.drawImage(it.spr || KEBAB_SPR, it.x * TS - camX, it.y * TS - camY); continue; }
+      if (it.cell) { ctx.drawImage(CELL_SPR[Math.floor(tick / 20) % 2], it.x * TS - camX, it.y * TS - camY); continue; }
       if (it.chest) { ctx.drawImage(CHEST_SPR[Math.floor(tick / 30) % 2], it.x * TS - camX, it.y * TS - camY); continue; }
       const bob = Math.floor(tick / 20) % 2;
       ctx.drawImage(SHARD_SPR[Math.floor(tick / 15) % 2], it.x * TS - camX, it.y * TS - camY - bob);
@@ -3058,6 +3809,7 @@
       R(ctx, 0, 0, W, 8, 0); R(ctx, 0, H - 8, W, 8, 0); R(ctx, 0, 0, 8, H, 0); R(ctx, W - 8, 0, 8, H, 0);
       ctx.globalAlpha = 1;
     }
+    if (powerT > 0 && Math.floor(powerT / 5) % 2 === 0) { ctx.globalAlpha = 0.35; R(ctx, 0, 0, W, H, 14); ctx.globalAlpha = 1; }
   }
   function drawHud() {
     box(2, 2, 92, 30);
@@ -3120,7 +3872,7 @@
     const article = ENEMIES[battle.type].boss?.named ? '' : battle.boss ? 'The ' : 'A ';
     await msg(`${article}${battle.name} ${intro}`, 700);
     if (ENEMIES[battle.type].quick) {
-      if (ARMORS[player.armor].nimble) await msg('It darts at you, but you step lightly aside!', 500);
+      if (ARMORS[player.armor].nimble || WEAPONS[player.weapon].nimble) await msg('It darts at you, but you step lightly aside!', 500);
       else {
         await msg(`The ${battle.name} is quick! It strikes first!`, 100);
         await enemyHit(1);
@@ -3137,7 +3889,7 @@
       const weapon = WEAPONS[player.weapon], armored = !!ENEMIES[battle.type].armored;
       const smash = armored && !!weapon.heavy;
       await msg(weapon.swing || 'You swing your sword!', 150);
-      const crit = Math.random() < 0.12;
+      const crit = Math.random() < (weapon.keen ? 0.24 : 0.12);
       let dmg = Math.max(1, atk() + rand(0, 2) - (smash ? 0 : battle.def));
       if (crit) dmg = Math.floor(dmg * 1.8);
       battle.hp = Math.max(0, battle.hp - dmg);
@@ -3148,7 +3900,7 @@
       if (battle.hp <= 0) return winBattle();
       if (armored && !battle.armorSaid) { // said once per fight, so the hero learns what armour does
         battle.armorSaid = true;
-        await msg(smash ? 'The axe smashes right through its armour!' : 'Its armour turns most of the blow!', 500);
+        await msg(smash ? weapon.smash || 'The axe smashes right through its armour!' : 'Its armour turns most of the blow!', 500);
       }
     } else if (choice === 1) {
       if (player.herbs <= 0) { await msg('No herbs left!', 500); return toMenu(); }
@@ -3171,15 +3923,23 @@
     }
     await enemyTurn();
   }
-  async function enemyHit(mult) {
+  // One blow at the hero. An electric blow (`shock`, by default whatever the enemy's own `shock` says)
+  // flashes yellow, and insulated armour takes its share off what gets through the defence.
+  async function enemyHit(mult, shock = !!ENEMIES[battle.type].shock) {
     battle.lunge = 12;
     await wait(150);
-    const dmg = Math.max(1, Math.round((battle.atk + rand(0, 2)) * mult) - def());
+    let dmg = Math.max(1, Math.round((battle.atk + rand(0, 2)) * mult) - def());
+    const insulated = shock ? ARMORS[player.armor].insulated || 0 : 0;
+    if (insulated) dmg = Math.max(1, Math.round(dmg * (1 - insulated)));
     player.hp = Math.max(0, player.hp - dmg);
     battle.shake = mult > 1 ? 24 : 14;
-    mult > 1 ? SFX.slam() : SFX.hurt();
-    float(196, 58, `${dmg}`, 6);
+    if (shock) { battle.zap = 18; SFX.zap(); } else if (mult > 1) SFX.slam(); else SFX.hurt();
+    float(196, 58, `${dmg}`, shock ? 14 : 6);
     await wait(650);
+    if (insulated && !battle.insulatedSaid && player.hp > 0) { // said once per fight, so the hero learns what it does
+      battle.insulatedSaid = true;
+      await msg('Your INSULATED VEST soaks up the shock!', 500);
+    }
   }
   async function enemyTurn() {
     const b = battle;
@@ -3246,6 +4006,14 @@
         await msg('That should get MARCUS\'s attention! Try the basketball court.', 1000);
       } else await msg(`${hunt.name}: ${q.trouble[hunt.k]}/${hunt.n}`, 700);
     }
+    if (b.type === 'scrap' && q.yard.s === 1 && q.yard.n < YARD_GOLEMS) {
+      q.yard.n++;
+      if (q.yard.n >= YARD_GOLEMS) {
+        markReady('yard');
+        SFX.quest();
+        await msg('That is the last of them! Tell JOAN!', 1000);
+      } else await msg(`Scrap golems: ${q.yard.n}/${YARD_GOLEMS}`, 700);
+    }
     if (b.type === 'shroom' && q.glowcap.s === 1 && Math.random() < 0.6) {
       player.glowcaps++;
       SFX.pickup();
@@ -3286,6 +4054,7 @@
     if (b.shake > 0) b.shake--;
     if (b.lunge > 0) b.lunge--;
     if (b.dying > 0) b.dying--;
+    if (b.zap > 0) b.zap--;
     b.shownHp += (b.hp - b.shownHp) * 0.15;
     b.playerShownHp += (player.hp - b.playerShownHp) * 0.15;
     for (const f of b.floats) f.t++;
@@ -3315,6 +4084,36 @@
       for (let x = -8; x < W + 16; x += 16) ctx.drawImage(TILE['P'], x + ((x / 16) % 2 ? 0 : 8), 44 + ((x / 16) % 3) * 2);
       R(ctx, 0, 60, W, 44, 5);
       for (let y = 62; y < 104; y += 3) for (let x = 0; x < W; x += 2) if (hash(x, y) < 0.04) { P(ctx, x, y, 11); P(ctx, x, y - 1, 11); }
+    },
+    heights() { // a bright day on the heights: hills, a ledge of rock, and grass underfoot
+      R(ctx, 0, 0, W, 60, 8);
+      for (const [x, y, w] of [[18, 10, 30], [120, 6, 40], [196, 16, 26]]) { R(ctx, x, y, w, 4, 15); R(ctx, x + 6, y - 3, w - 12, 3, 15); }
+      for (let x = 0; x < W; x++) {
+        const h1 = 18 + Math.round(Math.sin(x / 31) * 6 + Math.sin(x / 11) * 2), h2 = 10 + Math.round(Math.sin(x / 19 + 2) * 4);
+        R(ctx, x, 60 - h1, 1, h1, 5); R(ctx, x, 60 - h2, 1, h2, 11);
+      }
+      for (const [cx, w, h] of [[24, 18, 14], [44, 10, 8], [214, 16, 12], [196, 8, 6]]) { // boulders
+        for (let y = 0; y < h; y++) {
+          const hw = Math.round(w * Math.sqrt(1 - ((h - y) / h) ** 2));
+          R(ctx, cx - hw, 60 - h + y, hw * 2, 1, y < 2 ? 10 : y < h - 3 ? 7 : 3);
+        }
+      }
+      R(ctx, 0, 60, W, 44, 11);
+      for (let y = 62; y < 104; y += 3) for (let x = 0; x < W; x += 2) if (hash(x + 3, y) < 0.04) { P(ctx, x, y, 5); P(ctx, x, y - 1, 5); }
+    },
+    factory() { // inside the Works: pipes overhead, blinking lamps, a steel floor with hazard stripes
+      R(ctx, 0, 0, W, 60, 0);
+      for (const y of [8, 22]) { R(ctx, 0, y, W, 5, 3); R(ctx, 0, y, W, 1, 10); }
+      for (const x of [30, 96, 168, 214]) { R(ctx, x, 0, 6, 60, 3); R(ctx, x, 0, 1, 60, 10); }
+      for (const [x, w, top] of [[0, 26, 34], [44, 40, 40], [118, 34, 30], [184, 24, 38]]) {
+        R(ctx, x, top, w, 60 - top, 1); R(ctx, x, top, w, 1, 7);
+        for (let i = 0; i < 3; i++) P(ctx, x + 4 + i * 5, top + 4, Math.floor((tick + x + i * 9) / 25) % 3 ? 11 : 6);
+      }
+      for (let i = 0; i < 6; i++) { const x = (i * 43 + 12) % W; P(ctx, x, 16, Math.floor((tick + i * 17) / 20) % 4 ? 14 : 3); }
+      R(ctx, 0, 60, W, 44, 3);
+      for (let x = 0; x < W; x += 24) R(ctx, x, 60, 1, 44, 1);
+      for (let y = 62; y < 104; y += 2) for (let x = 0; x < W; x += 2) if (hash(x + 11, y) < 0.03) P(ctx, x, y, 7);
+      for (let x = 0; x < W; x += 8) { R(ctx, x, 96, 4, 3, 14); R(ctx, x + 4, 96, 4, 3, 0); }
     },
     blocks() { // evening over Ammerud: tall blocks with lit windows, and asphalt underfoot
       R(ctx, 0, 0, W, 60, 2);
@@ -3348,6 +4147,17 @@
         const sink = b.dying > 0 ? Math.round((40 - b.dying) / 3) : 0;
         const puff = b.charged ? 8 + (Math.floor(tick / 6) % 2) * 2 : 0;
         ctx.drawImage(ENEMY_SPR[b.look || b.type][frame], ex + lx - puff / 2, ey + sink - puff, size + puff, size - sink + puff);
+      }
+    }
+    if (b.zap > 0 && Math.floor(b.zap / 3) % 2 === 0) { // an electric blow: a yellow flash and a bolt
+      ctx.globalAlpha = 0.3; R(ctx, 0, 0, W, 104, 14); ctx.globalAlpha = 1;
+      const pts = [[150, 0], [170, 18], [160, 26], [182, 44], [172, 50], [192, 66]];
+      for (let i = 1; i < pts.length; i++) {
+        const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0));
+        for (let s = 0; s <= n; s++) {
+          const x = Math.round(x0 + (x1 - x0) * s / n), y = Math.round(y0 + (y1 - y0) * s / n);
+          R(ctx, x - 1, y - 1, 3, 3, 0); P(ctx, x, y, 15);
+        }
       }
     }
     box(4, 4, Math.max(104, b.name.length * 8 + 8), 28); // a long name widens the box to the right
@@ -3476,6 +4286,7 @@
   }
   function update() {
     tick++;
+    if (powerT > 0) powerT--;
     if (fade) {
       fade.t++;
       if (!fade.fired && fade.t >= fade.dur / 2) { fade.fired = true; fade.mid?.(); }
@@ -3559,6 +4370,6 @@
     get chapter() { return currentChapter(); }, get storyDone() { return storyDone(); },
     get menuPage() { return menuPage; }, get menuNote() { return menuNote; }, get tracked() { return tracked; },
     get q() { return q; }, get flags() { return flags; }, get stats() { return stats; },
-    get mode() { return mode; }, get battle() { return battle; }, get shop() { return shop; },
+    get mode() { return mode; }, get battle() { return battle; }, get shop() { return shop; }, get powerT() { return powerT; },
   };
 })();

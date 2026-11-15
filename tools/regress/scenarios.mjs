@@ -761,7 +761,7 @@ const chapterScenarios = [
     name: 'chapter-fresh', save: FIX.fresh,
     run: async (T, g) => {
       await T.continueGame();
-      T.check('four chapters defined: Vestli, Stovner, Ammerud, then Grorud without a boss quest', JSON.stringify(g.CHAPTERS) === '[{"name":"VESTLI","quest":"king"},{"name":"STOVNER","quest":"mohsin"},{"name":"AMMERUD","quest":"trouble"},{"name":"GRORUD","quest":null}]', JSON.stringify(g.CHAPTERS));
+      T.check('five chapters defined: Vestli, Stovner, Ammerud, Grorud, then Veitvet without a boss quest', JSON.stringify(g.CHAPTERS) === '[{"name":"VESTLI","quest":"king"},{"name":"STOVNER","quest":"mohsin"},{"name":"AMMERUD","quest":"trouble"},{"name":"GRORUD","quest":"power"},{"name":"VEITVET","quest":null}]', JSON.stringify(g.CHAPTERS));
       T.check('a new game is in chapter 1', g.chapter === 0 && !g.storyDone, g.chapter);
       T.check('no fragment, key or open gate', !g.flags.fragment1 && !g.flags.redKey && !g.flags.redGate);
       T.check('nothing in the game uses a quest called null', !('null' in g.q) && !g.QUEST_ORDER.includes('null'));
@@ -1313,8 +1313,9 @@ const stovnerScenarios = [
       };
       T.check('gate shut: its tile cannot be reached', !reach('village', 8, 7, false).has('0,7'));
       T.check('gate open: it can', reach('village', 8, 7, true).has('0,7'));
-      const starts = { village: [8, 7], forest: [1, 7], cave: [1, 7], stovner: [24, 9], stovnerOuter: [14, 18], tunnel: [9, 1], northRoad: [5, 18], shrine: [6, 11], ammerud: [28, 10], darkPath: [14, 10] };
-      T.check('ten maps', Object.keys(g.MAPS).sort().join() === Object.keys(starts).sort().join(), Object.keys(g.MAPS).join());
+      const starts = { village: [8, 7], forest: [1, 7], cave: [1, 7], stovner: [24, 9], stovnerOuter: [14, 18], tunnel: [9, 1], northRoad: [5, 18], shrine: [6, 11], ammerud: [28, 10], darkPath: [14, 10],
+        grorudHeights: [15, 3], grorudTown: [12, 3], grorudWorks: [12, 16], veitvetRoad: [1, 5] };
+      T.check('fourteen maps', Object.keys(g.MAPS).sort().join() === Object.keys(starts).sort().join(), Object.keys(g.MAPS).join());
       for (const [name, [sx, sy]] of Object.entries(starts)) {
         const m = g.MAPS[name], seen = reach(name, sx, sy, true);
         const edge = [...seen].filter((k) => { const [x, y] = k.split(',').map(Number); return x === 0 || y === 0 || x === m.w - 1 || y === m.h - 1; });
@@ -1403,7 +1404,7 @@ const stovnerScenarios = [
       T.check('the people of the town block nobody in', cut.length === 0, cut.join(' '));
       T.check('the old Stovner maps are as they were', g.MAPS.stovner.rows.join('').length === 26 * 18 && g.MAPS.stovnerOuter.rows.join('').length === 30 * 20
         && g.MAPS.stovner.rows[16] === '#.,......;.#QQ#....;....T#' && g.MAPS.stovnerOuter.rows[9] === 'T.~~~..=......==.......W..=..T');
-      T.check('Stovner ends with FIND MOHSIN, Ammerud with AMMERUD TROUBLE, and Grorud has no quests', g.CHAPTERS.length === 4 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === 'mohsin' && g.CHAPTERS[2].quest === 'trouble' && g.CHAPTERS[3].quest === null && g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab,trouble,ball,wisp', g.QUEST_ORDER.join());
+      T.check('Stovner ends with FIND MOHSIN, Ammerud with AMMERUD TROUBLE, Grorud with POWER TO GRORUD, and Veitvet has no quests', g.CHAPTERS.length === 5 && g.CHAPTERS[1].name === 'STOVNER' && g.CHAPTERS[1].quest === 'mohsin' && g.CHAPTERS[2].quest === 'trouble' && g.CHAPTERS[3].quest === 'power' && g.CHAPTERS[4].quest === null && g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab,trouble,ball,wisp,power,bag,yard', g.QUEST_ORDER.join());
     },
   },
 ];
@@ -2100,7 +2101,7 @@ const questScenarios = [
       T.check('Æ is a letter of the game font, as wide as any other', ae === m && ae === 8 && c.measureText('Æ').width !== 8, ae + ' ' + m + ' ' + c.measureText('Æ').width);
       const here = g.NPCS.filter((n) => n.map === 'stovner').map((n) => n.id + ' ' + n.x + ',' + n.y).join('; ');
       T.check('four people in the town', here === 'johanne 16,8; basil 20,10; dot 7,10; gus 10,16', here);
-      T.check('nobody new anywhere else but LÆRER HEIDI in the tunnel and MOHSIN in the shrine', g.NPCS.filter((n) => !['village', 'forest', 'cave', 'stovner', 'ammerud', 'darkPath'].includes(n.map)).map((n) => n.id + '@' + n.map).join() === 'heidi@tunnel,heidi2@tunnel,mohsin@shrine'
+      T.check('nobody new anywhere else but LÆRER HEIDI in the tunnel and MOHSIN in the shrine', g.NPCS.filter((n) => !['village', 'forest', 'cave', 'stovner', 'ammerud', 'darkPath', 'grorudHeights', 'grorudTown', 'grorudWorks'].includes(n.map)).map((n) => n.id + '@' + n.map).join() === 'heidi@tunnel,heidi2@tunnel,mohsin@shrine'
         && g.NPCS.filter((n) => n.map === 'village').length === 5 && g.NPCS.filter((n) => n.map === 'stovnerOuter').length === 0);
       // JOHANNE must not sit under the status panel (2..93 across, 2..31 down) from the roads that lead to her
       const town = g.MAPS.stovner, hidden = [];
@@ -3266,8 +3267,9 @@ const ammerudScenarios = [
         for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (walk(m, x, y, true) && !seen.has(x + ',' + y)) out.push(x + ',' + y);
         T.check(name + ': all open ground can be reached', out.length === 0, out.join(' '));
       }
-      T.check('Ammerud leads to Stovner and the dark path; the dark path only back', JSON.stringify(Object.values(am.exits).map((e) => e.map)) === '["stovner","darkPath"]' && JSON.stringify(Object.values(dp.exits).map((e) => e.map)) === '["ammerud"]');
-      T.check('the south gate, open or shut, cannot be walked through', !reach('ammerud', 28, 10, true).has('15,21') && !reach('ammerud', 28, 10, false).has('15,21') && tile(am, 15, 21, false) === 'G' && tile(am, 15, 21, true) === 'N');
+      T.check('Ammerud leads to Stovner, the dark path and (through the south gate) Grorud; the dark path only back', JSON.stringify(Object.values(am.exits).map((e) => e.map)) === '["stovner","darkPath","grorudHeights"]' && JSON.stringify(Object.values(dp.exits).map((e) => e.map)) === '["ammerud"]');
+      T.check('the south gate cannot be walked through while shut; open, it is the way to Grorud', reach('ammerud', 28, 10, true).has('15,21') && !reach('ammerud', 28, 10, false).has('15,21')
+        && tile(am, 15, 21, false) === 'G' && tile(am, 15, 21, true) === 'L' && am.exits['15,21'].map === 'grorudHeights');
       // monsters
       const inZone = (m, x, y) => m.encounter.zones.find((z) => x >= z.at[0] && y >= z.at[1] && x <= z.at[2] && y <= z.at[3]);
       const ok = (m) => m.encounter.zones.every((z) => z.at[0] >= 0 && z.at[1] >= 0 && z.at[2] < m.w && z.at[3] < m.h && z.table.every((e) => g.ENEMIES[e[0]] && !g.ENEMIES[e[0]].boss) && Math.abs(z.table.reduce((n, e) => n + e[1], 0) - 1) < 1e-9);
@@ -3570,9 +3572,18 @@ const ammerudScenarios = [
         T.place('ammerud', 15, 20, 'down');
         await T.frames(20);
         T.shot('south-gate-open');
-        await T.talk('beyond');
+        await T.tap('Space', 6);
+        T.check('the open gate has nothing more to say', g.mode === 'world');
         await T.step('down');
-        T.check('the road to Grorud is not built: no way through, no other map', g.player.y === 20 && g.player.map === 'ammerud' && Object.keys(g.MAPS).length === 10);
+        await T.until(() => g.player.map === 'grorudHeights', 'Grorud Heights');
+        await T.frames(60);
+        T.check('the open south gate leads to GRORUD HEIGHTS', g.player.x === 15 && g.player.y === 3, g.player.x + ',' + g.player.y);
+        T.place('grorudHeights', 15, 3, 'up');
+        await T.step('up');
+        await T.until(() => g.player.map === 'ammerud', 'Ammerud again');
+        await T.frames(60);
+        T.check('and back to AMMERUD, by the south gate', g.player.x === 15 && g.player.y === 20, g.player.x + ',' + g.player.y);
+        T.place('ammerud', 15, 20, 'down'); // facing the way this run always did
         // switch away from the bat and save by hand
         await T.tap('KeyX', 6);
         await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
@@ -4085,6 +4096,1048 @@ const badHeroScenarios = Object.entries(BAD_HEROES).map(([label, value]) => ({
   },
 }));
 
+// ------------------------------------------------------------------ Grorud (Expansion 1G)
+// A save from the end of Ammerud, the way a player who explored normally would have it: level 11, MARCUS'
+// bat in hand, the sneakers from EMIL, seven herbs, all of Ammerud done. Standing at the open south gate.
+const chapterThreeDone = (() => {
+  const d = marcusDone(chapterTwoDone);
+  d.q.trouble = { s: 3, c: 3, r: 3, b: 2 }; d.q.ball = { s: 3 }; d.q.wisp = { s: 3 }; d.tracked = null;
+  Object.assign(d.flags, { grorudGate: true, ball: true, wispFragment: true, chestPouch: true, metNadia: true });
+  Object.assign(d.player, level(11), {
+    maxhp: 106, hp: 106, maxHerbs: 7, herbs: 7, gold: 640, armor: 'sneakers', armors: ['none', 'vest', 'sneakers'],
+    map: 'ammerud', x: 15, y: 20, fx: 15, fy: 20, tx: 15, ty: 20, dir: 'down',
+  });
+  d.stats = { won: 90, slimes: 17, steps: 5200 };
+  return d;
+})();
+const inHeights = moved(chapterThreeDone, 'grorudHeights', 15, 3, 'down');
+const inTown = moved(chapterThreeDone, 'grorudTown', 12, 3, 'down');
+const withCells = (fix, s, list) => {
+  const d = JSON.parse(JSON.stringify(fix));
+  d.q.power = { s }; d.tracked = s ? 'power' : null;
+  for (const k of list) d.flags[k] = true;
+  return d;
+};
+const powered = (fix) => { const d = withCells(fix, 1, ['cell1', 'cell2', 'cell3']); d.flags.worksOpen = true; return d; };
+const atNabilah = powered(moved(chapterThreeDone, 'grorudWorks', 12, 3, 'up'));
+const nabilahDone = (fix) => {
+  const d = JSON.parse(JSON.stringify(fix));
+  d.q.power = { s: 2 }; d.tracked = 'power';
+  Object.assign(d.flags, { nabilahBeaten: true, fragment3: true, factoryKey: true });
+  return d;
+};
+const dressed = (fix, weapon, armor) => {
+  const d = JSON.parse(JSON.stringify(fix));
+  Object.assign(d.player, { weapon, armor, weapons: [...new Set([...d.player.weapons, weapon])], armors: [...new Set([...d.player.armors, armor])] });
+  return d;
+};
+// Shared by the Grorud runs: reading the save, talking through chained dialogues, and what someone said.
+// (GRX is the same without the save reader, for runs that also use MEET, which has its own.)
+const GRX = `
+  const quiet = () => { for (const m of ['grorudHeights', 'grorudTown', 'grorudWorks', 'ammerud']) g.MAPS[m].encounter.chance = 0; };
+  // Talks to whoever is in front of the hero and returns everything that was said as one text, with
+  // "| NAME:" wherever the speaker changes (pages run on with a space, as they read on screen).
+  const hear = async (prefix) => {
+    const said = [];
+    let who = null;
+    await T.tap('Space', 3);
+    if (g.mode !== 'dialog') throw new Error('nothing to talk to (' + prefix + ')');
+    let i = 0;
+    while (g.mode === 'dialog') {
+      if (++i > 40) throw new Error('the talk never ended');
+      await T.frames(150);
+      if (prefix) T.shot(prefix + '-p' + i);
+      if (g.dlg.name !== who) { who = g.dlg.name; said.push('| ' + who + ':'); }
+      said.push(g.dlg.pages[g.dlg.page].join(' '));
+      await T.tap('Space', 3);
+    }
+    await T.frames(10);
+    return said.join(' ');
+  };
+`;
+const GR = `
+  const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+  ${GRX}
+`;
+// The same wrap as the game's, to check that menu descriptions fit.
+const WRAP = `
+  const wrap = (t, n) => { const lines = []; let cur = ''; for (const w of t.split(' ')) { if (!cur) cur = w; else if ((cur + ' ' + w).length <= n) cur += ' ' + w; else { lines.push(cur); cur = w; } } if (cur) lines.push(cur); return lines; };
+`;
+const GRORUD_MAPS = ['grorudHeights', 'grorudTown', 'grorudWorks', 'veitvetRoad'];
+const grorudScenarios = [
+  { // a save from the end of Ammerud: through the south gate, down the heights into the town, and back
+    name: 'grorud-arrive', save: chapterThreeDone,
+    run: [
+      `async (T, g) => {
+        ${GR}
+        T.check('the save knows nothing of Grorud', saved().q.power === undefined && saved().q.bag === undefined && saved().q.yard === undefined);
+        await T.continueGame();
+        T.check('it loads in Chapter 4 with every Grorud quest unstarted', g.chapter === 3 && ['power', 'bag', 'yard'].every((id) => g.q[id].s === 0) && JSON.stringify(g.q.yard) === '{"s":0,"n":0}');
+        T.shot('south-gate');
+        await T.step('down');
+        await T.until(() => g.player.map === 'grorudHeights', 'the heights');
+        await T.frames(20);
+        T.shot('arriving');
+        await T.frames(40);
+        T.check('through the south gate onto GRORUD HEIGHTS, autosaved', g.player.x === 15 && g.player.y === 3 && g.player.dir === 'down' && saved().player.map === 'grorudHeights', g.player.x + ',' + g.player.y);
+        await T.frames(120);
+        T.check('no bouncing back, and nothing happens by itself', g.mode === 'world' && g.player.map === 'grorudHeights');
+        quiet();
+        T.place('grorudHeights', 15, 4, 'right');
+        await T.talk('sign');
+        T.place('grorudHeights', 21, 11, 'down');
+        await T.step('down', 2);
+        T.check('down through the gap in the ledge', g.player.x === 21 && g.player.y === 13);
+        T.shot('ledge');
+        T.place('grorudHeights', 14, 19, 'down');
+        await T.step('down');
+        await T.until(() => g.player.map === 'grorudTown', 'the town');
+        await T.frames(20);
+        T.shot('town');
+        await T.frames(40);
+        T.check('down the steps into GRORUD, autosaved', g.player.x === 12 && g.player.y === 3 && g.player.dir === 'down' && saved().player.map === 'grorudTown', g.player.x + ',' + g.player.y);
+        const here = g.NPCS.filter((n) => n.map === 'grorudTown').map((n) => n.id + ' ' + n.x + ',' + n.y).join('; ');
+        T.check('four people in Grorud', here === 'tobias 19,3; nawal 10,8; honey 7,3; joan 20,12', here);
+        const news = g.NPCS.filter((n) => n.map === 'grorudTown' && n.news && n.news()).map((n) => n.id).join();
+        T.check('TOBIAS, HONEY and JOAN have a mark; NAWAL does not', news === 'tobias,honey,joan', news);
+        T.place('grorudTown', 12, 7, 'down'); await T.frames(20); T.shot('square');
+        T.place('grorudTown', 20, 3, 'up'); await T.frames(20); T.shot('works-gate');
+        const gate = await hear('works-gate');
+        T.check('the Works gate says why it is shut', /power is off/.test(gate), gate);
+        await T.step('up');
+        T.check('the Works gate is shut', g.player.map === 'grorudTown' && g.player.y === 3 && !g.flags.worksOpen);
+        T.place('grorudTown', 18, 4, 'up'); await T.talk('terminal');
+        T.place('grorudTown', 24, 9, 'right'); await T.frames(20); T.shot('east-gate');
+        await T.talk('east-gate');
+        await T.step('right');
+        T.check('the east gate is locked', g.player.map === 'grorudTown' && g.player.x === 24 && !g.flags.veitvetGate);
+        T.place('grorudTown', 13, 3, 'up');
+        await T.step('up');
+        await T.until(() => g.player.map === 'grorudHeights', 'back up');
+        await T.frames(60);
+        T.check('back up the steps to the heights', g.player.x === 15 && g.player.y === 19 && g.player.dir === 'up', g.player.x + ',' + g.player.y);
+        T.place('grorudHeights', 15, 3, 'up');
+        await T.step('up');
+        await T.until(() => g.player.map === 'ammerud', 'Ammerud');
+        await T.frames(60);
+        T.check('and back through the south gate to AMMERUD', g.player.x === 15 && g.player.y === 20 && g.player.dir === 'up', g.player.x + ',' + g.player.y);
+        T.check('nothing was started, given or picked up by looking around', ['power', 'bag', 'yard'].every((id) => g.q[id].s === 0) && g.player.gold === 640 && !g.flags.cell1 && !g.flags.bag);
+        await T.step('down');
+        await T.until(() => g.player.map === 'grorudHeights', 'the heights again');
+        await T.frames(60);
+        T.state('arrived');
+      }`,
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE on the heights', g.player.map === 'grorudHeights' && g.player.x === 15 && g.player.y === 3 && g.chapter === 3 && g.mode === 'world');
+        T.shot('continued');
+      },
+    ],
+  },
+  { // the maps themselves: open ground, edges, exits, gates, monsters, and what the HUD might hide
+    name: 'grorud-map-audit', save: inTown,
+    run: `async (T, g) => {
+      ${HUD_CHECK}
+      ${WRAP}
+      await T.continueGame();
+      const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+      const tile = (m, x, y, open) => { const gate = m.gates && m.gates[x + ',' + y]; return gate ? (open ? gate.open : gate.closed) : m.rows[y][x]; };
+      const walk = (m, x, y, open) => x >= 0 && y >= 0 && x < m.w && y < m.h && !g.SOLID.has(tile(m, x, y, open));
+      const reach = (name, sx, sy, open) => {
+        const m = g.MAPS[name], seen = new Set([sx + ',' + sy]), todo = [[sx, sy]];
+        while (todo.length) {
+          const [x, y] = todo.pop();
+          if (m.exits[x + ',' + y]) continue;
+          for (const [dx, dy] of Object.values(DIRS)) {
+            const k = (x + dx) + ',' + (y + dy);
+            if (!seen.has(k) && walk(m, x + dx, y + dy, open)) { seen.add(k); todo.push([x + dx, y + dy]); }
+          }
+        }
+        return seen;
+      };
+      const M = Object.fromEntries(${JSON.stringify(GRORUD_MAPS)}.map((n) => [n, g.MAPS[n]]));
+      const size = Object.entries(M).map(([n, m]) => n + ' ' + m.w + 'x' + m.h + (m.rows.every((r) => r.length === m.w) ? '' : ' RAGGED')).join(', ');
+      T.check('the heights 30x21, the town 26x18, the Works 24x18, the road 16x10', size === 'grorudHeights 30x21, grorudTown 26x18, grorudWorks 24x18, veitvetRoad 16x10', size);
+      const START = { grorudHeights: [15, 3], grorudTown: [12, 3], grorudWorks: [12, 16], veitvetRoad: [1, 5] };
+      for (const [name, [sx, sy]] of Object.entries(START)) {
+        const m = M[name], seen = reach(name, sx, sy, true), out = [];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (walk(m, x, y, true) && !seen.has(x + ',' + y)) out.push(x + ',' + y);
+        T.check(name + ': all open ground can be reached', out.length === 0, out.join(' '));
+      }
+      const targets = (m) => JSON.stringify(Object.values(m.exits).map((e) => e.map));
+      T.check('the exits: heights to Ammerud and the town; town to the heights, the Works and the road; the Works and the road only back',
+        targets(M.grorudHeights) === '["ammerud","grorudTown","grorudTown"]' && targets(M.grorudTown) === '["grorudHeights","grorudHeights","grorudWorks","veitvetRoad"]'
+        && targets(M.grorudWorks) === '["grorudTown"]' && targets(M.veitvetRoad) === '["grorudTown"]' && g.MAPS.ammerud.exits['15,21'].map === 'grorudHeights',
+        targets(M.grorudHeights) + ' ' + targets(M.grorudTown));
+      const landing = [];
+      for (const from of [...Object.keys(M), 'ammerud']) for (const [k, e] of Object.entries(g.MAPS[from].exits)) {
+        if (!M[e.map] && e.map !== 'ammerud') continue;
+        const to = g.MAPS[e.map];
+        if (!walk(to, e.x, e.y, true) || to.exits[e.x + ',' + e.y]) landing.push(from + ' ' + k + ' -> ' + e.map + ' ' + e.x + ',' + e.y);
+        const back = Object.entries(to.exits).some(([bk, be]) => be.map === from && Math.abs(+bk.split(',')[0] - e.x) + Math.abs(+bk.split(',')[1] - e.y) === 1);
+        if (!back) landing.push('no way back from ' + e.map + ' ' + e.x + ',' + e.y);
+      }
+      T.check('every way in lands on open ground, one step from the way back', landing.length === 0, landing.join('; '));
+      const shut = reach('grorudTown', 12, 3, false), open = reach('grorudTown', 12, 3, true);
+      T.check('shut, the Works gate and the east gate cannot be walked through; open, they lead on', !shut.has('20,2') && !shut.has('25,9') && open.has('20,2') && open.has('25,9')
+        && tile(M.grorudTown, 20, 2, false) === '[' && tile(M.grorudTown, 20, 2, true) === ']' && tile(M.grorudTown, 25, 9, false) === 'G' && tile(M.grorudTown, 25, 9, true) === 'L');
+      T.check('the terminal stands beside the gate and lights up with it', tile(M.grorudTown, 18, 3, false) === '+' && tile(M.grorudTown, 18, 3, true) === '@' && g.SOLID.has('+') && g.SOLID.has('@'));
+      const road = reach('veitvetRoad', 1, 5, true);
+      T.check('Veitvet is not built: no such map, and nothing past the barricade can be reached', !Object.keys(g.MAPS).some((k) => /^veitvet$/i.test(k)) && Object.keys(g.MAPS).length === 14
+        && [...road].every((k) => +k.split(',')[0] < 13) && g.SOLID.has('J'));
+      T.check('the first POWER CELL lies in the nook west of the stream, reachable from the way in', walk(M.grorudHeights, 2, 7, true) && reach('grorudHeights', 15, 3, true).has('2,7'));
+      // monsters
+      const zones = (m) => (m.encounter ? m.encounter.zones : []);
+      const inZone = (m, x, y) => zones(m).find((z) => x >= z.at[0] && y >= z.at[1] && x <= z.at[2] && y <= z.at[3]);
+      const ok = (m) => zones(m).every((z) => z.at[0] >= 0 && z.at[1] >= 0 && z.at[2] < m.w && z.at[3] < m.h && z.table.every((e) => g.ENEMIES[e[0]] && !g.ENEMIES[e[0]].boss) && Math.abs(z.table.reduce((n, e) => n + e[1], 0) - 1) < 1e-9);
+      T.check('every zone lies inside its map, its monsters exist, none is a boss, the odds add up', Object.values(M).every(ok));
+      const types = (m) => [...new Set(zones(m).flatMap((z) => z.table.map((e) => e[0])))].sort().join();
+      T.check('the heights: rust rats, guards, a few scrap golems and old Ammerud faces; the town: rats, guards, golems and the first wisps; the Works: wisps, golems, sentinels and the odd rat',
+        types(M.grorudHeights) === 'crawler,guard,rust,scrap,shadow' && types(M.grorudTown) === 'guard,pwisp,rust,scrap' && types(M.grorudWorks) === 'pwisp,rust,scrap,sentinel' && !M.veitvetRoad.encounter,
+        types(M.grorudHeights) + ' / ' + types(M.grorudTown) + ' / ' + types(M.grorudWorks));
+      const odds = (m, t) => zones(m).map((z) => (z.table.find((e) => e[0] === t) || [t, 0])[1]);
+      T.check('the rust rat is the commonest thing on the heights; scrap golems are rare there', zones(M.grorudHeights).every((z) => z.table[0][0] === 'rust' || z.table[1][0] === 'rust') && Math.max(...odds(M.grorudHeights, 'scrap')) <= 0.25);
+      T.check('sentinels only in the Works; rats there are rare (one zone, one time in five at most)', Object.values(g.MAPS).every((m) => m === M.grorudWorks || !(m.encounter && m.encounter.zones || []).some((z) => z.table.some((e) => e[0] === 'sentinel')))
+        && odds(M.grorudWorks, 'rust').filter((p) => p > 0).length === 1 && Math.max(...odds(M.grorudWorks, 'rust')) <= 0.2);
+      T.check('JOAN\\'s yard is mostly scrap golems', zones(M.grorudTown).some((z) => z.at.join() === '17,14,24,16' && z.table[0][0] === 'scrap' && z.table[0][1] >= 0.5));
+      T.check('the big golem and NABILAH are never met at random', Object.values(g.MAPS).every((m) => !(m.encounter && m.encounter.zones || []).some((z) => z.table.some((e) => e[0] === 'hulk' || e[0] === 'nabilah'))));
+      T.check('every Grorud map picks its own battle backdrop, and the Works its own', M.grorudHeights.backdrop === 'heights' && M.grorudTown.backdrop === 'blocks' && M.grorudWorks.backdrop === 'factory');
+      const ways = { grorudHeights: [[15, 2], [15, 3], [14, 20], [15, 20], [14, 19], [15, 19]], grorudTown: [[12, 2], [13, 2], [12, 3], [13, 3], [20, 2], [20, 3], [25, 9], [24, 9]], grorudWorks: [[12, 17], [12, 16]] };
+      const near = [];
+      for (const [name, list] of Object.entries(ways)) {
+        const m = M[name];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (inZone(m, x, y) && list.some((p) => Math.abs(p[0] - x) + Math.abs(p[1] - y) <= 3)) near.push(name + ' ' + x + ',' + y);
+      }
+      T.check('no zone within three steps of a way in', near.length === 0, near.join(' '));
+      const safe = [];
+      for (let y = 3; y <= 12; y++) for (let x = 3; x <= 24; x++) if (inZone(M.grorudTown, x, y)) safe.push('town ' + x + ',' + y);
+      for (const [x0, y0, x1, y1] of [[0, 0, 23, 5], [0, 13, 23, 17]]) for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) if (inZone(M.grorudWorks, x, y)) safe.push('works ' + x + ',' + y);
+      for (let y = 0; y < M.grorudHeights.h; y++) for (let x = 0; x < M.grorudHeights.w; x++) if (M.grorudHeights.rows[y][x] === '=' && inZone(M.grorudHeights, x, y)) safe.push('heights path ' + x + ',' + y);
+      T.check('the square and the streets, the way into the Works, the control room, NABILAH\\'s hall and the path down the heights are all safe', safe.length === 0, safe.slice(0, 12).join(' '));
+      // nothing that matters hides under the HUD, from anywhere within three steps of it
+      const things = [];
+      for (const name of Object.keys(M)) {
+        const m = M[name];
+        things.push(...g.NPCS.filter((n) => n.map === name).map((n) => [n.id, name, n.x, n.y]));
+        things.push(...g.ITEMS.filter((i) => i.map === name).map((i) => [i.id, name, i.x, i.y]));
+        things.push(...Object.keys(m.signs).map((k) => ['sign ' + k, name, ...k.split(',').map(Number)]));
+        things.push(...Object.keys(m.exits).map((k) => ['exit ' + k, name, ...k.split(',').map(Number)]));
+        things.push(...Object.keys(m.gates || {}).map((k) => ['gate ' + k, name, ...k.split(',').map(Number)]));
+      }
+      things.push(['south gate', 'ammerud', 15, 21]);
+      const hidden = [];
+      for (const [id, map, tx, ty] of things) {
+        const m = g.MAPS[map];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) {
+          if (Math.abs(x - tx) + Math.abs(y - ty) > 3 || !walk(m, x, y, true)) continue;
+          if (hiddenFrom(map, x, y, tx, ty)) hidden.push(id + ' (' + map + ') from ' + x + ',' + y);
+        }
+      }
+      T.check('no person, cell, bag, chest, sign, exit or gate of Grorud is ever under the status panel or the tracker', hidden.length === 0, hidden.slice(0, 12).join('; '));
+      T.check('every chest, cell and the bag stand on open ground, off the paths out', g.ITEMS.filter((i) => M[i.map]).every((i) => walk(g.MAPS[i.map], i.x, i.y, true) && !g.MAPS[i.map].exits[i.x + ',' + i.y]) && g.ITEMS.filter((i) => M[i.map]).length === 5);
+      for (const [name, [sx, sy]] of Object.entries(START)) {
+        const m = M[name], people = new Set(g.NPCS.filter((n) => n.map === name).map((n) => n.x + ',' + n.y)), seen = new Set([sx + ',' + sy]), todo = [[sx, sy]];
+        while (todo.length) {
+          const [x, y] = todo.pop();
+          for (const [dx, dy] of Object.values(DIRS)) {
+            const k = (x + dx) + ',' + (y + dy);
+            if (!seen.has(k) && !people.has(k) && walk(m, x + dx, y + dy, true)) { seen.add(k); todo.push([x + dx, y + dy]); }
+          }
+        }
+        const cut = [];
+        for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (walk(m, x, y, true) && !people.has(x + ',' + y) && !seen.has(x + ',' + y)) cut.push(x + ',' + y);
+        T.check(name + ': the people block nobody in', cut.length === 0, cut.join(' '));
+      }
+      // what the HUD and the log say about the new quests, at every stage, must fit
+      const wide = [], keep = JSON.stringify(g.flags), keepYard = JSON.stringify(g.q.yard);
+      for (const [c1, c2, c3, open, n] of [[0, 0, 0, 0, 0], [1, 0, 0, 0, 1], [1, 1, 0, 0, 2], [1, 1, 1, 0, 2], [1, 1, 1, 1, 2]]) {
+        Object.assign(g.flags, { cell1: !!c1, cell2: !!c2, cell3: !!c3, worksOpen: !!open }); g.q.yard.n = n;
+        for (const id of ['power', 'bag', 'yard']) {
+          const d = g.QUESTS[id];
+          if (d.title.length > 16 || ('NEW QUEST: ' + d.title).length > 28) wide.push(d.title);
+          if (d.progress().length > 15) wide.push(d.progress());
+          if (d.tracker().length > 16) wide.push(d.tracker());
+          if (('SEE ' + d.turnIn + '!').length > 16) wide.push(d.turnIn);
+        }
+      }
+      const restore = JSON.parse(keep); for (const k of Object.keys(g.flags)) delete g.flags[k]; Object.assign(g.flags, restore); Object.assign(g.q.yard, JSON.parse(keepYard));
+      T.check('every new quest title, log line and tracker fits', wide.length === 0, wide.join(' | '));
+      const gear = [['weapon', 'wrench'], ['weapon', 'blade'], ['armor', 'insulated'], ['armor', 'factory']].map(([k, id]) => (k === 'weapon' ? g.WEAPONS : g.ARMORS)[id]);
+      T.check('new gear names fit inside the status panel (10 letters) and the gear list (14), and what the menu says about them fits in three lines',
+        gear.every((it) => it.name.length <= 10 && (it.full || it.name).length <= 14 && wrap(it.desc, 16).length <= 3), gear.map((it) => it.name + ' / ' + it.full + ': ' + wrap(it.desc, 16).join('/')).join(' | '));
+      T.check('the new gear: wrench ATK +8 heavy, blade ATK +7 nimble and keen, insulated vest DEF +3 taking 40 percent off shocks, factory armour DEF +6',
+        JSON.stringify([g.WEAPONS.wrench.atk, !!g.WEAPONS.wrench.heavy, g.WEAPONS.blade.atk, !!g.WEAPONS.blade.nimble, !!g.WEAPONS.blade.keen, g.ARMORS.insulated.def, g.ARMORS.insulated.insulated, g.ARMORS.factory.def, !!g.ARMORS.factory.insulated])
+          === '[8,true,7,true,true,3,0.4,6,false]');
+      T.check('the old gear is as it was', JSON.stringify(['none', 'iron', 'crystal', 'axe', 'bat'].map((k) => [g.WEAPONS[k].atk, !!g.WEAPONS[k].heavy, !!g.WEAPONS[k].nimble, !!g.WEAPONS[k].keen])) === '[[0,false,false,false],[3,false,false,false],[7,false,false,false],[2,true,false,false],[9,false,false,false]]'
+        && JSON.stringify(['none', 'vest', 'light', 'sneakers', 'rvest'].map((k) => [g.ARMORS[k].def, !!g.ARMORS[k].nimble, !!g.ARMORS[k].insulated])) === '[[0,false,false],[2,false,false],[1,true,false],[3,true,false],[4,false,false]]');
+      T.check('the Ammerud enemies and MARCUS are as they were, and none of the old ones is electric', JSON.stringify(['crawler', 'shadow', 'brute', 'wisp', 'glowwisp', 'marcus'].map((k) => [g.ENEMIES[k].hp, g.ENEMIES[k].atk, g.ENEMIES[k].def, g.ENEMIES[k].xp]))
+        === '[[58,25,7,34],[40,29,4,32],[84,25,12,48],[50,27,6,40],[110,28,8,90],[180,26,9,150]]' && Object.keys(g.ENEMIES).filter((k) => g.ENEMIES[k].shock).join() === 'pwisp');
+      T.check('five chapters: Grorud ends with POWER TO GRORUD, and Veitvet comes next without a quest', JSON.stringify(g.CHAPTERS.slice(3)) === '[{"name":"GRORUD","quest":"power"},{"name":"VEITVET","quest":null}]' && g.CHAPTERS.length === 5);
+      T.check('fifteen quests, the new three last', g.QUEST_ORDER.join() === 'slimes,biscuit,glowcap,king,shards,road,cart,under,mohsin,kebab,trouble,ball,wisp,power,bag,yard', g.QUEST_ORDER.join());
+    }`,
+  },
+  { // each of Grorud's monsters, met for certain on a chosen tile, and what the gear does against them
+    name: 'grorud-enemies', save: inTown,
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      const want = { rust: [48, 27, 5, 30], guard: [64, 28, 8, 38], scrap: [70, 32, 15, 50], pwisp: [44, 30, 5, 40], sentinel: [96, 31, 11, 60], hulk: [120, 33, 16, 85] };
+      const stats = (b) => JSON.stringify([b.max, b.atk, b.def, b.xp]);
+      const full = () => { g.player.hp = g.player.maxhp; };
+      // hero LV11: ATK 26 + 9 with MARCUS' bat, DEF 11 + 2 in the Tough Vest
+      g.player.armor = 'vest'; full();
+      await meet(5, 15, 'down', 0, 'grorudHeights');
+      let b = g.battle;
+      T.check('a rust rat on the heights, by its name and with the heights behind it', b.type === 'rust' && b.name === 'RUST RAT' && stats(b) === JSON.stringify(want.rust) && !b.boss && b.backdrop === 'heights', b.type + ' ' + stats(b));
+      const bite = g.player.maxhp - g.player.hp;
+      T.check('quick: it bit first through the Tough Vest', bite >= 14 && bite <= 16 && b.turn === 0, bite);
+      T.shot('rust');
+      T.check("MARCUS' bat: 31", await swing() === 31);
+      await T.fight(cautious);
+      g.player.weapons.push('blade'); g.player.weapon = 'blade'; full();
+      await meet(5, 15, 'down', 0, 'grorudHeights');
+      T.check('with the QUICK BLADE it gets no opening bite', g.player.hp === g.player.maxhp && g.battle.type === 'rust', g.player.hp);
+      T.check('quick blade: 29', await swing() === 29);
+      await T.fight(cautious);
+      g.player.weapon = 'bat'; g.player.armor = 'sneakers'; full();
+      await meet(24, 8, 'down', 0, 'grorudHeights');
+      b = g.battle;
+      T.check('a grorud guard on the east plateau', b.type === 'guard' && b.name === 'GRORUD GUARD' && stats(b) === JSON.stringify(want.guard), b.type + ' ' + stats(b));
+      T.check('it waits for the hero', g.player.hp === g.player.maxhp && b.turn === 0);
+      T.shot('guard');
+      T.check('bat: 28', await swing() === 28);
+      await T.fight(cautious);
+      // the scrap golem in JOAN's yard: the wrench cracks its armour, the bat does not
+      g.player.weapons.push('wrench'); g.player.weapon = 'wrench'; full();
+      await meet(20, 15, 'down', 0, 'grorudTown');
+      b = g.battle;
+      T.check('a scrap golem in the yard, with the town behind it', b.type === 'scrap' && b.name === 'SCRAP GOLEM' && stats(b) === JSON.stringify(want.scrap) && b.backdrop === 'blocks', b.type + ' ' + stats(b));
+      T.shot('scrap');
+      T.check('the heavy wrench straight through its armour: 35', await swing() === 35);
+      await T.until(() => /cracks right through/.test(b.msg) && b.shown >= b.msg.length, 'the wrench line');
+      T.shot('wrench-smash');
+      const before = g.player.hp;
+      await T.until(() => b.phase === 'menu', 'the battle menu');
+      T.check('slow: on its first turn it only creaks', g.player.hp === before && b.turn === 1, g.player.hp + ' ' + before);
+      await T.fight(cautious);
+      g.player.weapon = 'bat'; full();
+      await meet(20, 15, 'down', 0, 'grorudTown');
+      T.check("MARCUS' bat against its armour: 21", await swing() === 21);
+      await T.until(() => /armour turns/.test(g.battle.msg), 'the armour line');
+      await T.fight(cautious);
+      // the power wisp: quick and electric; the insulated vest halves its shocks
+      g.player.armor = 'vest'; full();
+      await meet(20, 15, 'down', 0.6, 'grorudTown');
+      b = g.battle;
+      T.check('a power wisp', b.type === 'pwisp' && b.name === 'POWER WISP' && stats(b) === JSON.stringify(want.pwisp), b.type + ' ' + stats(b));
+      const zap = g.player.maxhp - g.player.hp;
+      T.check('quick and electric: it zapped first, through the Tough Vest', zap >= 17 && zap <= 19, zap);
+      T.shot('pwisp');
+      T.check('bat: 31', await swing() === 31);
+      await T.until(() => b.zap > 0 && b.zap <= 14, 'the zap');
+      T.shot('pwisp-zap');
+      await T.fight(cautious);
+      g.player.armors.push('insulated'); g.player.armor = 'insulated'; full();
+      await meet(20, 15, 'down', 0.6, 'grorudTown');
+      const soft = g.player.maxhp - g.player.hp;
+      T.check('in the INSULATED VEST the same zap loses 40 percent (16..18 through its DEF, then 10..11)', soft >= 10 && soft <= 11 && g.battle.insulatedSaid === true, soft);
+      await T.fight(cautious);
+      // the factory sentinel, only in the Works
+      g.player.armor = 'sneakers'; g.player.weapon = 'bat'; full();
+      await meet(4, 10, 'down', 0.9, 'grorudWorks');
+      b = g.battle;
+      T.check('a factory sentinel, with the factory behind it', b.type === 'sentinel' && b.name === 'FACTORY SENTINEL' && stats(b) === JSON.stringify(want.sentinel) && b.backdrop === 'factory', b.type + ' ' + stats(b));
+      T.shot('sentinel');
+      T.check("MARCUS' bat against its armour: 25", await swing() === 25);
+      await T.until(() => b.phase === 'menu', 'the battle menu');
+      g.player.weapon = 'wrench';
+      T.check('the wrench: 35', await swing() === 35);
+      await T.fight(cautious);
+      // the big scrap golem: not a boss, so the hero can back off
+      g.player.weapon = 'bat'; full();
+      T.place('grorudHeights', 26, 5, 'up');
+      await T.talk('hulk');
+      await T.untilBattle();
+      b = g.battle;
+      T.check('the BIG SCRAP GOLEM: tougher than any wanderer, armoured, but no boss', b.type === 'hulk' && b.name === 'BIG SCRAP GOLEM' && stats(b) === JSON.stringify(want.hulk) && !b.boss, b.type + ' ' + stats(b));
+      T.shot('hulk');
+      await T.fight(() => 2);
+      T.check('running away: it is still there, with its cell', g.mode === 'world' && g.NPCS.find((n) => n.id === 'hulk').visible() && !g.flags.cell2);
+      T.check('nothing counted for quests nobody gave, still LV11', g.q.yard.n === 0 && g.q.power.s === 0 && g.player.lvl === 11 && g.stats.won === 98, g.stats.won + ' ' + g.player.lvl);
+      T.state('after');
+    }`,
+  },
+  { // POWER TO GRORUD in the order NAWAL suggests: the cell on the heights, the big golem, then JOAN
+    name: 'grorud-power', save: moved(chapterThreeDone, 'grorudTown', 19, 4, 'up'),
+    run: [
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        quiet();
+        let said = await hear('offer');
+        T.check('POWER TO GRORUD: accepted, tracked and saved', g.q.power.s === 1 && g.tracked === 'power' && saved().q.power.s === 1);
+        T.check('TOBIAS explains it: no power, NABILAH inside, three POWER CELLS', /lost its power/.test(said) && /NABILAH/.test(said) && /three POWER CELLS/.test(said), said);
+        T.shot('tracker');
+        await T.tap('KeyX', 6);
+        T.check('the log opens on page 3, on the new quest', g.menuPage === 2, g.menuPage);
+        T.shot('log');
+        await T.tap('KeyX', 6);
+        said = await hear('count');
+        T.check('he gives the count', /0 of 3/.test(said), said);
+        T.place('grorudTown', 10, 9, 'up');
+        said = await hear('nawal');
+        T.check('NAWAL: where the first cell lies, the big golem, and how to beat scrap armour', /west of the stream/.test(said) && /BIG SCRAP GOLEM/.test(said) && /heavy tool/.test(said), said);
+        T.check('she starts nothing and gives nothing', g.q.power.s === 1 && g.q.bag.s === 0 && g.q.yard.s === 0 && !g.flags.cell1);
+        T.place('grorudHeights', 1, 4, 'down');
+        await T.frames(20);
+        T.shot('nook');
+        await T.step('down', 3); await T.step('right');
+        T.check('found by walking onto it', g.mode === 'dialog' && g.player.x === 2 && g.player.y === 7, g.mode + ' ' + g.player.x + ',' + g.player.y);
+        T.check('it says what it is', /POWER CELL! \\(1\\/3\\)/.test(g.dlg.pages[0].join(' ')), g.dlg.pages[0].join(' '));
+        await T.dialog('cell1');
+        T.check('one cell, counted and saved', g.flags.cell1 === true && saved().flags.cell1 === true && g.q.power.s === 1);
+        await T.step('left'); await T.step('right');
+        T.check('it lay there only once', g.mode === 'world');
+        await T.step('left'); await T.step('up', 3);
+        T.check('and out of the nook the way in', g.player.x === 1 && g.player.y === 4, g.player.x + ',' + g.player.y);
+        T.shot('tracker-1');
+      }`,
+      `async (T, g) => {
+        ${GRX}
+        ${MEET}
+        ${WATCH}
+        await T.continueGame();
+        T.check('CONTINUE: one cell', g.flags.cell1 === true && g.q.power.s === 1 && !g.flags.cell2 && !g.flags.cell3);
+        T.place('grorudHeights', 26, 5, 'up');
+        await T.frames(20);
+        T.shot('hulk');
+        await T.talk('hulk');
+        await T.untilBattle();
+        const { seen } = await watchFight(50, [['cell', /POWER CELL rolls out/]]);
+        T.check('beaten: the second cell rolls out, once, and is saved', seen.cell === 1 && g.flags.cell2 === true && saved().flags.cell2 === true, JSON.stringify(seen));
+        T.check('the big golem is gone for good', !g.NPCS.find((n) => n.id === 'hulk').visible());
+        await T.tap('Space', 6);
+        T.check('nothing left there to talk to', g.mode === 'world');
+        T.place('grorudTown', 20, 11, 'down');
+        let said = await hear('joan-offer');
+        T.check("JOAN'S YARD: accepted and saved; two golems wanted", g.q.yard.s === 1 && saved().q.yard.s === 1 && g.q.yard.n === 0 && /Beat 2/.test(said), said);
+        said = await hear();
+        T.check('she gives the count', /0 of 2/.test(said), said);
+        for (let i = 1; i <= 2; i++) {
+          g.player.hp = g.player.maxhp;
+          await meet(20, 15, 'down', 0, 'grorudTown');
+          await T.fight(cautious);
+          T.check('golem ' + i + ' counted and saved', g.q.yard.n === i && saved().q.yard.n === i, g.q.yard.n);
+        }
+        T.check('the yard is ready for JOAN, and tracked', g.q.yard.s === 2 && g.tracked === 'yard' && saved().q.yard.s === 2);
+        g.player.hp = g.player.maxhp;
+        await meet(20, 15, 'down', 0, 'grorudTown');
+        await T.fight(cautious);
+        T.check('a third golem does not count', g.q.yard.n === 2);
+        T.shot('tracker-yard');
+      }`,
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        quiet();
+        T.check('CONTINUE: two cells, the yard ready', g.flags.cell1 && g.flags.cell2 && !g.flags.cell3 && g.q.yard.s === 2);
+        T.place('grorudTown', 20, 11, 'down');
+        await T.talk('joan-reward');
+        T.check('the third cell, once; the yard done; both saved', g.flags.cell3 === true && g.q.yard.s === 3 && saved().flags.cell3 === true && saved().q.yard.s === 3);
+        await T.talk('joan-after');
+        T.check('nothing more from JOAN', g.mode === 'world' && g.q.yard.s === 3);
+        T.shot('tracker-3');
+        T.place('grorudTown', 10, 9, 'up');
+        let said = await hear('nawal-3');
+        T.check('NAWAL sends the hero to TOBIAS', /Hurry over to TOBIAS/.test(said), said);
+        T.place('grorudTown', 18, 4, 'up');
+        said = await hear('terminal');
+        T.check('the terminal says TOBIAS knows how', /TOBIAS knows/.test(said) && !g.flags.worksOpen, said);
+        T.place('grorudTown', 19, 4, 'up');
+        T.check('TOBIAS has a mark', g.NPCS.find((n) => n.id === 'tobias').news());
+        let flash = false;
+        await T.tap('Space', 3);
+        for (let i = 0; g.mode === 'dialog' && i < 40; i++) {
+          if (g.flags.worksOpen && !flash) {
+            await T.until(() => g.powerT > 0 && Math.floor(g.powerT / 5) % 2 === 0, 'the lights');
+            T.shot('power-on');
+            flash = true;
+          }
+          await T.frames(150);
+          T.shot('install-p' + (i + 1));
+          await T.tap('Space', 3);
+        }
+        await T.frames(10);
+        T.check('the lights flickered on', flash);
+        T.check('the Works gate is open and the terminal lit, saved', g.flags.worksOpen === true && saved().flags.worksOpen === true);
+        T.check('the quest runs on, with NABILAH next', g.q.power.s === 1 && g.mode === 'world' && g.tracked === 'power');
+        T.shot('gate-open');
+        T.place('grorudTown', 20, 3, 'up');
+        await T.step('up');
+        await T.until(() => g.player.map === 'grorudWorks', 'the Works');
+        await T.frames(20);
+        T.shot('works');
+        await T.frames(40);
+        T.check('into OLD GRORUD WORKS, autosaved', g.player.x === 12 && g.player.y === 16 && g.player.dir === 'up' && saved().player.map === 'grorudWorks', g.player.x + ',' + g.player.y);
+        T.place('grorudWorks', 12, 16, 'down');
+        await T.step('down');
+        await T.until(() => g.player.map === 'grorudTown', 'back to town');
+        await T.frames(60);
+        T.check('and back out, in front of the gate', g.player.x === 20 && g.player.y === 3 && g.player.dir === 'down', g.player.x + ',' + g.player.y);
+        T.state('powered');
+      }`,
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        T.check('CONTINUE: the gate stays open, the cells stay installed', g.flags.worksOpen === true && g.flags.cell1 && g.flags.cell2 && g.flags.cell3 && g.q.power.s === 1);
+        T.place('grorudTown', 19, 4, 'up');
+        let said = await hear('tobias-after');
+        T.check('TOBIAS sends the hero in, and installs nothing twice', /deep inside the WORKS/.test(said) && g.mode === 'world', said);
+        T.place('grorudTown', 10, 9, 'up');
+        said = await hear('nawal-works');
+        T.check('NAWAL warns about the wisps and the POWER SURGE', /POWER WISPS/.test(said) && /POWER SURGE/.test(said), said);
+        T.place('grorudTown', 20, 3, 'up');
+        await T.step('up');
+        await T.until(() => g.player.map === 'grorudWorks', 'the Works');
+        await T.frames(60);
+        T.check('the gate still lets the hero through', g.player.map === 'grorudWorks');
+      }`,
+    ],
+  },
+  { // the cells in another order: JOAN's first, then the one on the heights before TOBIAS asks, then the golem
+    name: 'grorud-power-any-order', save: moved(chapterThreeDone, 'grorudTown', 20, 11, 'down'),
+    run: [
+      `async (T, g) => {
+        ${GRX}
+        ${MEET}
+        await T.continueGame();
+        await T.talk('joan-offer');
+        T.check('JOAN asks even before TOBIAS does', g.q.yard.s === 1 && g.q.power.s === 0);
+        for (let i = 0; i < 2; i++) { g.player.hp = g.player.maxhp; await meet(20, 15, 'down', 0, 'grorudTown'); await T.fight(cautious); }
+        T.place('grorudTown', 20, 11, 'down');
+        await T.talk('joan-reward');
+        T.check('the third cell first, before anybody asked for cells', g.flags.cell3 === true && g.q.yard.s === 3 && g.q.power.s === 0 && saved().flags.cell3 === true);
+        g.MAPS.grorudHeights.encounter.chance = 0;
+        T.place('grorudHeights', 1, 6, 'down');
+        await T.step('down'); await T.step('right');
+        T.check('the first cell, found before TOBIAS asked', g.mode === 'dialog' && /Somebody in GRORUD must be missing this/.test(g.dlg.pages[0].join(' ')), g.mode);
+        await T.dialog('early');
+        T.check('kept and saved, and no quest started by it', g.flags.cell1 === true && saved().flags.cell1 === true && g.q.power.s === 0);
+        T.place('grorudTown', 19, 4, 'up');
+        let said = await hear('offer');
+        T.check('TOBIAS counts the two the hero already has', /already have 2/.test(said) && g.q.power.s === 1 && !g.flags.worksOpen, said);
+        T.shot('tracker-2');
+      }`,
+      `async (T, g) => {
+        ${GR}
+        ${WATCH}
+        await T.continueGame();
+        T.check('CONTINUE: two cells, quest running', g.q.power.s === 1 && g.flags.cell1 && g.flags.cell3 && !g.flags.cell2);
+        T.place('grorudHeights', 26, 5, 'up');
+        await T.talk();
+        await T.untilBattle();
+        await watchFight(50, []);
+        T.check('the last cell from the big golem', g.flags.cell2 === true);
+        T.place('grorudTown', 19, 4, 'up');
+        await hear();
+        T.check('TOBIAS hooks them up: the gate is open, whatever the order', g.flags.worksOpen === true && saved().flags.worksOpen === true && g.q.power.s === 1);
+      }`,
+    ],
+  },
+  { // all three cells before TOBIAS has said a word: he takes the job and hooks them up in one go
+    name: 'grorud-power-all-at-once', save: withCells(moved(chapterThreeDone, 'grorudTown', 19, 4, 'up'), 0, ['cell1', 'cell2', 'cell3']),
+    run: `async (T, g) => {
+      ${GR}
+      await T.continueGame();
+      T.check('three cells, no quest, the gate shut', g.q.power.s === 0 && !g.flags.worksOpen);
+      const said = await hear();
+      T.check('accepted, and installed straight away', /already have 3/.test(said) && /We have POWER/.test(said) && g.q.power.s === 1 && g.flags.worksOpen === true && saved().flags.worksOpen === true, said);
+    }`,
+  },
+  { // the Works gate opens only through TOBIAS; cells in the pack, or the quest started, are not enough
+    name: 'grorud-gate-guards', save: withCells(moved(chapterThreeDone, 'grorudTown', 20, 3, 'up'), 0, ['cell1', 'cell2', 'cell3']),
+    run: [
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        let said = await hear('locked');
+        await T.step('up');
+        T.check('three cells but no quest: the gate is shut and stays shut', g.player.map === 'grorudTown' && g.player.y === 3 && !g.flags.worksOpen && /power is off/.test(said), said);
+        T.place('grorudTown', 18, 4, 'up');
+        said = await hear();
+        T.check('the terminal does not take them by itself', /TOBIAS knows/.test(said) && !g.flags.worksOpen, said);
+        const d = saved(); d.q.power = { s: 1 }; delete d.flags.cell2; Object.assign(d.player, { x: 20, y: 3, fx: 20, fy: 3, tx: 20, ty: 3, dir: 'up' }); localStorage.setItem(KEY, JSON.stringify(d));
+      }`,
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        const said = await hear('two-cells');
+        await T.step('up');
+        T.check('two cells and the quest: still shut, and it says how many are missing', g.player.y === 3 && !g.flags.worksOpen && /You have 2/.test(said), said);
+        T.place('grorudTown', 24, 9, 'right');
+        const d = saved(); d.flags.factoryKey = true; Object.assign(d.player, { x: 24, y: 9, fx: 24, fy: 9, tx: 24, ty: 9, dir: 'right', map: 'grorudTown' }); localStorage.setItem(KEY, JSON.stringify(d));
+      }`,
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        const said = await hear('key-too-early');
+        await T.step('right');
+        T.check('the FACTORY KEY alone does not open the east gate before TOBIAS has heard', g.player.x === 24 && !g.flags.veitvetGate && /TOBIAS will want/.test(said), said);
+      }`,
+    ],
+  },
+  { // HONEY's bag, with a reload after finding it and after handing it back
+    name: 'grorud-honey', save: moved(chapterThreeDone, 'grorudTown', 7, 4, 'up'),
+    run: [
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        quiet();
+        T.shot('honey');
+        let said = await hear('offer');
+        T.check("HONEY'S BAG: accepted and saved", g.q.bag.s === 1 && saved().q.bag.s === 1 && g.tracked === 'bag', said);
+        said = await hear('hint');
+        T.check('she says where to look', /south-west/.test(said), said);
+        T.place('grorudHeights', 5, 16, 'down');
+        await T.frames(20);
+        T.shot('bag');
+        await T.step('down');
+        T.check('found by walking onto it', g.mode === 'dialog' && g.player.y === 17 && /Take it back to HONEY/.test(g.dlg.pages[g.dlg.pages.length - 1].join(' ')), g.mode);
+        await T.dialog('found');
+        T.check('ready and saved', g.q.bag.s === 2 && g.flags.bag === true && saved().q.bag.s === 2 && saved().flags.bag === true);
+        await T.step('up'); await T.step('down');
+        T.check('only one bag', g.mode === 'world');
+      }`,
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        T.check('CONTINUE: the bag is carried, not lying on the heights', g.q.bag.s === 2 && g.flags.bag === true);
+        T.place('grorudTown', 7, 4, 'up');
+        const said = await hear('return');
+        T.check('the INSULATED VEST, owned once, not put on by itself; quest done and saved', g.player.armors.filter((a) => a === 'insulated').length === 1 && g.player.armor === 'sneakers' && g.q.bag.s === 3
+          && saved().q.bag.s === 3 && saved().player.armors.includes('insulated') && /INSULATED VEST/.test(said), said);
+        await T.talk('after'); await T.talk('after-2');
+        T.check('no second vest', g.player.armors.filter((a) => a === 'insulated').length === 1);
+        await T.tap('KeyX', 6);
+        await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
+        T.check('the cursor reaches the armour line', g.menuSel === 1, g.menuSel);
+        await T.tap('Space', 4);
+        T.check('put on from the menu', g.player.armor === 'insulated', g.player.armor);
+        T.shot('vest');
+        await T.tap('ArrowDown', 4); await T.tap('ArrowDown', 4); await T.tap('Space', 6); await T.tap('KeyX', 6);
+      }`,
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE in the insulated vest, every old armour kept', g.player.armor === 'insulated' && JSON.stringify(g.player.armors) === '["none","vest","sneakers","insulated"]' && g.q.bag.s === 3);
+        T.state('done');
+      },
+    ],
+  },
+  { // the bag found before HONEY asks: she thanks the hero at once, and the vest is still given only once
+    name: 'grorud-honey-early', save: moved(chapterThreeDone, 'grorudHeights', 5, 16, 'down'),
+    run: `async (T, g) => {
+      ${GR}
+      await T.continueGame();
+      quiet();
+      await T.step('down');
+      T.check('it lies there before anybody asks, and says so', g.mode === 'dialog' && /must be missing this/.test(g.dlg.pages[g.dlg.pages.length - 1].join(' ')));
+      await T.dialog('early');
+      T.check('carried, saved, no quest started', g.flags.bag === true && saved().flags.bag === true && g.q.bag.s === 0);
+      T.place('grorudTown', 7, 4, 'up');
+      T.check('HONEY has a mark', g.NPCS.find((n) => n.id === 'honey').news());
+      const said = await hear('honey');
+      T.check('she recognises it, and the quest is done in one go', /before I even asked/.test(said) && g.q.bag.s === 3 && g.player.armors.filter((a) => a === 'insulated').length === 1 && saved().q.bag.s === 3, said);
+      await T.talk();
+      T.check('no second vest', g.player.armors.filter((a) => a === 'insulated').length === 1);
+    }`,
+  },
+  { // the three chests, each opened once, and the status screen with seven weapons
+    name: 'grorud-chests', save: (() => { const d = JSON.parse(JSON.stringify(inTown)); d.player.weapons = ['none', 'iron', 'crystal', 'axe', 'bat']; d.flags.chestAxe = true; return d; })(),
+    run: [
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        quiet();
+        T.place('grorudHeights', 28, 16, 'down');
+        await T.frames(20);
+        T.shot('wrench-chest');
+        await T.step('down');
+        T.check('the wrench chest, by the full name of what is in it', g.mode === 'dialog' && /HEAVY WRENCH/.test(g.dlg.pages[0].join(' ')), g.mode);
+        await T.dialog('wrench');
+        T.check('the HEAVY WRENCH is owned, not worn', g.player.weapons.includes('wrench') && g.player.weapon === 'bat' && g.flags.chestWrench === true);
+        await T.step('up'); await T.step('down');
+        T.check('opened once', g.mode === 'world' && g.player.weapons.filter((w) => w === 'wrench').length === 1);
+        T.place('grorudTown', 1, 15, 'down');
+        await T.frames(20);
+        T.shot('blade-chest');
+        await T.step('down');
+        await T.dialog('blade');
+        T.check('the QUICK BLADE', g.player.weapons.includes('blade') && g.flags.chestBlade === true);
+        T.place('grorudWorks', 22, 10, 'down');
+        await T.frames(20);
+        T.shot('armor-chest');
+        await T.step('down');
+        T.check('the armour chest, by its full name', g.mode === 'dialog' && /FACTORY ARMOR/.test(g.dlg.pages[0].join(' ')));
+        await T.dialog('armor');
+        T.check('the FACTORY ARMOR', g.player.armors.includes('factory') && g.flags.chestArmor === true);
+        T.check('all saved', ['chestWrench', 'chestBlade', 'chestArmor'].every((k) => saved().flags[k] === true) && saved().player.weapons.length === 7);
+        await T.tap('KeyX', 6);
+        await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4); await T.tap('ArrowUp', 4);
+        T.check('the cursor reaches the weapon line', g.menuSel === 0, g.menuSel);
+        T.shot('weapons-bat');
+        const order = [];
+        for (let i = 0; i < 7; i++) { await T.tap('Space', 4); order.push(g.player.weapon); if (i === 0) T.shot('weapons-wrench'); if (i === 2) T.shot('weapons-stick'); }
+        T.check('seven weapons, cycled in order and back round', order.join() === 'wrench,blade,none,iron,crystal,axe,bat', order.join());
+        await T.tap('Space', 4);
+        T.check('the wrench in hand', g.player.weapon === 'wrench');
+        await T.tap('ArrowDown', 4);
+        await T.tap('Space', 4);
+        T.check('the factory armour on', g.player.armor === 'factory', g.player.armor);
+        T.shot('armour-factory');
+        await T.tap('ArrowDown', 4); await T.tap('ArrowDown', 4); await T.tap('Space', 6);
+        T.check('SAVED!', g.menuNote && g.menuNote.text === 'SAVED!' && saved().player.weapon === 'wrench' && saved().player.armor === 'factory');
+        await T.tap('KeyX', 6);
+      }`,
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        T.check('CONTINUE: wrench and factory armour on, all seven weapons and four armours kept', g.player.weapon === 'wrench' && g.player.armor === 'factory' && g.player.weapons.length === 7 && JSON.stringify(g.player.armors) === '["none","vest","sneakers","factory"]');
+        T.check('DEF 11 + 6, ATK 26 + 8', g.player.def + g.ARMORS[g.player.armor].def === 17 && g.player.atk + g.WEAPONS[g.player.weapon].atk === 34);
+        T.check('no chest comes back', g.ITEMS.filter((i) => i.chest && i.map.startsWith('grorud')).every((i) => g.flags[i.id]));
+        await T.menuShot('status');
+        T.state('after');
+      }`,
+    ],
+  },
+];
+// The whole meeting with NABILAH: the talk, the fight (an herb below HEAL HP), the hand-over, and nothing twice.
+const NABILAH = `async (T, g) => {
+  ${GR}
+  ${WATCH}
+  await T.continueGame();
+  const gold = g.player.gold, xp = g.player.xp, won = g.stats.won, herbs = g.player.herbs, weapons = g.player.weapons.slice(), armors = g.player.armors.slice();
+  T.check('NABILAH waits in her hall, right in front of the hero', g.NPCS.some((n) => n.id === 'nabilah' && n.map === 'grorudWorks' && n.x === 12 && n.y === 2 && !n.visible) && g.player.x === 12 && g.player.y === 3);
+  if (TALK) { T.shot('hall'); }
+  await hear(TALK ? 'before' : '');
+  await T.untilBattle();
+  const b = g.battle;
+  T.check('NABILAH: 250 HP, ATK 30, DEF 10, a boss', b.type === 'nabilah' && b.name === 'NABILAH' && b.boss === true && b.max === 250 && b.atk === 30 && b.def === 10 && b.xp === 190, JSON.stringify([b.max, b.atk, b.def, b.xp]));
+  if (TALK) T.shot('battle');
+  let surgeAt = null, glowing = false, defAfter = null, shotSurge = false, shotPhase2 = false;
+  const { turns, seen } = await watchFight(HEAL, [['wrench', /giant wrench/], ['spark', /flicks a spark/], ['tune', /hums a tune/], ['surge', /POWER SURGE/], ['drops', /guard drops/],
+    ['plug', /plugs into the wall/], ['overload', /OVERLOAD/], ['bolt', /bolt of lightning/], ['soak', /soaks up/], ['defeated', /power down/]], () => {
+    if (b.surge && surgeAt === null) { surgeAt = b.hp; glowing = b.look === 'nabilah2'; defAfter = b.def; }
+    if (TALK && b.surge && !shotSurge && b.msg === 'POWER SURGE!!' && b.shown >= b.msg.length && b.zap > 0 && Math.floor(b.zap / 3) % 2 === 0) { shotSurge = true; T.shot('power-surge'); }
+    if (TALK && b.surge && !shotPhase2 && b.phase === 'busy' && /bolt of lightning/.test(b.msg) && b.shown >= b.msg.length) { shotPhase2 = true; T.shot('phase-2'); }
+  });
+  T.check('POWER SURGE exactly once, at half HP or below: she glows, her guard drops to 7', seen.surge === 1 && seen.drops === 1 && surgeAt !== null && surgeAt <= 125 && glowing && defAfter === 7, JSON.stringify(seen) + ' ' + surgeAt + ' ' + defAfter);
+  T.check('the whole pattern was seen', seen.wrench >= 1 && seen.spark >= 1 && seen.tune >= 1 && seen.plug >= 1 && seen.bolt >= 1, JSON.stringify(seen));
+  T.check('every OVERLOAD was warned of first', (seen.overload || 0) <= seen.plug, JSON.stringify(seen));
+  T.check('the insulated vest speaks up once, and only when worn', (seen.soak || 0) === (g.player.armor === 'insulated' ? 1 : 0), JSON.stringify(seen));
+  T.check('beaten', seen.defeated === 1 && g.stats.won === won + 1 && g.player.hp > 0, g.mode + ' ' + g.player.hp);
+  await T.until(() => g.mode === 'dialog', 'NABILAH to speak');
+  T.check('beaten is saved before anything is handed over', saved().flags.nabilahBeaten === true && !saved().flags.factoryKey && !saved().flags.fragment3 && saved().q.power.s === 1);
+  T.check('nothing yet', !g.flags.factoryKey && !g.flags.fragment3 && g.q.power.s === 1 && g.dlg.name === 'NABILAH');
+  await T.dialog(TALK ? 'handover' : '');
+  T.check('CRYSTAL FRAGMENT 3 and the FACTORY KEY, saved', g.flags.fragment3 === true && g.flags.factoryKey === true && saved().flags.fragment3 === true && saved().flags.factoryKey === true);
+  T.check('three Crystal Fragments now', Object.keys(g.flags).filter((k) => /^fragment\\d+$/.test(k) && g.flags[k]).length === 3);
+  T.check('the quest is ready for TOBIAS, and the chapter is not over', g.q.power.s === 2 && g.tracked === 'power' && saved().q.power.s === 2 && g.chapter === 3 && g.mode === 'world');
+  T.check('190 XP and 180 gold', g.player.xp + (g.player.lvl > LVL ? NEXT : 0) === xp + 190 && g.player.gold === gold + 180, g.player.xp + ' ' + (g.player.gold - gold));
+  T.check('every weapon and armour owned before is kept, and what was worn is still worn', weapons.every((w) => g.player.weapons.includes(w)) && armors.every((a) => g.player.armors.includes(a)) && g.player.weapon === WEAPON && g.player.armor === ARMOR);
+  T.check('a fair fight', turns <= LIMIT[0] && herbs - g.player.herbs <= LIMIT[1], turns + ' turns, ' + (herbs - g.player.herbs) + ' herbs, ' + g.player.hp + ' HP left');
+  if (TALK) { T.shot('tracker'); await T.menuShot('status'); }
+  const flags = JSON.stringify(g.flags);
+  await hear(TALK ? 'after' : ''); await hear(TALK ? 'after-2' : '');
+  T.check('she only talks now, and gives nothing twice', g.mode === 'world' && g.stats.won === won + 1 && JSON.stringify(g.flags) === flags);
+  T.state('beaten');
+}`;
+const nabilahFight = (fix, { turns, herbs, heal = 55, talk = false }) => NABILAH.replace(/LIMIT/g, `[${turns}, ${herbs}]`).replace('HEAL', String(heal))
+  .replace(/TALK/g, String(talk)).replace('WEAPON', `'${fix.player.weapon}'`).replace('ARMOR', `'${fix.player.armor}'`)
+  .replace('LVL', String(fix.player.lvl)).replace('NEXT', String(fix.player.next));
+const atNabilahIn = (weapon, armor) => dressed(atNabilah, weapon, armor);
+const nabilahScenarios = [
+  // Measured, with the fixed dice (MARCUS for comparison: 11 turns and 3 herbs with the usual gear, 16 and 6
+  // for the weakest sensible hero). The limits leave the same room as MARCUS' tests do.
+  //   wrench + insulated vest 13 turns, 3 herbs | wrench + factory armour 15, 5 | bat + sneakers 16, 6
+  //   modest LV11 15, 6 (of 6) | LV10 in the Tough Vest 17, 7 (of 7) | LV13 with everything 9, 1
+  { name: 'grorud-nabilah', save: atNabilahIn('wrench', 'insulated'), run: nabilahFight(atNabilahIn('wrench', 'insulated'), { turns: 15, herbs: 4, talk: true }) },
+  { name: 'grorud-nabilah-celine', save: withHero(atNabilahIn('wrench', 'insulated'), 'celine'), run: nabilahFight(atNabilahIn('wrench', 'insulated'), { turns: 15, herbs: 4 }), sameAs: { beaten: 'grorud-nabilah__beaten' } },
+  { name: 'grorud-nabilah-factory', save: atNabilahIn('wrench', 'factory'), run: nabilahFight(atNabilahIn('wrench', 'factory'), { turns: 17, herbs: 6 }) },
+  { // no Grorud gear at all: MARCUS' bat and EMIL's sneakers
+    name: 'grorud-nabilah-no-extras', save: atNabilah, run: nabilahFight(atNabilah, { turns: 18, herbs: 7 }),
+  },
+  { // level 11 without a single optional bonus from earlier chapters: no tonic, no kebab, the Tough Vest, six herbs
+    name: 'grorud-nabilah-modest',
+    save: (() => { const d = dressed(atNabilah, 'bat', 'vest'); Object.assign(d.player, level(11), { maxhp: 90, hp: 90, herbs: 6, maxHerbs: 6, armors: ['none', 'vest'] }); return d; })(),
+    run: nabilahFight((() => { const d = dressed(atNabilah, 'bat', 'vest'); Object.assign(d.player, level(11)); return d; })(), { turns: 17, herbs: 6, heal: 50 }),
+  },
+  { // arriving a level early (10), in the Tough Vest
+    name: 'grorud-nabilah-level-10',
+    save: (() => { const d = dressed(atNabilah, 'bat', 'vest'); Object.assign(d.player, level(10), { maxhp: 100, hp: 100 }); return d; })(),
+    run: nabilahFight((() => { const d = dressed(atNabilah, 'bat', 'vest'); Object.assign(d.player, level(10)); return d; })(), { turns: 19, herbs: 7 }),
+  },
+  { // arriving two levels up (13), with everything Grorud has to give
+    name: 'grorud-nabilah-level-13',
+    save: (() => { const d = atNabilahIn('wrench', 'insulated'); Object.assign(d.player, level(13), { maxhp: 118, hp: 118 }); return d; })(),
+    run: nabilahFight((() => { const d = atNabilahIn('wrench', 'insulated'); Object.assign(d.player, level(13)); return d; })(), { turns: 11, herbs: 2 }),
+  },
+  { // one measured blow with each weapon, and running away leaves her unbeaten and gives nothing
+    name: 'grorud-nabilah-weapons', save: atNabilahIn('wrench', 'insulated'),
+    run: `async (T, g) => {
+      ${MEET}
+      await T.continueGame();
+      const dealt = {};
+      g.player.weapons.push('blade');
+      for (const w of ['bat', 'wrench', 'blade']) {
+        g.player.weapon = w; g.player.hp = g.player.maxhp;
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') { await T.frames(150); await T.tap('Space', 3); }
+        await T.untilBattle();
+        dealt[w] = await swing();
+        await T.fight(() => 2);
+        T.check('got away: unbeaten, nothing handed over', g.mode === 'world' && !g.flags.nabilahBeaten && !g.flags.factoryKey && !g.flags.fragment3 && g.q.power.s === 1 && g.stats.won === 90, g.mode);
+      }
+      // hero ATK 26; +9 / +8 / +7; +1 from the dice; less her DEF 10 (the wrench is no help: she wears no armour)
+      T.check('bat 26, wrench 25, blade 24', dealt.bat === 26 && dealt.wrench === 25 && dealt.blade === 24, JSON.stringify(dealt));
+    }`,
+  },
+  { // closed in the middle of the hand-over: she finishes it next time, once
+    name: 'grorud-nabilah-handover-interrupted', save: { ...atNabilah, flags: { ...atNabilah.flags, nabilahBeaten: true } },
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        T.check('beaten, nothing handed over yet', g.flags.nabilahBeaten === true && !g.flags.factoryKey && g.q.power.s === 1);
+        await T.talk('handover');
+        T.check('no second fight: fragment and key, once', g.stats.won === 90 && g.flags.fragment3 === true && g.flags.factoryKey === true && g.q.power.s === 2 && g.mode === 'world');
+        await T.talk('after');
+        T.check('still once', g.q.power.s === 2 && g.stats.won === 90);
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.check('CONTINUE: fragment and key kept, the quest ready', g.flags.fragment3 === true && g.flags.factoryKey === true && g.q.power.s === 2);
+        await T.talk();
+        T.check('and she gives nothing more', g.mode === 'world' && g.stats.won === 90);
+      },
+    ],
+  },
+  { // beaten by her: carried home with nothing lost, and she waits for another try
+    name: 'grorud-nabilah-defeat',
+    save: (() => { const d = JSON.parse(JSON.stringify(atNabilah)); Object.assign(d.player, level(1), { hp: 5, herbs: 0 }); return d; })(),
+    run: [
+      async (T, g) => {
+        await T.continueGame();
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') { await T.frames(150); await T.tap('Space', 3); }
+        await T.untilBattle();
+        await T.fight();
+        await T.until(() => g.mode === 'dialog', 'being carried home');
+        await T.dialog();
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1'));
+        T.check('in the village, patched up, saved there', g.player.map === 'village' && g.player.hp === g.player.maxhp && d.player.map === 'village');
+        T.check('NABILAH unbeaten, nothing handed over; the power, the open gate and the cells all kept', !d.flags.nabilahBeaten && !d.flags.factoryKey && !d.flags.fragment3 && d.q.power.s === 1
+          && d.flags.worksOpen === true && ['cell1', 'cell2', 'cell3'].every((k) => d.flags[k] === true));
+      },
+      async (T, g) => {
+        await T.continueGame();
+        T.place('grorudWorks', 12, 3, 'up');
+        await T.tap('Space', 3);
+        T.check('NABILAH is waiting for another try', g.mode === 'dialog' && g.dlg.name === 'NABILAH', g.mode);
+      },
+    ],
+  },
+  { // back to TOBIAS: the chapter ends, the FACTORY KEY opens the east gate, and the road stops at a barricade
+    name: 'grorud-chapter', save: (() => { const d = nabilahDone(moved(powered(chapterThreeDone), 'grorudTown', 19, 4, 'up')); d.q.bag = { s: 1 }; return d; })(),
+    run: [
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        T.check('ready to report, Chapter 4', g.q.power.s === 2 && g.chapter === 3 && !g.storyDone && g.NPCS.find((n) => n.id === 'tobias').news());
+        let spoke = false;
+        await T.tap('Space', 3);
+        while (g.mode === 'dialog') {
+          await T.frames(150);
+          if (g.dlg.name === 'MICHAEL') { if (!spoke) T.shot('hero-speaks'); spoke = true; }
+          await T.tap('Space', 3);
+        }
+        T.check("the hero answers under the hero's own name", spoke);
+        await T.until(() => g.mode === 'victory', 'the chapter screen');
+        await T.frames(120);
+        T.shot('chapter-complete');
+        T.check('POWER TO GRORUD is done and saved', g.q.power.s === 3 && saved().q.power.s === 3);
+        await T.tap('Space');
+        await T.until(() => g.mode === 'world', 'the world');
+        await T.frames(40);
+        T.check('Chapter 5 now: Veitvet, and the story is not over', g.chapter === 4 && !g.storyDone && g.CHAPTERS[4].name === 'VEITVET' && g.player.map === 'grorudTown');
+        T.check("HONEY's bag is still being looked for, and is tracked again", g.q.bag.s === 1 && g.tracked === 'bag');
+        const flags = JSON.stringify(g.flags), gold = g.player.gold;
+        await T.talk('tobias-after-1'); await T.talk('tobias-after-2');
+        T.check('no second chapter screen, nothing given twice', g.mode === 'world' && JSON.stringify(g.flags) === flags && g.player.gold === gold);
+        T.place('grorudTown', 24, 9, 'right');
+        const said = await hear('east-gate');
+        T.check('the FACTORY KEY opens the east gate, saved', g.flags.veitvetGate === true && saved().flags.veitvetGate === true && /ROAD TO VEITVET is open/.test(said), said);
+        T.shot('east-gate-open');
+        await T.step('right');
+        await T.until(() => g.player.map === 'veitvetRoad', 'the road to Veitvet');
+        await T.frames(20);
+        T.shot('road');
+        await T.frames(40);
+        T.check('onto the ROAD TO VEITVET, autosaved', g.player.x === 1 && g.player.y === 5 && saved().player.map === 'veitvetRoad');
+        await T.step('right', 11);
+        T.check('along the road to the sign', g.player.x === 12 && g.player.y === 5, g.player.x + ',' + g.player.y);
+        await T.step('right');
+        T.check('the barricade stops the hero', g.player.x === 12 && g.player.map === 'veitvetRoad');
+        const end = await hear('barricade');
+        T.check('TO BE CONTINUED', /TO BE CONTINUED/.test(end) && g.mode === 'world', end);
+        g.player.dir = 'up';
+        await T.talk('sign');
+        T.check('no victory screen, no new map', g.mode === 'world' && Object.keys(g.MAPS).length === 14);
+        T.shot('barricade');
+        await T.tap('KeyX', 6);
+        await T.tap('ArrowUp', 4);
+        T.check('ITEMS: the fragments and the FACTORY KEY', g.menuSel === 3);
+        T.shot('items');
+        await T.tap('KeyX', 6);
+        T.place('veitvetRoad', 1, 5, 'left');
+        await T.step('left');
+        await T.until(() => g.player.map === 'grorudTown', 'back to town');
+        await T.frames(60);
+        T.check('back through the east gate', g.player.x === 24 && g.player.y === 9 && g.player.dir === 'left');
+        T.state('chapter-done');
+      }`,
+      `async (T, g) => {
+        ${GR}
+        await T.continueGame();
+        T.check('CONTINUE: chapter, key, east gate and everything from before', g.chapter === 4 && g.q.power.s === 3 && g.flags.veitvetGate === true
+          && ['fragment1', 'fragment2', 'fragment3', 'factoryKey', 'worksOpen', 'nabilahBeaten', 'grorudGate', 'marcusBat'].every((k) => g.flags[k] === true));
+        await T.step('right');
+        await T.until(() => g.player.map === 'veitvetRoad', 'the road');
+        await T.frames(60);
+        T.check('the east gate stays open', g.player.map === 'veitvetRoad');
+        T.place('grorudWorks', 12, 3, 'up');
+        const said = await hear('nabilah-later');
+        T.check('NABILAH stays beaten: no battle, nothing more', g.mode === 'world' && g.stats.won === 90 && /VEITVET|machines|snacks/.test(said), said);
+        T.state('later');
+      }`,
+    ],
+  },
+  { // the on-screen buttons: through the south gate, TOBIAS's offer, the log, and back up the steps
+    name: 'grorud-touch', save: withHero(chapterThreeDone, 'alexandra'),
+    run: `async (T, g) => {
+      await T.continueGame();
+      for (const m of ['grorudHeights', 'grorudTown']) g.MAPS[m].encounter.chance = 0;
+      await T.touch('down', 30);
+      await T.until(() => g.player.map === 'grorudHeights', 'the heights');
+      await T.frames(60);
+      T.check('the D-pad goes through the south gate', g.player.x === 15 && g.player.y === 3);
+      T.place('grorudTown', 19, 4, 'up');
+      await T.touch('a');
+      T.check('A talks to TOBIAS', g.mode === 'dialog' && g.dlg.name === 'TOBIAS', g.mode);
+      for (let i = 0; g.mode === 'dialog' && i < 12; i++) { await T.frames(150); await T.touch('a', 3); }
+      T.check('the quest is taken', g.q.power.s === 1 && g.mode === 'world');
+      await T.touch('b');
+      T.check('B opens the log on the page of the new quest', g.mode === 'menu' && g.menuPage === 2, g.menuPage);
+      T.shot('log');
+      await T.touch('up'); await T.touch('up');
+      T.check('up twice: the armour line', g.menuSel === 1);
+      await T.touch('a');
+      T.check('A changes the armour', g.player.armor === 'none', g.player.armor);
+      T.shot('armour');
+      await T.touch('a'); await T.touch('a');
+      T.check('and round again to the sneakers', g.player.armor === 'sneakers', g.player.armor);
+      await T.touch('down'); await T.touch('down');
+      await T.touch('a');
+      T.check('A on SAVE saves', g.menuNote && g.menuNote.text === 'SAVED!');
+      await T.touch('b');
+      T.check('B closes it', g.mode === 'world');
+      T.place('grorudTown', 13, 3, 'up');
+      await T.touch('up', 30);
+      await T.until(() => g.player.map === 'grorudHeights', 'back up');
+      await T.frames(60);
+      T.check('the D-pad goes up the steps', g.player.x === 15 && g.player.y === 19);
+    }`,
+  },
+  { // a save on what is now a wall or a machine wakes the hero on the nearest open ground
+    name: 'grorud-settle', save: moved(chapterThreeDone, 'grorudTown', 18, 3, 'up'),
+    run: [
+      `async (T, g) => {
+        await T.continueGame();
+        T.check('off the terminal, onto open ground next to it', g.player.map === 'grorudTown' && !g.SOLID.has(g.MAPS.grorudTown.rows[g.player.y][g.player.x]) && Math.abs(g.player.x - 18) + Math.abs(g.player.y - 3) === 1, g.player.x + ',' + g.player.y);
+        const d = JSON.parse(localStorage.getItem('turnip-vale-save-v1')); Object.assign(d.player, { map: 'grorudWorks', x: 2, y: 9, fx: 2, fy: 9, tx: 2, ty: 9 }); localStorage.setItem('turnip-vale-save-v1', JSON.stringify(d));
+      }`,
+      `async (T, g) => {
+        await T.continueGame();
+        T.check('off the machine in the Works, onto the floor next to it', g.player.map === 'grorudWorks' && g.MAPS.grorudWorks.rows[g.player.y][g.player.x] === '-' && Math.abs(g.player.x - 2) + Math.abs(g.player.y - 9) === 1, g.player.x + ',' + g.player.y);
+      }`,
+    ],
+  },
+];
+// A save exactly as the published 1F game (commit 3fae9f2) wrote it, byte for byte: made by playing that
+// version from SELMA's hand-in, through the chapter screen to the open south gate (which 1F kept solid, "The
+// road to GRORUD lies beyond"), and saving by hand in front of it. It has no Grorud quest and grorudGate: true.
+const REAL_1F_SAVE = {"v":1,"player":{"map":"ammerud","x":15,"y":20,"dir":"down","moving":false,"fx":15,"fy":20,"tx":15,"ty":20,"t":0,"lvl":11,"hp":106,"maxhp":106,"atk":26,"def":11,"xp":0,"next":681,"herbs":7,"maxHerbs":7,"gold":640,"weapon":"bat","armor":"sneakers","weapons":["none","crystal","bat"],"armors":["none","vest","sneakers"],"shards":0,"glowcaps":0,"sickle":true,"sinceBattle":0,"hero":"mohammed"},"q":{"slimes":{"s":3,"n":3},"biscuit":{"s":3},"glowcap":{"s":3},"king":{"s":3},"shards":{"s":3},"road":{"s":3,"n":3},"cart":{"s":3},"under":{"s":3},"mohsin":{"s":3},"kebab":{"s":3},"trouble":{"s":3,"c":3,"r":3,"b":2},"ball":{"s":3},"wisp":{"s":3}},"flags":{"vines":true,"metBram":true,"shard1":true,"shard2":true,"fragment1":true,"redKey":true,"redGate":true,"tunnelOpen":true,"northOpen":true,"mohsinBeaten":true,"fragment2":true,"blueKey":true,"blueGate":true,"kebab":true,"marcusBeaten":true,"marcusBat":true,"ball":true,"wispFragment":true,"chestPouch":true,"grorudGate":true},"stats":{"won":52,"slimes":17,"steps":2900},"tracked":null};
+const real1fScenario = {
+  name: 'grorud-real-1f-save', save: REAL_1F_SAVE,
+  run: [
+    async (T, g) => {
+      const KEY = 'turnip-vale-save-v1', saved = () => JSON.parse(localStorage.getItem(KEY));
+      await T.continueGame();
+      T.check('CONTINUE: in front of the open south gate, Chapter 4, nothing of Grorud started', g.player.map === 'ammerud' && g.player.x === 15 && g.player.y === 20 && g.chapter === 3
+        && ['power', 'bag', 'yard'].every((id) => g.q[id].s === 0) && g.player.hero === 'mohammed');
+      T.shot('gate');
+      await T.tap('Space', 6);
+      T.check('A at the open gate: no 1F line any more', g.mode === 'world');
+      await T.step('down');
+      await T.until(() => g.player.map === 'grorudHeights', 'the heights');
+      await T.frames(60);
+      T.check('through the gate onto GRORUD HEIGHTS', g.player.x === 15 && g.player.y === 3 && g.player.dir === 'down');
+      const d = saved();
+      T.check('autosaved with everything the 1F save had', d.player.map === 'grorudHeights' && T.questsKept(d.q, REAL.q) && Object.keys(REAL.flags).every((k) => d.flags[k] === REAL.flags[k])
+        && JSON.stringify(d.player.weapons) === JSON.stringify(REAL.player.weapons) && JSON.stringify(d.player.armors) === JSON.stringify(REAL.player.armors) && d.player.weapon === 'bat' && d.player.armor === 'sneakers' && d.player.hero === 'mohammed');
+    },
+    async (T, g) => {
+      await T.continueGame();
+      T.check('CONTINUE on the heights', g.player.map === 'grorudHeights' && g.player.x === 15 && g.player.y === 3);
+      T.place('grorudHeights', 15, 3, 'up');
+      await T.touch('up', 30);
+      await T.until(() => g.player.map === 'ammerud', 'Ammerud');
+      await T.frames(60);
+      T.check('back to Ammerud with the D-pad', g.player.x === 15 && g.player.y === 20);
+      await T.touch('down', 30);
+      await T.until(() => g.player.map === 'grorudHeights', 'the heights again');
+      await T.frames(60);
+      T.check('and through again with the D-pad', g.player.x === 15 && g.player.y === 3);
+    },
+  ].map((f) => `(${f})`.replace(/REAL/g, JSON.stringify(REAL_1F_SAVE))),
+};
+// Saves from every stage of Grorud, loaded one after another: each one carries on exactly where it was.
+const GRORUD_STAGES = (() => {
+  const s = (name, fix, check) => ({ name, fix, check });
+  const bagDone = (() => { const d = withCells(moved(chapterThreeDone, 'grorudTown', 7, 4, 'up'), 1, ['cell1']); d.q.bag = { s: 3 }; d.flags.bag = true; d.player.armors = [...d.player.armors, 'insulated']; d.player.armor = 'insulated'; return d; })();
+  return [
+    s('one cell, on the spot where it lay', withCells(moved(chapterThreeDone, 'grorudHeights', 2, 7, 'up'), 1, ['cell1']), "g.flags.cell1 && !g.ITEMS.some((i) => i.id === 'cell1' && !g.flags[i.id]) && g.NPCS.find((n) => n.id === 'hulk').visible()"),
+    s('two cells, the big golem beaten', withCells(moved(chapterThreeDone, 'grorudHeights', 26, 5, 'up'), 1, ['cell1', 'cell2']), "!g.NPCS.find((n) => n.id === 'hulk').visible() && g.mode === 'world'"),
+    s('three cells, not yet hooked up', withCells(moved(chapterThreeDone, 'grorudTown', 19, 4, 'up'), 1, ['cell1', 'cell2', 'cell3']), "!g.flags.worksOpen && g.NPCS.find((n) => n.id === 'tobias').news()"),
+    s("HONEY's bag handed back, the vest worn", bagDone, "g.player.armor === 'insulated' && g.q.bag.s === 3 && !g.NPCS.find((n) => n.id === 'honey').news()"),
+    s('the power on, standing inside the Works', powered(moved(chapterThreeDone, 'grorudWorks', 4, 10, 'up')), "g.flags.worksOpen && g.player.map === 'grorudWorks'"),
+    s('in front of NABILAH', atNabilah, "!g.flags.nabilahBeaten && g.q.power.s === 1 && g.player.y === 3"),
+    s('NABILAH beaten, the key in the pack', nabilahDone(atNabilah), "g.q.power.s === 2 && g.flags.factoryKey && g.chapter === 3"),
+    s('the chapter over, out on the road to Veitvet', (() => { const d = nabilahDone(moved(powered(chapterThreeDone), 'veitvetRoad', 8, 5, 'right')); d.q.power = { s: 3 }; d.flags.veitvetGate = true; d.tracked = null; return d; })(), "g.chapter === 4 && g.flags.veitvetGate && g.player.map === 'veitvetRoad'"),
+  ];
+})();
+const stageScenario = {
+  name: 'grorud-saves', save: GRORUD_STAGES[0].fix,
+  run: GRORUD_STAGES.map((st, i) => `async (T, g) => {
+    const KEY = 'turnip-vale-save-v1', before = JSON.parse(localStorage.getItem(KEY)), next = ${JSON.stringify(GRORUD_STAGES[i + 1] ? GRORUD_STAGES[i + 1].fix : null)};
+    await T.continueGame();
+    const p = g.player, b = before.player;
+    T.check(${JSON.stringify(st.name)} + ': carries on where it was saved', g.mode === 'world' && p.map === b.map && p.x === b.x && p.y === b.y && p.dir === b.dir
+      && T.questsKept(g.q, before.q) && JSON.stringify(g.flags) === JSON.stringify(before.flags) && p.weapon === b.weapon && p.armor === b.armor
+      && JSON.stringify(p.weapons) === JSON.stringify(b.weapons) && JSON.stringify(p.armors) === JSON.stringify(b.armors), p.map + ' ' + p.x + ',' + p.y);
+    T.check(${JSON.stringify(st.name)} + ': the world agrees with the save', ${st.check});
+    if (${i} === 0 || ${i} === ${GRORUD_STAGES.length - 1}) T.shot('stage-${i + 1}');
+    if (next) localStorage.setItem(KEY, JSON.stringify(next));
+  }`),
+};
 export const SCENARIOS = [
   {
     name: 'title',
@@ -4292,6 +5345,10 @@ export const SCENARIOS = [
   ...mohsinScenarios,
   ...ammerudScenarios,
   ...realGateScenarios,
+  ...grorudScenarios,
+  ...nabilahScenarios,
+  stageScenario,
+  real1fScenario,
   ...manualSaveScenarios,
   ...encounterScenarios,
   ...heroSelectScenarios,
